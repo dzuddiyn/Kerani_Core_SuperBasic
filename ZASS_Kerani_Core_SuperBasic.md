@@ -1,7 +1,7 @@
 # ZASS — Kerani_Core_SuperBasic
 
 **ZASS baseline:** v0.3.2  
-**Project status:** DECIDING — first extraction evidence recorded  
+**Project status:** DECIDING — evidence harvesting planned; substantive Core build parked  
 **Owner:** Project Owner  
 **Updated:** 2026-09-29  
 **Repository:** dzuddiyn/Kerani_Core_SuperBasic  
@@ -147,6 +147,15 @@ These are initial implementation constraints, not proof that the final reusable 
 
 - Genericity must be demonstrated through stable behaviour, extraction and reuse.
 - No component becomes generic merely because it sounds reusable.
+
+## Near-Term Execution Constraint — October 2026
+
+- Target **10 October 2026** to freeze a stable OpsMate reference baseline for extraction evidence.
+- Pilot observations after the freeze should be captured as bug, gap and requirement evidence; they do not automatically reopen or expand the frozen reference scope.
+- From **10–15 October 2026**, the priority for this repository is evidence harvesting and minimal skeleton preparation, not substantive Core implementation.
+- The evidence-harvesting window should maximise learning from the frozen OpsMate reference through behaviour maps, pilot findings, reuse classification and candidate contracts.
+- After the 15 October review, substantive Kerani_Core_SuperBasic implementation is **PARKED** until the owner explicitly restarts the build with suitable local agentic-coding resources.
+- Critical safety, integrity or reference-invalidating defects may justify revisiting the freeze; ordinary pilot improvements should remain recorded evidence rather than causing uncontrolled scope churn.
 
 ---
 
@@ -992,9 +1001,10 @@ Current/near-term authority structure:
 ~~~
 Kerani_Core_SuperBasic/
 ├── ZASS_Kerani_Core_SuperBasic.md    ← project SoT
+├── ACTION_PLAN.md                    ← current execution plan only
 ├── docs/
 │   └── DEV_WORKFLOW.md
-└── README.md                         ← when/if present
+└── README.md
 ~~~
 
 When evidence justifies growth:
@@ -1022,7 +1032,7 @@ Authority hierarchy:
 
 1. GitHub project ZASS file — project facts/decisions/readiness.
 2. Official ZASS v0.3.2 — workflow semantics.
-3. ACTION_PLAN.md — execution/progress only, if later created.
+3. ACTION_PLAN.md — current execution/progress plan only; it does not decide architecture.
 4. ARCHITECTURE.md — confirmed/draft architecture representation when applicable.
 5. Local repository — working copy.
 6. AI project workspace / memory / chat — context only.
@@ -1135,6 +1145,15 @@ Until then, this remains an extraction proof project, not a framework claim.
 ---
 
 # PROJECT ZASS CHANGELOG
+
+## 2026-09-29 — Near-term evidence-harvesting plan
+
+- Approved a time-boxed execution plan around an OpsMate reference freeze targeted for 10 October 2026.
+- Pilot outcomes are to be captured as bug/gap/requirement evidence rather than automatically expanding the frozen reference scope.
+- Set 10–15 October 2026 as an evidence-harvesting window: freeze metadata, pilot findings, 3–5 behaviour maps, reuse matrix, candidate contracts and minimal repository skeleton preparation.
+- Added `ACTION_PLAN.md` as the execution authority for this window.
+- Substantive Kerani_Core_SuperBasic implementation is PARKED after the review until the owner explicitly restarts the build with suitable local agentic-coding resources.
+- This planning change does not alter LOCKED decisions and does not increase ZERO → ARCHITECTURE readiness; it remains 63%.
 
 ## 2026-09-29 — Runtime verification / E-001B
 
