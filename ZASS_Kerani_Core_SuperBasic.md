@@ -1,7 +1,7 @@
 # ZASS — Kerani_Core_SuperBasic
 
 **ZASS baseline:** v0.3.2  
-**Project status:** DECIDING — extraction proof not started  
+**Project status:** DECIDING — first extraction evidence recorded  
 **Owner:** Project Owner  
 **Updated:** 2026-09-29  
 **Repository:** dzuddiyn/Kerani_Core_SuperBasic  
@@ -438,12 +438,14 @@ No second genuine architecture candidate has yet been recorded. Do not invent AC
 
 ## D-007 — Behaviour-first audit
 
-**Status:** CANDIDATE  
+**Status:** TESTING  
 **Migrated from:** legacy AC-002.
 
 **Candidate decision:** Audit observable workflows first, then locate the implementation that performs each stage.
 
 **Reason:** Avoid copying Apps Script/BSE structure as architecture.
+
+**Evidence / experiment:** E-001A mapped the Input Usage / Inventory workflow from observable behaviour to implementation locations using an OpsMate TEST snapshot.
 
 **Decision:** PENDING.
 
@@ -451,12 +453,14 @@ No second genuine architecture candidate has yet been recorded. Do not invent AC
 
 ## D-008 — Four-way reuse classification
 
-**Status:** CANDIDATE  
+**Status:** TESTING  
 **Migrated from:** legacy AC-003.
 
 **Candidate decision:** Classify extraction findings as **GENERIC**, **KEBUN-GENERIC**, **OPSMATE/BSE-SPECIFIC**, or **UNCERTAIN**.
 
 **Reason:** Preserve a domain layer between generic core and client-specific configuration.
+
+**Evidence / experiment:** E-001A showed that the four-way classification is useful when applied to behaviour-level stages; one source file can contain mixed generic, domain and BSE-specific concerns.
 
 **Decision:** PENDING.
 
@@ -464,12 +468,14 @@ No second genuine architecture candidate has yet been recorded. Do not invent AC
 
 ## D-009 — Contract before source code
 
-**Status:** CANDIDATE  
+**Status:** TESTING  
 **Migrated from:** legacy AC-004.
 
 **Candidate decision:** Define minimum input/output/state promises before copying implementation.
 
 **Reason:** Behaviour contracts should survive changes in regex, deterministic parser, Gemini, GPT or future local models.
+
+**Evidence / experiment:** E-001A exposed a candidate request → candidate → human decision → authoritative TEST domain result → response/event contract without requiring the current Apps Script implementation to become the contract.
 
 **Decision:** PENDING.
 
@@ -542,7 +548,7 @@ No project idea is newly marked REJECTED by this migration.
 Architecture freeze is blocked by the following:
 
 - [ ] Freeze a stable OpsMate reference checkpoint.
-- [ ] Map at least one complete observable OpsMate workflow.
+- [x] Map at least one complete observable OpsMate workflow. Behaviour Map #1 (Input Usage / Inventory) is recorded in E-001A.
 - [ ] Populate the evidence-backed reuse matrix.
 - [ ] Resolve whether Durable Inbox is a generic requirement or an OpsMate-specific implementation choice.
 - [ ] Define minimum Core ↔ Module contract.
@@ -574,6 +580,122 @@ Architecture freeze is blocked by the following:
 **Conclusion:** PENDING.
 
 **Affected decisions:** D-006, D-007, D-008.
+
+---
+
+## E-001A — One Workflow Extraction Audit: Input Usage / Inventory
+
+**Status:** PASS — workflow slice only; parent E-001 remains incomplete.  
+**Date:** 2026-09-29  
+**Source snapshot:** `BSE-dzuddiyn01gmail/BSE-OpsMate-TEST` main at commit `10e20cd601421bb114ff3bfd7edf9e3f5e8160c4`.
+
+**Evidence files reviewed:**
+- `docs/ARCHITECTURE.md`
+- `docs/DEVELOPMENT_STATUS.md`
+- `InventoryReviewTest.js`
+- `TelegramWorkerTest.js`
+- `TelegramQueueTest.js`
+- `TelegramApprovalUiTest.js`
+- `GeminiUnifiedTest.js`
+
+**Question being tested:** Can one proven OpsMate workflow be mapped behaviour-first, classified without treating source-file structure as architecture, and expressed as an implementation-independent contract candidate?
+
+**Input example:**
+
+~~~text
+PENGGUNAAN BAHAN
+Item: Sarung tangan pakai buang
+Kuantiti: 2 kotak
+~~~
+
+### Behaviour Map #1
+
+| Stage | Observed behaviour | Current implementation evidence | Initial classification |
+|---|---|---|---|
+| 1 | Receive Telegram message | `receiveBseTelegramTest()` | `GENERIC` candidate — channel adapter |
+| 2 | Persist raw request durably | `TELEGRAM_TEST_QUEUE` | `GENERIC` candidate |
+| 3 | Recognise Input Usage / inventory meaning | `bseInventoryParseMessage_()` | `KEBUN-GENERIC` |
+| 4 | Extract item, quantity and unit | inventory parser + quantity regressions | quantity parsing: `GENERIC` candidate; inventory semantics: `KEBUN-GENERIC` |
+| 5 | Validate required fields, date and unit | `bseInventoryValidateResult_()` | generic validation pattern + domain rules |
+| 6 | Persist candidate representation | worker `candidate_json` | `GENERIC` candidate |
+| 7 | Route actionable PASS to human review | queue → `NEEDS_HUMAN_REVIEW` | `GENERIC` candidate |
+| 8 | Send confirmation card as reply to original message | `bseTelegramApprovalEnsureCard_()` | `UNCERTAIN` — possible generic capability |
+| 9 | Bind Benar / Betulkan / Buang to original reporter | reporter confirmation core | `UNCERTAIN` |
+| 10 | Benar invokes domain writer boundary | `bseInventoryApprovalBoundaryCore_()` → `bseInventoryReviewCore_()` | `KEBUN-GENERIC` |
+| 11 | Write approved TEST domain record | `TEST_INVENTORY_EVENT` | behaviour: `KEBUN-GENERIC`; Sheet/schema: `OPSMATE/BSE-SPECIFIC` |
+| 12 | Write review/audit evidence | `TEST_INVENTORY_REVIEW` | audit concept: `GENERIC`; representation: `OPSMATE/BSE-SPECIFIC` |
+| 13 | Move queue to terminal inventory TEST state | `INVENTORY_APPROVED_TEST` / reject counterpart | domain state |
+| 14 | Close card and emit reporter/owner notification | Telegram approval UI | notification behaviour: generic candidate; transport: Telegram-specific |
+
+### Observed state distinction
+
+~~~text
+RAW TELEGRAM MESSAGE
+        ↓
+durable queue
+        ↓
+parse / classify / validate
+        ↓
+candidate_json
+        ↓
+NEEDS_HUMAN_REVIEW
+        ↓
+human confirmation
+        ↓
+authoritative TEST domain record + audit
+        ↓
+terminal state + response/event
+~~~
+
+This provides early positive evidence for Q-014: the current workflow distinguishes the raw message, candidate state and authoritative TEST domain record. Q-014 remains OPEN until this separation is checked across additional workflows.
+
+### Candidate contract exposed by the workflow
+
+~~~text
+REQUEST
+- source reference
+- actor/reporter
+- channel context
+- received_at
+- original text
+
+→ CANDIDATE
+- intent/domain
+- extracted fields
+- validation state
+- missing fields
+- original evidence
+- production boundary
+
+→ HUMAN DECISION
+- confirm
+- correct
+- discard
+
+→ AUTHORITATIVE DOMAIN RESULT
+- approved domain record
+- audit record
+- terminal state
+
+→ RESPONSE / EVENT
+~~~
+
+This is a contract candidate only. It does not make Telegram, Apps Script, Google Sheets, the inventory parser, or the current approval UI part of the generic Core by default.
+
+### Result
+
+**Observed result:** PASS for this workflow slice. One real OpsMate workflow can be mapped behaviour-first and separated into generic candidates, domain behaviour, BSE-specific representation and uncertain boundaries.
+
+**Learning:** Classification should be applied to small behaviours/contracts rather than whole files. A single OpsMate source file can mix generic mechanism, domain semantics and BSE-specific persistence.
+
+**Uncertain boundary:** Human confirmation/approval appears reusable, but this experiment does not prove whether it belongs in Core, is an optional Core capability, or belongs to the application/module policy.
+
+**Impact:** **PROCEED**.
+- D-007 → `TESTING`
+- D-008 → `TESTING`
+- D-009 → `TESTING`
+- D-006 remains `CANDIDATE`
+- parent E-001 is **not PASS**; a complete evidence-backed component ledger still requires a frozen reference baseline and broader workflow coverage.
 
 ---
 
@@ -672,9 +794,9 @@ ZERO → ARCHITECTURE measures readiness to form and confirm architecture. It is
 | Scope and non-goals clear | 10% | 1 | 10% | Scope and exclusions are explicit. |
 | Constraints and quality attributes known | 10% | 1 | 10% | Runtime, channel, provider, security and maintainability constraints are documented. |
 | Options and trade-offs compared | 10% | 0.5 | 5% | Evidence-led extraction vs direct refactor is compared, but architecture alternatives are not yet tested. |
-| Critical assumptions closed or have experiments | 15% | 0.5 | 7.5% | Experiments exist but have not been executed. |
+| Critical assumptions closed or have experiments | 15% | 0.5 | 7.5% | E-001A executed one workflow slice; major assumptions remain open. |
 | Major risks addressed | 10% | 0.5 | 5% | Guardrails exist; evidence of effectiveness is pending. |
-| Main system flows clear | 10% | 0.5 | 5% | Candidate flow is known; actual OpsMate behaviour map is not yet frozen. |
+| Main system flows clear | 10% | 0.5 | 5% | Candidate flow is known and one OpsMate workflow has been mapped; broader flow evidence is still incomplete. |
 | Major decisions LOCKED | 10% | 0.5 | 5% | Principles are locked; core boundary/build choices remain candidate. |
 | No critical architecture blockers | 5% | 0 | 0% | Evidence baseline, contracts and reproduction proof are still missing. |
 
@@ -688,7 +810,7 @@ ZERO → ARCHITECTURE measures readiness to form and confirm architecture. It is
 
 Architecture blockers:
 - no frozen reference evidence package;
-- no completed behaviour map;
+- only one behaviour map is completed; broader reference-baseline and contract evidence remain incomplete;
 - no validated Core ↔ Module contract;
 - AC-005 is untested;
 - no non-farm genericity proof;
@@ -910,6 +1032,19 @@ This sequence is a candidate plan, not a LOCKED decision:
 → **generic core is proven enough to name/version publicly**
 
 Until then, this remains an extraction proof project, not a framework claim.
+
+---
+
+# PROJECT ZASS CHANGELOG
+
+## 2026-09-29 — Behaviour Map #1 / E-001A
+
+- Recorded the first evidence-backed workflow map using OpsMate TEST commit `10e20cd601421bb114ff3bfd7edf9e3f5e8160c4`.
+- Added E-001A for Input Usage / Inventory.
+- Moved D-007, D-008 and D-009 from `CANDIDATE` to `TESTING`.
+- Kept D-006 as `CANDIDATE` and parent E-001 incomplete.
+- Updated open loops and readiness wording; ZERO → ARCHITECTURE remains 63% because one workflow slice does not close the major architecture blockers.
+- No LOCKED decision changed.
 
 ---
 
