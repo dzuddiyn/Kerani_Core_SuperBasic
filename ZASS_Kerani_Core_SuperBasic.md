@@ -180,7 +180,10 @@ Nothing in this section is automatically approved.
 | Q-011 | Can Telegram be replaced without changing business logic? | Tests channel boundary. | OPEN |
 | Q-012 | Can BSE configuration be replaced by another client/farm configuration? | Tests configuration/domain separation. | OPEN |
 | Q-013 | Can parser or AI provider change behind the same behaviour contract? | Tests model/provider portability. | OPEN |
-| Q-014 | Are raw messages, candidate records and authoritative records clearly distinct? | Protects auditability and state correctness. | OPEN |
+| Q-014 | Are raw messages, candidate records and authoritative records clearly distinct? | Protects auditability and state correctness. | OPEN — early positive evidence from E-001A/E-001B |
+| Q-015 | Which layer owns routing between direct/read requests and stateful/mutation workflows? | Prevents transport, runtime and domain routing responsibilities from collapsing into one layer. | OPEN |
+| Q-016 | Which classes of request require a Durable Inbox, and which should bypass it? | Prevents forcing every request through durable queue infrastructure. | OPEN |
+| Q-017 | Is human confirmation a mandatory Core responsibility, an optional Core capability, or application/module policy? | Prevents approval workflow from being over-generalised into Core. | OPEN |
 
 ---
 
@@ -196,6 +199,7 @@ Nothing in this section is automatically approved.
 | R-006 | Secret or private-data exposure | Unsafe public release. | No secret commits; redacted fixtures; publication review. | OPEN | Real token, chat ID or operational record appears in repo fixtures. |
 | R-007 | Public stack is confusing or unsafe | Users deploy incorrect defaults or misunderstand scope. | Clear scope, examples, threat notes and versioning. | OPEN | Documentation implies production safety that has not been tested. |
 | R-008 | Architectural drift | Implementation silently overrides project decisions. | This ZASS file remains authoritative; use change control. | OPEN | Code or docs contradict an L-xxx record. |
+| R-009 | Linear pipeline over-generalisation | Read/query requests are forced through queue, AI or human approval even when unnecessary. | Classify request behaviour before selecting an execution path; test direct/read and stateful/mutation paths separately. | OPEN | Commands such as report/history/lookup/status begin requiring LLM or approval without evidence that they need it. |
 
 ---
 
@@ -307,13 +311,35 @@ Create AC entries only for genuine architecture arrangements.
 
 **Summary:**
 
-**Channel adapter → Client runtime → Durable inbox → Core SuperBasic → Module contract → Domain module/config**
+Evidence now suggests that the runtime/module boundary may require more than one interaction path rather than one universal linear pipeline:
+
+~~~text
+Channel Adapter
+      ↓
+Request Router
+      │
+      ├── Direct / Read Path
+      │       ↓
+      │   controlled handler
+      │
+      └── Stateful / Mutation Path
+              ↓
+         Durable Inbox
+              ↓
+          Core Pipeline
+              ↓
+        Module Contract
+              ↓
+         Domain Module
+~~~
 
 **Key characteristics:**
 - channel boundary before business logic;
-- a durable intake boundary is proposed;
+- request routing is explicit and its ownership remains unresolved (Q-015);
+- Durable Inbox appears relevant to stateful/mutation workflows but is not yet proven as universal (Q-016);
 - Core performs generic orchestration;
 - domain behaviour is supplied through a module contract;
+- human confirmation may be mandatory, optional, or application/module policy and remains unresolved (Q-017);
 - BSE becomes configuration/test data rather than the generic schema.
 
 **Candidate Core responsibilities:**
@@ -336,10 +362,11 @@ Create AC entries only for genuine architecture arrangements.
 - supports testing genericity independently.
 
 **Trade-offs:**
+- Request routing may itself become over-generalised if ownership is assigned too early.
 - Durable Inbox and approval semantics may be over-generalised and remain unproven.
 
 **Critical risks:**
-- R-001, R-002, R-003, R-004.
+- R-001, R-002, R-003, R-004, R-009.
 
 ### Candidate Comparison
 
@@ -445,7 +472,7 @@ No second genuine architecture candidate has yet been recorded. Do not invent AC
 
 **Reason:** Avoid copying Apps Script/BSE structure as architecture.
 
-**Evidence / experiment:** E-001A mapped the Input Usage / Inventory workflow from observable behaviour to implementation locations using an OpsMate TEST snapshot.
+**Evidence / experiment:** E-001A mapped the Input Usage / Inventory workflow from observable behaviour to implementation locations using an OpsMate TEST snapshot. E-001B then verified the actual worker runtime and corrected the map where it had mistaken a regression parser for the primary runtime parser.
 
 **Decision:** PENDING.
 
@@ -460,7 +487,7 @@ No second genuine architecture candidate has yet been recorded. Do not invent AC
 
 **Reason:** Preserve a domain layer between generic core and client-specific configuration.
 
-**Evidence / experiment:** E-001A showed that the four-way classification is useful when applied to behaviour-level stages; one source file can contain mixed generic, domain and BSE-specific concerns.
+**Evidence / experiment:** E-001A showed that the four-way classification is useful when applied to behaviour-level stages; one source file can contain mixed generic, domain and BSE-specific concerns. E-001B reinforced that classification should target responsibilities such as extract → guard → validate rather than assuming a particular parser implementation is generic.
 
 **Decision:** PENDING.
 
@@ -475,7 +502,7 @@ No second genuine architecture candidate has yet been recorded. Do not invent AC
 
 **Reason:** Behaviour contracts should survive changes in regex, deterministic parser, Gemini, GPT or future local models.
 
-**Evidence / experiment:** E-001A exposed a candidate request → candidate → human decision → authoritative TEST domain result → response/event contract without requiring the current Apps Script implementation to become the contract.
+**Evidence / experiment:** E-001A exposed a candidate request → candidate → human decision → authoritative TEST domain result → response/event contract without requiring the current Apps Script implementation to become the contract. E-001B strengthened this by separating AI extraction, deterministic guard and domain validation as distinct responsibilities.
 
 **Decision:** PENDING.
 
@@ -550,7 +577,9 @@ Architecture freeze is blocked by the following:
 - [ ] Freeze a stable OpsMate reference checkpoint.
 - [x] Map at least one complete observable OpsMate workflow. Behaviour Map #1 (Input Usage / Inventory) is recorded in E-001A.
 - [ ] Populate the evidence-backed reuse matrix.
-- [ ] Resolve whether Durable Inbox is a generic requirement or an OpsMate-specific implementation choice.
+- [ ] Resolve Q-015: ownership of routing between direct/read and stateful/mutation paths.
+- [ ] Resolve Q-016: which request classes require Durable Inbox rather than treating it as universal.
+- [ ] Resolve Q-017: whether human confirmation is Core-mandatory, optional capability, or module/application policy.
 - [ ] Define minimum Core ↔ Module contract.
 - [ ] Prove Core can run a non-farm module.
 - [ ] Determine the boundary between generic validation and domain validation.
@@ -614,9 +643,9 @@ Kuantiti: 2 kotak
 |---|---|---|---|
 | 1 | Receive Telegram message | `receiveBseTelegramTest()` | `GENERIC` candidate — channel adapter |
 | 2 | Persist raw request durably | `TELEGRAM_TEST_QUEUE` | `GENERIC` candidate |
-| 3 | Recognise Input Usage / inventory meaning | `bseInventoryParseMessage_()` | `KEBUN-GENERIC` |
-| 4 | Extract item, quantity and unit | inventory parser + quantity regressions | quantity parsing: `GENERIC` candidate; inventory semantics: `KEBUN-GENERIC` |
-| 5 | Validate required fields, date and unit | `bseInventoryValidateResult_()` | generic validation pattern + domain rules |
+| 3 | Interpret/extract a structured candidate from the queued report | `bseUnifiedProcess_()` using Gemini 3.1 Flash Lite | extraction responsibility: `GENERIC` candidate; current Gemini implementation: implementation detail |
+| 4 | Apply deterministic contract guard to model output | `bseUnifiedGuard_()` and domain-specific guard helpers | guard responsibility: `GENERIC` candidate; individual domain rules vary |
+| 5 | Apply inventory-domain validation and canonicalisation | `bseInventoryValidateResult_()` | validation mechanism may be generic; inventory/date/unit semantics are `KEBUN-GENERIC` / domain-specific |
 | 6 | Persist candidate representation | worker `candidate_json` | `GENERIC` candidate |
 | 7 | Route actionable PASS to human review | queue → `NEEDS_HUMAN_REVIEW` | `GENERIC` candidate |
 | 8 | Send confirmation card as reply to original message | `bseTelegramApprovalEnsureCard_()` | `UNCERTAIN` — possible generic capability |
@@ -634,7 +663,11 @@ RAW TELEGRAM MESSAGE
         ↓
 durable queue
         ↓
-parse / classify / validate
+AI extraction
+        ↓
+deterministic guard
+        ↓
+domain validation
         ↓
 candidate_json
         ↓
@@ -647,7 +680,7 @@ authoritative TEST domain record + audit
 terminal state + response/event
 ~~~
 
-This provides early positive evidence for Q-014: the current workflow distinguishes the raw message, candidate state and authoritative TEST domain record. Q-014 remains OPEN until this separation is checked across additional workflows.
+This provides early positive evidence for Q-014: the current workflow distinguishes the raw message, candidate state and authoritative TEST domain record. E-001B later strengthened this finding by showing that candidate representation can also differ from authoritative persistence representation. Q-014 remains OPEN until this separation is checked across additional workflow families.
 
 ### Candidate contract exposed by the workflow
 
@@ -686,7 +719,7 @@ This is a contract candidate only. It does not make Telegram, Apps Script, Googl
 
 **Observed result:** PASS for this workflow slice. One real OpsMate workflow can be mapped behaviour-first and separated into generic candidates, domain behaviour, BSE-specific representation and uncertain boundaries.
 
-**Learning:** Classification should be applied to small behaviours/contracts rather than whole files. A single OpsMate source file can mix generic mechanism, domain semantics and BSE-specific persistence.
+**Learning:** Classification should be applied to small behaviours/contracts rather than whole files. A single OpsMate source file can mix generic mechanism, domain semantics and BSE-specific persistence. The initial map also over-associated the regression helper `bseInventoryParseMessage_()` with runtime parsing; E-001B corrected this and reinforced that source helpers must not be mistaken for runtime architecture.
 
 **Uncertain boundary:** Human confirmation/approval appears reusable, but this experiment does not prove whether it belongs in Core, is an optional Core capability, or belongs to the application/module policy.
 
@@ -696,6 +729,72 @@ This is a contract candidate only. It does not make Telegram, Apps Script, Googl
 - D-009 → `TESTING`
 - D-006 remains `CANDIDATE`
 - parent E-001 is **not PASS**; a complete evidence-backed component ledger still requires a frozen reference baseline and broader workflow coverage.
+
+---
+
+## E-001B — Behaviour Map #1 Runtime Verification
+
+**Status:** PASS — audit found and corrected a material mapping error.  
+**Date:** 2026-09-29  
+**Verified source:** `BSE-dzuddiyn01gmail/BSE-OpsMate-TEST` main at commit `a6b504aff254935023ea19d6a1ce90dff597deb2`.  
+**Compared against E-001A snapshot:** `10e20cd601421bb114ff3bfd7edf9e3f5e8160c4`.
+
+**Question being tested:** Does Behaviour Map #1 accurately describe the effective runtime path for Input Usage / Inventory?
+
+### Result
+
+The lower half of Behaviour Map #1 remains supported: durable queue, candidate state, human review, reporter confirmation, domain writer, authoritative TEST record, audit and response/notification.
+
+A material error was found in the parser/runtime section. The ordinary Telegram worker does not primarily call `bseInventoryParseMessage_()`. The effective runtime path is:
+
+~~~text
+Telegram intake
+→ request routing
+→ TELEGRAM_TEST_QUEUE for report workflow
+→ processBseTelegramTestQueue()
+→ bseUnifiedProcess_()
+→ Gemini extraction
+→ bseUnifiedGuard_()
+→ domain-specific guards
+→ bseInventoryValidateResult_()
+→ candidate_json
+→ clarification / NEEDS_HUMAN_REVIEW
+→ reporter confirmation
+→ domain writer
+→ authoritative TEST record + audit
+→ response / notice
+~~~
+
+`bseInventoryParseMessage_()` remains useful deterministic logic and regression evidence, but this experiment does not treat it as the primary runtime parser.
+
+### Additional source-derived findings
+
+1. The current OpsMate intake now has direct command/retrieval branches such as report/history/record/plot retrieval before an ordinary report is queued.
+2. Therefore not every request passes through the same queue → AI → approval path.
+3. Candidate representation can differ from authoritative persistence representation. For example, an Input Usage candidate may be represented as `Input_Usage_Log` / `INPUT_USAGE`, while the inventory approval boundary persists the approved TEST domain result through the inventory event writer.
+4. `TelegramApprovalUiTest.js` contains repeated function definitions from implementation history; the final effective definition wins in Apps Script/JavaScript. This is additional evidence that file-level copying is not a safe extraction method.
+5. The user-facing reject/discard label changed from `Buang` to `Batal` in the current repo while the internal terminal state remains `DISCARDED_BY_REPORTER`; this is a UI wording change rather than a contract-level behaviour change.
+
+### Learning
+
+- **AI extraction ≠ deterministic guard ≠ domain validation.**
+- The reusable candidate is the responsibility/contract boundary, not Gemini, regex or a specific parser function.
+- **source file ≠ behaviour ≠ contract ≠ architecture**.
+- The runtime may need at least two interaction families: a direct/read path and a stateful/mutation path.
+- Durable Inbox and human approval should not be assumed to be universal.
+
+### ZASS impact
+
+- D-007 remains `TESTING` with stronger evidence.
+- D-008 remains `TESTING` with stronger evidence.
+- D-009 remains `TESTING` with stronger evidence.
+- AC-005 remains `CANDIDATE` and is refined to include direct/read vs stateful/mutation paths.
+- Q-014 remains OPEN but has stronger evidence.
+- Add Q-015, Q-016 and Q-017.
+- Add R-009.
+- D-006 remains `CANDIDATE`.
+- Parent E-001 remains incomplete.
+- No decision becomes LOCKED.
 
 ---
 
@@ -794,9 +893,9 @@ ZERO → ARCHITECTURE measures readiness to form and confirm architecture. It is
 | Scope and non-goals clear | 10% | 1 | 10% | Scope and exclusions are explicit. |
 | Constraints and quality attributes known | 10% | 1 | 10% | Runtime, channel, provider, security and maintainability constraints are documented. |
 | Options and trade-offs compared | 10% | 0.5 | 5% | Evidence-led extraction vs direct refactor is compared, but architecture alternatives are not yet tested. |
-| Critical assumptions closed or have experiments | 15% | 0.5 | 7.5% | E-001A executed one workflow slice; major assumptions remain open. |
+| Critical assumptions closed or have experiments | 15% | 0.5 | 7.5% | E-001A and E-001B tested one workflow family and corrected the runtime map; major assumptions remain open. |
 | Major risks addressed | 10% | 0.5 | 5% | Guardrails exist; evidence of effectiveness is pending. |
-| Main system flows clear | 10% | 0.5 | 5% | Candidate flow is known and one OpsMate workflow has been mapped; broader flow evidence is still incomplete. |
+| Main system flows clear | 10% | 0.5 | 5% | One stateful workflow is mapped and a direct/read path is now observed, but ownership and broader cross-workflow evidence remain incomplete. |
 | Major decisions LOCKED | 10% | 0.5 | 5% | Principles are locked; core boundary/build choices remain candidate. |
 | No critical architecture blockers | 5% | 0 | 0% | Evidence baseline, contracts and reproduction proof are still missing. |
 
@@ -810,7 +909,7 @@ ZERO → ARCHITECTURE measures readiness to form and confirm architecture. It is
 
 Architecture blockers:
 - no frozen reference evidence package;
-- only one behaviour map is completed; broader reference-baseline and contract evidence remain incomplete;
+- one behaviour map is corrected and a second interaction family is observed, but broader reference-baseline and cross-workflow contract evidence remain incomplete;
 - no validated Core ↔ Module contract;
 - AC-005 is untested;
 - no non-farm genericity proof;
@@ -1036,6 +1135,16 @@ Until then, this remains an extraction proof project, not a framework claim.
 ---
 
 # PROJECT ZASS CHANGELOG
+
+## 2026-09-29 — Runtime verification / E-001B
+
+- Verified Behaviour Map #1 against OpsMate TEST main at `a6b504aff254935023ea19d6a1ce90dff597deb2`.
+- Corrected the runtime parser path: ordinary report processing uses `bseUnifiedProcess_()` → Gemini → `bseUnifiedGuard_()` → domain validation, not `bseInventoryParseMessage_()` as the primary worker parser.
+- Added Q-015, Q-016 and Q-017.
+- Added R-009 for linear-pipeline over-generalisation.
+- Refined AC-005 to distinguish direct/read and stateful/mutation paths while keeping it `CANDIDATE`.
+- Kept D-007, D-008 and D-009 at `TESTING`; no LOCKED decision changed.
+- ZERO → ARCHITECTURE remains 63%.
 
 ## 2026-09-29 — Behaviour Map #1 / E-001A
 
