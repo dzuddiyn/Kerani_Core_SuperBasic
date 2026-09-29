@@ -1,429 +1,922 @@
-# ZASS — Temporary Generic Telegram–Apps Script–Gemini Core
+# ZASS — Kerani_Core_SuperBasic
 
+**ZASS baseline:** v0.3.2  
+**Project status:** DECIDING — extraction proof not started  
+**Owner:** Project Owner  
+**Updated:** 2026-09-29  
+**Repository:** dzuddiyn/Kerani_Core_SuperBasic  
+**Project Source of Truth:** this file  
+**Method baseline:** https://github.com/dzuddiyn/ZASS-Zero-to-Architecture-Structured-Sprint/blob/main/ZASS.md
 
 > **Motto:** **Genericity is Generosity.**
 >
 > We earn genericity through evidence and reuse, then share the useful stack openly so small teams can build on proven work instead of rebuilding it alone.
 
-## 0. Status
+This project follows the operating semantics of **ZASS v0.3.2**:
 
+1. **Bukan potong fikir; potong ulang fikir.**
+2. **Fikir bebas. Rekod keputusan. Kunci yang pasti. Bina dari yang terkunci.**
+3. **AI menghasilkan kemungkinan. Evidence menguji. Manusia memutuskan. Architecture mematuhi keputusan.**
 
-| Field | Current value |
-|---|---|
-| Repository | `Kerani_Core_SuperBasic` |
-| Public identity | **Temporary — not LOCKED** |
-| Current role | Landing zone for a generic-core extraction from OpsMate BSE |
-| Source implementation | OpsMate BSE |
-| Extraction timing | Only after the relevant OpsMate behaviour and regression tests are stable |
-| Current code status | No generic runtime has been extracted yet |
-| Intended availability | Open public stack when the extracted foundation is safe to publish |
+If this project file and the official ZASS baseline differ, use:
+- this file for **project facts, questions, risks, candidates, decisions, evidence and readiness**;
+- the official ZASS v0.3.2 baseline for **workflow/command semantics**.
 
-
-This repository is **not Kerani Core SME**. It may later become a reusable foundation for Telegram → Google Apps Script → Gemini API applications, including Kerani Core, but that must be proven first.
-
+Only the project owner may make a decision **LOCKED**. A suggestion, AI output, model agreement, experiment PASS, or implementation detail is not automatically a decision.
 
 ---
 
+# 0. AI OPERATING RULES
 
-## 1. Raw idea
+AI may:
+- generate ideas and alternatives;
+- challenge assumptions;
+- identify risks;
+- propose experiments;
+- map OpsMate evidence;
+- compare architecture candidates;
+- propose candidate decisions;
+- update this file when authorised.
 
+AI may NOT:
+- silently change a LOCKED decision;
+- invent requirements or evidence;
+- treat multi-model agreement as evidence;
+- confuse implementation with contract;
+- promote ACTION PLAN execution state into a decision;
+- generate confirmed architecture while critical decisions remain unresolved;
+- override the project owner.
 
-After OpsMate BSE reaches its agreed Definition of Done, inspect its working implementation and extract only the parts that are genuinely reusable for small conversational applications:
+Decision states:
 
+**RAW → CANDIDATE → TESTING → DECIDED → LOCKED**
 
-`Telegram → Apps Script → AI → data/workspace → response`
+Other states:
 
+**REJECTED · DEFERRED · SUPERSEDED**
+
+Project execution state, if ACTION_PLAN.md is later created, must use the separate ACTION PLAN states from ZASS v0.3.2 and must not become a second decision ledger.
+
+---
+
+# 1. RAW IDEA
+
+## Original Idea
+
+After relevant OpsMate BSE behaviour and regression tests become stable, inspect the working implementation and extract only the parts that are genuinely reusable for small conversational applications:
+
+**Telegram → Apps Script → AI → data/workspace → response**
 
 The result must come from a tested system, not an imagined framework.
 
+## Why I Want This
+
+- Avoid rebuilding useful infrastructure for every future application.
+- Preserve lessons already paid for through real OpsMate bugs, tests and operating experience.
+- Separate reusable infrastructure from farm/BSE-specific logic.
+- Create a small, understandable foundation that a single maintainer can own.
+- Share a proven and safe stack openly when publication requirements are satisfied.
+
+## Provenance
+
+The statements above are inherited from the existing project SoT. They are project context, not new evidence created by this migration.
 
 ---
 
-
-## 2. Why this exists
-
-
-OpsMate may contain useful infrastructure that should not be rebuilt for every future application:
-
-
-- receiving and normalising Telegram messages;
-- routing a request through an Apps Script workflow;
-- calling Gemini safely;
-- controlled clarification, validation and confirmation;
-- queueing, logging and human review;
-- deterministic replies and error handling;
-- TEST/production isolation; and
-- regression tests around the workflow.
-
-
-If those pieces can serve a second application without a major rewrite, they become a small shared stack. Sharing that proven stack publicly is the project’s act of generosity—not a promise to generalise prematurely.
-
-
----
-
-
-## 3. Goals
-
+# 2. GOALS
 
 1. Identify which OpsMate components are genuinely reusable.
-2. Extract them without farm, BSE, plot, inventory, claim or SME assumptions.
-3. Preserve proven behaviour through regression tests.
-4. Define a small, explicit configuration/extension contract.
-5. Build one independent, tiny second application on the extracted core.
-6. Publish the stack openly when security, documentation and licensing are ready.
-7. Let future domain applications consume the core rather than silently changing it.
-
+2. Extract reusable behaviour without farm, BSE, plot, inventory, claim or SME assumptions.
+3. Preserve proven behaviour through regression tests and explicit contracts.
+4. Define a small configuration/extension contract.
+5. Prove the core can run with a non-farm module.
+6. Build one independent second application or module composition that demonstrates reuse.
+7. Reproduce selected OpsMate behaviour using the new composition.
+8. Publish the stack openly only when security, redaction, documentation and licensing are ready.
+9. Keep future domain applications as consumers of the core rather than allowing them to silently redefine it.
 
 ---
 
-
-## 4. Non-goals
-
+# 3. NON-GOALS
 
 - Building Kerani Core SME in this repository.
-- Replacing or redesigning OpsMate while it is still being completed.
-- Building a farm-management system.
+- Replacing or redesigning OpsMate while the relevant behaviour is still unstable.
+- Building a farm-management system inside the generic core.
+- Treating BSE configuration as the generic schema.
 - Home Assistant, local LLM, workstation, remote-desktop or hardware work.
 - A fully autonomous agent with unrestricted access to business systems.
-- A broad “platform” designed from speculation.
-
-
----
-
-
-## 5. Core extraction principle — LOCKED
-
-
-> **Genericity is earned through extraction and reuse, not assumed during design.**
-
-Operational rule:
-
-
-1. Finish and stabilise the relevant OpsMate behaviour.
-2. Classify each component as `GENERIC`, `OPSMATE-SPECIFIC`, or `UNCERTAIN`.
-3. Extract only `GENERIC` components; leave `UNCERTAIN` in OpsMate until evidence exists.
-4. Remove domain vocabulary and hidden domain assumptions only where behaviour remains covered by tests.
-5. Prove reuse with a second application.
-
-
-“Genericity is Generosity” does **not** mean accepting every requested feature into the core. The core stays small, explicit, tested and safe; generosity happens through clear interfaces, documentation and open sharing.
-
+- A broad platform designed from speculation.
+- Locking a final architecture before extraction evidence exists.
 
 ---
 
+# 4. CONSTRAINTS
 
-## 6. Candidate generic surface — NOT LOCKED
+## Budget / Operating Model
 
+- Prefer a small, maintainable stack suitable for a single maintainer.
+- Avoid abstraction that is not justified by at least two demonstrated uses.
 
-The following is a candidate list to audit against OpsMate. It is not a build plan.
+## Initial Runtime
 
+- Google Apps Script.
 
-| Candidate surface | Evidence needed before extraction |
-|---|---|
-| Telegram adapter | Works without OpsMate-specific message or identity assumptions |
-| Apps Script runtime boundary | Portable deployment/configuration contract |
-| Gemini adapter | Domain-neutral prompt/input/output boundary and safe error handling |
-| Request pipeline | Reusable stages that do not encode farm or SME workflow |
-| Queue and worker | Generic state transitions and retry/review semantics |
-| Parser/normaliser | Input contract independent of an OpsMate record type |
-| Reply engine | Deterministic response contract and safe fallback replies |
-| Logging/evidence | Generic event schema with protected-data rules |
-| Configuration/secrets boundary | No credentials in source; app-specific settings separated |
-| Test harness | Reproducible tests that can run without live Telegram production traffic |
+## Initial Chat Interface
 
+- Telegram.
 
----
+## Initial AI Provider
 
+- Gemini API.
 
-## 7. Initial constraints
+These are initial implementation constraints, not proof that the final reusable contract must remain provider- or channel-specific.
 
+## Security / Privacy
 
-- Initial runtime: Google Apps Script.
-- Initial chat interface: Telegram.
-- Initial AI provider: Gemini API.
-- Secrets must remain outside source control and outside public examples.
+- Secrets must remain outside source control and public examples.
 - TEST and production behaviour/data must remain isolated.
-- A coding agent has no direct Telegram credential or production-message access.
+- A coding agent must not receive direct production Telegram credentials or unrestricted production-message access.
 - Human/operator controls TEST injection and live deployment boundaries.
-- Domain logic belongs in an application layer, not silently in generic core code.
-- Open-source publication requires a security review, redacted examples and an explicit licence.
+- Open-source publication requires security review, redacted examples and an explicit licence.
 
+## Domain Boundary
 
----
+- Domain logic belongs in an application/module layer, not silently inside the generic core.
 
+## Evidence Constraint
 
-## 8. Questions to answer with evidence
-
-
-- Which OpsMate files/functions are truly reusable?
-- What configuration contract can express a new application without editing core code?
-- Which storage abstractions are necessary, and which are over-abstraction?
-- Which parts should intentionally remain Apps-Script-specific in v0.x?
-- How are prompts, schemas and validations separated from the runtime core?
-- What is the smallest meaningful second application for proof of reuse?
-- What must be redacted or redesigned before public release?
-- Does this repository deserve a new permanent name after the proof stage?
-
+- Genericity must be demonstrated through stable behaviour, extraction and reuse.
+- No component becomes generic merely because it sounds reusable.
 
 ---
 
+# 5. IDEA BLAST
 
-## 9. Risks and guardrails
+Nothing in this section is automatically approved.
 
-
-| Risk | Guardrail |
-|---|---|
-| Premature abstraction | Extract after stable OpsMate evidence only |
-| Hidden OpsMate assumptions | Component ledger plus regression tests |
-| Core becomes Kerani Core-specific | Domain code/config stays in consumer application |
-| Over-engineering | Prefer the smallest interface demonstrated by two uses |
-| Regression during extraction | Preserve/port relevant harness tests before refactor |
-| Secret exposure | No secret commits; redacted fixtures and publication review |
-| Public stack misused or confusing | Clear scope, examples, threat notes and versioning |
-| Architectural drift | ZASS/decision ledger are authoritative; changes follow state control |
-
-
----
-
-
-## 10. Extraction ledger
-
-
-Create and maintain `docs/EXTRACTION_LEDGER.md` only when extraction begins.
-
-
-| Component | OpsMate source | Classification | Dependencies | Extraction status | Evidence / test | Notes |
-|---|---|---|---|---|---|---|
-| — | — | `GENERIC` / `OPSMATE-SPECIFIC` / `UNCERTAIN` | — | Not started | — | — |
-
-
-No component becomes generic merely because it sounds reusable.
-
-
----
-
-
-## 11. Experiments
-
-
-| ID | Experiment | Success condition | Status |
+| ID | Idea | Source | Status |
 |---|---|---|---|
-| E-001 | Classify the completed OpsMate components | Ledger has evidence-backed classification | Deferred |
-| E-002 | Extract one candidate component | Relevant OpsMate-derived regression tests pass | Deferred |
-| E-003 | Assemble minimum generic workflow | TEST workflow runs without domain vocabulary or code forks | Deferred |
-| E-004 | Build a second tiny application | Works through configuration/extension points | Deferred |
-| E-005 | Public-release review | No secrets/private data; docs, licence and safe examples ready | Deferred |
-
+| I-001 | Extract a small generic conversational-app foundation from proven OpsMate behaviour. | Existing project SoT | RAW |
+| I-002 | Separate generic core behaviour from agriculture-domain behaviour and BSE configuration. | Existing project SoT | RAW |
+| I-003 | Use a tiny non-farm module as a proof that Core SuperBasic is genuinely generic. | Existing project SoT | RAW |
+| I-004 | Publish the proven stack openly after security, redaction, documentation and licensing review. | Existing project SoT | RAW |
 
 ---
 
+# 6. QUESTIONS / UNKNOWNS
 
-## 12. Definition of Done for the proof stage
-
-
-`OpsMate behaviour complete and stable`
-→ `components classified with evidence`
-→ `generic components extracted`
-→ `relevant regression tests pass`
-→ `second independent application works`
-→ `no major core rewrite needed for that second app`
-→ `public-release safety review passes`
-→ `generic core is proven enough to name/version publicly`
-
-
-Until then, this remains an extraction project—not a framework claim.
-
-
----
-
-
-## 13. Decision ledger
-
-
-| ID | Decision | State | Rationale / evidence |
+| ID | Question | Why It Matters | Status |
 |---|---|---|---|
-| D-001 | This repo is an OpsMate-derived generic-core extraction, not Kerani Core SME. | LOCKED | Separate reusable infrastructure from the SME product domain. |
-| D-002 | Genericity is earned through extraction and reuse, not assumed during design. | LOCKED | Prevents speculative abstraction. |
-| D-003 | The guiding motto is “Genericity is Generosity.” | LOCKED | A proven, safe stack should be shared openly for others to build upon. |
-| D-004 | Public release happens only after security review, redaction, documentation and explicit licence. | LOCKED | Openness must not expose secrets, operational data or unsafe defaults. |
-| D-005 | Permanent project name is deferred until reuse is demonstrated. | DEFERRED | Name must describe demonstrated function, not aspiration. |
-
-
----
-
-
-## 14. Change control
-
-
-All significant decisions and experiments use:
-
-
-`RAW → CANDIDATE → TESTING → DECIDED → LOCKED`
-
-
-Alternative terminal/exception states:
-
-
-`REJECTED` · `DEFERRED` · `SUPERSEDED`
-
-
-A suggestion, AI output or multi-model agreement is not a decision. It becomes a decision only when its evidence, trade-offs and owner approval are recorded here or in a linked decision record.
-
+| Q-001 | Which OpsMate files/functions implement genuinely reusable behaviour? | Defines extraction scope. | OPEN |
+| Q-002 | What configuration contract can express a new application without editing core code? | Tests whether reuse is real. | OPEN |
+| Q-003 | Which storage abstractions are necessary and which are over-abstraction? | Prevents speculative framework design. | OPEN |
+| Q-004 | Which parts should intentionally remain Apps-Script-specific in v0.x? | Controls scope and portability claims. | OPEN |
+| Q-005 | How should prompts, schemas and validation be separated from runtime core behaviour? | Protects provider/domain boundaries. | OPEN |
+| Q-006 | What is the smallest meaningful second application for proof of reuse? | Required to earn genericity. | OPEN |
+| Q-007 | What must be redacted or redesigned before public release? | Protects security and privacy. | OPEN |
+| Q-008 | Does this repository deserve a permanent public name after reuse is demonstrated? | Naming must follow demonstrated function. | OPEN |
+| Q-009 | Can a module be removed without damaging Core? | Tests module independence. | OPEN |
+| Q-010 | Can Core run a non-agricultural module? | Tests genericity. | OPEN |
+| Q-011 | Can Telegram be replaced without changing business logic? | Tests channel boundary. | OPEN |
+| Q-012 | Can BSE configuration be replaced by another client/farm configuration? | Tests configuration/domain separation. | OPEN |
+| Q-013 | Can parser or AI provider change behind the same behaviour contract? | Tests model/provider portability. | OPEN |
+| Q-014 | Are raw messages, candidate records and authoritative records clearly distinct? | Protects auditability and state correctness. | OPEN |
 
 ---
 
+# 7. RISKS & FAILURE SCENARIOS
 
-## 15. Repository growth rule
+| ID | Failure / Risk | Impact | Possible Mitigation | Status | 🚨 Early warning signal |
+|---|---|---|---|---|---|
+| R-001 | Premature abstraction | Core becomes speculative and difficult to maintain. | Extract only after stable OpsMate evidence. | OPEN | Interfaces appear before a second demonstrated use. |
+| R-002 | Hidden OpsMate assumptions | Generic core fails outside BSE/OpsMate. | Behaviour map + reuse ledger + regression tests. | OPEN | BSE vocabulary or sheet-column assumptions appear in core contracts. |
+| R-003 | Core becomes Kerani Core-specific | Reuse claim becomes false. | Keep domain code/config in consumer modules. | OPEN | Core requires agriculture concepts to run. |
+| R-004 | Over-engineering | Cost and complexity exceed value. | Prefer smallest interface demonstrated by two uses. | OPEN | New abstractions exist with no evidence-backed consumer. |
+| R-005 | Regression during extraction | Proven behaviour is lost. | Preserve/port relevant harness tests before refactor. | OPEN | New composition cannot reproduce a selected baseline test. |
+| R-006 | Secret or private-data exposure | Unsafe public release. | No secret commits; redacted fixtures; publication review. | OPEN | Real token, chat ID or operational record appears in repo fixtures. |
+| R-007 | Public stack is confusing or unsafe | Users deploy incorrect defaults or misunderstand scope. | Clear scope, examples, threat notes and versioning. | OPEN | Documentation implies production safety that has not been tested. |
+| R-008 | Architectural drift | Implementation silently overrides project decisions. | This ZASS file remains authoritative; use change control. | OPEN | Code or docs contradict an L-xxx record. |
 
+---
 
-Keep the repository deliberately small before extraction:
+# 8. METHOD REVIEWS
 
+## MR-001 — Evidence-led extraction review
 
-`ZASS.md`
-`docs/DEV_WORKFLOW.md`
+**Method:** First principles + Maintainability + Minimal viable experiment  
+**Scope:** OpsMate BSE → Kerani_Core_SuperBasic extraction strategy  
+**Reviewer / Model:** AI-assisted project review  
+**Date:** 2026-09-29
 
+### Findings
 
-When evidence justifies it, add:
+- OpsMate should be treated as a **reference implementation and evidence source**, not as an architecture template.
+- Audit should begin from observable behaviour, not source-file names.
+- Behaviour contracts should be defined before implementation is copied.
+- Generic infrastructure, agriculture-domain behaviour and BSE-specific configuration need separate classifications.
+- A non-farm module is a stronger genericity test than renaming farm concepts.
+- Equivalent tested behaviour is more important than identical source code.
 
+### Contradictions
 
-`src/`
-`tests/`
-`config/`
-`docs/EXTRACTION_LEDGER.md`
-`docs/ARCHITECTURE.md`
+- The previous Section 16 used several **AC-xxx** IDs for process/evidence proposals, while ZASS v0.3.2 reserves **AC-xxx** for Architecture Candidates. This migration preserves traceability but moves the canonical records to D/E entries where appropriate.
 
+### New Questions
+
+- Q-009 through Q-014.
+
+### New Risks
+
+- Existing risks R-001 through R-008 are retained; no additional risk is promoted solely by this migration.
+
+### Experiments Suggested
+
+- E-001 through E-006.
+
+### Candidate Decisions
+
+- D-006 through D-009.
+
+---
+
+# 9. MULTI-AI REVIEW RULES
+
+Agreement between AI models is not evidence.
+
+Disagreement must be converted into a question, experiment, trade-off or candidate decision.
+
+No significant multi-AI disagreement is currently recorded in this project SoT.
+
+| ID | Topic | Model / Reviewer Views | What Must Be Resolved | Result |
+|---|---|---|---|---|
+| MA-001 | — | — | — | OPEN / unused |
+
+---
+
+# 10. OPTIONS
+
+## Decision Topic — How to derive the reusable core
+
+### Option A — Evidence-led extraction
+
+**Description:** Freeze proven OpsMate behaviour, map observable workflows, classify reuse, define contracts, then implement and test a clean composition.
+
+**Advantages:**
+- grounded in working behaviour;
+- preserves regression evidence;
+- reduces hidden BSE assumptions;
+- supports model/provider independence.
+
+**Disadvantages:**
+- slower than copying source directly;
+- requires careful baseline and behaviour mapping.
+
+**Risks:**
+- can still over-generalise if evidence is weak.
+
+**Evidence:**
+- strategy review and existing OpsMate regression practice; full extraction proof is still pending.
+
+### Option B — Direct refactor / rename of OpsMate
+
+**Description:** Refactor the existing OpsMate structure directly into a reusable core.
+
+**Advantages:**
+- superficially faster;
+- reuses existing source layout.
+
+**Disadvantages:**
+- likely carries hidden domain and implementation coupling;
+- can mistake current Apps Script structure for intended architecture.
+
+**Risks:**
+- produces “OpsMate without BSE” rather than a genuinely reusable core.
+
+**Decision state:** No new owner decision is created by this comparison. D-002 already locks the principle that genericity must be earned through extraction and reuse.
+
+---
+
+# 11. ARCHITECTURE CANDIDATES
+
+Create AC entries only for genuine architecture arrangements.
+
+## AC-005 — Candidate runtime/module boundary
+
+**Status:** CANDIDATE  
+**Origin:** legacy Section 16.6; retained as AC because it is an actual architecture boundary candidate.
+
+**Summary:**
+
+**Channel adapter → Client runtime → Durable inbox → Core SuperBasic → Module contract → Domain module/config**
+
+**Key characteristics:**
+- channel boundary before business logic;
+- a durable intake boundary is proposed;
+- Core performs generic orchestration;
+- domain behaviour is supplied through a module contract;
+- BSE becomes configuration/test data rather than the generic schema.
+
+**Candidate Core responsibilities:**
+- normalise;
+- route;
+- validate generic state/contract rules;
+- dispatch modules;
+- manage generic approval states where applicable;
+- emit audit/events;
+- produce safe responses.
+
+**Dependencies:**
+- behaviour evidence from OpsMate;
+- contract definitions;
+- a non-farm module test;
+- storage/durable-inbox evidence.
+
+**Advantages:**
+- separates channel, runtime, core and domain concerns;
+- supports testing genericity independently.
+
+**Trade-offs:**
+- Durable Inbox and approval semantics may be over-generalised and remain unproven.
+
+**Critical risks:**
+- R-001, R-002, R-003, R-004.
+
+### Candidate Comparison
+
+No second genuine architecture candidate has yet been recorded. Do not invent AC-002/AC-003 merely to fill a comparison table.
+
+---
+
+# 12. DECISION LEDGER
+
+## D-001 — Repository purpose
+
+**Status:** LOCKED
+
+**Problem:** Prevent reusable infrastructure work from becoming mixed with the Kerani Core SME product domain.
+
+**Options considered:** Generic extraction repository / Kerani Core SME repository.
+
+**Decision:** This repository is an OpsMate-derived generic-core extraction, not Kerani Core SME.
+
+**Reason:** Separate reusable infrastructure from the SME product domain.
+
+**Trade-offs:** Requires later integration with domain modules rather than embedding them here.
+
+**Evidence / experiment:** Existing project scope and owner-approved SoT.
+
+**Related risks:** R-002, R-003.
+
+---
+
+## D-002 — Genericity principle
+
+**Status:** LOCKED
+
+**Decision:** Genericity is earned through extraction and reuse, not assumed during design.
+
+**Reason:** Prevent speculative abstraction.
+
+**Consequences:** UNCERTAIN behaviour remains in the reference implementation until evidence supports extraction.
+
+**Revisit trigger:** Only owner-approved evidence showing this principle blocks necessary, demonstrated reuse.
+
+---
+
+## D-003 — Guiding motto
+
+**Status:** LOCKED
+
+**Decision:** The guiding motto is **“Genericity is Generosity.”**
+
+**Reason:** A proven, safe stack should be shareable for others to build upon.
+
+**Consequences:** Openness is a goal, not permission to broaden the core without evidence.
+
+---
+
+## D-004 — Public-release gate
+
+**Status:** LOCKED
+
+**Decision:** Public release happens only after security review, redaction, documentation and explicit licence.
+
+**Reason:** Openness must not expose secrets, operational data or unsafe defaults.
+
+**Related risks:** R-006, R-007.
+
+---
+
+## D-005 — Permanent project name
+
+**Status:** DEFERRED
+
+**Decision:** PENDING.
+
+**Decision drivers:** Demonstrated function and reuse.
+
+**Options considered:** Keep temporary name / rename after proof.
+
+**Revisit trigger:** Reuse proof stage passes.
+
+---
+
+## D-006 — Freeze a reference baseline before extraction
+
+**Status:** CANDIDATE  
+**Migrated from:** legacy AC-001.
+
+**Problem:** Later extraction needs a stable comparison point.
+
+**Candidate decision:** Freeze a clean OpsMate checkpoint with tested workflows, regression tests, redacted sample inputs, expected outputs and known limitations before extracting relevant behaviour.
+
+**Evidence / experiment:** E-001 and actual OpsMate regression evidence required.
+
+**Decision:** PENDING.
+
+---
+
+## D-007 — Behaviour-first audit
+
+**Status:** CANDIDATE  
+**Migrated from:** legacy AC-002.
+
+**Candidate decision:** Audit observable workflows first, then locate the implementation that performs each stage.
+
+**Reason:** Avoid copying Apps Script/BSE structure as architecture.
+
+**Decision:** PENDING.
+
+---
+
+## D-008 — Four-way reuse classification
+
+**Status:** CANDIDATE  
+**Migrated from:** legacy AC-003.
+
+**Candidate decision:** Classify extraction findings as **GENERIC**, **KEBUN-GENERIC**, **OPSMATE/BSE-SPECIFIC**, or **UNCERTAIN**.
+
+**Reason:** Preserve a domain layer between generic core and client-specific configuration.
+
+**Decision:** PENDING.
+
+---
+
+## D-009 — Contract before source code
+
+**Status:** CANDIDATE  
+**Migrated from:** legacy AC-004.
+
+**Candidate decision:** Define minimum input/output/state promises before copying implementation.
+
+**Reason:** Behaviour contracts should survive changes in regex, deterministic parser, Gemini, GPT or future local models.
+
+**Decision:** PENDING.
+
+---
+
+# 13. LOCKED DECISIONS
+
+This section is authoritative. Architecture and implementation must not contradict these records.
+
+## L-001
+
+**Source Decision:** D-001  
+**Decision:** This repository is an OpsMate-derived generic-core extraction, not Kerani Core SME.  
+**Locked by:** Project Owner  
+**Date:** inherited from pre-v0.3.2 project SoT  
+**Supersedes:** None
+
+## L-002
+
+**Source Decision:** D-002  
+**Decision:** Genericity is earned through extraction and reuse, not assumed during design.  
+**Locked by:** Project Owner  
+**Date:** inherited from pre-v0.3.2 project SoT  
+**Supersedes:** None
+
+## L-003
+
+**Source Decision:** D-003  
+**Decision:** The guiding motto is “Genericity is Generosity.”  
+**Locked by:** Project Owner  
+**Date:** inherited from pre-v0.3.2 project SoT  
+**Supersedes:** None
+
+## L-004
+
+**Source Decision:** D-004  
+**Decision:** Public release requires security review, redaction, documentation and explicit licence.  
+**Locked by:** Project Owner  
+**Date:** inherited from pre-v0.3.2 project SoT  
+**Supersedes:** None
+
+---
+
+# 14. REJECTED IDEAS
+
+No project idea is newly marked REJECTED by this migration.
+
+| ID | Idea | Reason Rejected | Related Decision |
+|---|---|---|---|
+| — | — | — | — |
+
+---
+
+# 15. DEFERRED ITEMS
+
+| ID | Item | Why Deferred | Revisit Trigger |
+|---|---|---|---|
+| D-005 | Permanent project name | Function has not yet been proven through reuse. | Proof stage passes. |
+| E-001 | Classify completed OpsMate components | Relevant OpsMate baseline must be stable first. | Stable reference checkpoint exists. |
+| E-002 | Extract one candidate component | Classification and contract evidence are not ready. | E-001 produces an evidence-backed candidate. |
+| E-003 | Assemble minimum generic workflow | Generic components have not yet been extracted. | E-002 passes. |
+| E-004 | Build a second tiny application | Core reuse contract not yet proven. | E-003 passes. |
+| E-005 | Public-release review | Stack is not yet proven or publication-ready. | Reuse proof is complete. |
+| E-006 | OpsMate reproduction test | New composition does not yet exist. | Core + Kebun + BSE test config + adapter can be integrated. |
+
+---
+
+# 16. OPEN LOOPS
+
+Architecture freeze is blocked by the following:
+
+- [ ] Freeze a stable OpsMate reference checkpoint.
+- [ ] Map at least one complete observable OpsMate workflow.
+- [ ] Populate the evidence-backed reuse matrix.
+- [ ] Resolve whether Durable Inbox is a generic requirement or an OpsMate-specific implementation choice.
+- [ ] Define minimum Core ↔ Module contract.
+- [ ] Prove Core can run a non-farm module.
+- [ ] Determine the boundary between generic validation and domain validation.
+- [ ] Test parser/provider substitution behind a stable contract.
+- [ ] Run the OpsMate reproduction test.
+- [ ] Complete public-release safety review before any open release.
+- [ ] Resolve or deliberately defer critical architecture questions before confirmation.
+
+---
+
+# 17. EXPERIMENTS / EVIDENCE
+
+## E-001 — Classify completed OpsMate components
+
+**Status:** DEFERRED
+
+**Question being tested:** Can completed OpsMate behaviour be separated into evidence-backed reuse classes?
+
+**Hypothesis:** Stable OpsMate behaviour will reveal components that can be classified without speculative abstraction.
+
+**Method:** Freeze baseline, map behaviour, then build the extraction ledger.
+
+**Success criteria:** Ledger contains evidence-backed classification and links to tests/behaviour.
+
+**Result:** PENDING.
+
+**Conclusion:** PENDING.
+
+**Affected decisions:** D-006, D-007, D-008.
+
+---
+
+## E-002 — Extract one candidate component
+
+**Status:** DEFERRED
+
+**Question being tested:** Can one GENERIC candidate be extracted without breaking its proven behaviour?
+
+**Success criteria:** Relevant OpsMate-derived regression tests pass against the extracted implementation.
+
+**Result:** PENDING.
+
+**Affected decisions:** D-009.
+
+---
+
+## E-003 — Assemble minimum generic workflow
+
+**Status:** DEFERRED
+
+**Question being tested:** Can Core SuperBasic execute a domain-neutral workflow?
+
+**Success criteria:** TEST workflow runs without farm/BSE vocabulary, domain code forks or hidden client assumptions.
+
+**Additional pass signal:** Core can run a non-farm dummy module such as Echo or Todo.
+
+**Result:** PENDING.
+
+**Affected architecture candidate:** AC-005.
+
+---
+
+## E-004 — Build a second tiny application
+
+**Status:** DEFERRED
+
+**Question being tested:** Is the extracted core reusable without a major rewrite?
+
+**Success criteria:** A second application works through configuration/extension points.
+
+**Result:** PENDING.
+
+**Affected decisions:** D-002, D-009.
+
+---
+
+## E-005 — Public-release review
+
+**Status:** DEFERRED
+
+**Question being tested:** Is the stack safe and understandable enough to publish?
+
+**Success criteria:** No secrets/private data; safe examples; documentation; threat notes; explicit licence.
+
+**Result:** PENDING.
+
+**Affected decision:** D-004.
+
+---
+
+## E-006 — OpsMate reproduction test
+
+**Status:** DEFERRED  
+**Migrated from:** legacy AC-006.
+
+**Question being tested:** Can the new composition reproduce selected, documented OpsMate workflows?
+
+**Proposed composition:**
+
+**Kerani_Core_SuperBasic + Kerani_Kebun + BSE test configuration + Telegram adapter**
+
+**Pass signal:** Selected OpsMate workflows pass the same behaviour contracts using the new composition.
+
+**Failure signals:**
+- Core cannot run a non-farm module.
+- Removing a module damages Core.
+- BSE-specific assumptions leak into Core.
+- Changing channel/parser/provider requires business-logic rewrite.
+- Raw messages are confused with authoritative records.
+
+**Result:** PENDING.
+
+**Affected architecture candidate:** AC-005.
+
+---
+
+# 18. ARCHITECTURE READINESS
+
+ZERO → ARCHITECTURE measures readiness to form and confirm architecture. It is not coding progress.
+
+| Criterion | Weight | Score | Contribution | Reason |
+|---|---:|---:|---:|---|
+| Purpose/problem clear | 10% | 1 | 10% | Extraction purpose is explicit. |
+| Users/stakeholders and desired outcomes clear | 10% | 0.5 | 5% | Future small teams/maintainers are implied; primary consumer is not yet formally proven. |
+| Scope and non-goals clear | 10% | 1 | 10% | Scope and exclusions are explicit. |
+| Constraints and quality attributes known | 10% | 1 | 10% | Runtime, channel, provider, security and maintainability constraints are documented. |
+| Options and trade-offs compared | 10% | 0.5 | 5% | Evidence-led extraction vs direct refactor is compared, but architecture alternatives are not yet tested. |
+| Critical assumptions closed or have experiments | 15% | 0.5 | 7.5% | Experiments exist but have not been executed. |
+| Major risks addressed | 10% | 0.5 | 5% | Guardrails exist; evidence of effectiveness is pending. |
+| Main system flows clear | 10% | 0.5 | 5% | Candidate flow is known; actual OpsMate behaviour map is not yet frozen. |
+| Major decisions LOCKED | 10% | 0.5 | 5% | Principles are locked; core boundary/build choices remain candidate. |
+| No critical architecture blockers | 5% | 0 | 0% | Evidence baseline, contracts and reproduction proof are still missing. |
+
+**ZERO → ARCHITECTURE score:** **62.5% → 63%**
+
+**Status:** **DECIDING**
+
+**Progress bar:** **[██████░░░░] 63% — DECIDING**
+
+**Readiness gate:** **NOT READY**
+
+Architecture blockers:
+- no frozen reference evidence package;
+- no completed behaviour map;
+- no validated Core ↔ Module contract;
+- AC-005 is untested;
+- no non-farm genericity proof;
+- no reproduction-test result.
+
+A DRAFT ARCH may be proposed only after readiness reaches at least 70%. Architecture confirmation requires the full ZASS v0.3.2 BUILD gate and the exact owner response **YA, CONFIRM ARCHITECTURE**.
+
+---
+
+# 19. ARCHITECTURE GENERATION INSTRUCTION
+
+Current state: **NOT READY FOR CONFIRMED ARCHITECTURE**.
+
+When readiness later becomes READY, architecture must be generated only from:
+1. Goals
+2. Constraints
+3. LOCKED decisions
+4. Required workflows
+5. Known risks
+6. Validated evidence
+7. Explicitly accepted trade-offs
+
+Any missing major decision must be returned as an **ARCHITECTURE BLOCKER**, not silently assumed.
+
+---
+
+# 20. CHANGE CONTROL
+
+After architecture exists:
+
+~~~
+New idea
+↓
+CANDIDATE
+↓
+Impact analysis
+↓
+DECISION
+↓
+Human approval
+↓
+LOCK
+↓
+Architecture update
+~~~
+
+If a LOCKED decision must change:
+1. create a new decision entry;
+2. explain why the previous decision is no longer valid;
+3. perform impact analysis;
+4. mark the old decision SUPERSEDED;
+5. LOCK the replacement decision;
+6. update architecture only after the replacement is locked.
+
+## v0.3.2 semantic migration note
+
+The previous Section 16 used AC-001 through AC-006 for a mixture of process proposals, architecture boundary and test strategy. Under ZASS v0.3.2, AC means **Architecture Candidate** only.
+
+Canonical migration:
+
+| Legacy ID | Previous meaning | Canonical v0.3.2 record |
+|---|---|---|
+| AC-001 | Reference implementation baseline | D-006 (CANDIDATE) |
+| AC-002 | Behaviour-first audit | D-007 (CANDIDATE) |
+| AC-003 | Four-way reuse matrix | D-008 (CANDIDATE) |
+| AC-004 | Contract before source code | D-009 (CANDIDATE) |
+| AC-005 | Candidate runtime/module boundary | AC-005 retained |
+| AC-006 | Reproduction test | E-006 |
+
+This mapping preserves historical traceability and prevents future misuse of AC IDs.
+
+---
+
+# 21. RECOMMENDED PROJECT STRUCTURE
+
+Before extraction, keep the repository deliberately small.
+
+Current/near-term authority structure:
+
+~~~
+Kerani_Core_SuperBasic/
+├── ZASS_Kerani_Core_SuperBasic.md    ← project SoT
+├── docs/
+│   └── DEV_WORKFLOW.md
+└── README.md                         ← when/if present
+~~~
+
+When evidence justifies growth:
+
+~~~
+Kerani_Core_SuperBasic/
+├── ZASS_Kerani_Core_SuperBasic.md
+├── ACTION_PLAN.md                    ← optional; execution only
+├── ARCHITECTURE.md                   ← only after architecture is built
+├── README.md
+├── src/
+├── tests/
+├── config/
+└── docs/
+    ├── DEV_WORKFLOW.md
+    ├── EXTRACTION_LEDGER.md
+    ├── adr/
+    ├── experiments/
+    └── reviews/
+~~~
 
 Do not create code, abstractions or folders merely to make the project look mature.
 
+Authority hierarchy:
+
+1. GitHub project ZASS file — project facts/decisions/readiness.
+2. Official ZASS v0.3.2 — workflow semantics.
+3. ACTION_PLAN.md — execution/progress only, if later created.
+4. ARCHITECTURE.md — confirmed/draft architecture representation when applicable.
+5. Local repository — working copy.
+6. AI project workspace / memory / chat — context only.
+
 ---
 
-## 16. Evidence-led extraction route — CANDIDATE
+# 22. STANDARD ZASS COMMANDS
 
-**Source:** Strategy review based on OpsMate BSE learning, added 2026-09-29.
+This project inherits ZASS v0.3.2 command semantics.
 
-This section refines the route from a successful OpsMate pilot to a reusable stack. It is a **candidate architecture and execution plan**, not a replacement for the LOCKED extraction principle and not yet a final architecture.
+- **ZASS / ZASS!!** — full structured exploration; do not change LOCKED decisions.
+- **ZASS REVIEW** — challenge using a named method/perspective.
+- **ACTION PLAN** — show/update execution state only; never LOCK a decision.
+- **ZASS CHALLENGE** — attack assumptions, edge cases and contradictions.
+- **ZASS DECIDE** — show unresolved candidate decisions and trade-offs.
+- **PROCEED** — owner accepts the latest unopposed ZASS proposals; any proposal explicitly marked for LOCK becomes LOCKED. PROCEED does not commit or push.
+- **COMMIT** — after approval, commit and push the approved project-file changes atomically and report the real commit SHA.
+- **DRAFT ARCH** — prepare/revise a working architecture draft from authoritative state; does not confirm architecture.
+- **BUILD ARCHITECTURE** — run the confirmation gate; if READY, request exact owner response **YA, CONFIRM ARCHITECTURE**.
+- **ZASS AUDIT** — audit architecture against ZASS state.
+- **ZASS IMPACT** — analyse impact before changing architecture.
 
-### 16.1 Core idea
+When the user intentionally invokes ZASS or ZASS!!, check the project baseline against the latest official ZASS repository when access is available.
 
-Do **not** refactor OpsMate directly into Kerani. Treat OpsMate BSE as a proven **reference implementation**, then work through:
+---
 
-`OpsMate BSE → evidence baseline → actual behaviour map → reuse matrix → contracts → Core SuperBasic → Kebun module → integration → reproduction test`
+# APPENDIX A — CANDIDATE GENERIC SURFACE
 
-The target is not “OpsMate without the word BSE”. The target is a clean implementation discovered through reverse engineering of proven behaviour:
+This remains a candidate audit surface, not a build plan.
 
-`proven behaviour → contracts → boundaries → tests → architecture → clean implementation`
+| Candidate surface | Evidence needed before extraction |
+|---|---|
+| Telegram adapter | Works without OpsMate-specific message or identity assumptions. |
+| Apps Script runtime boundary | Portable deployment/configuration contract. |
+| Gemini adapter | Domain-neutral prompt/input/output boundary and safe error handling. |
+| Request pipeline | Reusable stages that do not encode farm or SME workflow. |
+| Queue and worker | Generic state transitions and retry/review semantics. |
+| Parser/normaliser | Input contract independent of an OpsMate record type. |
+| Reply engine | Deterministic response contract and safe fallback replies. |
+| Logging/evidence | Generic event schema with protected-data rules. |
+| Configuration/secrets boundary | No credentials in source; app-specific settings separated. |
+| Test harness | Reproducible tests without live Telegram production traffic. |
 
-### 16.2 AC-001 — Reference implementation baseline
+---
 
-**State:** CANDIDATE
+# APPENDIX B — EVIDENCE-LED EXTRACTION ROUTE
 
-Before extraction, freeze a clean OpsMate checkpoint that has the relevant TEST/regression evidence. This is not a claim that OpsMate is perfect or finished forever; it is a stable comparison point when later work fails or drifts.
+**State:** CANDIDATE strategy; not a final architecture.
 
-Expected evidence package:
+Do not refactor OpsMate directly into Kerani. Treat OpsMate BSE as a proven reference implementation and test the route:
 
-`OPSMATE_REFERENCE/`
+**OpsMate BSE → evidence baseline → actual behaviour map → reuse matrix → contracts → Core SuperBasic → Kebun module → integration → reproduction test**
 
-- `README.md` — scope and checkpoint identity;
-- `tested-workflows.md` — workflows known to pass;
-- `regression-tests/` — executable or reproducible harnesses;
-- `sample-inputs/` — redacted/synthetic test inputs;
-- `expected-outputs/` — observed expected behaviour; and
-- `known-limitations.md` — explicit gaps and constraints.
+Target:
 
-**Pass signal:** A reviewer can answer “what did OpsMate do, under which test, and what output was expected?” without relying on chat memory.
+**proven behaviour → contracts → boundaries → tests → architecture → clean implementation**
 
-### 16.3 AC-002 — Behaviour-first audit
-
-**State:** CANDIDATE
-
-Audit by **observable workflow**, not by source-file name. For each workflow, map the actual sequence first, then locate the implementation that performs each stage.
-
-Example pattern:
-
-`message received → normalise → classify/route → extract → validate → candidate record → review/approval → authoritative record → reply/audit`
-
-This protects us from copying Apps Script/BSE structure instead of learning the architecture it implements.
-
-### 16.4 AC-003 — Four-way reuse matrix
-
-**State:** CANDIDATE
-
-For work entered after this update, this four-way classification supersedes the earlier three-label shorthand:
+## Four-way reuse matrix
 
 | Classification | Meaning | Typical destination |
 |---|---|---|
-| `GENERIC` | Still meaningful without a farm/business domain | Core candidate |
-| `KEBUN-GENERIC` | Reusable agricultural domain behaviour, but not generic app infrastructure | Kerani Kebun candidate |
-| `OPSMATE/BSE-SPECIFIC` | Tied to BSE, a site, a plot convention, columns or operational history | Configuration, reproduction fixture, or PARK |
-| `UNCERTAIN` | Insufficient evidence to place safely | Remain in reference implementation; create question/risk/experiment |
+| GENERIC | Meaningful without farm/business domain. | Core candidate |
+| KEBUN-GENERIC | Reusable agriculture-domain behaviour, not generic infrastructure. | Kerani Kebun candidate |
+| OPSMATE/BSE-SPECIFIC | Tied to BSE/site/plot convention/columns/history. | Config, reproduction fixture or PARK |
+| UNCERTAIN | Evidence is insufficient. | Remain in reference implementation; create Q/R/E |
 
-Quick heuristic: if removing the word **kebun** leaves the function meaningful, it is a Core candidate. If its meaning depends on agriculture but not BSE, it is a Kebun candidate. This is a guide, not a substitute for evidence.
+Quick heuristic: if removing the word **kebun** leaves the function meaningful, it may be a Core candidate. If its meaning depends on agriculture but not BSE, it may be a Kebun candidate. This heuristic does not replace evidence.
 
-### 16.5 AC-004 — Contract before source code
+## Contract questions
 
-**State:** CANDIDATE
+For every extraction candidate, define:
+- accepted input and context;
+- normalised/candidate output;
+- validation/confidence/failure states;
+- authority transition and required human approval;
+- reply/audit event;
+- behaviour tests that must remain stable.
 
-After behaviour is understood, define the minimum input/output/state promise before copying implementation. A contract may remain stable even when its implementation changes from regex to deterministic parser, Gemini, GPT or a future local model.
+## Candidate delivery sequence
 
-Required contract questions:
-
-- What input and context are accepted?
-- What normalised/candidate output is produced?
-- What validation, confidence or failure states exist?
-- Which state becomes authoritative, and only after whose approval?
-- What reply/audit event must be emitted?
-
-This is the practical path to the existing model-agnostic intent: implementation may change; behaviour contract and tests must not drift silently.
-
-### 16.6 AC-005 — Candidate boundary and build order
-
-**State:** CANDIDATE
-
-`Channel adapter → Client runtime → Durable inbox → Core SuperBasic → module contract → domain module/config`
-
-Core candidate responsibilities:
-
-- normalise;
-- route;
-- validate;
-- dispatch modules;
-- manage approval states;
-- emit audit/events; and
-- produce safe responses.
-
-The Core must first run with a dummy non-farm module (for example Echo, Todo or a test module). Only then should `KEBUN-GENERIC` behaviour become a Kerani Kebun module. BSE becomes configuration/test data, not the Kebun schema itself.
-
-Candidate delivery route:
+This sequence is a candidate plan, not a LOCKED decision:
 
 1. Freeze reference baseline.
 2. Map actual behaviour.
-3. Build the reuse matrix.
+3. Build reuse matrix.
 4. Define behaviour contracts.
 5. Extract and test Core SuperBasic alone.
-6. Build Kerani Kebun from `KEBUN-GENERIC` findings.
+6. Build Kerani Kebun from KEBUN-GENERIC findings.
 7. Integrate Core + Kebun + BSE test configuration + adapter.
-8. Run an OpsMate reproduction test.
-9. ZASS review the results before any boundary is DECIDED or LOCKED.
+8. Run E-006 OpsMate reproduction test.
+9. Run ZASS review before any architecture boundary becomes DECIDED or LOCKED.
 
-### 16.7 AC-006 — Reproduction test
+---
 
-**State:** CANDIDATE
+# DEFINITION OF DONE — PROOF STAGE
 
-The strongest boundary test is not identical source code; it is equivalent tested behaviour:
+**OpsMate behaviour complete/stable enough for selected scope**  
+→ **components classified with evidence**  
+→ **generic components extracted**  
+→ **relevant regression tests pass**  
+→ **Core runs a non-farm module**  
+→ **second independent use works**  
+→ **no major core rewrite is required for reuse**  
+→ **selected OpsMate behaviour is reproduced by the new composition**  
+→ **public-release safety review passes**  
+→ **generic core is proven enough to name/version publicly**
 
-`Kerani_Core_SuperBasic + Kerani_Kebun + BSE test configuration + Telegram adapter → equivalent selected OpsMate workflow`
+Until then, this remains an extraction proof project, not a framework claim.
 
-**Pass signal:** Selected, documented OpsMate workflows pass their behaviour contracts using the new composition.
+---
 
-**Failure signal:** Core cannot run a non-farm module; removing a module breaks Core; BSE-specific assumptions leak into the core; changing channel/parser/provider requires business-logic rewrite; or raw messages are confused with authoritative records.
+# CURRENT ZASS FOOTER STATE
 
-### 16.8 Questions before LOCK
+[🧠 ZASS!!] -- [▶️ PROCEED] -- [🔄 PIVOT] -- [🅿️ PARK] -- [📦 COMMIT]
 
-- Can a module be removed without damaging Core?
-- Can Core run a non-agricultural module?
-- Can Telegram be replaced without changing business logic?
-- Can BSE configuration be replaced by another client/farm configuration?
-- Can the parser/AI provider be replaced behind the same contract?
-- Are raw messages, candidate records and authoritative records clearly distinct?
+🏗️ ZERO → ARCHITECTURE: [██████░░░░] 63% — DECIDING
 
-No AC-001 to AC-006 moves beyond `CANDIDATE` without observed OpsMate evidence and a defined test.
+✅ ZASS UP TO DATE — v0.3.2
