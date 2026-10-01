@@ -34,6 +34,9 @@
 - Ordinary pilot findings do not automatically reopen the frozen reference baseline.
 - Critical safety, data-integrity or reference-invalidating defects may trigger a deliberate freeze review.
 - AI/Copilot should trace, document, classify, scaffold and test; architecture decisions return to the owner/ZASS.
+- Human-facing execution should present only the next meaningful action by default; show full IDs/ledgers only for review/audit.
+- Use a compact Project Pulse when orientation is useful: current stage, next stage, factual progress if measurable, and save/sync health.
+- Never report SAVED/committed unless a real Git result exists; generated Markdown is not a persistence receipt.
 - No coding agent receives unrestricted production credentials or production-message access.
 
 ---

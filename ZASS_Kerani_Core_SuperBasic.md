@@ -1200,6 +1200,24 @@ The project baseline was aligned on 2026-10-01 from v0.3.2 to **v0.3.6**. Curren
 
 Historical v0.3.2 migration notes above remain as provenance.
 
+## ZASS SYSTEM UI/UX alignment — 2026-10-01
+
+The official ZASS SYSTEM UI/UX contract is also active for this project. This is a presentation/product-surface alignment, not a new architecture decision and not a method-version bump.
+
+**Applicable system rules:**
+- **Present only the next meaningful human action.**
+- Keep local ZASS tooling first-class; future AI-SYNC Web is a UX/automation/projection layer, not the authority layer.
+- GitHub project files and Git history remain the engineering Source of Truth.
+- Prefer progressive disclosure: hide internal IDs, full ledgers and validator codes during ordinary work unless review/audit requires them.
+- Human-facing work should prefer a compact Project Pulse rather than exposing the whole lifecycle continuously.
+- Contextual surfaces may include **Ready to Lock**, **Architecture Forming**, **Current Task**, **Delivered**, and escalation notice only when a human action is useful.
+- ACTION_PLAN / ARCHITECTURE / TASKS may be projected into human-facing views, but the projections do not become authority.
+- SAVE/sync status must be factual: authoritative persistence requires a real Git commit/receipt; generated Markdown alone is not SAVED.
+- Future web presentation must reuse the same validator/core semantics rather than duplicate rule logic.
+- Full ZASS remains an escalation/governance capability; no automatic migration or invented complexity score is permitted.
+
+**Project-specific consequence:** ordinary chat/project updates should stay compact and action-oriented while preserving full lineage in the repository for review when needed.
+
 ---
 
 # 21. RECOMMENDED PROJECT STRUCTURE
@@ -1355,6 +1373,15 @@ Until then, this remains an extraction proof project, not a framework claim.
 ---
 
 # PROJECT ZASS CHANGELOG
+
+## 2026-10-01 — ZASS SYSTEM UI/UX contract sync
+
+- Synced the project with the official locked ZASS SYSTEM UI/UX contract without changing Full ZASS v0.3.6 method semantics.
+- Adopted the primary UX rule: **Present only the next meaningful human action.**
+- Added progressive-disclosure guidance, compact Project Pulse, contextual action cards, factual Git-backed SAVE receipts and artifact projection semantics.
+- Recorded the system split: local first-class tooling remains independently usable while future AI-SYNC Web is the UX/automation/projection layer over the same authority.
+- Kept GitHub as engineering Source of Truth and prohibited duplicate validator semantics in future web presentation.
+- No LOCKED project decision, architecture candidate, readiness score or Evidence Confidence value changed.
 
 ## 2026-10-01 — Minimum constrained natural-language intake LOCK
 
