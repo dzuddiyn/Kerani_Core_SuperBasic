@@ -1,9 +1,9 @@
 # ZASS — Kerani_Core_SuperBasic
 
-**ZASS baseline:** v0.3.2  
+**ZASS baseline:** v0.3.6  
 **Project status:** DECIDING — evidence harvesting planned; substantive Core build parked  
 **Owner:** Project Owner  
-**Updated:** 2026-09-29  
+**Updated:** 2026-10-01  
 **Repository:** dzuddiyn/Kerani_Core_SuperBasic  
 **Project Source of Truth:** this file  
 **Method baseline:** https://github.com/dzuddiyn/ZASS-Zero-to-Architecture-Structured-Sprint/blob/main/ZASS.md
@@ -12,15 +12,16 @@
 >
 > We earn genericity through evidence and reuse, then share the useful stack openly so small teams can build on proven work instead of rebuilding it alone.
 
-This project follows the operating semantics of **ZASS v0.3.2**:
+This project follows the operating semantics of **ZASS v0.3.6**:
 
 1. **Bukan potong fikir; potong ulang fikir.**
 2. **Fikir bebas. Rekod keputusan. Kunci yang pasti. Bina dari yang terkunci.**
 3. **AI menghasilkan kemungkinan. Evidence menguji. Manusia memutuskan. Architecture mematuhi keputusan.**
+4. **Tangkap luas, tumpu dengan sengaja:** bentuk candidate dahulu, kemudian research hanya soalan yang boleh mengubah pilihan; silang evidence, LOCK keputusan, dan biarkan architecture muncul daripada keputusan itu.
 
 If this project file and the official ZASS baseline differ, use:
 - this file for **project facts, questions, risks, candidates, decisions, evidence and readiness**;
-- the official ZASS v0.3.2 baseline for **workflow/command semantics**.
+- the official ZASS v0.3.6 baseline for **workflow/command semantics**.
 
 Only the project owner may make a decision **LOCKED**. A suggestion, AI output, model agreement, experiment PASS, or implementation detail is not automatically a decision.
 
@@ -55,7 +56,7 @@ Other states:
 
 **REJECTED · DEFERRED · SUPERSEDED**
 
-Project execution state, if ACTION_PLAN.md is later created, must use the separate ACTION PLAN states from ZASS v0.3.2 and must not become a second decision ledger.
+Project execution state in ACTION_PLAN.md must use the separate ACTION PLAN states from ZASS v0.3.6 and must not become a second decision ledger.
 
 ---
 
@@ -94,6 +95,9 @@ The statements above are inherited from the existing project SoT. They are proje
 7. Reproduce selected OpsMate behaviour using the new composition.
 8. Publish the stack openly only when security, redaction, documentation and licensing are ready.
 9. Keep future domain applications as consumers of the core rather than allowing them to silently redefine it.
+10. Keep the SuperBasic core useful for micro-SME operations through five generic record families: **Purchase, Sale, Inventory, Observation and Task**, with receipt capture as an input capability.
+11. Demonstrate the generic core across exactly three planned domain modules: **Agro, Servis Teknikal, and Makanan & Tempahan**.
+12. Keep full natural-language conversation outside SuperBasic as a premium Kerani AI capability so basic operation does not depend on premium model usage.
 
 ---
 
@@ -106,6 +110,9 @@ The statements above are inherited from the existing project SoT. They are proje
 - Home Assistant, local LLM, workstation, remote-desktop or hardware work.
 - A fully autonomous agent with unrestricted access to business systems.
 - A broad platform designed from speculation.
+- Additional domain modules beyond **Agro, Servis Teknikal, and Makanan & Tempahan** within the current SuperBasic scope.
+- Full premium natural-language conversation as a mandatory SuperBasic capability.
+- Requiring a dedicated self-hosted server for the SuperBasic baseline.
 - Locking a final architecture before extraction evidence exists.
 
 ---
@@ -116,10 +123,13 @@ The statements above are inherited from the existing project SoT. They are proje
 
 - Prefer a small, maintainable stack suitable for a single maintainer.
 - Avoid abstraction that is not justified by at least two demonstrated uses.
+- Control paid AI/API-credit usage; ordinary SuperBasic record operations must not require premium natural-language processing.
+- Keep the Apps Script implementation modular enough that new domain behaviour does not collapse into special-case branching or spaghetti code.
 
 ## Initial Runtime
 
 - Google Apps Script.
+- The SuperBasic baseline does not require a dedicated self-hosted server.
 
 ## Initial Chat Interface
 
@@ -142,11 +152,18 @@ These are initial implementation constraints, not proof that the final reusable 
 ## Domain Boundary
 
 - Domain logic belongs in an application/module layer, not silently inside the generic core.
+- The planned domain-module set is intentionally limited to **Agro**, **Servis Teknikal**, and **Makanan & Tempahan**.
+- **Agro** covers agriculture broadly, including crops/planting, aquaculture/fish and livestock/poultry; it replaces the narrower project term “Kebun” for the reusable domain layer.
+- **Servis Teknikal** covers small technical-service operations such as workshop/repair, domestic electrical wiring, computers, air-conditioning and similar technician jobs.
+- **Makanan & Tempahan** covers food stalls/warung/burger operations together with small bakery, made-to-order food and small catering.
+- Additional modules are outside the current SuperBasic scope unless the owner later creates a new explicit decision.
 
 ## Evidence Constraint
 
 - Genericity must be demonstrated through stable behaviour, extraction and reuse.
 - No component becomes generic merely because it sounds reusable.
+- OpsMate remains the primary reference implementation for harvesting reusable mechanisms and Agro-domain operational lessons.
+- BSE/OpsMate-specific assumptions must not be promoted into the generic Core merely because they are already implemented.
 
 ## Near-Term Execution Constraint — October 2026
 
@@ -492,7 +509,7 @@ No second genuine architecture candidate has yet been recorded. Do not invent AC
 **Status:** TESTING  
 **Migrated from:** legacy AC-003.
 
-**Candidate decision:** Classify extraction findings as **GENERIC**, **KEBUN-GENERIC**, **OPSMATE/BSE-SPECIFIC**, or **UNCERTAIN**.
+**Candidate decision:** Classify extraction findings as **GENERIC**, **AGRO-GENERIC**, **OPSMATE/BSE-SPECIFIC**, or **UNCERTAIN**.
 
 **Reason:** Preserve a domain layer between generic core and client-specific configuration.
 
@@ -514,6 +531,77 @@ No second genuine architecture candidate has yet been recorded. Do not invent AC
 **Evidence / experiment:** E-001A exposed a candidate request → candidate → human decision → authoritative TEST domain result → response/event contract without requiring the current Apps Script implementation to become the contract. E-001B strengthened this by separating AI extraction, deterministic guard and domain validation as distinct responsibilities.
 
 **Decision:** PENDING.
+
+---
+
+## D-010 — SuperBasic core product scope
+
+**Status:** LOCKED  
+**Owner approval:** 2026-10-01
+
+**Decision:** Kerani_Core_SuperBasic is a deliberately small generic micro-SME core centred on **Purchase, Sale, Inventory, Observation and Task** records. Receipt scanning/capture is an input capability that produces a reviewable structured record; it is not a separate business domain.
+
+**Operating boundary:** The baseline must remain useful without a dedicated self-hosted server and without premium natural-language processing.
+
+**Reason:** Keep the core small, understandable, low-cost and broadly useful across micro-SME operations.
+
+**Consequences:** Domain-specific schemas and workflows belong in modules; premium conversational AI must not become a dependency of basic record keeping.
+
+---
+
+## D-011 — Planned domain-module set
+
+**Status:** LOCKED  
+**Owner approval:** 2026-10-01
+
+**Decision:** The current SuperBasic product scope contains exactly three planned domain modules:
+
+1. **Agro** — crops/planting, aquaculture/fish, livestock/poultry and related small agricultural operations.
+2. **Servis Teknikal** — workshop/repair, domestic wiring, computers, air-conditioning, machinery and related technician services.
+3. **Makanan & Tempahan** — stalls/warung/burger businesses, small bakery, made-to-order food and small catering.
+
+**Reason:** These three represent materially different, common micro-SME operating patterns while remaining small enough to test genericity without turning the project into a large platform.
+
+**Consequences:** “Kebun” is replaced by **Agro** as the reusable agriculture-domain name.
+
+---
+
+## D-012 — Module simplicity and stop rule
+
+**Status:** LOCKED  
+**Owner approval:** 2026-10-01
+
+**Decision:** Do not add further domain modules to the current SuperBasic scope after Agro, Servis Teknikal and Makanan & Tempahan. Each module must remain separable and simple enough that the Apps Script codebase does not degrade into special-case branching or spaghetti code.
+
+**Early warning signal:** Repeated module-name conditionals, duplicated pipelines, or cross-module dependencies begin appearing in Core.
+
+**Consequence:** A future domain that requires substantial special handling should become a separate application/project or require a new owner decision rather than being forced into SuperBasic.
+
+---
+
+## D-013 — Premium natural-language boundary
+
+**Status:** LOCKED  
+**Owner approval:** 2026-10-01
+
+**Decision:** Full, natural conversational interaction belongs to **Kerani AI Premium**, not Kerani_Core_SuperBasic. The premium layer may use OpenAI and paid API/subscription credits; SuperBasic must remain functional without this premium capability.
+
+**Reason:** Protect basic affordability and allow explicit control of paid AI-credit consumption.
+
+**Consequences:** SuperBasic may use constrained extraction/OCR/AI where justified, but rich open-ended conversation is a separate premium product capability.
+
+---
+
+## D-014 — OpsMate extraction role
+
+**Status:** LOCKED  
+**Owner approval:** 2026-10-01
+
+**Decision:** Continue extracting as much proven, reusable learning as practical from OpsMate. Reusable mechanisms feed Core candidates; agriculture-operational behaviour feeds the **Agro** module; BSE-specific assumptions remain reference/configuration evidence rather than Core behaviour.
+
+**Reason:** OpsMate contains working behaviour already paid for through implementation, regression tests and pilot use.
+
+**Consequences:** Evidence harvesting remains behaviour-first and contract-first; source files are not copied wholesale as architecture.
 
 ---
 
@@ -553,6 +641,46 @@ This section is authoritative. Architecture and implementation must not contradi
 **Date:** inherited from pre-v0.3.2 project SoT  
 **Supersedes:** None
 
+## L-005
+
+**Source Decision:** D-010  
+**Decision:** SuperBasic is a small generic micro-SME core for Purchase, Sale, Inventory, Observation and Task, with receipt capture as an input capability; no dedicated self-hosted server or premium natural-language processing is required for baseline operation.  
+**Locked by:** Project Owner  
+**Date:** 2026-10-01  
+**Supersedes:** None
+
+## L-006
+
+**Source Decision:** D-011  
+**Decision:** The planned domain-module set is exactly Agro, Servis Teknikal and Makanan & Tempahan; Agro replaces the narrower reusable-domain name Kebun.  
+**Locked by:** Project Owner  
+**Date:** 2026-10-01  
+**Supersedes:** None
+
+## L-007
+
+**Source Decision:** D-012  
+**Decision:** No additional domain modules are in the current SuperBasic scope; modules must remain simple and separable enough to avoid Apps Script spaghetti.  
+**Locked by:** Project Owner  
+**Date:** 2026-10-01  
+**Supersedes:** None
+
+## L-008
+
+**Source Decision:** D-013  
+**Decision:** Full natural-language conversation belongs to Kerani AI Premium using paid AI/API capability; SuperBasic must remain usable without it.  
+**Locked by:** Project Owner  
+**Date:** 2026-10-01  
+**Supersedes:** None
+
+## L-009
+
+**Source Decision:** D-014  
+**Decision:** OpsMate remains the primary evidence source: reusable mechanisms feed Core, agriculture behaviour feeds Agro, and BSE-specific assumptions do not become generic Core behaviour.  
+**Locked by:** Project Owner  
+**Date:** 2026-10-01  
+**Supersedes:** None
+
 ---
 
 # 14. REJECTED IDEAS
@@ -575,7 +703,7 @@ No project idea is newly marked REJECTED by this migration.
 | E-003 | Assemble minimum generic workflow | Generic components have not yet been extracted. | E-002 passes. |
 | E-004 | Build a second tiny application | Core reuse contract not yet proven. | E-003 passes. |
 | E-005 | Public-release review | Stack is not yet proven or publication-ready. | Reuse proof is complete. |
-| E-006 | OpsMate reproduction test | New composition does not yet exist. | Core + Kebun + BSE test config + adapter can be integrated. |
+| E-006 | OpsMate reproduction test | New composition does not yet exist. | Core + Agro + BSE test config + adapter can be integrated. |
 
 ---
 
@@ -654,13 +782,13 @@ Kuantiti: 2 kotak
 | 2 | Persist raw request durably | `TELEGRAM_TEST_QUEUE` | `GENERIC` candidate |
 | 3 | Interpret/extract a structured candidate from the queued report | `bseUnifiedProcess_()` using Gemini 3.1 Flash Lite | extraction responsibility: `GENERIC` candidate; current Gemini implementation: implementation detail |
 | 4 | Apply deterministic contract guard to model output | `bseUnifiedGuard_()` and domain-specific guard helpers | guard responsibility: `GENERIC` candidate; individual domain rules vary |
-| 5 | Apply inventory-domain validation and canonicalisation | `bseInventoryValidateResult_()` | validation mechanism may be generic; inventory/date/unit semantics are `KEBUN-GENERIC` / domain-specific |
+| 5 | Apply inventory-domain validation and canonicalisation | `bseInventoryValidateResult_()` | validation mechanism may be generic; inventory/date/unit semantics are `AGRO-GENERIC` / domain-specific |
 | 6 | Persist candidate representation | worker `candidate_json` | `GENERIC` candidate |
 | 7 | Route actionable PASS to human review | queue → `NEEDS_HUMAN_REVIEW` | `GENERIC` candidate |
 | 8 | Send confirmation card as reply to original message | `bseTelegramApprovalEnsureCard_()` | `UNCERTAIN` — possible generic capability |
 | 9 | Bind Benar / Betulkan / Buang to original reporter | reporter confirmation core | `UNCERTAIN` |
-| 10 | Benar invokes domain writer boundary | `bseInventoryApprovalBoundaryCore_()` → `bseInventoryReviewCore_()` | `KEBUN-GENERIC` |
-| 11 | Write approved TEST domain record | `TEST_INVENTORY_EVENT` | behaviour: `KEBUN-GENERIC`; Sheet/schema: `OPSMATE/BSE-SPECIFIC` |
+| 10 | Benar invokes domain writer boundary | `bseInventoryApprovalBoundaryCore_()` → `bseInventoryReviewCore_()` | `AGRO-GENERIC` |
+| 11 | Write approved TEST domain record | `TEST_INVENTORY_EVENT` | behaviour: `AGRO-GENERIC`; Sheet/schema: `OPSMATE/BSE-SPECIFIC` |
 | 12 | Write review/audit evidence | `TEST_INVENTORY_REVIEW` | audit concept: `GENERIC`; representation: `OPSMATE/BSE-SPECIFIC` |
 | 13 | Move queue to terminal inventory TEST state | `INVENTORY_APPROVED_TEST` / reject counterpart | domain state |
 | 14 | Close card and emit reporter/owner notification | Telegram approval UI | notification behaviour: generic candidate; transport: Telegram-specific |
@@ -874,7 +1002,7 @@ Telegram intake
 
 **Proposed composition:**
 
-**Kerani_Core_SuperBasic + Kerani_Kebun + BSE test configuration + Telegram adapter**
+**Kerani_Core_SuperBasic + Kerani_Agro + BSE test configuration + Telegram adapter**
 
 **Pass signal:** Selected OpsMate workflows pass the same behaviour contracts using the new composition.
 
@@ -905,7 +1033,7 @@ ZERO → ARCHITECTURE measures readiness to form and confirm architecture. It is
 | Critical assumptions closed or have experiments | 15% | 0.5 | 7.5% | E-001A and E-001B tested one workflow family and corrected the runtime map; major assumptions remain open. |
 | Major risks addressed | 10% | 0.5 | 5% | Guardrails exist; evidence of effectiveness is pending. |
 | Main system flows clear | 10% | 0.5 | 5% | One stateful workflow is mapped and a direct/read path is now observed, but ownership and broader cross-workflow evidence remain incomplete. |
-| Major decisions LOCKED | 10% | 0.5 | 5% | Principles are locked; core boundary/build choices remain candidate. |
+| Major decisions LOCKED | 10% | 0.5 | 5% | Product scope, module limits and premium boundary are now locked; core runtime/module boundary choices remain candidate. |
 | No critical architecture blockers | 5% | 0 | 0% | Evidence baseline, contracts and reproduction proof are still missing. |
 
 **ZERO → ARCHITECTURE score:** **62.5% → 63%**
@@ -924,7 +1052,13 @@ Architecture blockers:
 - no non-farm genericity proof;
 - no reproduction-test result.
 
-A DRAFT ARCH may be proposed only after readiness reaches at least 70%. Architecture confirmation requires the full ZASS v0.3.2 BUILD gate and the exact owner response **YA, CONFIRM ARCHITECTURE**.
+A DRAFT ARCH may be proposed only after readiness reaches at least 70%. Architecture confirmation requires the full ZASS v0.3.6 BUILD gate and the exact owner response **YA, CONFIRM ARCHITECTURE**.
+
+## Evidence Confidence
+
+**Evidence Confidence:** **LOW**
+
+**Reason:** Direct OpsMate evidence exists for one mapped workflow family and its runtime verification, but the frozen reference package, broader workflow coverage, module-contract proof, non-Agro proof and reproduction test are still incomplete. Product-scope decisions are clear, but empirical coverage of the critical architecture assumptions remains limited.
 
 ---
 
@@ -990,6 +1124,16 @@ Canonical migration:
 
 This mapping preserves historical traceability and prevents future misuse of AC IDs.
 
+## v0.3.6 project semantic alignment note
+
+The project baseline was aligned on 2026-10-01 from v0.3.2 to **v0.3.6**. Current project operation therefore also follows:
+- the ZASS Convergence Loop principle;
+- explicit `PROPOSED FOR PROCEED` approval sets;
+- Architecture Readiness and qualitative Evidence Confidence as separate axes;
+- the current Full-ZASS command surface `ZASS!! / PROCEED / PIVOT / COMMIT`; `PARKED` remains a state, not a Full-ZASS command.
+
+Historical v0.3.2 migration notes above remain as provenance.
+
 ---
 
 # 21. RECOMMENDED PROJECT STRUCTURE
@@ -1031,7 +1175,7 @@ Do not create code, abstractions or folders merely to make the project look matu
 Authority hierarchy:
 
 1. GitHub project ZASS file — project facts/decisions/readiness.
-2. Official ZASS v0.3.2 — workflow semantics.
+2. Official ZASS v0.3.6 — workflow semantics.
 3. ACTION_PLAN.md — current execution/progress plan only; it does not decide architecture.
 4. ARCHITECTURE.md — confirmed/draft architecture representation when applicable.
 5. Local repository — working copy.
@@ -1041,14 +1185,14 @@ Authority hierarchy:
 
 # 22. STANDARD ZASS COMMANDS
 
-This project inherits ZASS v0.3.2 command semantics.
+This project inherits ZASS v0.3.6 command semantics.
 
 - **ZASS / ZASS!!** — full structured exploration; do not change LOCKED decisions.
 - **ZASS REVIEW** — challenge using a named method/perspective.
 - **ACTION PLAN** — show/update execution state only; never LOCK a decision.
 - **ZASS CHALLENGE** — attack assumptions, edge cases and contradictions.
 - **ZASS DECIDE** — show unresolved candidate decisions and trade-offs.
-- **PROCEED** — owner accepts the latest unopposed ZASS proposals; any proposal explicitly marked for LOCK becomes LOCKED. PROCEED does not commit or push.
+- **PROCEED** — approve exactly the explicit `PROPOSED FOR PROCEED` set shown in the latest ZASS mapping. Unlisted items are excluded; proposals marked for LOCK become LOCKED. PROCEED does not commit or push.
 - **COMMIT** — after approval, commit and push the approved project-file changes atomically and report the real commit SHA.
 - **DRAFT ARCH** — prepare/revise a working architecture draft from authoritative state; does not confirm architecture.
 - **BUILD ARCHITECTURE** — run the confirmation gate; if READY, request exact owner response **YA, CONFIRM ARCHITECTURE**.
@@ -1084,7 +1228,7 @@ This remains a candidate audit surface, not a build plan.
 
 Do not refactor OpsMate directly into Kerani. Treat OpsMate BSE as a proven reference implementation and test the route:
 
-**OpsMate BSE → evidence baseline → actual behaviour map → reuse matrix → contracts → Core SuperBasic → Kebun module → integration → reproduction test**
+**OpsMate BSE → evidence baseline → actual behaviour map → reuse matrix → contracts → Core SuperBasic → Agro module → integration → reproduction test**
 
 Target:
 
@@ -1095,11 +1239,11 @@ Target:
 | Classification | Meaning | Typical destination |
 |---|---|---|
 | GENERIC | Meaningful without farm/business domain. | Core candidate |
-| KEBUN-GENERIC | Reusable agriculture-domain behaviour, not generic infrastructure. | Kerani Kebun candidate |
+| AGRO-GENERIC | Reusable agriculture-domain behaviour across crops, aquaculture or livestock, not generic infrastructure. | Kerani Agro candidate |
 | OPSMATE/BSE-SPECIFIC | Tied to BSE/site/plot convention/columns/history. | Config, reproduction fixture or PARK |
 | UNCERTAIN | Evidence is insufficient. | Remain in reference implementation; create Q/R/E |
 
-Quick heuristic: if removing the word **kebun** leaves the function meaningful, it may be a Core candidate. If its meaning depends on agriculture but not BSE, it may be a Kebun candidate. This heuristic does not replace evidence.
+Quick heuristic: if removing the agriculture context leaves the behaviour meaningful, it may be a Core candidate. If its meaning depends on agriculture but not BSE, it may be an Agro candidate. This heuristic does not replace evidence.
 
 ## Contract questions
 
@@ -1120,8 +1264,8 @@ This sequence is a candidate plan, not a LOCKED decision:
 3. Build reuse matrix.
 4. Define behaviour contracts.
 5. Extract and test Core SuperBasic alone.
-6. Build Kerani Kebun from KEBUN-GENERIC findings.
-7. Integrate Core + Kebun + BSE test configuration + adapter.
+6. Build Kerani Agro from AGRO-GENERIC findings.
+7. Integrate Core + Agro + BSE test configuration + adapter.
 8. Run E-006 OpsMate reproduction test.
 9. Run ZASS review before any architecture boundary becomes DECIDED or LOCKED.
 
@@ -1145,6 +1289,17 @@ Until then, this remains an extraction proof project, not a framework claim.
 ---
 
 # PROJECT ZASS CHANGELOG
+
+## 2026-10-01 — SuperBasic product scope LOCK + ZASS v0.3.6 alignment
+
+- LOCKED D-010/L-005: five generic record families — Purchase, Sale, Inventory, Observation and Task — with receipt capture as an input capability and no dedicated self-hosted-server requirement.
+- LOCKED D-011/L-006: exactly three planned domain modules — Agro, Servis Teknikal and Makanan & Tempahan; Agro replaces the narrower reusable-domain name Kebun.
+- LOCKED D-012/L-007: no additional domain modules in current SuperBasic scope; module simplicity and anti-spaghetti are explicit stop rules.
+- LOCKED D-013/L-008: full natural-language conversation is Kerani AI Premium and must not be required for basic SuperBasic operation.
+- LOCKED D-014/L-009: OpsMate remains the primary evidence source; reusable mechanisms feed Core, agriculture behaviour feeds Agro, and BSE-specific assumptions remain outside generic Core.
+- Updated the project method baseline from ZASS v0.3.2 to v0.3.6 semantics.
+- Added Evidence Confidence = LOW while ZERO → ARCHITECTURE remains 63% — DECIDING.
+- No architecture candidate was promoted or confirmed.
 
 ## 2026-09-29 — Near-term evidence-harvesting plan
 
@@ -1178,8 +1333,9 @@ Until then, this remains an extraction proof project, not a framework claim.
 
 # CURRENT ZASS FOOTER STATE
 
-[🧠 ZASS!!] -- [▶️ PROCEED] -- [🔄 PIVOT] -- [🅿️ PARK] -- [📦 COMMIT]
+[🧠 ZASS!!] -- [▶️ PROCEED] -- [🔄 PIVOT] -- [📦 COMMIT]
 
 🏗️ ZERO → ARCHITECTURE: [██████░░░░] 63% — DECIDING
+🔬 EVIDENCE CONFIDENCE: LOW — direct OpsMate evidence exists, but broader workflow/module validation remains incomplete.
 
-✅ ZASS UP TO DATE — v0.3.2
+✅ ZASS UP TO DATE — v0.3.6
