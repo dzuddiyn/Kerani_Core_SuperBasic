@@ -24,6 +24,8 @@
 - Do not redesign OpsMate during extraction work.
 - Respect the LOCKED product boundary: Core = Purchase / Sale / Inventory / Observation / Task + receipt capture; planned modules = Agro / Servis Teknikal / Makanan & Tempahan only.
 - Keep full natural-language conversation in Kerani AI Premium; do not make it a SuperBasic dependency.
+- SuperBasic constrained natural-language intake is allowed only as: intent suggestion → candidate/confidence → clarification if needed → preview → human confirmation → deterministic domain validation → authoritative record.
+- Treat ambiguous input as a clarification test case; never reward the agent for guessing.
 - Reject module work that creates special-case branching or Apps Script spaghetti.
 - Do not treat source-file layout as architecture.
 - Do not invent Core abstractions merely to create a skeleton.
@@ -42,7 +44,7 @@
 |---|---|---|---|---|---|
 | **10 Oct** | Freeze OpsMate reference baseline | NEXT | Read repo state; collect commit SHA, relevant tests, known limitations and selected stable workflows. Draft reference metadata. | Confirm the freeze point and selected workflow scope. | Exact frozen commit + stable workflow list + limitations recorded. |
 | **10 Oct** | Capture pilot findings | NEXT | Structure rough notes without inventing facts. Separate bug / observed gap / new requirement. | Supply actual pilot observations. | Pilot findings ledger exists; unresolved items are visible. |
-| **11 Oct** | Build 3–5 Behaviour Maps | OPEN | Trace actual runtime end-to-end from frozen repo: entry point, route, queue, AI, guard, validation, approval, persistence and response. | Verify maps match observed behaviour. | 3–5 evidence-backed maps covering different workflow families. |
+| **11 Oct** | Build 3–5 Behaviour Maps | OPEN | Trace actual runtime end-to-end from frozen repo: entry point, route, queue, AI, guard, validation, approval, persistence and response. Include at least one free-text mutation/clarification path if supported by the frozen evidence. | Verify maps match observed behaviour. | 3–5 evidence-backed maps covering different workflow families, including constrained-NL behaviour where evidence exists. |
 | **12 Oct** | Build reuse matrix | OPEN | Classify small behaviours as GENERIC / AGRO-GENERIC / OPSMATE-BSE-SPECIFIC / UNCERTAIN with code/test evidence. | Challenge classifications that appear too generic. | Evidence-backed reuse matrix; no whole-file classification shortcuts. |
 | **13 Oct** | Extract candidate contracts | OPEN | Compare maps, identify repeated behaviour contracts and unresolved boundaries. | Accept/reject interpretations; do not LOCK architecture merely from repetition. | Candidate Request / Route / Candidate / Validation / Decision / Result / Event contracts documented. |
 | **14 Oct** | Prepare minimal repository skeleton | OPEN | Create only evidence-justified folders/files, agent instructions and fixtures. Avoid framework code. | Review diff and reject speculative abstractions. | Minimal skeleton exists without fake maturity or domain leakage. |
@@ -81,6 +83,7 @@ Minimum useful outcome:
 - 3–5 Behaviour Maps from materially different workflows;
 - evidence-backed four-way reuse matrix;
 - candidate behavioural contracts;
+- constrained-NL evidence cases covering clear intent, ambiguous intent and incorrect/misrouted suggestion where available;
 - explicit unresolved questions/risks;
 - minimal repository skeleton and AI-agent instructions if time permits;
 - optional small contract fixture/test only if it follows evidence already collected;

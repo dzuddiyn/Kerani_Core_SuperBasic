@@ -98,6 +98,7 @@ The statements above are inherited from the existing project SoT. They are proje
 10. Keep the SuperBasic core useful for micro-SME operations through five generic record families: **Purchase, Sale, Inventory, Observation and Task**, with receipt capture as an input capability.
 11. Demonstrate the generic core across exactly three planned domain modules: **Agro, Servis Teknikal, and Makanan & Tempahan**.
 12. Keep full natural-language conversation outside SuperBasic as a premium Kerani AI capability so basic operation does not depend on premium model usage.
+13. Support **minimum constrained natural-language intake** in SuperBasic so users can type ordinary short operational sentences while preserving deterministic validation and human authority before any authoritative record is written.
 
 ---
 
@@ -111,7 +112,7 @@ The statements above are inherited from the existing project SoT. They are proje
 - A fully autonomous agent with unrestricted access to business systems.
 - A broad platform designed from speculation.
 - Additional domain modules beyond **Agro, Servis Teknikal, and Makanan & Tempahan** within the current SuperBasic scope.
-- Full premium natural-language conversation as a mandatory SuperBasic capability.
+- Full premium natural-language conversation as a mandatory SuperBasic capability; constrained natural-language intake for intent suggestion and candidate extraction remains in scope.
 - Requiring a dedicated self-hosted server for the SuperBasic baseline.
 - Locking a final architecture before extraction evidence exists.
 
@@ -123,7 +124,8 @@ The statements above are inherited from the existing project SoT. They are proje
 
 - Prefer a small, maintainable stack suitable for a single maintainer.
 - Avoid abstraction that is not justified by at least two demonstrated uses.
-- Control paid AI/API-credit usage; ordinary SuperBasic record operations must not require premium natural-language processing.
+- Control paid AI/API-credit usage; ordinary SuperBasic record operations must not require premium conversational processing.
+- Minimum natural-language intake should use the smallest practical model/prompt path and must fall back to clarification rather than consume extra reasoning to guess intent.
 - Keep the Apps Script implementation modular enough that new domain behaviour does not collapse into special-case branching or spaghetti code.
 
 ## Initial Runtime
@@ -157,6 +159,7 @@ These are initial implementation constraints, not proof that the final reusable 
 - **Servis Teknikal** covers small technical-service operations such as workshop/repair, domestic electrical wiring, computers, air-conditioning and similar technician jobs.
 - **Makanan & Tempahan** covers food stalls/warung/burger operations together with small bakery, made-to-order food and small catering.
 - Additional modules are outside the current SuperBasic scope unless the owner later creates a new explicit decision.
+- Natural-language interpretation may suggest routing into Core or a domain module, but the target module's deterministic guard/validator remains authoritative for fields and business rules.
 
 ## Evidence Constraint
 
@@ -226,6 +229,7 @@ Nothing in this section is automatically approved.
 | R-007 | Public stack is confusing or unsafe | Users deploy incorrect defaults or misunderstand scope. | Clear scope, examples, threat notes and versioning. | OPEN | Documentation implies production safety that has not been tested. |
 | R-008 | Architectural drift | Implementation silently overrides project decisions. | This ZASS file remains authoritative; use change control. | OPEN | Code or docs contradict an L-xxx record. |
 | R-009 | Linear pipeline over-generalisation | Read/query requests are forced through queue, AI or human approval even when unnecessary. | Classify request behaviour before selecting an execution path; test direct/read and stateful/mutation paths separately. | OPEN | Commands such as report/history/lookup/status begin requiring LLM or approval without evidence that they need it. |
+| R-010 | Overconfident natural-language routing | AI guesses an intent/category or fields and causes the wrong record type or wrong business meaning to reach persistence. | AI may only suggest intent/candidate; low/ambiguous confidence must trigger clarification; require human confirmation and deterministic domain validation before authoritative write. | OPEN | Ambiguous free text is silently converted into a saved record or a domain writer receives unconfirmed/unvalidated AI output. |
 
 ---
 
@@ -361,6 +365,7 @@ Request Router
 
 **Key characteristics:**
 - channel boundary before business logic;
+- constrained free-text mutation requests may pass through an intent-suggestion/candidate stage before module dispatch, but D-015 does not by itself LOCK where that router is implemented;
 - request routing is explicit and its ownership remains unresolved (Q-015);
 - Durable Inbox appears relevant to stateful/mutation workflows but is not yet proven as universal (Q-016);
 - Core performs generic orchestration;
@@ -605,6 +610,58 @@ No second genuine architecture candidate has yet been recorded. Do not invent AC
 
 ---
 
+## D-015 — Minimum constrained natural-language intake
+
+**Status:** LOCKED  
+**Owner approval:** 2026-10-01
+
+**Decision:** Kerani_Core_SuperBasic supports a **minimum constrained natural-language intake** for short operational free text. AI is allowed to:
+1. suggest the user's likely intent/category;
+2. extract a structured candidate;
+3. provide a confidence/ambiguity signal.
+
+AI is **not** allowed to decide or persist the authoritative record by itself.
+
+**Required behaviour:**
+
+~~~text
+FREE TEXT
+   ↓
+INTENT SUGGESTION
+   ↓
+candidate category + confidence
+   │
+   ├── sufficiently clear
+   │       ↓
+   │   candidate preview
+   │
+   └── ambiguous / low confidence
+           ↓
+      ask category / clarification
+           ↓
+      candidate preview
+           ↓
+ [Benar] [Betulkan] [Buang]
+           ↓
+ deterministic domain guard / validator
+           ↓
+ authoritative structured record
+~~~
+
+**Safety rule:** Low or ambiguous confidence produces a question, not an AI guess.
+
+**Authority rule:** Human confirmation and deterministic domain validation are mandatory before an AI-interpreted mutation becomes authoritative.
+
+**Two-stage interpretation:** Prefer a small intent-routing step (“what is the user trying to do?”) followed by the relevant Core/domain parser (“what fields are required?”), instead of one monolithic prompt that attempts every domain simultaneously.
+
+**Premium boundary:** This does not change D-013. Open-ended conversation, long-context reasoning and rich assistant behaviour remain Kerani AI Premium.
+
+**Reason:** Give SuperBasic practical natural-language convenience without allowing probabilistic interpretation to silently corrupt business records or inflate premium AI-credit usage.
+
+**Related risk:** R-010.
+
+---
+
 # 13. LOCKED DECISIONS
 
 This section is authoritative. Architecture and implementation must not contradict these records.
@@ -681,6 +738,14 @@ This section is authoritative. Architecture and implementation must not contradi
 **Date:** 2026-10-01  
 **Supersedes:** None
 
+## L-010
+
+**Source Decision:** D-015  
+**Decision:** SuperBasic includes constrained natural-language intake using intent suggestion + candidate extraction + confidence, with clarification for ambiguity, explicit human confirmation and deterministic domain validation before any authoritative AI-interpreted write.  
+**Locked by:** Project Owner  
+**Date:** 2026-10-01  
+**Supersedes:** None; clarifies the boundary in D-013/L-008.
+
 ---
 
 # 14. REJECTED IDEAS
@@ -721,6 +786,7 @@ Architecture freeze is blocked by the following:
 - [ ] Prove Core can run a non-farm module.
 - [ ] Determine the boundary between generic validation and domain validation.
 - [ ] Test parser/provider substitution behind a stable contract.
+- [ ] Validate D-015 with clear, ambiguous and misrouted free-text cases: AI suggestion → clarification/preview → human confirmation → deterministic domain validation → authoritative record.
 - [ ] Run the OpsMate reproduction test.
 - [ ] Complete public-release safety review before any open release.
 - [ ] Resolve or deliberately defer critical architecture questions before confirmation.
@@ -1058,7 +1124,7 @@ A DRAFT ARCH may be proposed only after readiness reaches at least 70%. Architec
 
 **Evidence Confidence:** **LOW**
 
-**Reason:** Direct OpsMate evidence exists for one mapped workflow family and its runtime verification, but the frozen reference package, broader workflow coverage, module-contract proof, non-Agro proof and reproduction test are still incomplete. Product-scope decisions are clear, but empirical coverage of the critical architecture assumptions remains limited.
+**Reason:** Direct OpsMate evidence exists for one mapped workflow family and its runtime verification, but the frozen reference package, broader workflow coverage, module-contract proof, non-Agro proof, constrained-NL edge-case validation and reproduction test are still incomplete. Product-scope decisions are clear, but empirical coverage of the critical architecture assumptions remains limited.
 
 ---
 
@@ -1289,6 +1355,17 @@ Until then, this remains an extraction proof project, not a framework claim.
 ---
 
 # PROJECT ZASS CHANGELOG
+
+## 2026-10-01 — Minimum constrained natural-language intake LOCK
+
+- LOCKED D-015/L-010: SuperBasic includes minimum constrained natural-language intake.
+- AI authority is limited to intent suggestion, candidate extraction and confidence/ambiguity signalling.
+- Ambiguous or low-confidence input must trigger category selection/clarification rather than guessing.
+- AI-interpreted mutations require candidate preview, explicit human confirmation and deterministic Core/domain validation before authoritative persistence.
+- Preserved D-013/L-008: rich/open-ended natural-language conversation remains Kerani AI Premium.
+- Added R-010 for overconfident natural-language routing.
+- Refined AC-005 only as a candidate to acknowledge an intent-suggestion stage without locking router ownership.
+- ZASS baseline remains v0.3.6; ZERO → ARCHITECTURE remains 63% and Evidence Confidence remains LOW because no new runtime validation evidence was added.
 
 ## 2026-10-01 — SuperBasic product scope LOCK + ZASS v0.3.6 alignment
 
