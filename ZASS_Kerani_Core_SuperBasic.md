@@ -102,6 +102,7 @@ The statements above are inherited from the existing project SoT. They are proje
 14. Keep the free Core genuinely useful on its own: basic receipt capture, purchase/sale/inventory records, operational observations/notes, tasks, basic retrieval/reporting and summary of operational logs.
 15. Monetise higher-value intelligence and domain automation through explicit Credit Pass / pay-per-capability rather than making a recurring subscription the primary access model.
 16. Keep user business/operational data portable; paid value comes from convenience, domain intelligence, automation, traceability and ready-formatted outputs rather than artificial data lock-in.
+17. Position SuperBasic for broad micro-SME adoption through a **free-but-genuinely-useful** product experience, then use pilot evidence/testimonials to support growth while keeping the free/premium boundary explicit.
 
 ---
 
@@ -238,6 +239,7 @@ Nothing in this section is automatically approved.
 | R-008 | Architectural drift | Implementation silently overrides project decisions. | This ZASS file remains authoritative; use change control. | OPEN | Code or docs contradict an L-xxx record. |
 | R-009 | Linear pipeline over-generalisation | Read/query requests are forced through queue, AI or human approval even when unnecessary. | Classify request behaviour before selecting an execution path; test direct/read and stateful/mutation paths separately. | OPEN | Commands such as report/history/lookup/status begin requiring LLM or approval without evidence that they need it. |
 | R-010 | Overconfident natural-language routing | AI guesses an intent/category or fields and causes the wrong record type or wrong business meaning to reach persistence. | AI may only suggest intent/candidate; low/ambiguous confidence must trigger clarification; require human confirmation and deterministic domain validation before authoritative write. | OPEN | Ambiguous free text is silently converted into a saved record or a domain writer receives unconfirmed/unvalidated AI output. |
+| R-011 | Free/premium boundary becomes manipulative or confusing | Free product feels crippled, users do not trust feature gates, or growth messaging over-promises business outcomes. | Keep Free Core independently useful; explain premium value/cost explicitly; validate messaging with pilot users/testimonials; avoid guaranteed-outcome claims. | OPEN | Basic record/retrieval workflows become paywalled, premium prompts appear before value is demonstrated, or marketing implies guaranteed grants/certification/financing. |
 
 ---
 
@@ -748,6 +750,33 @@ Required rules:
 
 ---
 
+## D-020 — Free-first product/growth principle
+
+**Status:** LOCKED  
+**Owner approval:** 2026-10-06
+
+**Decision:** Kerani_Core_SuperBasic should be positioned for broad micro-SME adoption using a **free-but-genuinely-useful** product as the primary acquisition hook.
+
+The product/growth principle is:
+
+> **Free must solve a real basic operational-record problem on its own; premium must clearly add higher-order intelligence, domain capability or automation.**
+
+**Required growth behaviour:**
+- public messaging should lead with practical usefulness and the fact that the basic product is free;
+- the free tier must not be an intentionally crippled demo;
+- the boundary between free/basic and premium/credit capabilities must be visible and understandable;
+- when a premium capability is requested, explain what extra value it provides and what it costs instead of hiding the feature or returning an opaque error;
+- growth claims must not promise guaranteed grants, certification, financing or business outcomes; Kerani may state that structured records can improve readiness for applications, reporting and evidence requirements;
+- meaningful growth push should follow pilot evidence and real user feedback/testimonials rather than relying only on speculative marketing claims.
+
+**Growth intent:** after pilot validation, use short-form demonstrations, testimonials and relevant micro-SME communities/channels to show how basic record discipline can help small businesses become more data-ready.
+
+**Not locked by this decision:** exact viral campaign, platform mix, Marketplace eligibility/tactics, ad spend, creator strategy, copy variants, launch timing or KPI targets. These must be reviewed later against platform policy, pilot evidence and actual conversion behaviour.
+
+**Reason:** The intended advantage is not to hide useful basics behind payment, but to make record-keeping accessible enough that micro-SMEs can start building structured business/operational history; paid capability becomes valuable when users later want more intelligence, forecasting, domain workflows or formal outputs.
+
+---
+
 # 13. LOCKED DECISIONS
 
 This section is authoritative. Architecture and implementation must not contradict these records.
@@ -856,6 +885,14 @@ This section is authoritative. Architecture and implementation must not contradi
 **Date:** 2026-10-06  
 **Supersedes:** None
 
+## L-014
+
+**Source Decision:** D-020  
+**Decision:** SuperBasic growth is free-first: the free product must solve a real basic record-keeping problem, premium must add clearly explained higher-order value, and major public growth should be driven by pilot evidence/testimonials rather than by crippling the free tier or overstating outcomes.  
+**Locked by:** Project Owner  
+**Date:** 2026-10-06  
+**Supersedes:** None
+
 ---
 
 # 14. REJECTED IDEAS
@@ -880,6 +917,7 @@ No project idea is newly marked REJECTED by this migration.
 | E-005 | Public-release review | Stack is not yet proven or publication-ready. | Reuse proof is complete. |
 | E-006 | OpsMate reproduction test | New composition does not yet exist. | Core + Agro + BSE test config + adapter can be integrated. |
 | D-019 | Exact Credit Pass values / commercial calibration | Unit economics and representative workloads are not yet validated. | Stable capability boundaries + measured provider/API costs and workload tests. |
+| D-020-T | Growth-channel tactics and viral campaign design | The principle is locked, but platform fit, policy, conversion behaviour and testimonial quality require real pilot evidence. | Pilot complete + usable testimonials + platform-policy review + launch readiness. |
 
 ---
 
@@ -903,6 +941,7 @@ Architecture freeze is blocked by the following:
 - [ ] Resolve or deliberately defer critical architecture questions before confirmation.
 - [ ] After SuperBasic architecture is available, cross-audit it against the existing Kerani Core discussions/designs and adopt only capabilities that remain lightweight, generic and maintainable.
 - [ ] Before locking Credit Pass prices, measure representative AI/OCR/document/forecast workloads and derive unit economics; do not infer prices from token cost alone.
+- [ ] After pilot, review the free/premium boundary with real users and testimonials before public growth push; then decide channel mix, launch copy and viral tactics.
 
 ---
 
@@ -1486,6 +1525,16 @@ Until then, this remains an extraction proof project, not a framework claim.
 ---
 
 # PROJECT ZASS CHANGELOG
+
+## 2026-10-06 — Free-first product/growth principle LOCK
+
+- LOCKED D-020/L-014: SuperBasic growth is built around a **free-but-genuinely-useful** product, not a crippled demo.
+- LOCKED the messaging boundary: free/basic solves real record-keeping and basic retrieval needs; premium/credit adds higher-order intelligence, domain capability and automation.
+- LOCKED explicit premium communication: gated features must explain additional value/cost rather than disappear or fail opaquely.
+- LOCKED evidence-led growth: major public push follows pilot evidence and authentic user feedback/testimonials.
+- Added R-011 for manipulative/confusing free-premium boundaries and over-promised outcome claims.
+- Deferred exact viral campaign, platform mix, Marketplace tactics, ad spend, copy variants, launch timing and KPI targets until post-pilot review.
+- ZERO → ARCHITECTURE remains 63% and Evidence Confidence remains LOW; this is a product/growth principle, not runtime architecture evidence.
 
 ## 2026-10-06 — Free Core + Credit Pass product model LOCK
 

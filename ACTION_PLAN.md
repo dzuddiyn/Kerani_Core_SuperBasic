@@ -150,3 +150,16 @@ After a SuperBasic architecture is available:
 3. Adopt only capabilities that are demonstrably lightweight, generic and maintainable.
 4. Reject or defer anything that adds unnecessary infrastructure, duplicated semantics or Apps Script spaghetti.
 5. Only after capability boundaries are stable, evaluate Credit Pass unit economics and candidate prices.
+
+## POST-PILOT GROWTH REVIEW
+
+Do not design the full viral campaign before product proof.
+
+After pilot completion and usable testimonials:
+
+1. Review whether users experience Free Core as genuinely useful rather than a crippled demo.
+2. Verify the free/premium boundary is understandable in real usage.
+3. Collect authentic demonstrations/testimonials that can support public claims.
+4. Review platform rules and suitability before choosing TikTok, Facebook Marketplace, Facebook groups/pages or other channels.
+5. Choose launch messaging around practical micro-SME record discipline and data readiness; do not promise guaranteed grants, certification, financing or business outcomes.
+6. Keep exact campaign, spend, copy, KPI and channel mix outside current architecture authority until this review.
