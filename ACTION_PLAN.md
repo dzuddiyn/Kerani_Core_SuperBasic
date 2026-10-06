@@ -23,6 +23,11 @@
 
 - Do not redesign OpsMate during extraction work.
 - Respect the LOCKED product boundary: Core = Purchase / Sale / Inventory / Observation / Task + receipt capture; planned modules = Agro / Servis Teknikal / Makanan & Tempahan only.
+- Free Core must remain independently useful for basic records, basic retrieval/reporting and operational-log summary; premium gates must explain what extra intelligence/automation requires credits.
+- Treat Credit Pass/pay-per-capability as the current paid model direction; do not assume a mandatory subscription.
+- Do not hard-code candidate credit values yet; 5/10/20/100 examples remain deferred until unit economics are measured.
+- Preserve user data portability; do not create artificial export/data-access restrictions to enforce monetisation.
+- Do not mark a charged capability as successfully consumed when execution fails.
 - Keep full natural-language conversation in Kerani AI Premium; do not make it a SuperBasic dependency.
 - SuperBasic constrained natural-language intake is allowed only as: intent suggestion → candidate/confidence → clarification if needed → preview → human confirmation → deterministic domain validation → authoritative record.
 - Treat ambiguous input as a clarification test case; never reward the agent for guessing.
@@ -135,3 +140,13 @@ Restart trigger:
 `Owner explicitly restarts build with suitable local agentic-coding resources.`
 
 The first restart session should consume the frozen evidence package rather than re-reading OpsMate from zero.
+
+## POST-ARCHITECTURE DEPENDENCY
+
+After a SuperBasic architecture is available:
+
+1. Cross-audit it against the earlier Kerani Core work/discussions.
+2. Build a small comparison/reuse matrix.
+3. Adopt only capabilities that are demonstrably lightweight, generic and maintainable.
+4. Reject or defer anything that adds unnecessary infrastructure, duplicated semantics or Apps Script spaghetti.
+5. Only after capability boundaries are stable, evaluate Credit Pass unit economics and candidate prices.

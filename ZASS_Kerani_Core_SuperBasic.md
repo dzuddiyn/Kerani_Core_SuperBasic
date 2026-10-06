@@ -3,7 +3,7 @@
 **ZASS baseline:** v0.3.6  
 **Project status:** DECIDING — evidence harvesting planned; substantive Core build parked  
 **Owner:** Project Owner  
-**Updated:** 2026-10-01  
+**Updated:** 2026-10-06  
 **Repository:** dzuddiyn/Kerani_Core_SuperBasic  
 **Project Source of Truth:** this file  
 **Method baseline:** https://github.com/dzuddiyn/ZASS-Zero-to-Architecture-Structured-Sprint/blob/main/ZASS.md
@@ -99,6 +99,9 @@ The statements above are inherited from the existing project SoT. They are proje
 11. Demonstrate the generic core across exactly three planned domain modules: **Agro, Servis Teknikal, and Makanan & Tempahan**.
 12. Keep full natural-language conversation outside SuperBasic as a premium Kerani AI capability so basic operation does not depend on premium model usage.
 13. Support **minimum constrained natural-language intake** in SuperBasic so users can type ordinary short operational sentences while preserving deterministic validation and human authority before any authoritative record is written.
+14. Keep the free Core genuinely useful on its own: basic receipt capture, purchase/sale/inventory records, operational observations/notes, tasks, basic retrieval/reporting and summary of operational logs.
+15. Monetise higher-value intelligence and domain automation through explicit Credit Pass / pay-per-capability rather than making a recurring subscription the primary access model.
+16. Keep user business/operational data portable; paid value comes from convenience, domain intelligence, automation, traceability and ready-formatted outputs rather than artificial data lock-in.
 
 ---
 
@@ -115,6 +118,8 @@ The statements above are inherited from the existing project SoT. They are proje
 - Full premium natural-language conversation as a mandatory SuperBasic capability; constrained natural-language intake for intent suggestion and candidate extraction remains in scope.
 - Requiring a dedicated self-hosted server for the SuperBasic baseline.
 - Locking a final architecture before extraction evidence exists.
+- Artificially restricting export/access to user data in order to force purchase of premium intelligence.
+- Making recurring subscription the primary monetisation requirement for current SuperBasic scope.
 
 ---
 
@@ -127,6 +132,9 @@ The statements above are inherited from the existing project SoT. They are proje
 - Control paid AI/API-credit usage; ordinary SuperBasic record operations must not require premium conversational processing.
 - Minimum natural-language intake should use the smallest practical model/prompt path and must fall back to clarification rather than consume extra reasoning to guess intent.
 - Keep the Apps Script implementation modular enough that new domain behaviour does not collapse into special-case branching or spaghetti code.
+- Free/basic capability and metered/premium capability must be distinguishable by capability/entitlement policy rather than scattered feature-specific conditionals.
+- Premium capability must disclose its credit cost before execution when a charge applies.
+- Failed provider/system execution must not be treated as a successfully consumed paid service.
 
 ## Initial Runtime
 
@@ -662,6 +670,84 @@ candidate category + confidence
 
 ---
 
+## D-016 — Free Core and premium intelligence boundary
+
+**Status:** LOCKED  
+**Owner approval:** 2026-10-06
+
+**Decision:** Kerani_Core_SuperBasic must remain a genuinely useful free product. The free baseline includes:
+- basic receipt capture/extraction where available;
+- Purchase, Sale and basic Inventory records;
+- Observation / operational note capture;
+- Task;
+- basic record retrieval and basic business reports;
+- summary/retrieval of operational logs.
+
+Free Core may summarize what is already recorded, but it does **not** need to perform higher-order correlation, causality, forecasting or domain intelligence across business and operational data.
+
+When a user requests a capability outside the free boundary, the product must respond explicitly that the requested analysis/automation is a premium capability and offer the relevant paid action; it must not silently fail, hang, or return a generic error merely because the feature is gated.
+
+**Premium candidates include:** forecasting, cross-data intelligence, deeper domain analysis, advanced natural-language reasoning, government/domain document generation, and richer automation.
+
+**Reason:** Keep the generic Core independently useful while making paid value come from additional intelligence and automation rather than from basic access to the user's own records.
+
+---
+
+## D-017 — Credit Pass / pay-per-capability model
+
+**Status:** LOCKED  
+**Owner approval:** 2026-10-06
+
+**Decision:** The current primary monetisation direction is **not a mandatory recurring subscription**. Paid capabilities are metered using **Credit Pass / pay-per-capability**.
+
+Required rules:
+- show the credit cost before executing a charged capability;
+- allow domain modules to expose metered premium capabilities;
+- a domain-module onboarding/allowance model may exist, but its exact commercial structure and quota values remain deferred;
+- when included/free allowance is exhausted, additional usage may consume Credit Pass;
+- a provider/system failure must not be recorded as a successfully delivered paid capability.
+
+**Reason:** Align payment with actual higher-cost/higher-value usage, keep the free Core accessible, and retain flexibility across AI providers whose cost structures may change.
+
+**Deferred:** exact credit prices, monthly allowances, onboarding cost and credit-to-currency economics.
+
+---
+
+## D-018 — Data portability and no artificial lock-in
+
+**Status:** LOCKED  
+**Owner approval:** 2026-10-06
+
+**Decision:** Kerani must not depend on artificial data lock-in as its monetisation mechanism. Users may access/export their own stored data and may analyse it independently using ordinary tools or external AI applications.
+
+**Paid value proposition:** convenience, structured workflow, domain contracts, forecasting/intelligence, automation, traceability, and ready-formatted outputs.
+
+**Reason:** A technically capable user being able to export a file and analyse it elsewhere is acceptable; Kerani should win on workflow quality and domain capability rather than blocking access to user data.
+
+---
+
+## D-019 — Credit values and commercial calibration
+
+**Status:** DEFERRED  
+**Owner approval:** 2026-10-06
+
+**Candidate examples discussed — NOT LOCKED pricing:**
+
+| Capability | Candidate credit value |
+|---|---:|
+| Forecast / advanced analysis | 5 credits |
+| Richer domain/service forecast or analysis | 10 credits |
+| Domain/module onboarding | 100 credits |
+| MyGAP-style report generation | 20 credits |
+
+**Decision:** Exact credit values are not approved yet.
+
+**Before pricing is locked, evaluate:** actual model/API cost, number of calls/retries, provider failure rate, document-generation cost, operational overhead, value to user, included allowance, and safety margin.
+
+**Revisit trigger:** SuperBasic architecture is stable enough to identify capability boundaries and representative workloads can be costed/tested.
+
+---
+
 # 13. LOCKED DECISIONS
 
 This section is authoritative. Architecture and implementation must not contradict these records.
@@ -746,6 +832,30 @@ This section is authoritative. Architecture and implementation must not contradi
 **Date:** 2026-10-01  
 **Supersedes:** None; clarifies the boundary in D-013/L-008.
 
+## L-011
+
+**Source Decision:** D-016  
+**Decision:** Free Core remains independently useful for basic records, receipt capture where available, retrieval/basic reporting and operational-log summary; higher-order correlation, forecasting, domain intelligence and advanced automation may be premium, and gated requests must be explained explicitly rather than silently failing.  
+**Locked by:** Project Owner  
+**Date:** 2026-10-06  
+**Supersedes:** None
+
+## L-012
+
+**Source Decision:** D-017  
+**Decision:** The primary paid model is Credit Pass / pay-per-capability rather than mandatory recurring subscription; charged capability cost is shown before execution, and failed delivery is not treated as a successful paid service.  
+**Locked by:** Project Owner  
+**Date:** 2026-10-06  
+**Supersedes:** None
+
+## L-013
+
+**Source Decision:** D-018  
+**Decision:** User data remains accessible/exportable; Kerani does not use artificial data lock-in to force premium purchase. Paid value comes from workflow, domain intelligence, automation, traceability and ready-formatted outputs.  
+**Locked by:** Project Owner  
+**Date:** 2026-10-06  
+**Supersedes:** None
+
 ---
 
 # 14. REJECTED IDEAS
@@ -769,6 +879,7 @@ No project idea is newly marked REJECTED by this migration.
 | E-004 | Build a second tiny application | Core reuse contract not yet proven. | E-003 passes. |
 | E-005 | Public-release review | Stack is not yet proven or publication-ready. | Reuse proof is complete. |
 | E-006 | OpsMate reproduction test | New composition does not yet exist. | Core + Agro + BSE test config + adapter can be integrated. |
+| D-019 | Exact Credit Pass values / commercial calibration | Unit economics and representative workloads are not yet validated. | Stable capability boundaries + measured provider/API costs and workload tests. |
 
 ---
 
@@ -790,6 +901,8 @@ Architecture freeze is blocked by the following:
 - [ ] Run the OpsMate reproduction test.
 - [ ] Complete public-release safety review before any open release.
 - [ ] Resolve or deliberately defer critical architecture questions before confirmation.
+- [ ] After SuperBasic architecture is available, cross-audit it against the existing Kerani Core discussions/designs and adopt only capabilities that remain lightweight, generic and maintainable.
+- [ ] Before locking Credit Pass prices, measure representative AI/OCR/document/forecast workloads and derive unit economics; do not infer prices from token cost alone.
 
 ---
 
@@ -1124,7 +1237,7 @@ A DRAFT ARCH may be proposed only after readiness reaches at least 70%. Architec
 
 **Evidence Confidence:** **LOW**
 
-**Reason:** Direct OpsMate evidence exists for one mapped workflow family and its runtime verification, but the frozen reference package, broader workflow coverage, module-contract proof, non-Agro proof, constrained-NL edge-case validation and reproduction test are still incomplete. Product-scope decisions are clear, but empirical coverage of the critical architecture assumptions remains limited.
+**Reason:** Direct OpsMate evidence exists for one mapped workflow family and its runtime verification, but the frozen reference package, broader workflow coverage, module-contract proof, non-Agro proof, constrained-NL edge-case validation and reproduction test are still incomplete. Product and monetisation boundaries are clearer, but Credit Pass unit economics and scale/provider behaviour are not yet empirically validated.
 
 ---
 
@@ -1373,6 +1486,17 @@ Until then, this remains an extraction proof project, not a framework claim.
 ---
 
 # PROJECT ZASS CHANGELOG
+
+## 2026-10-06 — Free Core + Credit Pass product model LOCK
+
+- LOCKED D-016/L-011: Free Core must remain useful standalone for basic records, receipt capture where available, basic retrieval/reporting and operational-log summary; higher-order intelligence/forecasting/domain automation may be premium.
+- LOCKED explicit premium-gate UX: gated requests must explain the premium capability rather than silently failing or returning an unrelated error.
+- LOCKED D-017/L-012: primary paid direction is Credit Pass / pay-per-capability rather than mandatory recurring subscription; credit cost is shown before charged execution.
+- LOCKED failed-delivery guardrail: provider/system failure is not treated as a successfully delivered paid capability.
+- LOCKED D-018/L-013: user data stays accessible/exportable and artificial data lock-in is not the business model.
+- DEFERRED D-019: exact values such as 5/10/20/100 credits, module allowance/onboarding pricing and credit economics require measured unit economics.
+- Added a post-architecture dependency: cross-audit SuperBasic against prior Kerani Core work and adopt only lightweight/generic/maintainable capabilities.
+- ZERO → ARCHITECTURE remains 63% and Evidence Confidence remains LOW; these product decisions do not substitute for runtime evidence.
 
 ## 2026-10-01 — ZASS SYSTEM UI/UX contract sync
 
