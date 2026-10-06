@@ -28,6 +28,8 @@
 - Do not hard-code candidate credit values yet; 5/10/20/100 examples remain deferred until unit economics are measured.
 - Preserve user data portability; do not create artificial export/data-access restrictions to enforce monetisation.
 - Do not mark a charged capability as successfully consumed when execution fails.
+- Premium features may be temporarily exposed as clearly labelled bounded demos; demo status must not blur permanent Free Core entitlement.
+- Treat OpsMate-grade domain-rule enforcement, structured review/approval workflows and organization-specific validation as premium/domain solution work that may require onboarding/interview and configuration, not as default Free Core scope.
 - Keep full natural-language conversation in Kerani AI Premium; do not make it a SuperBasic dependency.
 - SuperBasic constrained natural-language intake is allowed only as: intent suggestion → candidate/confidence → clarification if needed → preview → human confirmation → deterministic domain validation → authoritative record.
 - Treat ambiguous input as a clarification test case; never reward the agent for guessing.
@@ -149,7 +151,8 @@ After a SuperBasic architecture is available:
 2. Build a small comparison/reuse matrix.
 3. Adopt only capabilities that are demonstrably lightweight, generic and maintainable.
 4. Reject or defer anything that adds unnecessary infrastructure, duplicated semantics or Apps Script spaghetti.
-5. Only after capability boundaries are stable, evaluate Credit Pass unit economics and candidate prices.
+5. Build a product-candidate matrix for I-005 through I-012 using KEEP / TEST / DEFER / REJECT after the SuperBasic ↔ Kerani Core cross-audit.
+6. Only after capability boundaries are stable, evaluate Credit Pass unit economics and candidate prices.
 
 ## POST-PILOT GROWTH REVIEW
 
@@ -162,4 +165,17 @@ After pilot completion and usable testimonials:
 3. Collect authentic demonstrations/testimonials that can support public claims.
 4. Review platform rules and suitability before choosing TikTok, Facebook Marketplace, Facebook groups/pages or other channels.
 5. Choose launch messaging around practical micro-SME record discipline and data readiness; do not promise guaranteed grants, certification, financing or business outcomes.
-6. Keep exact campaign, spend, copy, KPI and channel mix outside current architecture authority until this review.
+6. Test one clearly labelled premium demo/trial and observe whether it improves understanding/conversion without confusing the Free Core boundary.
+7. Keep exact campaign, spend, copy, KPI and channel mix outside current architecture authority until this review.
+
+
+## PREMIUM DOMAIN ONBOARDING REVIEW
+
+Before implementing or selling an OpsMate-grade premium workflow:
+
+1. Capture the customer's real operating method, terminology, roles, record types and approval boundaries through a structured interview.
+2. Separate reusable runtime mechanisms from customer/domain-specific rules.
+3. Define the minimum domain contract and validation rules before coding.
+4. Estimate onboarding/configuration effort before pricing it.
+5. Keep onboarding pricing/credit values deferred until representative implementations can be costed.
+6. Refuse to push organization-specific logic into generic Core merely to speed delivery.

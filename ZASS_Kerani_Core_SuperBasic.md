@@ -198,6 +198,14 @@ Nothing in this section is automatically approved.
 | I-002 | Separate generic core behaviour from agriculture-domain behaviour and BSE configuration. | Existing project SoT | RAW |
 | I-003 | Use a tiny non-farm module as a proof that Core SuperBasic is genuinely generic. | Existing project SoT | RAW |
 | I-004 | Publish the proven stack openly after security, redaction, documentation and licensing review. | Existing project SoT | RAW |
+| I-005 | Make the free-product promise simple: **record → retrieve → summarize → own your data**; AI should stay mostly behind the experience rather than becoming the product identity. | Product discussion 2026-10-06 | CANDIDATE |
+| I-006 | Treat product value as three layers: **SuperBasic Free → Domain Module → Intelligence/Credit**, rather than only Free vs Premium. | Product discussion 2026-10-06 | CANDIDATE |
+| I-007 | Build **data history first, intelligence later**: let free usage accumulate useful structured history so later forecasting/domain intelligence becomes more valuable naturally. | Product discussion 2026-10-06 | CANDIDATE |
+| I-008 | Explore user-owned/portable storage and an **Export for AI** path so advanced users can analyse their own Kerani data elsewhere without weakening Kerani's value as the operational system of record. | Product discussion 2026-10-06 | CANDIDATE |
+| I-009 | Meter premium by useful outcome/capability rather than exposing underlying AI token/provider economics to users. | Product discussion 2026-10-06 | CANDIDATE |
+| I-010 | Prove monetisation first with only a few premium killer capabilities per module instead of building a large premium catalogue early. | Product discussion 2026-10-06 | CANDIDATE |
+| I-011 | Position Kerani as a lightweight digital-upgrade path for micro-SMEs that currently rely on memory, chat, receipts, notebooks and occasional spreadsheets. | Product discussion 2026-10-06 | CANDIDATE |
+| I-012 | Product thesis candidate: **take the discipline of larger-company systems and make it light enough for small businesses.** | Product discussion 2026-10-06 | CANDIDATE |
 
 ---
 
@@ -777,6 +785,44 @@ The product/growth principle is:
 
 ---
 
+## D-021 — Premium sampling / demo allowance
+
+**Status:** LOCKED  
+**Owner approval:** 2026-10-06
+
+**Decision:** Kerani may occasionally allow selected premium capabilities to run **free as a demo/trial**, without changing their normal premium classification.
+
+**Rules:**
+- a free demo does not convert the feature into a permanent Free Core entitlement;
+- the product should clearly label the capability as a premium feature being demonstrated;
+- demo usage should be deliberate and bounded so users can experience the value before spending credits;
+- exact frequency, eligibility, promotional trigger and demo quota remain implementation/growth decisions for later review.
+
+**Reason:** Let users experience premium value before buying credits while preserving a clear Free Core / premium boundary.
+
+---
+
+## D-022 — OpsMate-grade validated operational workflows are premium domain solutions
+
+**Status:** LOCKED  
+**Owner approval:** 2026-10-06
+
+**Decision:** Complex operational-record workflows of the kind proven in OpsMate — where records must follow domain-specific operating rules, required-field rules, validation, clarification, review/approval boundaries, and controlled persistence — are **not part of the generic Free Core baseline** merely because the underlying runtime mechanisms may be reusable.
+
+Such workflows belong to a **premium/domain solution layer** and may require:
+- structured onboarding;
+- a special interview/discovery step to understand the user's operating method, terminology, roles, validation rules and required records;
+- configuration/domain-contract setup;
+- onboarding cost and/or metered premium usage.
+
+**Boundary:** The reusable runtime mechanisms may still be extracted into Core candidates, but the business-operating method, domain rules, forms, validation semantics and organization-specific workflow must remain outside generic Core unless independently proven generic.
+
+**Reason:** OpsMate demonstrates that high-fidelity operational record keeping can be valuable precisely because it checks records against how work is actually performed before data becomes authoritative. That value requires configuration and domain understanding, so it should not be disguised as a zero-setup generic feature.
+
+**Deferred:** exact onboarding interview format, onboarding price/credits, service level, configuration ownership and which modules receive this depth first.
+
+---
+
 # 13. LOCKED DECISIONS
 
 This section is authoritative. Architecture and implementation must not contradict these records.
@@ -893,6 +939,22 @@ This section is authoritative. Architecture and implementation must not contradi
 **Date:** 2026-10-06  
 **Supersedes:** None
 
+## L-015
+
+**Source Decision:** D-021  
+**Decision:** Selected premium capabilities may occasionally be offered as bounded free demos/trials without changing their permanent premium classification.  
+**Locked by:** Project Owner  
+**Date:** 2026-10-06  
+**Supersedes:** None
+
+## L-016
+
+**Source Decision:** D-022  
+**Decision:** OpsMate-grade operational workflows that enforce domain operating rules, validation, clarification, review and controlled persistence belong to premium/domain solutions and may require structured onboarding/interview and setup cost; reusable runtime mechanisms may still feed Core candidates.  
+**Locked by:** Project Owner  
+**Date:** 2026-10-06  
+**Supersedes:** None
+
 ---
 
 # 14. REJECTED IDEAS
@@ -942,6 +1004,8 @@ Architecture freeze is blocked by the following:
 - [ ] After SuperBasic architecture is available, cross-audit it against the existing Kerani Core discussions/designs and adopt only capabilities that remain lightweight, generic and maintainable.
 - [ ] Before locking Credit Pass prices, measure representative AI/OCR/document/forecast workloads and derive unit economics; do not infer prices from token cost alone.
 - [ ] After pilot, review the free/premium boundary with real users and testimonials before public growth push; then decide channel mix, launch copy and viral tactics.
+- [ ] Test whether a bounded free demo of one premium capability materially improves user understanding/conversion without confusing the permanent Free Core boundary.
+- [ ] Define the minimum onboarding/interview contract for OpsMate-grade premium workflows before any such domain solution is sold or generalized.
 
 ---
 
@@ -1525,6 +1589,16 @@ Until then, this remains an extraction proof project, not a framework claim.
 ---
 
 # PROJECT ZASS CHANGELOG
+
+## 2026-10-06 — Premium demo + OpsMate-grade premium workflow LOCK
+
+- Saved the broader product idea set as CANDIDATE ideas: simple free-product promise, three-layer value model, data-history-first, user-owned/export-for-AI direction, outcome-based crediting, limited premium killer features, micro-SME digital-upgrade positioning and the “large-system discipline made lightweight” thesis.
+- LOCKED D-021/L-015: selected premium capabilities may occasionally be offered free as bounded demos/trials without changing their permanent premium classification.
+- LOCKED D-022/L-016: OpsMate-grade validated operational workflows are premium/domain solutions, not generic Free Core features merely because some runtime mechanisms are reusable.
+- LOCKED the right to require structured onboarding/interview, domain-contract configuration and onboarding cost for those complex workflows.
+- Preserved extraction discipline: reusable mechanisms may feed Core, while organization/domain-specific operating rules remain outside generic Core unless independently proven generic.
+- Added explicit future tests for premium-demo clarity/conversion and the minimum onboarding/interview contract.
+- ZERO → ARCHITECTURE remains 63% and Evidence Confidence remains LOW; these are product-boundary decisions, not new architecture evidence.
 
 ## 2026-10-06 — Free-first product/growth principle LOCK
 
