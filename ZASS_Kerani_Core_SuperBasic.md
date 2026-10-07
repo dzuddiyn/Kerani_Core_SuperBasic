@@ -1759,6 +1759,50 @@ Canonical migration:
 
 This mapping preserves historical traceability and prevents future misuse of AC IDs.
 
+
+## Full ZASS v0.3.10 / ZASS SYSTEM v0.2.1 alignment — 2026-10-07
+
+This project now follows the current official ZASS SYSTEM surface and architecture-to-execution contract.
+
+**System routing:** DUMP / DECIDE / DESIGN. Full ZASS remains the stronger-governance DESIGN path.
+
+**Human-facing rule:** progressive disclosure; present only the next meaningful human action; never claim SAVE/sync without a real persistence receipt.
+
+**Architecture-to-execution gate for this project:**
+
+~~~text
+DRAFT ARCH
+→ ARCHITECTURE CHALLENGE
+→ CONTROLLED REVISION
+→ owner: YA, LOCK PRE-ARCH
+→ PRE-ARCH BASELINE — LOCKED FOR EXECUTION
+→ capable reasoner / planner
+→ DETAILED ACTION_PLAN ↔ PRE-ARCH
+→ DETAILED ATOMIC TASK SLICING
+→ EXECUTE ONE TASK
+→ RESULT / EVIDENCE
+→ PRE-ARCH REVIEW
+   ├─ PASS → NEXT TASK
+   ├─ REWORK → task/action plan
+   ├─ ARCH FINDING → revise/supersede PRE-ARCH
+   └─ LOCKED-DECISION IMPACT → STOP → OWNER
+→ sufficient implementation evidence
+→ FINAL ARCHITECTURE REVIEW
+→ LAST ARCHITECTURE CHALLENGE
+→ FINAL IMPROVE / REVISION
+→ BUILD ARCHITECTURE
+→ owner: YA, CONFIRM ARCHITECTURE
+→ ARCHITECTURE CONFIRMED
+→ rebuild release ACTION PLAN
+→ release atomic tasks
+→ BUILD FIRST RELEASE
+→ integration / hardening / verification / acceptance
+→ DELIVERED !!
+~~~
+
+ACTION_PLAN.md remains planning/execution authority only; it cannot decide or silently change architecture. Derived atomic task packets are execution views, never a second planning authority.
+
+
 ## v0.3.6 project semantic alignment note
 
 The project baseline was aligned on 2026-10-01 from v0.3.2 to **v0.3.6**. Current project operation therefore also follows:
@@ -1943,6 +1987,16 @@ Until then, this remains an extraction proof project, not a framework claim.
 
 # PROJECT ZASS CHANGELOG
 
+## 2026-10-07 — Full ZASS v0.3.10 / ZASS SYSTEM v0.2.1 sync + OCR/Cloud candidates
+
+- Updated project method baseline from Full ZASS v0.3.6 to **v0.3.10** and ZASS SYSTEM to **v0.2.1**.
+- Adopted governed architecture-to-execution flow: ARCHITECTURE CHALLENGE → controlled revision → LOCK PRE-ARCH → detailed ACTION_PLAN ↔ PRE-ARCH → atomic evidence tasks → PRE-ARCH review → LAST ARCHITECTURE CHALLENGE → explicit architecture confirmation → first-release plan/tasks → DELIVERED.
+- Preserved ACTION_PLAN as execution/planning authority only; architecture/decision authority remains in ZASS + owner gates.
+- Added I-013 / D-034 CANDIDATE / E-015: tiny hosted OCR allowance plus manual/personal-Gemini/Lens paste fallback through the same candidate/confirmation/validation boundary. 1–3/month remains a pilot parameter, not LOCKED.
+- Added I-014 / AC-007 CANDIDATE / E-016: evaluate Cloud Run + Firestore + Secret Manager + basic Logging/Monitoring as the V1 central control plane while keeping Apps Script useful at the Google Workspace/customer edge.
+- Added Q-023–Q-025 and R-020–R-022 for OCR economics/integrity and premature-cloud-complexity risk.
+- ZERO → ARCHITECTURE remains 65% and Evidence Confidence remains LOW because these updates add governance/candidates, not new runtime evidence.
+
 ## 2026-10-07 — Tenant/channel/quota + viral-capacity LOCK
 
 - LOCKED D-023–D-033 / L-017–L-027: channel-independent tenant identity, low-friction Free onboarding, Telegram-vs-WhatsApp economics, shared-WA capacity/waitlist/reclaim, independent Free resource quotas, useful-action quota semantics, shared deterministic-first AI, tenant-isolated storage, Premium own-WhatsApp onboarding, OpenClaw reliability harness and POS/ERP growth path.
@@ -2049,4 +2103,4 @@ Until then, this remains an extraction proof project, not a framework claim.
 🏗️ ZERO → ARCHITECTURE: [███████░░░] 65% — DECIDING
 🔬 EVIDENCE CONFIDENCE: LOW — boundaries are clearer, but quota calibration, tenant isolation, migration, waitlist/load and reliability-agent behaviour still need pilot evidence.
 
-✅ ZASS UP TO DATE — v0.3.6
+✅ ZASS UP TO DATE — Full v0.3.10 / ZASS SYSTEM v0.2.1
