@@ -1232,23 +1232,122 @@ Grant approval is never assumed, and product architecture must remain viable wit
 ---
 
 ## D-047 — 4V Growth Principle
+**Status:** SUPERSEDED  
+**Owner approval:** 2026-10-07  
+**Superseded by:** D-048 — V-Road / 7V Core + Extended V-Gates
+
+**Previous decision:** **4V — Value → Volume → Viral → Versatile.**
+
+**Why superseded:** The 4V principle captured growth direction but compressed several distinct maturity disciplines into four words. The owner expanded the model so user interaction, trust, operating quality, variability, partnership, ecosystem portability and maturity can be governed and evidenced explicitly without changing the underlying value-first philosophy.
+
+Historical 4V lineage is preserved. New growth/maturity authority is D-048.
+
+---
+
+## D-048 — V-Road / 7V Core + Extended V-Gates
 **Status:** LOCKED  
-**Owner approval:** 2026-10-07
+**Owner approval:** 2026-10-08  
+**Supersedes:** D-047
 
-Canonical growth principle:
+### Canonical principle
 
-> **4V — Value → Volume → Viral → Versatile**  
-> **Value first. Volume follows. Virality becomes possible. With the right partners, variable demand becomes manageable — and the system becomes versatile.**
+> **V-Road — 7V Core + Extended V-Gates**  
+> **Value → Verbal → Volume → Viral → Vary → Venture → Versatile**
+>
+> Kerani AI must earn each maturity state through evidence. It does not become mature merely by accumulating features, AI capability or infrastructure.
+>
+> **No V is free. Every V must be earned.**  
+> **Do not skip the Vs.**
 
-Interpretation:
-1. **Value** — solve a real micro-SME problem before chasing reach.
-2. **Volume** — useful repeated adoption is earned from value and evidence.
-3. **Viral** — broad or sudden growth becomes possible only after onboarding, reliability, cost and capacity controls are prepared.
-4. **Versatile** — with replaceable partners and portable architecture, Kerani can serve different channels, programmes, domains and scales without surrendering Core authority.
+### 7V Core
 
-**Variable demand** is an operating condition inside the Viral/scale phase, not a fifth V. It must be bounded through metering, graceful degradation, observability and the right replaceable partners.
+1. **Value** — solve a real micro-SME problem before chasing reach. Evidence is useful completed work and repeated usefulness, not feature count or signup count.
+2. **Verbal** — meet users through simple human-language interaction. Users should be able to type/speak naturally while Kerani carries the structure through candidate, clarification, confirmation and deterministic validation. Verbal is not voice-only.
+3. **Volume** — repeated useful adoption, completed records, retained users and accumulated business history prove repeated value. Volume is not QR scans/downloads/signups alone.
+4. **Viral** — broad or sudden growth becomes possible only after onboarding, reliability, cost, quota, waitlist/backpressure, observability, graceful-degradation and truthful-failure controls are prepared. Virality is prepared, not assumed.
+5. **Vary** — absorb real-world variation in channels, domains, payer models, providers, workloads and programme requirements without forking or fragmenting generic Core. Configuration/adapters should change before Core contracts.
+6. **Venture** — use the right public-sector, sponsor, infrastructure, software, association, event or funding partners to accelerate growth without surrendering product authority, tenant identity, user-data authority or portability.
+7. **Versatile** — become portable across domains, channels, providers, infrastructure, programmes, partners, integrations and scales through proven reuse rather than declared abstraction.
 
-This principle complements D-020's free-first growth principle; it does not replace evidence-led product validation.
+### Extended V-Gates
+
+These gates are not a second linear lifecycle. They are continuous quality/evidence disciplines that constrain the 7V Core.
+
+**Foundation / Human**
+- **Vision** — problem, user and intended outcome are clear.
+- **Vocabulary** — domain language is understood without leaking domain assumptions into generic Core.
+- **Vibe** — serious system, simple experience; the product should feel light even when backend controls are rigorous.
+
+**Trust / Authority**
+- **Veracity** — factual status only; no false SAVE, false success or invented data.
+- **Validation** — interpreted input does not become authoritative without required deterministic/domain checks.
+- **Verification** — important claims remain testable through evidence, logs, receipts, regression and audit.
+- **Volition** — user retains meaningful control: confirm, correct, cancel, consent, export and choose capabilities/channels.
+- **Vault** — secrets, credentials, tenant boundaries and sensitive data are protected.
+- **Vulnerability** — failures, abuse paths, isolation leaks, duplicate writes, overload and security weaknesses are actively tested.
+
+**Operating**
+- **Velocity** — optimise time to first useful value, not API speed alone.
+- **Visibility** — transform scattered operational information into structured, searchable and reportable data.
+- **Viability** — AI, WhatsApp, OCR, storage, infrastructure and support economics remain sustainable.
+- **Vigilance** — monitoring, OpenClaw synthetic checks, alerts, reliability and cost signals operate continuously.
+- **Versioning** — change remains traceable, compatible/migratable and rollback-aware.
+
+**Scale**
+- **Variability** — traffic, cost, latency, user mix, record size, quota and event spikes are measured operating conditions.
+- **Vary** — the system's ability to absorb that variability without Core fragmentation.
+- **Venue** — prove the product outside the lab: farm, workshop, shop, booth, field event or programme demo.
+
+**Ecosystem**
+- **Vendor-neutral** — partner/provider substitution must not require rewriting business logic or moving tenant authority.
+- **Value-chain** — Kerani may connect users, suppliers, customers, agencies, programmes, accounting/POS/ERP and partners without pretending to own every external Source of Truth.
+- **Vertical** — useful domain depth belongs in domain modules/solutions, not by contaminating generic Core.
+
+### Maturity destination
+
+~~~text
+7V CORE + EXTENDED V-GATES
+            ↓
+          VITAL
+            ↓
+        👑 V-KING
+~~~
+
+- **Vital** — Kerani becomes operationally important because users repeatedly depend on its utility/history/workflow, not because of artificial lock-in.
+- **V-King 👑** — aspirational north star: **become needed, not merely known.** It is not an architecture state, market-dominance claim, or eighth V.
+
+Canonical line:
+
+> **Jangan kejar jadi besar. Jadi berguna sampai ramai perlukan.**
+
+### Anti-shortcut rules
+
+- Viral without Value → attention without retention.
+- Volume without Veracity → more bad data.
+- Volume without Viability → scale amplifies losses.
+- Viral without Vigilance → failure becomes public.
+- Venture without Vary → every partner creates a custom fork.
+- Venture without Volition → user authority gets sacrificed.
+- Versatile without Verification → speculative framework.
+- Vital through artificial lock-in → rejected interpretation.
+- V-King without Value → branding fantasy.
+
+### Evidence rule
+
+> **Every V requires evidence appropriate to that V.**
+
+Minimum interpretation:
+- Value → completed useful workflows / repeated usefulness.
+- Verbal → understandable successful human-language intake with safe clarification/confirmation.
+- Volume → repeated real usage and retained useful records.
+- Viral → measured load, cost, fallback and reliability evidence.
+- Vary → multiple channels/domains/providers/payers without Core fork.
+- Venture → real partner/programme use without authority or portability leakage.
+- Versatile → proven portability across multiple contexts.
+- Vital → sustained operational dependence based on utility.
+- V-King → broad voluntary adoption/trust; never claimed from aspiration alone.
+
+This principle complements D-020 free-first growth, D-040 Pilot-to-Proof, D-041 viral-ready infrastructure and D-043–D-046 partnership/grant boundaries.
 
 ---
 
@@ -1505,8 +1604,17 @@ This section is authoritative. Architecture and implementation must not contradi
 
 ## L-040
 **Source Decision:** D-047  
-**Decision:** **4V — Value → Volume → Viral → Versatile**; value comes first, volume follows, virality is prepared rather than assumed, variable demand is managed with replaceable partners, and versatility emerges without surrendering authority.  
-**Date:** 2026-10-07
+**Status:** SUPERSEDED  
+**Decision:** Historical 4V principle: **Value → Volume → Viral → Versatile**.  
+**Date:** 2026-10-07  
+**Superseded by:** L-041 / D-048
+
+## L-041
+**Source Decision:** D-048  
+**Decision:** **V-Road — 7V Core + Extended V-Gates**: Value → Verbal → Volume → Viral → Vary → Venture → Versatile; each V must be earned by evidence, Extended V-Gates continuously govern trust/UX/operations/scale/ecosystem quality, Vital is operational dependence through utility, and V-King is an aspirational north star rather than an eighth V.  
+**Locked by:** Project Owner  
+**Date:** 2026-10-08  
+**Supersedes:** L-040 / D-047
 
 ---
 
@@ -1547,7 +1655,7 @@ No project idea is newly marked REJECTED by this migration.
 | D-044-P | Named infrastructure/software partner + commercial terms | Partner capacity, SLA, pricing and exit terms are unverified here. | Due diligence + written commercial/technical agreement. |
 | D-045-P | Petronas/customer reference wording | A vendor's client history and permission to cite it must be verified. | Verifiable reference + permitted wording. |
 | D-046-P | Specific grant programme/application | No particular funding approval or eligibility is assumed. | Current official programme + eligibility/evidence review. |
-| D-047-P | Exact viral/load/partner thresholds | 4V principle is locked; thresholds require measured traffic/cost/reliability data. | Pilot + load-test evidence. |
+| D-048-P | Exact viral/load/partner thresholds | V-Road principle is locked; thresholds require measured traffic/cost/reliability data. | Pilot + load-test evidence. |
 
 ---
 
@@ -2371,6 +2479,19 @@ Until then, this remains an extraction proof project, not a framework claim.
 
 # PROJECT ZASS CHANGELOG
 
+## 2026-10-08 — V-Road / 7V Core + Extended V-Gates LOCK
+
+- SUPERSEDED D-047 / L-040 historical 4V principle without deleting lineage.
+- LOCKED D-048 / L-041: **V-Road — 7V Core + Extended V-Gates**.
+- Canonical 7V Core: **Value → Verbal → Volume → Viral → Vary → Venture → Versatile**.
+- Added Extended V-Gates for Vision, Vocabulary, Vibe, Veracity, Validation, Verification, Volition, Vault, Vulnerability, Velocity, Visibility, Viability, Vigilance, Versioning, Variability, Venue, Vendor-neutral, Value-chain and Vertical.
+- Locked evidence discipline: **No V is free. Every V must be earned. Do not skip the Vs.**
+- Defined **Vital** as operational importance earned through utility, and **V-King 👑** as the aspirational destination **“become needed, not merely known”**, not an eighth V or market-dominance claim.
+- Added anti-shortcut rules so Viral/Volume/Venture/Versatile maturity cannot be claimed without supporting gates/evidence.
+- Renamed deferred scale-parameter lineage from D-047-P to D-048-P.
+- ZERO → ARCHITECTURE remains 65% and Evidence Confidence remains LOW; this is a governance/maturity-model refinement, not new empirical evidence.
+
+
 ## 2026-10-07 — Government bridge + partner-backed scale + 4V growth LOCK
 
 - Owner PROCEED + COMMIT LOCKED D-035–D-047 / L-028–L-040.
@@ -2514,6 +2635,6 @@ Until then, this remains an extraction proof project, not a framework claim.
 [🧠 ZASS!!]-[▶️ PROCEED]-[📦 COMMIT]
 
 🏗️ ZERO → ARCHITECTURE: [███████░░░] 65% — DECIDING
-🔬 EVIDENCE CONFIDENCE: LOW — one OpsMate workflow has direct runtime verification; pilot-to-proof, quota/isolation/migration, viral-load, government-programme bridge, partner-scale and OpenClaw reliability evidence remain incomplete.
+🔬 EVIDENCE CONFIDENCE: LOW — one OpsMate workflow has direct runtime verification; most V-Road evidence beyond early Value/Verbal foundations, including Volume/Viral/Vary/Venture/Versatile, remains incomplete.
 
 ✅ ZASS UP TO DATE — v0.3.10

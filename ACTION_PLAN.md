@@ -58,7 +58,7 @@
 - Keep the candidate 1–3 hosted OCR uses/month uncommitted until E-015 measures cost/usefulness.
 - Evaluate Cloud Run + Firestore + Secret Manager + basic Monitoring as AC-007, but reject cloud complexity that does not earn its operational cost against central Apps Script.
 - When PRE-ARCH is eventually locked, ACTION_PLAN becomes the detailed planning authority for sequence/dependencies/tests/rollback/evidence, but it still cannot decide architecture.
-- Apply the LOCKED 4V growth order: **Value → Volume → Viral → Versatile**; do not spend for scale before value/proof, and do not treat virality as readiness.
+- Apply the LOCKED V-Road: **Value → Verbal → Volume → Viral → Vary → Venture → Versatile**; no V may be claimed without appropriate evidence, and Extended V-Gates continuously constrain trust/UX/operations/scale/ecosystem quality.
 - Keep government/agency programme integration outside generic Core; sponsor funding and data access remain separate.
 - Treat MAHA 2027, shared-booth arrangements, named Jabatan relationships, named infrastructure vendors, Petronas references and grants as external opportunities requiring factual agreements/evidence.
 - A strategic infrastructure partner is a replaceable scale option, not a new Source of Truth or tenant owner.
@@ -419,32 +419,73 @@ Measure:
 Choose the smallest implementation that satisfies LOCKED multi-tenant/channel/quota/reliability decisions. Do not add Kubernetes, BigQuery, Agent Platform, Redis or multi-service decomposition without evidence.
 
 
-## PILOT-TO-PROOF / 4V GROWTH GATE
+## PILOT-TO-PROOF / V-ROAD GROWTH + MATURITY GATE
 
-**Authority:** D-040 through D-047 / L-033 through L-040.
+**Authority:** D-040 through D-046 + D-048 / L-033 through L-039 + L-041.  
+**Historical note:** D-047/L-040 4V is SUPERSEDED.
 
-Canonical principle:
+Canonical 7V Core:
 
-> **4V — Value → Volume → Viral → Versatile**  
-> Value first. Volume follows. Virality becomes possible. With the right partners, variable demand becomes manageable — and the system becomes versatile.
+> **Value → Verbal → Volume → Viral → Vary → Venture → Versatile**
 
-Execution interpretation:
+Operating discipline:
+
+> **No V is free. Every V must be earned. Do not skip the Vs.**
 
 ~~~text
 VALUE
 real micro-SME problem solved
         ↓
+VERBAL
+simple human-language interaction
+        ↓
 VOLUME
-repeat usage + real records + regression evidence
+repeat usage + useful records + history
         ↓
 VIRAL
-load/cost/reliability gates + graceful fallback
+load/cost/reliability readiness
+        ↓
+VARY
+absorb channel/domain/provider/payer/load variation
+        ↓
+VENTURE
+partner/programme/funding acceleration without authority loss
         ↓
 VERSATILE
-replaceable partners + multiple channels/programmes/domains/scales
+portable proven use across contexts
+        ↓
+VITAL
+operational importance through utility
+        ↓
+👑 V-KING
+become needed, not merely known
 ~~~
 
-Variable demand is measured and controlled inside the Viral/scale phase; it is not a fifth V.
+Extended V-Gates continuously constrain the road:
+
+- **Foundation/Human:** Vision, Vocabulary, Vibe.
+- **Trust/Authority:** Veracity, Validation, Verification, Volition, Vault, Vulnerability.
+- **Operating:** Velocity, Visibility, Viability, Vigilance, Versioning.
+- **Scale:** Variability, Venue.
+- **Ecosystem:** Vendor-neutral, Value-chain, Vertical.
+
+Evidence interpretation:
+1. **Value** — completed useful workflows and repeated usefulness.
+2. **Verbal** — successful understandable constrained-NL intake with safe clarify/confirm behaviour.
+3. **Volume** — retained/repeated real use and completed useful records, not signup count alone.
+4. **Viral** — event-neutral spike/load, cost, fallback and reliability proof.
+5. **Vary** — multiple channels/domains/providers/payers without Core fork/spaghetti.
+6. **Venture** — real partner/programme path without data/product/tenant authority leakage.
+7. **Versatile** — proven portability/reuse across multiple contexts.
+8. **Vital** — sustained operational dependence caused by utility/history/workflow, not artificial lock-in.
+9. **V-King** — aspirational only until broad voluntary adoption/trust is evidenced.
+
+Anti-shortcut execution checks:
+- no Viral claim before Value + Viability + Vigilance;
+- no Volume success claim when data quality/Veracity is weak;
+- no Venture partnership that bypasses Volition or portability;
+- no Versatile claim from speculative abstraction alone;
+- no V-King branding treated as architecture/product evidence.
 
 Before any major public push:
 1. convert pilot cases into reproducible regression/reliability evidence;
@@ -453,8 +494,9 @@ Before any major public push:
 4. pass event-neutral spike/load drill;
 5. verify waitlist/fallback/degradation behaviour;
 6. run OpenClaw synthetic checks under load;
-7. document partner-activation threshold and rollback/exit path;
-8. only then treat a named event as launch-ready.
+7. demonstrate at least one Vary case without Core fork;
+8. document partner-activation threshold and rollback/exit path;
+9. only then treat a named event as launch-ready.
 
 ## GOVERNMENT ASSISTANCE & IMPACT BRIDGE VALIDATION
 
