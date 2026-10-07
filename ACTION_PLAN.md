@@ -212,16 +212,105 @@ Before broad viral launch:
 
 ## OPENCLAW RELIABILITY AUDIT
 
+**Experiment:** E-013  
+**Owner disposition:** PROCEED approved 2026-10-07  
+**Planning state:** READY  
+**Execution state:** BLOCKED until a testable Kerani WhatsApp/Telegram ingress and synthetic tenant path exist.  
+**Coding:** NOT STARTED.
+
 Build OpenClaw as a replaceable external reliability harness, not a Kerani authority.
 
+### Synthetic test matrix
+
+| ID | Test | Expected result |
+|---|---|---|
+| SYN-01 | Purchase normal | Correct Purchase candidate → confirmation → validated authoritative write |
+| SYN-02 | Sale normal | Correct Sale candidate → confirmation → validated authoritative write |
+| SYN-03 | Observation | Correct Observation candidate and save path |
+| SYN-04 | Ambiguous input | Must clarify; must not silently guess/save |
+| SYN-05 | Correction flow | User correction changes candidate before authoritative write |
+| SYN-06 | Basic report/retrieval | Correct tenant-scoped result; no unnecessary mutation |
+| SYN-07 | AI/provider failure | Explicit failure/retry path; no false success and no corrupt write |
+| SYN-08 | Storage/write failure | No false save receipt; failure is observable and recoverable |
+| SYN-09 | WhatsApp ingress | End-to-end path through the real supported WhatsApp Free ingress |
+| SYN-10 | Telegram ingress | End-to-end path through the real supported Telegram Free ingress |
+
+### Required measurements
+
+- end-to-end success rate;
+- semantic/classification correctness;
+- clarification/confirmation-flow integrity;
+- authoritative-write success;
+- median and P95 response latency where meaningful;
+- provider/API failure count;
+- retry count/outcome;
+- duplicate/idempotency failures;
+- WhatsApp vs Telegram reliability;
+- AI operations per synthetic flow;
+- transport/API/storage usage attributable to reliability tests;
+- estimated cost per synthetic flow.
+
+### STOP / ESCALATE contract
+
+- Synthetic data appears in real customer records/reports/revenue metrics → **STOP immediately**.
+- OpenClaw bypasses required confirmation or deterministic validation → **STOP immediately**.
+- Duplicate authoritative record is created from one synthetic transaction → **STOP + ARCHITECTURE REVIEW**.
+- Provider/storage failure is presented as success → **FAIL + owner alert**.
+- Three consecutive end-to-end failures for the same critical flow → **owner alert**.
+- Sustained latency/error degradation beyond the current accepted baseline → **regression alert**.
+- Any finding that conflicts with a LOCKED decision → **STOP → OWNER**.
+- Material architecture finding → feed back to PRE-ARCH/architecture review; do not patch silently.
+
+### Weekly reliability report contract
+
+Minimum report:
+
+~~~text
+KERANI WEEKLY RELIABILITY
+Period: <date range>
+
+Synthetic flows: <n>
+PASS: <n>
+FAIL: <n>
+Reliability: <percent>
+
+WhatsApp: <pass rate>
+Telegram: <pass rate>
+Median latency: <value>
+P95 latency: <value>
+
+Top failures:
+- <failure type/count>
+
+Integrity:
+- false-success events
+- duplicate/idempotency events
+- tenant-isolation/synthetic-contamination events
+
+Usage / cost signals:
+- AI operations
+- transport/API usage
+- estimated synthetic-test cost
+
+Architecture impact:
+NONE / REVIEW REQUIRED
+
+Owner action:
+<next meaningful action>
+~~~
+
+### Operating rules
+
 1. Use dedicated synthetic/test tenant identities for WhatsApp and Telegram.
-2. Inject scheduled representative record messages through real supported ingress paths.
+2. Inject representative record messages through real supported ingress paths.
 3. Exercise candidate/clarification/confirmation/validation/persistence flows where applicable.
-4. Tag all synthetic data and exclude it from real customer reports.
-5. Track success/failure/latency and relevant transport/AI usage.
-6. Notify the owner on meaningful reliability regression.
-7. Generate a weekly reliability report for the owner.
+4. Tag all synthetic data and exclude it from real customer reports, revenue and entitlement accounting.
+5. Track success/failure/latency and relevant transport/AI/storage usage.
+6. Notify the owner on meaningful reliability regression or STOP condition.
+7. Generate the weekly reliability report.
 8. Never bypass Kerani validation/authority boundaries or directly mutate real customer records.
+9. Keep cadence/traffic volume configurable and low enough not to distort real capacity/cost.
+10. OpenClaw-specific implementation details must remain replaceable behind the reliability-test contract.
 
 ## WAITLIST OPERATIONS
 
