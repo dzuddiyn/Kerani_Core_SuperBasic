@@ -58,6 +58,10 @@
 - Keep the candidate 1–3 hosted OCR uses/month uncommitted until E-015 measures cost/usefulness.
 - Evaluate Cloud Run + Firestore + Secret Manager + basic Monitoring as AC-007, but reject cloud complexity that does not earn its operational cost against central Apps Script.
 - When PRE-ARCH is eventually locked, ACTION_PLAN becomes the detailed planning authority for sequence/dependencies/tests/rollback/evidence, but it still cannot decide architecture.
+- Apply the LOCKED 4V growth order: **Value → Volume → Viral → Versatile**; do not spend for scale before value/proof, and do not treat virality as readiness.
+- Keep government/agency programme integration outside generic Core; sponsor funding and data access remain separate.
+- Treat MAHA 2027, shared-booth arrangements, named Jabatan relationships, named infrastructure vendors, Petronas references and grants as external opportunities requiring factual agreements/evidence.
+- A strategic infrastructure partner is a replaceable scale option, not a new Source of Truth or tenant owner.
 
 ---
 
@@ -413,3 +417,134 @@ Measure:
 8. migration/rollback effort.
 
 Choose the smallest implementation that satisfies LOCKED multi-tenant/channel/quota/reliability decisions. Do not add Kubernetes, BigQuery, Agent Platform, Redis or multi-service decomposition without evidence.
+
+
+## PILOT-TO-PROOF / 4V GROWTH GATE
+
+**Authority:** D-040 through D-047 / L-033 through L-040.
+
+Canonical principle:
+
+> **4V — Value → Volume → Viral → Versatile**  
+> Value first. Volume follows. Virality becomes possible. With the right partners, variable demand becomes manageable — and the system becomes versatile.
+
+Execution interpretation:
+
+~~~text
+VALUE
+real micro-SME problem solved
+        ↓
+VOLUME
+repeat usage + real records + regression evidence
+        ↓
+VIRAL
+load/cost/reliability gates + graceful fallback
+        ↓
+VERSATILE
+replaceable partners + multiple channels/programmes/domains/scales
+~~~
+
+Variable demand is measured and controlled inside the Viral/scale phase; it is not a fifth V.
+
+Before any major public push:
+1. convert pilot cases into reproducible regression/reliability evidence;
+2. measure time-to-first-value and repeated-use behaviour;
+3. validate Free cost envelope and quotas;
+4. pass event-neutral spike/load drill;
+5. verify waitlist/fallback/degradation behaviour;
+6. run OpenClaw synthetic checks under load;
+7. document partner-activation threshold and rollback/exit path;
+8. only then treat a named event as launch-ready.
+
+## GOVERNMENT ASSISTANCE & IMPACT BRIDGE VALIDATION
+
+**Experiment:** E-017  
+**State:** PLANNED.
+
+Validate one mock programme before any real agency integration:
+
+~~~text
+tenant history
+→ potential match
+→ programme requirements
+→ show exact fields requested
+→ user review/consent
+→ evidence pack/export
+→ sponsor-funded entitlement
+→ outcome measurement
+→ aggregate/approved programme report
+~~~
+
+Required checks:
+1. agency/programme remains eligibility/approval Source of Truth;
+2. sponsor funding never grants blanket tenant-data access;
+3. unrelated chats/receipts/customers stay outside the programme dataset;
+4. purpose and approved fields are auditable;
+5. sponsored credits are separable from Free quota and user-paid Credit Pass;
+6. descriptive outcome metrics do not become unsupported causal claims;
+7. start with export/report/fixture; add agency API only after a real programme requires it.
+
+## EVENT / VIRAL / PARTNER SCALE VALIDATION
+
+**Experiment:** E-018  
+**State:** PLANNED.
+
+Run an event-neutral spike drill before treating MAHA 2027 or any large event as launch-ready.
+
+Test:
+- onboarding burst;
+- WhatsApp shard capacity + waitlist;
+- Telegram fallback;
+- AI/OCR/storage/report quota pressure;
+- selected V1 control-plane capacity;
+- cost ceiling/alerts;
+- truthful graceful degradation;
+- OpenClaw reliability under load;
+- partner activation threshold;
+- partner handoff;
+- rollback/exit with tenant continuity.
+
+Partner acceptance requires:
+- documented service/capacity boundary;
+- measurable trigger for activation;
+- secrets/access scope;
+- tenant/data authority remains Kerani/user-governed;
+- no business-logic rewrite for handoff;
+- no mandatory tenant-history migration;
+- exit/rollback path;
+- verified permitted wording for any enterprise-client references.
+
+## PUBLIC-SECTOR / EVENT COLLABORATION OPERATING BOUNDARY
+
+Potential collaboration may create a legitimate exchange:
+
+~~~text
+Agency / programme receives
+- measurable digital-adoption outcome
+- programme evidence / aggregate impact
+- local innovation case study where approved
+
+Kerani receives
+- target-user outreach
+- field feedback
+- possible official demo/shared-booth opportunity
+- institutional programme access where approved
+~~~
+
+Do not operationalise this as a personal KPI-for-access exchange. Any booth, agency collaboration, endorsement, client-reference use or grant claim must have factual approval/evidence.
+
+## GRANT EVIDENCE PACK — FUTURE
+
+Do not submit an architecture claim as evidence of impact. A future grant/development evidence pack should be assembled from observed facts such as:
+- active/retained businesses;
+- completed useful records;
+- time-to-first-value;
+- reliability/uptime/error metrics;
+- cost per useful action;
+- Free/Premium or sponsored-capability usage;
+- documented operational/user outcomes;
+- programme outcomes with correct causality language;
+- verified partner capacity/SLA;
+- development/scale roadmap.
+
+A specific grant remains optional external funding, never a product dependency.

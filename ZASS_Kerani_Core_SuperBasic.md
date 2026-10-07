@@ -248,6 +248,11 @@ Nothing in this section is automatically approved.
 | Q-023 | What monthly Kerani-hosted OCR allowance is enough to demonstrate value without uncontrolled variable cost? | Determines Free OCR economics. | OPEN — 1–3/month is a candidate range only |
 | Q-024 | Can pasted text from personal Gemini/Lens reliably enter the same candidate → confirm/correct → validate → authoritative-save flow as hosted OCR? | Preserves Free receipt capability after OCR quota. | OPEN |
 | Q-025 | Does Cloud Run + Firestore + Secret Manager + basic Monitoring materially simplify V1 central multi-tenant control versus central Apps Script without unnecessary complexity? | Chooses the V1 control-plane implementation. | OPEN |
+| Q-026 | What minimum programme-data contract can support assistance matching/evidence without exposing unrelated tenant data? | Defines Government Program Bridge boundary. | OPEN |
+| Q-027 | What entitlement/ledger model lets sponsor-funded credits coexist cleanly with Free quota and user-paid Credit Pass? | Prevents funding source from leaking into capability semantics. | OPEN |
+| Q-028 | What tested load/cost/reliability envelope qualifies Kerani as ready for a large event or sudden viral spike? | Defines event-readiness gate. | OPEN |
+| Q-029 | What measurable threshold should activate an infrastructure partner or dedicated scale tier? | Prevents both premature spend and emergency-only escalation. | OPEN |
+| Q-030 | What evidence and permissions are required before citing a partner's enterprise client history or applying for a specific development grant? | Protects credibility and grant claims. | OPEN |
 
 ---
 
@@ -277,6 +282,13 @@ Nothing in this section is automatically approved.
 | R-020 | Hosted OCR subsidy becomes a cost sink | Free users repeatedly scan receipts and consume OCR/storage without conversion or useful retained records. | Tiny monthly hosted-OCR allowance, one-pass/cache where possible, DIY OCR/manual fallback, per-tenant metering. | OPEN | OCR usage grows much faster than completed useful records. |
 | R-021 | DIY OCR fallback bypasses record integrity | Pasted external OCR text is trusted as authoritative data. | Treat pasted OCR text as untrusted input; run normal candidate/confirmation/deterministic validation flow. | OPEN | External OCR text is saved directly without review. |
 | R-022 | Premature Cloud complexity | V1 gains operational burden before scale needs it. | Keep one small Cloud Run service + Firestore + Secret Manager + basic logs/alerts only; benchmark against Apps Script alternative. | OPEN | Multiple services/queues/databases appear before measured need. |
+| R-023 | Sponsor/data-authority conflation | Funding arrangement becomes de facto access to private tenant data. | Separate sponsor entitlement from data contract; purpose-bound consent + minimum fields. | OPEN | Sponsor requests broad/raw database access. |
+| R-024 | False government/partner endorsement | Kerani overstates institutional or enterprise backing. | Cite only verified approved relationships; distinguish partner capability from client endorsement. | OPEN | Marketing wording implies an unapproved endorsement. |
+| R-025 | Partner lock-in | Emergency scale partner becomes permanent architecture dependency. | Portable Core/contracts/data + replaceable provider boundary + exit path. | OPEN | Migration requires rewriting business logic or moving tenant identity. |
+| R-026 | Viral cost/load shock | Sudden event traffic creates uncontrolled API spend, latency or data loss. | Load gate, cost ceiling, throttling/backpressure, waitlist/fallback, observability. | OPEN | Variable cost or latency rises non-linearly with signups. |
+| R-027 | Event-driven roadmap distortion | MAHA or another event forces premature features/architecture. | Treat event as candidate milestone; readiness gates remain authoritative. | OPEN | Scope changes are justified only by event date. |
+| R-028 | Grant-dependency distortion | Product decisions optimize for grant criteria instead of user value. | 4V Value-first principle; architecture viable without specific grant. | OPEN | Roadmap stalls or breaks if grant is unavailable. |
+| R-029 | Unsupported impact causality | Programme reporting overclaims that funding caused observed outcomes. | Separate descriptive outcomes from causal evidence/methodology. | OPEN | Before/after delta is presented as proof of causation. |
 
 ---
 
@@ -501,6 +513,74 @@ Apps Script / Drive / AI / customer-edge integrations
 **Why candidate, not LOCKED:** Current Google Cloud economics and scaling characteristics look suitable for low-traffic V1, but Kerani workload, cost-per-use and operational complexity have not yet been benchmarked against the simpler central-Apps-Script alternative.
 
 **V1 anti-overengineering rule:** no Kubernetes, no large microservice split, no BigQuery dependency, no Agent Platform dependency, and no speculative queue/cache layer unless evidence requires it.
+
+---
+
+
+## AC-008 — Sponsor-Funded Assistance & Outcome Bridge
+
+**Status:** CANDIDATE
+
+~~~text
+Tenant Records
+      ↓
+Assistance Matcher
+      ↓
+User Review / Consent
+      ↓
+Programme Adapter
+   ┌──────┼──────────┐
+   ↓      ↓          ↓
+Evidence Sponsor   Outcome
+Pack     Credits   Report
+   └──────┼──────────┘
+          ↓
+        Agency
+~~~
+
+**Intent:** Let Kerani help micro-SMEs/agro operators discover potentially relevant assistance programmes, prepare evidence from their own structured history, receive sponsored capability/credits where available, and produce consented programme outcome reporting.
+
+**Authority boundary:** Kerani is a matching/evidence/reporting layer. The programme/agency remains authoritative for eligibility, approval, funding and official programme status.
+
+**Data boundary:** Sponsor payment does not create blanket access to tenant data. Programme sharing must be purpose-bound, minimum-necessary and user-authorised; aggregation/anonymisation is preferred where individual data is unnecessary.
+
+**Integration direction:** Start with export/report/fixture formats. Agency-specific APIs are deferred until a real programme requires them.
+
+---
+
+## AC-009 — Pilot → Viral Launch → Partner-Backed Scale
+
+**Status:** CANDIDATE
+
+~~~text
+Operational Pilot
+      ↓
+Proof / Regression Evidence
+      ↓
+SuperBasic V1
+      ↓
+Just-Enough Scalable Infrastructure
+      ↓
+Load / Reliability / Cost Gates
+      ↓
+Large-Event / Viral Readiness
+      ↓
+Distribution / Public-Sector Partner
+      +
+Strategic Infrastructure Partner
+      ↓
+Measured Adoption + Reliability
+      ↓
+Grant / Development Evidence Pack
+      ↓
+Further Scale
+~~~
+
+**Intent:** Grow from evidence rather than speculative infrastructure spend. Pilot proves value and behaviour; V1 stays cheap at low usage; load/reliability controls prepare for sudden demand; official distribution and replaceable infrastructure partnerships may accelerate scale without surrendering Kerani product/data authority.
+
+**Named-event/vendor boundary:** MAHA 2027, any specific Jabatan, any specific software/infrastructure vendor, Petronas-related credentials and any grant programme remain candidate/deferred counterpart details until independently verified and formally available.
+
+**Partner boundary:** Partner capacity may strengthen operational credibility, but Kerani must remain portable and must not imply that a partner's client endorses Kerani.
 
 ---
 
@@ -1036,6 +1116,142 @@ authoritative record
 
 ---
 
+
+## D-035 — Government Program Bridge
+**Status:** LOCKED  
+**Owner approval:** 2026-10-07
+
+Kerani may provide an optional institutional/government programme bridge for assistance matching, sponsored capabilities, application evidence packs and outcome reporting. This bridge is not a dependency of Free Core and must not redefine generic Core business-record authority.
+
+---
+
+## D-036 — Sponsor ≠ Data Authority
+**Status:** LOCKED  
+**Owner approval:** 2026-10-07
+
+A government, agency, association or other sponsor may fund credits, onboarding or capabilities for a tenant without thereby gaining ownership of or blanket access to that tenant's raw business data.
+
+Payment authority and data-access authority are separate contracts.
+
+---
+
+## D-037 — Minimum-Necessary, Purpose-Bound Data Sharing
+**Status:** LOCKED  
+**Owner approval:** 2026-10-07
+
+Programme data sharing must expose only the fields required for a stated purpose and must be visible to the user before sharing. User authorisation is required for programme-specific individual-data disclosure unless another lawful basis is explicitly established outside Kerani's product assumptions. Aggregated/anonymised reporting is preferred where individual data is unnecessary.
+
+Unrelated chats, receipts, customers and business records must not be silently included.
+
+---
+
+## D-038 — Agency Remains Programme Authority
+**Status:** LOCKED  
+**Owner approval:** 2026-10-07
+
+Kerani may identify a **potential match**, explain requirements, prepare evidence and transmit/report approved data, but the relevant agency/programme remains authoritative for eligibility, approval, funding, official status and programme rules.
+
+Kerani must not promise approval or represent a candidate match as confirmed eligibility.
+
+---
+
+## D-039 — Outcome Reporting ≠ Automatic Causation
+**Status:** LOCKED  
+**Owner approval:** 2026-10-07
+
+Kerani may report measured before/after or longitudinal outcome changes, but must not claim that a programme or grant caused those changes unless the evidence and methodology support a causal conclusion.
+
+---
+
+## D-040 — Pilot-to-Proof Strategy
+**Status:** LOCKED  
+**Owner approval:** 2026-10-07
+
+Kerani growth begins with operational pilot evidence. Real workflows, clarification, correction, validation, confirmation, authoritative writes, retrieval, failures and recovery should become reusable regression/reliability evidence rather than being treated only as testimonials.
+
+Pilot proof precedes broad public-scale claims.
+
+---
+
+## D-041 — Just-Enough Viral-Ready Infrastructure
+**Status:** LOCKED  
+**Owner approval:** 2026-10-07
+
+V1 infrastructure should be inexpensive at low usage while preserving a clear path to controlled scale. Kerani must avoid speculative high fixed infrastructure cost, but it must also prepare for sudden load through measurable capacity, quotas, backpressure/rate controls, waitlist/fallback behaviour, observability and graceful degradation.
+
+Overload must not create false-success responses or silent data loss.
+
+---
+
+## D-042 — Event Launch Readiness
+**Status:** LOCKED  
+**Owner approval:** 2026-10-07
+
+A large-event or viral public launch must pass explicit onboarding, load, reliability, cost-safety, demo and contingency gates before it is treated as ready.
+
+A named event such as MAHA 2027 may be a strategic target, but no specific event is an architecture dependency or assumed commitment.
+
+---
+
+## D-043 — Public-Sector Collaboration Boundary
+**Status:** LOCKED  
+**Owner approval:** 2026-10-07
+
+Kerani may pursue official collaboration in which a department/agency receives measurable digitalisation, adoption or programme-outcome evidence and Kerani receives legitimate outreach/demo access such as shared exhibition space when formally approved.
+
+The collaboration must be programme/institution based, not a personal favour or private KPI-for-access bargain. It must not imply endorsement beyond what the agency has actually approved.
+
+---
+
+## D-044 — Replaceable Strategic Infrastructure Partner
+**Status:** LOCKED  
+**Owner approval:** 2026-10-07
+
+Kerani may use a software/infrastructure partner for hosting, deployment support, monitoring, operational capacity or scale assistance so growth does not require large speculative capital expenditure.
+
+The partner may earn infrastructure/service revenue; Kerani may gain capacity and operational credibility. Kerani Core, tenant identity, user-data portability and business authority must remain portable and must not be locked to one partner.
+
+---
+
+## D-045 — Partner Credibility ≠ Client Endorsement
+**Status:** LOCKED  
+**Owner approval:** 2026-10-07
+
+A partner's verified enterprise track record may be cited as evidence of the partner's capability only when accurate and permitted. A partner having served a client such as Petronas must never be represented as that client endorsing Kerani unless an explicit endorsement exists.
+
+---
+
+## D-046 — Grant-Readiness by Evidence
+**Status:** LOCKED  
+**Owner approval:** 2026-10-07
+
+Kerani may use pilot outcomes, adoption, reliability, cost efficiency, programme impact and verified partner capacity to build evidence for government/development funding applications.
+
+Grant approval is never assumed, and product architecture must remain viable without a particular grant.
+
+---
+
+## D-047 — 4V Growth Principle
+**Status:** LOCKED  
+**Owner approval:** 2026-10-07
+
+Canonical growth principle:
+
+> **4V — Value → Volume → Viral → Versatile**  
+> **Value first. Volume follows. Virality becomes possible. With the right partners, variable demand becomes manageable — and the system becomes versatile.**
+
+Interpretation:
+1. **Value** — solve a real micro-SME problem before chasing reach.
+2. **Volume** — useful repeated adoption is earned from value and evidence.
+3. **Viral** — broad or sudden growth becomes possible only after onboarding, reliability, cost and capacity controls are prepared.
+4. **Versatile** — with replaceable partners and portable architecture, Kerani can serve different channels, programmes, domains and scales without surrendering Core authority.
+
+**Variable demand** is an operating condition inside the Viral/scale phase, not a fifth V. It must be bounded through metering, graceful degradation, observability and the right replaceable partners.
+
+This principle complements D-020's free-first growth principle; it does not replace evidence-led product validation.
+
+---
+
 # 13. LOCKED DECISIONS
 
 This section is authoritative. Architecture and implementation must not contradict these records.
@@ -1226,6 +1442,72 @@ This section is authoritative. Architecture and implementation must not contradi
 **Decision:** Future POS/ERP integration uses adapters/canonical contracts; ERP remains authoritative for ERP-owned records and writes are controlled.  
 **Date:** 2026-10-07
 
+
+## L-028
+**Source Decision:** D-035  
+**Decision:** Kerani may provide an optional government/institutional programme bridge for assistance matching, sponsored capability, application evidence and outcome reporting without making it a Free-Core dependency.  
+**Date:** 2026-10-07
+
+## L-029
+**Source Decision:** D-036  
+**Decision:** Sponsor payment/funding authority is separate from tenant-data ownership/access authority.  
+**Date:** 2026-10-07
+
+## L-030
+**Source Decision:** D-037  
+**Decision:** Programme data sharing is minimum-necessary, purpose-bound and visible/user-authorised; aggregate/anonymise where individual data is unnecessary.  
+**Date:** 2026-10-07
+
+## L-031
+**Source Decision:** D-038  
+**Decision:** The agency/programme remains authoritative for eligibility, approval, funding and official status; Kerani provides matching/evidence/reporting only.  
+**Date:** 2026-10-07
+
+## L-032
+**Source Decision:** D-039  
+**Decision:** Kerani may report measured outcomes but must not convert correlation or before/after change into an unsupported causal claim.  
+**Date:** 2026-10-07
+
+## L-033
+**Source Decision:** D-040  
+**Decision:** Operational pilot evidence becomes proof/regression/reliability evidence before broad public-scale claims.  
+**Date:** 2026-10-07
+
+## L-034
+**Source Decision:** D-041  
+**Decision:** V1 uses just-enough low-cost infrastructure with a measurable controlled-scale path, graceful degradation and no false-success under overload.  
+**Date:** 2026-10-07
+
+## L-035
+**Source Decision:** D-042  
+**Decision:** Large-event/viral launch requires readiness gates; a named event such as MAHA 2027 is a candidate target, not an architecture dependency.  
+**Date:** 2026-10-07
+
+## L-036
+**Source Decision:** D-043  
+**Decision:** Public-sector collaboration must be official and outcome-based; legitimate outreach/demo access may follow formal programme collaboration, without personal-favour exchange or false endorsement.  
+**Date:** 2026-10-07
+
+## L-037
+**Source Decision:** D-044  
+**Decision:** Kerani may use replaceable strategic infrastructure/software partners for capacity and credibility while preserving Core, tenant, portability and business authority.  
+**Date:** 2026-10-07
+
+## L-038
+**Source Decision:** D-045  
+**Decision:** Verified partner enterprise experience may support partner credibility, but a partner client's name cannot be presented as Kerani endorsement without explicit evidence/permission.  
+**Date:** 2026-10-07
+
+## L-039
+**Source Decision:** D-046  
+**Decision:** Government/development grant readiness is built from evidence; no particular grant is assumed.  
+**Date:** 2026-10-07
+
+## L-040
+**Source Decision:** D-047  
+**Decision:** **4V — Value → Volume → Viral → Versatile**; value comes first, volume follows, virality is prepared rather than assumed, variable demand is managed with replaceable partners, and versatility emerges without surrendering authority.  
+**Date:** 2026-10-07
+
 ---
 
 # 14. REJECTED IDEAS
@@ -1258,6 +1540,14 @@ No project idea is newly marked REJECTED by this migration.
 | D-033-P | POS/ERP vendor contracts | No real integration selected. | First integration customer/use case. |
 | D-034-P | Hosted OCR monthly allowance | Exact free allowance must balance first-value usefulness with OCR/storage/provider cost. | Pilot completed-receipt rate + OCR cost-per-use + conversion evidence. |
 | AC-007-P | V1 central control-plane choice | Cloud stack looks viable but has not been benchmarked against central Apps Script for Kerani workload/ops complexity. | Small load/cost/ops comparison before PRE-ARCH lock. |
+| D-035-P | Exact programme/agency integration | No real government programme contract is selected. | Real programme/counterpart + authoritative data requirements. |
+| D-037-P | Exact shared fields/consent wording/legal basis | Requirements differ by programme and jurisdiction. | Programme-specific legal/privacy review. |
+| D-042-P | MAHA 2027 / named event arrangement | Strategic target only; booth/access/load commitment is not yet evidenced. | Formal event/agency opportunity + readiness evidence. |
+| D-043-P | Shared booth / Jabatan collaboration terms | No official collaboration is assumed. | Formal departmental/programme approval. |
+| D-044-P | Named infrastructure/software partner + commercial terms | Partner capacity, SLA, pricing and exit terms are unverified here. | Due diligence + written commercial/technical agreement. |
+| D-045-P | Petronas/customer reference wording | A vendor's client history and permission to cite it must be verified. | Verifiable reference + permitted wording. |
+| D-046-P | Specific grant programme/application | No particular funding approval or eligibility is assumed. | Current official programme + eligibility/evidence review. |
+| D-047-P | Exact viral/load/partner thresholds | 4V principle is locked; thresholds require measured traffic/cost/reliability data. | Pilot + load-test evidence. |
 
 ---
 
@@ -1294,6 +1584,11 @@ Architecture freeze is blocked by the following:
 - [ ] Test hosted OCR vs personal-Gemini/Lens paste fallback through the same candidate/confirmation/validation path; measure cost per completed receipt.
 - [ ] Decide the Free hosted-OCR allowance only after pilot evidence; keep 1–3/month as a candidate range.
 - [ ] Benchmark AC-007 (Cloud Run + Firestore + Secret Manager + basic Monitoring) against central Apps Script for V1 cost, latency, concurrency, operational effort and migration flexibility.
+- [ ] Convert operational pilot cases into a documented proof/regression set under D-040.
+- [ ] Run E-017 mock Government Program Bridge: potential match → consented evidence pack → sponsor entitlement → outcome report, with no unrelated-data leakage.
+- [ ] Run E-018 viral/event-scale drill: onboarding spike, quotas/backpressure, waitlist/fallback, cost ceiling, OpenClaw reliability and partner-scale activation/rollback.
+- [ ] Define a partner activation threshold and exit/portability test before treating any infrastructure partner as a scale safety net.
+- [ ] Treat MAHA 2027/shared booth/Jabatan/vendor/Petronas/grant details as real-counterpart work, not architecture facts, until verified.
 - [ ] Before architecture confirmation, follow Full ZASS v0.3.10 governance: DRAFT ARCH → ARCHITECTURE CHALLENGE → controlled revision → owner LOCK PRE-ARCH → detailed ACTION_PLAN ↔ PRE-ARCH → atomic evidence tasks → PRE-ARCH review → LAST ARCHITECTURE CHALLENGE → BUILD ARCHITECTURE → explicit YA, CONFIRM ARCHITECTURE.
 
 ---
@@ -1681,6 +1976,68 @@ Exact test cadence and traffic volume remain deferred/pilot-calibrated.
 
 ---
 
+
+## E-017 — Mock Government Programme Bridge
+
+**Status:** PLANNED
+
+**Question:** Can Kerani support assistance matching, sponsor-funded capability and programme outcome reporting without granting a sponsor blanket tenant-data authority?
+
+**Fixture flow:**
+
+~~~text
+tenant profile/history
+→ potential programme match
+→ required-field disclosure
+→ user review/consent
+→ application evidence pack
+→ sponsor-funded entitlement
+→ continued Kerani usage
+→ programme outcome report
+~~~
+
+**PASS signals:**
+- programme sees only approved/required fields;
+- unrelated tenant data remains private;
+- sponsor funding does not imply raw-data access;
+- agency remains authoritative for eligibility/approval;
+- sponsored entitlement is auditable and separate from user-paid credits;
+- outcome report distinguishes measured change from causal claim;
+- export/report path works without requiring a bespoke agency API.
+
+---
+
+## E-018 — Viral/Event-Scale + Partner-Scale Drill
+
+**Status:** PLANNED
+
+**Question:** Can Kerani stay safe, useful and economically bounded during a sudden launch/event spike, and can a replaceable infrastructure partner be activated without changing product authority or tenant history?
+
+**Test areas:**
+- rapid onboarding spike;
+- shared-WA capacity/waitlist and Telegram fallback;
+- AI/OCR/storage/report quota pressure;
+- Cloud/Apps-Script runtime capacity under the selected V1 architecture;
+- cost ceilings and variable-cost alerts;
+- graceful degradation/backpressure;
+- OpenClaw synthetic reliability during load;
+- partner activation threshold;
+- partner-scale handoff;
+- rollback/exit while preserving tenant identity/history.
+
+**PASS signals:**
+- no false-success or silent data loss;
+- user-visible degradation/fallback is truthful;
+- one heavy cohort cannot starve all tenants;
+- cost growth remains observable/bounded;
+- synthetic monitoring detects meaningful regression;
+- partner activation does not require business-logic rewrite or tenant-data migration;
+- rollback/exit is documented and testable.
+
+**Named-event note:** MAHA 2027 may later supply a concrete load scenario, but this experiment must remain event-neutral.
+
+---
+
 # 18. ARCHITECTURE READINESS
 
 ZERO → ARCHITECTURE measures readiness to form and confirm architecture. It is not coding progress.
@@ -1695,7 +2052,7 @@ ZERO → ARCHITECTURE measures readiness to form and confirm architecture. It is
 | Critical assumptions closed or have experiments | 15% | 0.5 | 7.5% | E-001A and E-001B tested one workflow family and corrected the runtime map; major assumptions remain open. |
 | Major risks addressed | 10% | 0.5 | 5% | Guardrails exist; evidence of effectiveness is pending. |
 | Main system flows clear | 10% | 0.5 | 5% | One stateful workflow is mapped and a direct/read path is now observed, but ownership and broader cross-workflow evidence remain incomplete. |
-| Major decisions LOCKED | 10% | 0.75 | 7.5% | Product, tenant/channel, quota, hosted-Free→owned-Premium, reliability and future integration principles are locked; extraction/runtime boundaries still require evidence. |
+| Major decisions LOCKED | 10% | 0.75 | 7.5% | Product, tenant/channel, quota, reliability, institutional-data, pilot/scale/partner and 4V growth principles are locked; extraction/runtime boundaries still require evidence. |
 | No critical architecture blockers | 5% | 0 | 0% | Evidence baseline, contracts and reproduction proof are still missing. |
 
 **ZERO → ARCHITECTURE score:** **65%**
@@ -1714,7 +2071,7 @@ Architecture blockers:
 - no non-farm genericity proof;
 - no reproduction-test result.
 
-A DRAFT ARCH may be proposed only after readiness reaches at least 70%. Architecture confirmation requires the full ZASS v0.3.6 BUILD gate and the exact owner response **YA, CONFIRM ARCHITECTURE**.
+A DRAFT ARCH may be proposed only after readiness reaches at least 70%. Architecture confirmation requires the Full ZASS v0.3.10 PRE-ARCH evidence loop, LAST ARCHITECTURE CHALLENGE, BUILD ARCHITECTURE gate and the exact owner response **YA, CONFIRM ARCHITECTURE**.
 
 ## Evidence Confidence
 
@@ -2014,6 +2371,18 @@ Until then, this remains an extraction proof project, not a framework claim.
 
 # PROJECT ZASS CHANGELOG
 
+## 2026-10-07 — Government bridge + partner-backed scale + 4V growth LOCK
+
+- Owner PROCEED + COMMIT LOCKED D-035–D-047 / L-028–L-040.
+- Locked optional Government Assistance & Impact Bridge principles: sponsor funding is separate from data authority; sharing is minimum-necessary/purpose-bound; agency remains eligibility/approval authority; outcome reporting cannot invent causality.
+- Locked Pilot-to-Proof, just-enough viral-ready infrastructure, event-readiness, official public-sector collaboration boundary, replaceable strategic infrastructure partner, partner-credibility/endorsement boundary and evidence-led grant-readiness.
+- Locked **4V — Value → Volume → Viral → Versatile**. Variable demand is treated as a scale condition managed through controls and replaceable partners, not as a fifth V.
+- Added AC-008 Sponsor-Funded Assistance & Outcome Bridge and AC-009 Pilot → Viral Launch → Partner-Backed Scale as CANDIDATE architectures.
+- Added E-017 mock Government Programme Bridge and E-018 viral/event-scale + partner-scale drill.
+- Kept MAHA 2027, any named Jabatan/booth arrangement, named vendor, Petronas reference, commercial terms, specific grant and exact scale thresholds DEFERRED until real evidence/agreements exist.
+- ZERO → ARCHITECTURE remains 65% and Evidence Confidence remains LOW; these locks clarify strategy/boundaries but do not add runtime or institutional evidence.
+
+
 ## 2026-10-07 — Footer sync to Full ZASS v0.3.10
 
 - Corrected the project footer to the canonical Full ZASS v0.3.10 surface: `[🧠 ZASS!!]-[▶️ PROCEED]-[📦 COMMIT]`.
@@ -2145,6 +2514,6 @@ Until then, this remains an extraction proof project, not a framework claim.
 [🧠 ZASS!!]-[▶️ PROCEED]-[📦 COMMIT]
 
 🏗️ ZERO → ARCHITECTURE: [███████░░░] 65% — DECIDING
-🔬 EVIDENCE CONFIDENCE: LOW — one OpsMate workflow has direct runtime verification, while quota calibration, tenant isolation, channel migration, viral-load behaviour and OpenClaw synthetic reliability remain untested.
+🔬 EVIDENCE CONFIDENCE: LOW — one OpsMate workflow has direct runtime verification; pilot-to-proof, quota/isolation/migration, viral-load, government-programme bridge, partner-scale and OpenClaw reliability evidence remain incomplete.
 
 ✅ ZASS UP TO DATE — v0.3.10
