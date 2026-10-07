@@ -475,6 +475,35 @@ Non-constant parameters: WA seat limit, message allowance, storage quota, AI/pro
 
 ---
 
+
+## AC-007 — V1 central control-plane implementation candidate
+
+**Status:** CANDIDATE
+
+~~~text
+WhatsApp / Telegram
+        ↓
+     Cloud Run
+  central API/router
+        │
+   ┌────┼──────────────┐
+   ↓    ↓              ↓
+Firestore        Secret Manager    Logging/Monitoring
+tenant/quota     credentials       health/cost signals
+waitlist
+        │
+        ↓
+Apps Script / Drive / AI / customer-edge integrations
+~~~
+
+**Intent:** Use Cloud Run as the central multi-tenant control/API plane, Firestore for compact operational state, Secret Manager for platform credentials, and basic Logging/Monitoring for reliability. Keep Apps Script as a lightweight Google Workspace/customer-edge tool rather than forcing it to be the entire central SaaS runtime.
+
+**Why candidate, not LOCKED:** Current Google Cloud economics and scaling characteristics look suitable for low-traffic V1, but Kerani workload, cost-per-use and operational complexity have not yet been benchmarked against the simpler central-Apps-Script alternative.
+
+**V1 anti-overengineering rule:** no Kubernetes, no large microservice split, no BigQuery dependency, no Agent Platform dependency, and no speculative queue/cache layer unless evidence requires it.
+
+---
+
 # 12. DECISION LEDGER
 
 ## D-001 — Repository purpose
@@ -980,6 +1009,33 @@ Future integration metadata should support source_system, external_id, sync_stat
 
 ---
 
+
+## D-034 — Free hosted OCR allowance + DIY OCR fallback
+
+**Status:** CANDIDATE
+
+**Candidate decision:** Free Core should include a deliberately small monthly Kerani-hosted OCR allowance so users can experience receipt scanning, but receipt recording must remain possible after that allowance through manual entry or user-assisted external OCR such as personal Gemini/Google Lens followed by pasted text into Kerani.
+
+External/pasted OCR output is **not authoritative**. It must enter the same review path as Kerani OCR:
+
+~~~text
+receipt image or pasted OCR text
+        ↓
+candidate extraction
+        ↓
+[Benar] [Betulkan] [Batal]
+        ↓
+deterministic validation
+        ↓
+authoritative record
+~~~
+
+**Pilot parameter:** 1–3 hosted OCR uses/month is only a candidate starting range, not a LOCKED quota.
+
+**Reason:** Preserve Free usefulness and micro-SME survival value while preventing OCR/image-processing cost from becoming unlimited variable exposure.
+
+---
+
 # 13. LOCKED DECISIONS
 
 This section is authoritative. Architecture and implementation must not contradict these records.
@@ -1200,6 +1256,8 @@ No project idea is newly marked REJECTED by this migration.
 | D-031-P | Premium WhatsApp package/pricing | Setup effort/economics unmeasured. | Premium onboarding pilot. |
 | D-032-P | Reliability-agent cadence | Synthetic volume must not distort capacity. | Reliability pilot. |
 | D-033-P | POS/ERP vendor contracts | No real integration selected. | First integration customer/use case. |
+| D-034-P | Hosted OCR monthly allowance | Exact free allowance must balance first-value usefulness with OCR/storage/provider cost. | Pilot completed-receipt rate + OCR cost-per-use + conversion evidence. |
+| AC-007-P | V1 central control-plane choice | Cloud stack looks viable but has not been benchmarked against central Apps Script for Kerani workload/ops complexity. | Small load/cost/ops comparison before PRE-ARCH lock. |
 
 ---
 
@@ -1233,6 +1291,10 @@ Architecture freeze is blocked by the following:
 - [ ] Run OpenClaw synthetic reliability harness and verify weekly report/alerts with zero customer-data contamination.
 - [ ] Validate tenant isolation across channels/storage.
 - [ ] Test one POS/ERP-like adapter fixture before claiming enterprise readiness.
+- [ ] Test hosted OCR vs personal-Gemini/Lens paste fallback through the same candidate/confirmation/validation path; measure cost per completed receipt.
+- [ ] Decide the Free hosted-OCR allowance only after pilot evidence; keep 1–3/month as a candidate range.
+- [ ] Benchmark AC-007 (Cloud Run + Firestore + Secret Manager + basic Monitoring) against central Apps Script for V1 cost, latency, concurrency, operational effort and migration flexibility.
+- [ ] Before architecture confirmation, follow Full ZASS v0.3.10 governance: DRAFT ARCH → ARCHITECTURE CHALLENGE → controlled revision → owner LOCK PRE-ARCH → detailed ACTION_PLAN ↔ PRE-ARCH → atomic evidence tasks → PRE-ARCH review → LAST ARCHITECTURE CHALLENGE → BUILD ARCHITECTURE → explicit YA, CONFIRM ARCHITECTURE.
 
 ---
 
@@ -1561,6 +1623,36 @@ Measure Replies Per Record, replies/user/month, clarification/correction rate, i
 **Status:** PLANNED  
 **Pass:** small external-system fixture maps through stable adapter with external IDs/idempotency and controlled read/write semantics.
 
+
+
+## E-015 — Hosted OCR allowance + DIY OCR fallback
+
+**Status:** PLANNED
+
+**Question:** Can Kerani preserve useful Free receipt recording while sharply limiting hosted OCR cost?
+
+**Test:** Compare Kerani-hosted OCR on a small monthly allowance against personal Gemini/Lens → pasted OCR text → Kerani candidate flow.
+
+**Pass signals:**
+- both paths reach the same confirmation/validation boundary;
+- external OCR text never bypasses review;
+- manual entry remains available;
+- hosted OCR cost per completed useful receipt can be measured;
+- the candidate 1–3/month allowance can be calibrated from real use rather than guessed.
+
+---
+
+## E-016 — V1 central control-plane benchmark
+
+**Status:** PLANNED
+
+**Question:** Is AC-007 materially better for V1 than keeping the central control plane in Apps Script?
+
+**Compare:** setup/maintenance effort, request latency, concurrency headroom, tenant/quota/waitlist implementation, secret handling, observability, estimated low-traffic cost and migration flexibility.
+
+**Pass condition:** choose the smallest option that satisfies LOCKED multi-tenant/channel/quota/reliability decisions without premature infrastructure.
+
+---
 
 # 18. ARCHITECTURE READINESS
 
