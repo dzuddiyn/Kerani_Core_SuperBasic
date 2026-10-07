@@ -3,7 +3,7 @@
 **ZASS baseline:** v0.3.6  
 **Project status:** DECIDING — evidence harvesting planned; substantive Core build parked  
 **Owner:** Project Owner  
-**Updated:** 2026-10-06  
+**Updated:** 2026-10-07  
 **Repository:** dzuddiyn/Kerani_Core_SuperBasic  
 **Project Source of Truth:** this file  
 **Method baseline:** https://github.com/dzuddiyn/ZASS-Zero-to-Architecture-Structured-Sprint/blob/main/ZASS.md
@@ -136,15 +136,21 @@ The statements above are inherited from the existing project SoT. They are proje
 - Free/basic capability and metered/premium capability must be distinguishable by capability/entitlement policy rather than scattered feature-specific conditionals.
 - Premium capability must disclose its credit cost before execution when a charge applies.
 - Failed provider/system execution must not be treated as a successfully consumed paid service.
+- Free transport, storage/media, AI/processing, retrieval/report fair-use and Premium Credit Pass are separate controls.
+- Telegram removes most WhatsApp transport pressure but does not remove storage, AI/processing, retrieval/report fair-use or abuse limits.
+- Provider quotas/prices are configurable inputs, not architecture constants.
 
 ## Initial Runtime
 
 - Google Apps Script.
 - The SuperBasic baseline does not require a dedicated self-hosted server.
 
-## Initial Chat Interface
+## Initial Customer Channels
 
-- Telegram.
+- **Shared WhatsApp** = convenience/discovery Free channel with controlled capacity.
+- **Telegram** = economic/high-usage Free channel.
+- Both resolve to the same tenant identity; channel is not the business Source of Truth.
+- Per-number seats and message allowances are configurable operational parameters.
 
 ## Initial AI Provider
 
@@ -230,6 +236,11 @@ Nothing in this section is automatically approved.
 | Q-015 | Which layer owns routing between direct/read requests and stateful/mutation workflows? | Prevents transport, runtime and domain routing responsibilities from collapsing into one layer. | OPEN |
 | Q-016 | Which classes of request require a Durable Inbox, and which should bypass it? | Prevents forcing every request through durable queue infrastructure. | OPEN |
 | Q-017 | Is human confirmation a mandatory Core responsibility, an optional Core capability, or application/module policy? | Prevents approval workflow from being over-generalised into Core. | OPEN |
+| Q-018 | What storage/media quota keeps Free useful without uncontrolled receipt/image cost? | Calibrates Free usefulness/economics. | OPEN — pilot parameter |
+| Q-019 | What AI/processing and report/retrieval fair-use limits prevent heavy Free abuse? | Protects shared capacity. | OPEN — pilot parameter |
+| Q-020 | What active-user capacity should one shared WhatsApp number carry before waitlist? | Protects time-to-value. | OPEN — 50 is an example, not locked |
+| Q-021 | What signal should trigger a new shared WhatsApp number and waitlist invitation? | Viral operations. | OPEN |
+| Q-022 | What synthetic audit cadence gives reliability evidence without distorting real capacity? | Reliability-agent envelope. | OPEN |
 
 ---
 
@@ -248,6 +259,14 @@ Nothing in this section is automatically approved.
 | R-009 | Linear pipeline over-generalisation | Read/query requests are forced through queue, AI or human approval even when unnecessary. | Classify request behaviour before selecting an execution path; test direct/read and stateful/mutation paths separately. | OPEN | Commands such as report/history/lookup/status begin requiring LLM or approval without evidence that they need it. |
 | R-010 | Overconfident natural-language routing | AI guesses an intent/category or fields and causes the wrong record type or wrong business meaning to reach persistence. | AI may only suggest intent/candidate; low/ambiguous confidence must trigger clarification; require human confirmation and deterministic domain validation before authoritative write. | OPEN | Ambiguous free text is silently converted into a saved record or a domain writer receives unconfirmed/unvalidated AI output. |
 | R-011 | Free/premium boundary becomes manipulative or confusing | Free product feels crippled, users do not trust feature gates, or growth messaging over-promises business outcomes. | Keep Free Core independently useful; explain premium value/cost explicitly; validate messaging with pilot users/testimonials; avoid guaranteed-outcome claims. | OPEN | Basic record/retrieval workflows become paywalled, premium prompts appear before value is demonstrated, or marketing implies guaranteed grants/certification/financing. |
+| R-012 | Free onboarding friction | Setup kills first-value experience. | Shared hosted Free first; owned infra later. | OPEN | API keys/OAuth needed before first record. |
+| R-013 | Heavy Free tenant exhausts shared AI/storage/report capacity | Other users degrade. | Per-tenant limits + rate/fair-use controls. | OPEN | Few tenants dominate usage. |
+| R-014 | Tenant isolation failure | Cross-customer data exposure. | Tenant-scoped storage/auth + isolation tests. | OPEN | Binding can access another tenant. |
+| R-015 | Shared WhatsApp overcrowding | Free becomes nearly useless before habit forms. | Active-seat cap + waitlist + new-number provisioning. | OPEN | Only a few completed records fit per user. |
+| R-016 | Channel migration duplicates/orphans history | Data continuity breaks. | Permanent tenant identity; channel binding only. | OPEN | Migration requires data copy. |
+| R-017 | Waitlist growth invisible to owner | Viral demand is lost. | Queue metrics + owner notification. | OPEN | Full-capacity replies without owner alert. |
+| R-018 | Synthetic audit contaminates real truth | Test data leaks into customer reports. | Synthetic tenants/tagging + normal authority path. | OPEN | Test records appear as customer truth. |
+| R-019 | Central shared runtime bottleneck | Viral growth overloads Apps Script/AI/storage. | Metering + replaceable runtime/provider boundaries. | OPEN | Latency tracks tenant count. |
 
 ---
 
@@ -420,6 +439,29 @@ Request Router
 ### Candidate Comparison
 
 No second genuine architecture candidate has yet been recorded. Do not invent AC-002/AC-003 merely to fill a comparison table.
+
+---
+
+## AC-006 — Tenant-centric Hosted-Free → Owned-Premium architecture
+
+**Status:** CANDIDATE**
+
+~~~text
+Channel (WA / Telegram / future)
+              ↓
+         TENANT IDENTITY
+              ↓
+   ┌──────────┼──────────┐
+   ↓          ↓          ↓
+Control     Data      Execution/AI
+credits     tenant    shared Free
+quotas      history   or owned Premium
+entitlement export
+~~~
+
+Free uses shared infrastructure with tenant isolation. Premium may move to dedicated/owned WhatsApp, Google/Apps Script Edge and optional customer-owned AI without changing tenant identity. POS/ERP integration later uses adapters/contracts; ERP remains authoritative for ERP-owned records.
+
+Non-constant parameters: WA seat limit, message allowance, storage quota, AI/processing quota, report fair-use, provider/model and onboarding price.
 
 ---
 
@@ -823,6 +865,111 @@ Such workflows belong to a **premium/domain solution layer** and may require:
 
 ---
 
+
+## D-023 — Tenant identity independent of channel
+**Status:** LOCKED  
+**Owner approval:** 2026-10-07
+
+Every business/user has a persistent Kerani tenant identity. WhatsApp, Telegram, Web and future interfaces are bindings only. Changing channel must not require data migration or a new tenant.
+
+---
+
+## D-024 — Free onboarding = time-to-first-value
+**Status:** LOCKED  
+**Owner approval:** 2026-10-07
+
+A Free user should reach a first useful/authoritative record through shared Kerani infrastructure without first creating Gemini credentials, Google Drive layout or Apps Script deployment. Customer-owned infrastructure is a later upgrade/onboarding step.
+
+---
+
+## D-025 — Free channel economics + channel-neutral intelligence
+**Status:** LOCKED  
+**Owner approval:** 2026-10-07
+
+Telegram is the economic/high-usage Free channel. Shared WhatsApp is a convenience/discovery Free channel with controlled allowance. After shared-WA limits, user may top up transport, migrate to Telegram, or buy Premium onboarding for dedicated/owned WhatsApp.
+
+Premium intelligence Credit Pass pricing is the same regardless of channel.
+
+---
+
+## D-026 — Shared WhatsApp capacity, waitlist and seat reclaim
+**Status:** LOCKED  
+**Owner approval:** 2026-10-07
+
+Each shared Free WhatsApp number has a configurable maximum active-seat count. **50 is an initial planning example, not a locked invariant.**
+
+At capacity: new user gets a capacity-full/waitlist reply; waitlist entry is recorded; owner is notified as backlog grows; owner provisions another number; waiting users are manually invited initially.
+
+A seat is released when tenant moves to Telegram-primary or Premium own-WhatsApp. Tenant/history remain intact.
+
+---
+
+## D-027 — Practical independent Free quotas
+**Status:** LOCKED  
+**Owner approval:** 2026-10-07
+
+Free has independent controls for: WhatsApp transport; storage/media (especially images/receipts); AI/processing; retrieval/report fair-use/rate limit; and Premium Credit Pass.
+
+Telegram heavy users still face storage, AI/processing, retrieval/report and abuse controls. Exact values are pilot-calibrated and must remain practically useful.
+
+---
+
+## D-028 — Product quota ≠ raw transport quota
+**Status:** LOCKED  
+**Owner approval:** 2026-10-07
+
+User-facing usefulness is based on useful actions/records/reports, while Kerani internally meters transport replies, Replies Per Record, AI operations and completed records separately.
+
+Candidate/clarify/correct/confirm/validate/audit flow must not be removed merely to save WhatsApp messages.
+
+---
+
+## D-029 — Shared Free AI, deterministic-first
+**Status:** LOCKED  
+**Owner approval:** 2026-10-07
+
+Free may use shared Kerani AI/processing with per-tenant metering/limits. Free onboarding does not require BYO Gemini. Core should use deterministic routing/retrieval/validation where AI adds no value. Customer-owned AI remains optional later.
+
+---
+
+## D-030 — Tenant-isolated, channel-independent storage
+**Status:** LOCKED  
+**Owner approval:** 2026-10-07
+
+Storage belongs to tenant, not WhatsApp shard. Channel migration does not relocate history. Images/receipts/documents have practical Free storage quota. User export rights under D-018 remain.
+
+---
+
+## D-031 — Premium own-WhatsApp onboarding
+**Status:** LOCKED  
+**Owner approval:** 2026-10-07
+
+Users who insist on WhatsApp and do not want repeated top-ups may pay explicit onboarding for dedicated/owned WhatsApp infrastructure, substantially larger channel allowance and extra convenience/richer AI features. Google/Drive/Apps Script Edge may also be configured where appropriate.
+
+Premium intelligence Credit Pass prices remain channel-neutral. Exact onboarding fee/allowance/bundle are deferred.
+
+---
+
+## D-032 — OpenClaw synthetic reliability/audit agent
+**Status:** LOCKED  
+**Owner approval:** 2026-10-07
+
+Use OpenClaw as a replaceable external reliability harness to inject scheduled synthetic record messages through real Free WhatsApp and Telegram ingress, observe outcomes, detect regressions, notify the owner and generate a weekly reliability report.
+
+Synthetic traffic uses dedicated TEST identities, is explicitly tagged, follows normal routing/clarification/confirmation/validation/persistence controls, cannot bypass Kerani authority, cannot contaminate real customer truth, and is metered separately from real user entitlements.
+
+---
+
+## D-033 — POS / ERP growth path
+**Status:** LOCKED  
+**Owner approval:** 2026-10-07
+
+Kerani must support a future adapter/contract integration path to POS/accounting/ERP so growing customers do not need to abandon Kerani. Established ERP-owned records remain authoritative in the ERP. Kerani reads/analyzes and only performs controlled validated/idempotent writes.
+
+Future integration metadata should support source_system, external_id, sync_status, synced_at and idempotency_key. Exact vendors are deferred.
+
+---
+
 # 13. LOCKED DECISIONS
 
 This section is authoritative. Architecture and implementation must not contradict these records.
@@ -957,6 +1104,64 @@ This section is authoritative. Architecture and implementation must not contradi
 
 ---
 
+
+## L-017
+**Source Decision:** D-023  
+**Decision:** Tenant identity/history are channel-independent; migration does not create a new tenant or require data migration.  
+**Date:** 2026-10-07
+
+## L-018
+**Source Decision:** D-024  
+**Decision:** Free onboarding prioritises first value using shared infrastructure; owned Google/Gemini/Edge is not a Free prerequisite.  
+**Date:** 2026-10-07
+
+## L-019
+**Source Decision:** D-025  
+**Decision:** Telegram is economic/high-usage Free; shared WhatsApp is controlled convenience; intelligence Credit Pass is channel-neutral.  
+**Date:** 2026-10-07
+
+## L-020
+**Source Decision:** D-026  
+**Decision:** Shared WhatsApp has configurable active seats, explicit waitlist, owner notification, new-number provisioning and seat reclaim.  
+**Date:** 2026-10-07
+
+## L-021
+**Source Decision:** D-027  
+**Decision:** Transport, storage/media, AI/processing, report/retrieval fair-use and Credit Pass are separate controls; Telegram does not remove non-transport quotas.  
+**Date:** 2026-10-07
+
+## L-022
+**Source Decision:** D-028  
+**Decision:** Product usefulness is not raw message quota; integrity confirmation/validation flow is not sacrificed to save messages.  
+**Date:** 2026-10-07
+
+## L-023
+**Source Decision:** D-029  
+**Decision:** Free may use shared Kerani AI with per-tenant limits and deterministic-first behaviour; BYO Gemini is optional later.  
+**Date:** 2026-10-07
+
+## L-024
+**Source Decision:** D-030  
+**Decision:** Storage is tenant-isolated/channel-independent with practical media limits and export rights.  
+**Date:** 2026-10-07
+
+## L-025
+**Source Decision:** D-031  
+**Decision:** Premium onboarding may provide dedicated/owned WhatsApp with much larger channel capacity and richer convenience/AI; intelligence prices stay channel-neutral.  
+**Date:** 2026-10-07
+
+## L-026
+**Source Decision:** D-032  
+**Decision:** OpenClaw is a replaceable synthetic reliability harness through real ingress; it cannot bypass Kerani authority or contaminate real customer truth.  
+**Date:** 2026-10-07
+
+## L-027
+**Source Decision:** D-033  
+**Decision:** Future POS/ERP integration uses adapters/canonical contracts; ERP remains authoritative for ERP-owned records and writes are controlled.  
+**Date:** 2026-10-07
+
+---
+
 # 14. REJECTED IDEAS
 
 No project idea is newly marked REJECTED by this migration.
@@ -980,6 +1185,11 @@ No project idea is newly marked REJECTED by this migration.
 | E-006 | OpsMate reproduction test | New composition does not yet exist. | Core + Agro + BSE test config + adapter can be integrated. |
 | D-019 | Exact Credit Pass values / commercial calibration | Unit economics and representative workloads are not yet validated. | Stable capability boundaries + measured provider/API costs and workload tests. |
 | D-020-T | Growth-channel tactics and viral campaign design | The principle is locked, but platform fit, policy, conversion behaviour and testimonial quality require real pilot evidence. | Pilot complete + usable testimonials + platform-policy review + launch readiness. |
+| D-026-P | Shared WhatsApp capacity values | Seats/allowance/overflow/provision threshold need RPR evidence. | Pilot RPR + load data. |
+| D-027-P | Free storage/AI/report quota values | Need usefulness + cost evidence. | Pilot workload metrics. |
+| D-031-P | Premium WhatsApp package/pricing | Setup effort/economics unmeasured. | Premium onboarding pilot. |
+| D-032-P | Reliability-agent cadence | Synthetic volume must not distort capacity. | Reliability pilot. |
+| D-033-P | POS/ERP vendor contracts | No real integration selected. | First integration customer/use case. |
 
 ---
 
@@ -1006,6 +1216,13 @@ Architecture freeze is blocked by the following:
 - [ ] After pilot, review the free/premium boundary with real users and testimonials before public growth push; then decide channel mix, launch copy and viral tactics.
 - [ ] Test whether a bounded free demo of one premium capability materially improves user understanding/conversion without confusing the permanent Free Core boundary.
 - [ ] Define the minimum onboarding/interview contract for OpsMate-grade premium workflows before any such domain solution is sold or generalized.
+- [ ] Calibrate shared-WA seats/base allowance/overflow using RPR and real usage; do not freeze 50 as invariant.
+- [ ] Calibrate Free storage/media, AI/processing and report/retrieval fair-use limits.
+- [ ] Validate waitlist → owner notify → new number → manual invite under viral-load simulation.
+- [ ] Validate WhatsApp→Telegram and shared-WA→Premium migration with one tenant/history.
+- [ ] Run OpenClaw synthetic reliability harness and verify weekly report/alerts with zero customer-data contamination.
+- [ ] Validate tenant isolation across channels/storage.
+- [ ] Test one POS/ERP-like adapter fixture before claiming enterprise readiness.
 
 ---
 
@@ -1301,6 +1518,40 @@ Telegram intake
 
 ---
 
+
+## E-007 — Free onboarding to first record
+**Status:** PLANNED  
+**Pass:** first useful/authoritative record without customer-owned API keys, Apps Script deployment or Google/Gemini setup.
+
+## E-008 — RPR + shared-WA capacity
+**Status:** PLANNED  
+Measure Replies Per Record, replies/user/month, clarification/correction rate, inactive seats and overflow demand.
+
+## E-009 — Channel migration continuity
+**Status:** PLANNED  
+**Pass:** WA→Telegram and shared-WA→Premium preserve one tenant, history and credits.
+
+## E-010 — Free quota fairness
+**Status:** PLANNED  
+**Pass:** heavy Telegram user cannot bypass storage/media, AI/processing or report/retrieval fair-use limits or degrade another tenant.
+
+## E-011 — Tenant isolation
+**Status:** PLANNED  
+**Pass:** Tenant A cannot retrieve/mutate/enumerate Tenant B data through any channel.
+
+## E-012 — Waiting-list viral-capacity drill
+**Status:** PLANNED  
+**Pass:** full shard creates explicit waitlist, owner alert and clean manual invite to new shard without duplicate tenant.
+
+## E-013 — OpenClaw reliability audit
+**Status:** PLANNED  
+**Pass:** synthetic WA/Telegram tenants traverse normal controls, detect/report failures and generate weekly report without contaminating real data/entitlements.
+
+## E-014 — POS/ERP adapter fixture
+**Status:** PLANNED  
+**Pass:** small external-system fixture maps through stable adapter with external IDs/idempotency and controlled read/write semantics.
+
+
 # 18. ARCHITECTURE READINESS
 
 ZERO → ARCHITECTURE measures readiness to form and confirm architecture. It is not coding progress.
@@ -1315,14 +1566,14 @@ ZERO → ARCHITECTURE measures readiness to form and confirm architecture. It is
 | Critical assumptions closed or have experiments | 15% | 0.5 | 7.5% | E-001A and E-001B tested one workflow family and corrected the runtime map; major assumptions remain open. |
 | Major risks addressed | 10% | 0.5 | 5% | Guardrails exist; evidence of effectiveness is pending. |
 | Main system flows clear | 10% | 0.5 | 5% | One stateful workflow is mapped and a direct/read path is now observed, but ownership and broader cross-workflow evidence remain incomplete. |
-| Major decisions LOCKED | 10% | 0.5 | 5% | Product scope, module limits and premium boundary are now locked; core runtime/module boundary choices remain candidate. |
+| Major decisions LOCKED | 10% | 0.75 | 7.5% | Product, tenant/channel, quota, hosted-Free→owned-Premium, reliability and future integration principles are locked; extraction/runtime boundaries still require evidence. |
 | No critical architecture blockers | 5% | 0 | 0% | Evidence baseline, contracts and reproduction proof are still missing. |
 
-**ZERO → ARCHITECTURE score:** **62.5% → 63%**
+**ZERO → ARCHITECTURE score:** **65%**
 
 **Status:** **DECIDING**
 
-**Progress bar:** **[██████░░░░] 63% — DECIDING**
+**Progress bar:** **[███████░░░] 65% — DECIDING**
 
 **Readiness gate:** **NOT READY**
 
@@ -1590,6 +1841,13 @@ Until then, this remains an extraction proof project, not a framework claim.
 
 # PROJECT ZASS CHANGELOG
 
+## 2026-10-07 — Tenant/channel/quota + viral-capacity LOCK
+
+- LOCKED D-023–D-033 / L-017–L-027: channel-independent tenant identity, low-friction Free onboarding, Telegram-vs-WhatsApp economics, shared-WA capacity/waitlist/reclaim, independent Free resource quotas, useful-action quota semantics, shared deterministic-first AI, tenant-isolated storage, Premium own-WhatsApp onboarding, OpenClaw reliability harness and POS/ERP growth path.
+- 50 users per shared WhatsApp number remains a planning example, not an architecture invariant.
+- Added AC-006, Q-018–Q-022, R-012–R-019 and E-007–E-014.
+- ZERO → ARCHITECTURE moves from 63% to 65%; Evidence Confidence remains LOW pending pilot/load/isolation/migration evidence.
+
 ## 2026-10-06 — Premium demo + OpsMate-grade premium workflow LOCK
 
 - Saved the broader product idea set as CANDIDATE ideas: simple free-product promise, three-layer value model, data-history-first, user-owned/export-for-AI direction, outcome-based crediting, limited premium killer features, micro-SME digital-upgrade positioning and the “large-system discipline made lightweight” thesis.
@@ -1686,7 +1944,7 @@ Until then, this remains an extraction proof project, not a framework claim.
 
 [🧠 ZASS!!] -- [▶️ PROCEED] -- [🔄 PIVOT] -- [📦 COMMIT]
 
-🏗️ ZERO → ARCHITECTURE: [██████░░░░] 63% — DECIDING
-🔬 EVIDENCE CONFIDENCE: LOW — direct OpsMate evidence exists, but broader workflow/module validation remains incomplete.
+🏗️ ZERO → ARCHITECTURE: [███████░░░] 65% — DECIDING
+🔬 EVIDENCE CONFIDENCE: LOW — boundaries are clearer, but quota calibration, tenant isolation, migration, waitlist/load and reliability-agent behaviour still need pilot evidence.
 
 ✅ ZASS UP TO DATE — v0.3.6
