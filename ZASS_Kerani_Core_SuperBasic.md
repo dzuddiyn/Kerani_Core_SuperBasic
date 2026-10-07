@@ -1616,8 +1616,35 @@ Measure Replies Per Record, replies/user/month, clarification/correction rate, i
 **Pass:** full shard creates explicit waitlist, owner alert and clean manual invite to new shard without duplicate tenant.
 
 ## E-013 — OpenClaw reliability audit
-**Status:** PLANNED  
-**Pass:** synthetic WA/Telegram tenants traverse normal controls, detect/report failures and generate weekly report without contaminating real data/entitlements.
+**Status:** PLANNED — OWNER APPROVED FOR EXECUTION DESIGN 2026-10-07  
+**Execution state:** tracked in ACTION_PLAN; implementation must not start before the required test ingress/runtime exists.
+
+**Question:** Can a replaceable external synthetic agent prove that Kerani still behaves correctly through the same WhatsApp/Telegram paths used by real Free users?
+
+**Required synthetic coverage:**
+- normal Purchase;
+- normal Sale;
+- Observation;
+- ambiguous input that must clarify rather than guess;
+- correction/confirmation flow;
+- basic report/retrieval;
+- provider/AI failure handling;
+- storage/authoritative-write failure handling;
+- WhatsApp ingress;
+- Telegram ingress.
+
+**Required measurements:** end-to-end success rate, semantic/classification correctness, confirmation-flow integrity, authoritative-write success, latency, provider/API failures, retry behaviour, duplicate/idempotency failures, per-channel reliability, AI operations per test and estimated infrastructure cost per test.
+
+**PASS:** synthetic WhatsApp/Telegram tenants traverse normal controls, detect/report injected or observed failures, generate owner alerts when required, and produce a weekly reliability report without contaminating real customer data, business reports, revenue metrics or product entitlements.
+
+**STOP / ESCALATE conditions:**
+- synthetic data reaches real customer truth;
+- the agent bypasses required confirmation/validation;
+- duplicate authoritative records are created;
+- provider failure is reported as false success;
+- a material architecture defect is revealed.
+
+Exact test cadence and traffic volume remain deferred/pilot-calibrated.
 
 ## E-014 — POS/ERP adapter fixture
 **Status:** PLANNED  
@@ -1996,6 +2023,14 @@ Until then, this remains an extraction proof project, not a framework claim.
 - Added I-014 / AC-007 CANDIDATE / E-016: evaluate Cloud Run + Firestore + Secret Manager + basic Logging/Monitoring as the V1 central control plane while keeping Apps Script useful at the Google Workspace/customer edge.
 - Added Q-023–Q-025 and R-020–R-022 for OCR economics/integrity and premature-cloud-complexity risk.
 - ZERO → ARCHITECTURE remains 65% and Evidence Confidence remains LOW because these updates add governance/candidates, not new runtime evidence.
+
+## 2026-10-07 — OpenClaw synthetic reliability experiment PROCEED
+
+- Owner approved proceeding with the already LOCKED D-032/L-026 OpenClaw synthetic reliability direction.
+- Expanded E-013 with a concrete synthetic coverage set, required reliability/cost metrics, PASS criteria and STOP/ESCALATE conditions.
+- Kept OpenClaw replaceable and outside business-authority boundaries; synthetic traffic must use dedicated identities and never contaminate real customer truth or entitlements.
+- Execution planning is delegated to ACTION_PLAN; no implementation or atomic coding task was started by this update.
+- ZERO → ARCHITECTURE remains 65%; no new runtime evidence was produced.
 
 ## 2026-10-07 — Tenant/channel/quota + viral-capacity LOCK
 
