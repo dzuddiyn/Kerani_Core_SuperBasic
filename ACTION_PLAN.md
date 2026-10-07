@@ -3,7 +3,7 @@
 **Purpose:** Execute the short evidence-harvesting window without turning execution tasks into architecture decisions.  
 **Authority:** Execution/progress only. `ZASS_Kerani_Core_SuperBasic.md` remains authoritative for questions, risks, decisions, experiments and readiness.  
 **Planning date:** 2026-09-29  
-**Source:** ZASS_Kerani_Core_SuperBasic.md v0.3.6 — same Git commit  
+**Source:** ZASS_Kerani_Core_SuperBasic.md / Full ZASS v0.3.10 / ZASS SYSTEM v0.2.1 — same Git commit  
 **ZERO → ARCHITECTURE snapshot:** 65% — DECIDING  
 **Evidence Confidence snapshot:** LOW
 
@@ -53,6 +53,11 @@
 - Treat 50 active users per shared WhatsApp number only as an initial planning example until RPR/load evidence validates it.
 - OpenClaw synthetic reliability traffic uses dedicated synthetic tenants, normal authority controls and separate reliability accounting.
 - Keep POS/ERP integration vendor-neutral at the Core boundary; established ERP remains authoritative for ERP-owned records.
+- Treat hosted OCR as a scarce convenience resource, not a requirement for receipt recording; manual entry and personal-Gemini/Lens → pasted-text fallback must remain usable.
+- Never trust pasted external OCR text as authoritative; it must pass candidate preview, human correction/confirmation and deterministic validation.
+- Keep the candidate 1–3 hosted OCR uses/month uncommitted until E-015 measures cost/usefulness.
+- Evaluate Cloud Run + Firestore + Secret Manager + basic Monitoring as AC-007, but reject cloud complexity that does not earn its operational cost against central Apps Script.
+- When PRE-ARCH is eventually locked, ACTION_PLAN becomes the detailed planning authority for sequence/dependencies/tests/rollback/evidence, but it still cannot decide architecture.
 
 ---
 
@@ -251,3 +256,71 @@ Before claiming enterprise readiness:
 3. Keep vendor schemas outside generic Core.
 4. Use controlled/approved writes when Kerani mutates an external system.
 5. Treat an established ERP as Source of Truth for ERP-owned records.
+
+
+## FULL ZASS v0.3.10 — ARCHITECTURE TO EXECUTION GATE
+
+Current project state remains **DECIDING**. No PRE-ARCH or confirmed architecture exists yet.
+
+When decisions/evidence are sufficient:
+
+~~~text
+DRAFT ARCH
+→ ARCHITECTURE CHALLENGE
+→ CONTROLLED REVISION
+→ YA, LOCK PRE-ARCH
+→ PRE-ARCH BASELINE — LOCKED FOR EXECUTION
+→ DETAILED ACTION PLAN ↔ PRE-ARCH
+→ DETAILED ATOMIC TASK SLICING
+→ EXECUTE ONE TASK
+→ RESULT / EVIDENCE
+→ PRE-ARCH REVIEW
+   ├─ PASS → NEXT TASK
+   ├─ REWORK → task / plan
+   ├─ ARCH IMPACT → revise/supersede PRE-ARCH
+   └─ LOCKED DECISION IMPACT → STOP → OWNER
+→ FINAL ARCHITECTURE REVIEW
+→ LAST ARCHITECTURE CHALLENGE
+→ FINAL IMPROVE / REVISION
+→ BUILD ARCHITECTURE
+→ YA, CONFIRM ARCHITECTURE
+→ ARCHITECTURE CONFIRMED
+→ rebuild release ACTION PLAN
+→ release atomic tasks
+→ BUILD FIRST RELEASE
+→ TEST / INTEGRATE / HARDEN / VERIFY
+→ RELEASE ACCEPTANCE
+→ DELIVERED !!
+~~~
+
+Atomic task packets are derived execution views only. They never become a second planning/decision authority.
+
+## OCR COST / FALLBACK VALIDATION
+
+Before locking a Free hosted-OCR quota:
+
+1. Measure OCR provider cost per completed useful receipt, not per raw API call.
+2. Compare Kerani-hosted OCR against personal Gemini/Google Lens → pasted text.
+3. Ensure both paths converge on the same candidate/confirmation/deterministic-validation boundary.
+4. Keep manual receipt entry available even when OCR quota/provider is unavailable.
+5. Measure whether a very small allowance is enough for users to understand the feature before top-up.
+6. Keep 1–3/month as a candidate range until pilot evidence supports a number.
+7. Avoid unnecessary image retention; measure storage cost separately from OCR processing.
+
+## AC-007 V1 CONTROL-PLANE BENCHMARK
+
+Compare:
+- central Apps Script; versus
+- Cloud Run + Firestore + Secret Manager + basic Logging/Monitoring.
+
+Measure:
+1. initial setup and maintenance burden;
+2. latency and concurrency headroom;
+3. tenant/quota/waitlist implementation clarity;
+4. secret handling/security;
+5. observability and OpenClaw audit integration;
+6. estimated low-traffic/free-tier cost;
+7. scale-up path when Premium users increase;
+8. migration/rollback effort.
+
+Choose the smallest implementation that satisfies LOCKED multi-tenant/channel/quota/reliability decisions. Do not add Kubernetes, BigQuery, Agent Platform, Redis or multi-service decomposition without evidence.
