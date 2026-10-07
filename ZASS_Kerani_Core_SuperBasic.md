@@ -1,6 +1,7 @@
 # ZASS — Kerani_Core_SuperBasic
 
-**ZASS baseline:** v0.3.6  
+**ZASS baseline:** v0.3.10  
+**ZASS SYSTEM:** v0.2.1  
 **Project status:** DECIDING — evidence harvesting planned; substantive Core build parked  
 **Owner:** Project Owner  
 **Updated:** 2026-10-07  
@@ -12,16 +13,17 @@
 >
 > We earn genericity through evidence and reuse, then share the useful stack openly so small teams can build on proven work instead of rebuilding it alone.
 
-This project follows the operating semantics of **ZASS v0.3.6**:
+This project follows the operating semantics of **Full ZASS v0.3.10 / ZASS SYSTEM v0.2.1**:
 
 1. **Bukan potong fikir; potong ulang fikir.**
 2. **Fikir bebas. Rekod keputusan. Kunci yang pasti. Bina dari yang terkunci.**
 3. **AI menghasilkan kemungkinan. Evidence menguji. Manusia memutuskan. Architecture mematuhi keputusan.**
 4. **Tangkap luas, tumpu dengan sengaja:** bentuk candidate dahulu, kemudian research hanya soalan yang boleh mengubah pilihan; silang evidence, LOCK keputusan, dan biarkan architecture muncul daripada keputusan itu.
+5. **Architecture-to-execution is governed:** draft architecture must be challenged before PRE-ARCH lock; PRE-ARCH drives detailed ACTION_PLAN and atomic evidence tasks; final architecture is challenged again and requires explicit owner confirmation before first-release build.
 
 If this project file and the official ZASS baseline differ, use:
 - this file for **project facts, questions, risks, candidates, decisions, evidence and readiness**;
-- the official ZASS v0.3.6 baseline for **workflow/command semantics**.
+- the official Full ZASS v0.3.10 / ZASS SYSTEM v0.2.1 baseline for **workflow/command semantics**.
 
 Only the project owner may make a decision **LOCKED**. A suggestion, AI output, model agreement, experiment PASS, or implementation detail is not automatically a decision.
 
@@ -56,7 +58,7 @@ Other states:
 
 **REJECTED · DEFERRED · SUPERSEDED**
 
-Project execution state in ACTION_PLAN.md must use the separate ACTION PLAN states from ZASS v0.3.6 and must not become a second decision ledger.
+Project execution state in ACTION_PLAN.md must use the separate ACTION PLAN states from Full ZASS v0.3.10 and must not become a second decision ledger or architecture authority.
 
 ---
 
@@ -212,6 +214,8 @@ Nothing in this section is automatically approved.
 | I-010 | Prove monetisation first with only a few premium killer capabilities per module instead of building a large premium catalogue early. | Product discussion 2026-10-06 | CANDIDATE |
 | I-011 | Position Kerani as a lightweight digital-upgrade path for micro-SMEs that currently rely on memory, chat, receipts, notebooks and occasional spreadsheets. | Product discussion 2026-10-06 | CANDIDATE |
 | I-012 | Product thesis candidate: **take the discipline of larger-company systems and make it light enough for small businesses.** | Product discussion 2026-10-06 | CANDIDATE |
+| I-013 | Give Free users a very small Kerani-hosted OCR allowance, then preserve free receipt recording through manual entry or user-assisted OCR (personal Gemini/Lens to pasted text). | Product/cost discussion 2026-10-07 | CANDIDATE |
+| I-014 | V1 central-control-plane candidate: Cloud Run + Firestore + Secret Manager + basic Cloud Logging/Monitoring, while Apps Script remains useful for Google Workspace/customer-edge integration. | Infrastructure discussion 2026-10-07 | CANDIDATE |
 
 ---
 
@@ -241,6 +245,9 @@ Nothing in this section is automatically approved.
 | Q-020 | What active-user capacity should one shared WhatsApp number carry before waitlist? | Protects time-to-value. | OPEN — 50 is an example, not locked |
 | Q-021 | What signal should trigger a new shared WhatsApp number and waitlist invitation? | Viral operations. | OPEN |
 | Q-022 | What synthetic audit cadence gives reliability evidence without distorting real capacity? | Reliability-agent envelope. | OPEN |
+| Q-023 | What monthly Kerani-hosted OCR allowance is enough to demonstrate value without uncontrolled variable cost? | Determines Free OCR economics. | OPEN — 1–3/month is a candidate range only |
+| Q-024 | Can pasted text from personal Gemini/Lens reliably enter the same candidate → confirm/correct → validate → authoritative-save flow as hosted OCR? | Preserves Free receipt capability after OCR quota. | OPEN |
+| Q-025 | Does Cloud Run + Firestore + Secret Manager + basic Monitoring materially simplify V1 central multi-tenant control versus central Apps Script without unnecessary complexity? | Chooses the V1 control-plane implementation. | OPEN |
 
 ---
 
@@ -267,6 +274,9 @@ Nothing in this section is automatically approved.
 | R-017 | Waitlist growth invisible to owner | Viral demand is lost. | Queue metrics + owner notification. | OPEN | Full-capacity replies without owner alert. |
 | R-018 | Synthetic audit contaminates real truth | Test data leaks into customer reports. | Synthetic tenants/tagging + normal authority path. | OPEN | Test records appear as customer truth. |
 | R-019 | Central shared runtime bottleneck | Viral growth overloads Apps Script/AI/storage. | Metering + replaceable runtime/provider boundaries. | OPEN | Latency tracks tenant count. |
+| R-020 | Hosted OCR subsidy becomes a cost sink | Free users repeatedly scan receipts and consume OCR/storage without conversion or useful retained records. | Tiny monthly hosted-OCR allowance, one-pass/cache where possible, DIY OCR/manual fallback, per-tenant metering. | OPEN | OCR usage grows much faster than completed useful records. |
+| R-021 | DIY OCR fallback bypasses record integrity | Pasted external OCR text is trusted as authoritative data. | Treat pasted OCR text as untrusted input; run normal candidate/confirmation/deterministic validation flow. | OPEN | External OCR text is saved directly without review. |
+| R-022 | Premature Cloud complexity | V1 gains operational burden before scale needs it. | Keep one small Cloud Run service + Firestore + Secret Manager + basic logs/alerts only; benchmark against Apps Script alternative. | OPEN | Multiple services/queues/databases appear before measured need. |
 
 ---
 
