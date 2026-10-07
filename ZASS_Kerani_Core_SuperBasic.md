@@ -2014,6 +2014,15 @@ Until then, this remains an extraction proof project, not a framework claim.
 
 # PROJECT ZASS CHANGELOG
 
+## 2026-10-07 — Footer sync to Full ZASS v0.3.10
+
+- Corrected the project footer to the canonical Full ZASS v0.3.10 surface: `[🧠 ZASS!!]-[▶️ PROCEED]-[📦 COMMIT]`.
+- Removed PIVOT from the footer only; the PIVOT command remains valid in the method.
+- Updated the Evidence Confidence reason to cite actual current evidence and unresolved tests.
+- Normalized the version-check line to `✅ ZASS UP TO DATE — v0.3.10`.
+- No decision, readiness score, experiment result or architecture state changed.
+
+
 ## 2026-10-07 — Full ZASS v0.3.10 / ZASS SYSTEM v0.2.1 sync + OCR/Cloud candidates
 
 - Updated project method baseline from Full ZASS v0.3.6 to **v0.3.10** and ZASS SYSTEM to **v0.2.1**.
@@ -2133,9 +2142,9 @@ Until then, this remains an extraction proof project, not a framework claim.
 
 # CURRENT ZASS FOOTER STATE
 
-[🧠 ZASS!!] -- [▶️ PROCEED] -- [🔄 PIVOT] -- [📦 COMMIT]
+[🧠 ZASS!!]-[▶️ PROCEED]-[📦 COMMIT]
 
 🏗️ ZERO → ARCHITECTURE: [███████░░░] 65% — DECIDING
-🔬 EVIDENCE CONFIDENCE: LOW — boundaries are clearer, but quota calibration, tenant isolation, migration, waitlist/load and reliability-agent behaviour still need pilot evidence.
+🔬 EVIDENCE CONFIDENCE: LOW — one OpsMate workflow has direct runtime verification, while quota calibration, tenant isolation, channel migration, viral-load behaviour and OpenClaw synthetic reliability remain untested.
 
-✅ ZASS UP TO DATE — Full v0.3.10 / ZASS SYSTEM v0.2.1
+✅ ZASS UP TO DATE — v0.3.10
