@@ -4,7 +4,7 @@
 **Authority:** Execution/progress only. `ZASS_Kerani_Core_SuperBasic.md` remains authoritative for questions, risks, decisions, experiments and readiness.  
 **Planning date:** 2026-09-29  
 **Source:** ZASS_Kerani_Core_SuperBasic.md v0.3.6 — same Git commit  
-**ZERO → ARCHITECTURE snapshot:** 63% — DECIDING  
+**ZERO → ARCHITECTURE snapshot:** 65% — DECIDING  
 **Evidence Confidence snapshot:** LOW
 
 ---
@@ -45,6 +45,14 @@
 - Use a compact Project Pulse when orientation is useful: current stage, next stage, factual progress if measurable, and save/sync health.
 - Never report SAVED/committed unless a real Git result exists; generated Markdown is not a persistence receipt.
 - No coding agent receives unrestricted production credentials or production-message access.
+- Keep tenant identity/history independent from channel; migration changes binding/entitlement, not business data ownership.
+- Do not make customer-owned Gemini/Drive/Apps Script a Free onboarding prerequisite.
+- Treat WhatsApp transport, storage/media, AI/processing, report/retrieval fair-use and Credit Pass as separate meters.
+- Telegram heavy usage remains subject to storage/media, AI/processing and report/retrieval fair-use limits.
+- Shared WhatsApp must enforce configurable active-seat capacity; when full, use WAITLIST + owner notification rather than silently overbooking.
+- Treat 50 active users per shared WhatsApp number only as an initial planning example until RPR/load evidence validates it.
+- OpenClaw synthetic reliability traffic uses dedicated synthetic tenants, normal authority controls and separate reliability accounting.
+- Keep POS/ERP integration vendor-neutral at the Core boundary; established ERP remains authoritative for ERP-owned records.
 
 ---
 
@@ -179,3 +187,67 @@ Before implementing or selling an OpsMate-grade premium workflow:
 4. Estimate onboarding/configuration effort before pricing it.
 5. Keep onboarding pricing/credit values deferred until representative implementations can be costed.
 6. Refuse to push organization-specific logic into generic Core merely to speed delivery.
+
+
+## FREE INFRASTRUCTURE / VIRAL CAPACITY VALIDATION
+
+Before broad viral launch:
+
+1. Measure Replies Per Record (RPR), replies/user/month and clarification/correction rates.
+2. Set practical active-seat and base/overflow message parameters per shared WhatsApp number.
+3. Set practical per-tenant storage/media and AI/processing limits; include report/retrieval fair-use or cooldown/rate limiting.
+4. Simulate a full shared WhatsApp shard:
+   - new user receives capacity-full / waiting-list response;
+   - waitlist entry is persisted;
+   - owner is notified as backlog grows;
+   - a new number can be provisioned;
+   - waitlisted users are invited manually in the initial operating model.
+5. Verify tenants moving to Telegram or Premium release the shared-WA seat but keep the same tenant/history.
+6. Verify Telegram heavy users cannot bypass storage/AI/backend fair-use controls merely because transport is cheap.
+
+## OPENCLAW RELIABILITY AUDIT
+
+Build OpenClaw as a replaceable external reliability harness, not a Kerani authority.
+
+1. Use dedicated synthetic/test tenant identities for WhatsApp and Telegram.
+2. Inject scheduled representative record messages through real supported ingress paths.
+3. Exercise candidate/clarification/confirmation/validation/persistence flows where applicable.
+4. Tag all synthetic data and exclude it from real customer reports.
+5. Track success/failure/latency and relevant transport/AI usage.
+6. Notify the owner on meaningful reliability regression.
+7. Generate a weekly reliability report for the owner.
+8. Never bypass Kerani validation/authority boundaries or directly mutate real customer records.
+
+## WAITLIST OPERATIONS
+
+Initial operating model:
+
+~~~text
+shared WA shard reaches configured active-seat capacity
+        ↓
+new Free user
+        ↓
+WAITLIST
+        ↓
+capacity-full reply
+        ↓
+owner notification / backlog metric
+        ↓
+owner provisions new shared WhatsApp number
+        ↓
+manual invite of waiting-list users
+        ↓
+tenant binds to new shard
+~~~
+
+The exact seat threshold and invitation automation remain pilot-calibrated; the waiting-list lifecycle is mandatory.
+
+## FUTURE POS / ERP INTEGRATION CHECK
+
+Before claiming enterprise readiness:
+
+1. Implement one small adapter fixture.
+2. Preserve external source IDs and idempotency.
+3. Keep vendor schemas outside generic Core.
+4. Use controlled/approved writes when Kerani mutates an external system.
+5. Treat an established ERP as Source of Truth for ERP-owned records.
