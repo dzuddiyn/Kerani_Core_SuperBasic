@@ -1351,6 +1351,85 @@ This principle complements D-020 free-first growth, D-040 Pilot-to-Proof, D-041 
 
 ---
 
+## D-049 — Real-Field-Evidence-First Execution
+**Status:** LOCKED  
+**Owner approval:** 2026-10-09
+
+Real operator/customer samples are first-class execution evidence from the earliest available day. Critical user-facing workflows must be anchored to real field samples whenever such samples exist. Synthetic fixtures may supplement real evidence, but must not silently replace available real-world evidence.
+
+Canonical rule:
+
+> **No sample, no assumption.**
+
+Where a real sample does not yet exist, the relevant behaviour must be marked **UNVALIDATED** rather than being treated as field-proven.
+
+### Field-sample preservation
+
+Real samples should preserve the operational meaning that makes them valuable, including where relevant:
+- original wording;
+- shorthand and mixed language;
+- ambiguity/incompleteness;
+- line breaks/format;
+- attachment/input type;
+- actual missing information.
+
+Personally identifying or sensitive details may be redacted when needed, but redaction must not erase the semantics being tested.
+
+### Execution bridge
+
+For critical user-facing workflows, execution should be traceable through:
+
+~~~text
+REAL FIELD CORPUS
+        ↓
+EXECUTION PROOF MATRIX
+        ↓
+REUSABLE TEST PROCEDURE
+        ↓
+ATOMIC TASK INSTANCE
+        ↓
+PROOF RECEIPT
+        ↓
+INVALIDATION CHECK
+   ├─ proof still valid → PASS_REUSED
+   └─ invalidated       → RERUN
+~~~
+
+This bridge is execution evidence/planning structure, not a new architecture authority.
+
+### Atomic-task evidence anchor
+
+Where real field evidence exists, an execution task should carry:
+- **REAL EVIDENCE ANCHOR**;
+- **FIELD SAMPLE IDs**;
+- **EXPECTED BEHAVIOUR CONTRACT**;
+- **PROOF REUSE KEY**;
+- **INVALIDATION TRIGGERS**.
+
+Do not duplicate a long test procedure for every sample. Separate **procedure** from **case/data** so one reusable procedure may execute many field samples.
+
+### Defect-to-corpus rule
+
+A real defect should strengthen the durable corpus:
+
+~~~text
+real defect
+→ freeze exact relevant input
+→ assign corpus/sample ID
+→ reproduce FAIL
+→ add regression expectation
+→ minimal fix
+→ sample PASS
+→ retain as regression evidence
+~~~
+
+A PASS may be reused only while its relevant source/contract/procedure/runtime assumptions remain valid. If an invalidation trigger is hit, rerun the affected proof instead of blindly rerunning every historical case.
+
+**Scope boundary:** This decision applies to Kerani execution. Upstream change to the shared ZASS System Architecture-to-Execution Standard is deferred until E-019 demonstrates that the method reduces repeated execution work without weakening reliability or traceability.
+
+---
+
+
 # 13. LOCKED DECISIONS
 
 This section is authoritative. Architecture and implementation must not contradict these records.
@@ -1616,6 +1695,13 @@ This section is authoritative. Architecture and implementation must not contradi
 **Date:** 2026-10-08  
 **Supersedes:** L-040 / D-047
 
+## L-042
+**Source Decision:** D-049  
+**Decision:** Real field samples are first-class execution evidence from the earliest available day; critical user-facing workflows use a field-corpus → proof-matrix → reusable-procedure → atomic-instance → proof-receipt → invalidation/reuse path, and synthetic fixtures do not silently substitute for available field evidence.  
+**Locked by:** Project Owner  
+**Date:** 2026-10-09  
+**Supersedes:** None
+
 ---
 
 # 14. REJECTED IDEAS
@@ -1697,6 +1783,9 @@ Architecture freeze is blocked by the following:
 - [ ] Run E-018 viral/event-scale drill: onboarding spike, quotas/backpressure, waitlist/fallback, cost ceiling, OpenClaw reliability and partner-scale activation/rollback.
 - [ ] Define a partner activation threshold and exit/portability test before treating any infrastructure partner as a scale safety net.
 - [ ] Treat MAHA 2027/shared booth/Jabatan/vendor/Petronas/grant details as real-counterpart work, not architecture facts, until verified.
+- [ ] Build the first Kerani real-field corpus from earliest available pilot/operator messages; preserve raw semantics and mark missing-real-sample behaviours UNVALIDATED.
+- [ ] Run E-019 Evidence-Seeded Execution Pilot on one Purchase slice: field corpus → proof matrix → reusable procedure → atomic task instance → proof receipts → deliberate invalidation/reuse check.
+- [ ] Measure whether E-019 materially reduces duplicated procedure prose/retesting while preserving reliability and traceability before proposing any upstream ZASS System change.
 - [ ] Before architecture confirmation, follow Full ZASS v0.3.10 governance: DRAFT ARCH → ARCHITECTURE CHALLENGE → controlled revision → owner LOCK PRE-ARCH → detailed ACTION_PLAN ↔ PRE-ARCH → atomic evidence tasks → PRE-ARCH review → LAST ARCHITECTURE CHALLENGE → BUILD ARCHITECTURE → explicit YA, CONFIRM ARCHITECTURE.
 
 ---
@@ -2146,6 +2235,77 @@ tenant profile/history
 
 ---
 
+
+## E-019 — Evidence-Seeded Execution Pilot
+**Status:** PLANNED — OWNER APPROVED 2026-10-09
+
+**Question:** Can real-field-evidence-first execution reduce repeated atomic-task/test orchestration while preserving or improving correctness, traceability and regression safety?
+
+**Initial slice:** one small **Purchase intake** workflow.
+
+**Initial field-sample target:** approximately 5–10 real operator/customer messages as soon as they are available. This range is an execution target, not an architecture constant.
+
+**Method:**
+
+~~~text
+REAL FIELD CORPUS
+→ map sample IDs to expected behaviour
+→ build EXECUTION PROOF MATRIX
+→ define one reusable procedure for the workflow class
+→ execute bounded implementation/task instance
+→ generate proof receipts
+→ make one controlled relevant code/contract change
+→ evaluate invalidation rules
+→ rerun only affected proofs
+→ mark unaffected valid proofs PASS_REUSED
+~~~
+
+**Minimum sample coverage where available:**
+- normal/clear input;
+- ambiguous or incomplete input;
+- correction/confirmation behaviour;
+- one failure/edge case relevant to the slice.
+
+**Proof matrix must connect:**
+- architecture/decision lineage;
+- field sample ID;
+- expected behaviour contract;
+- reusable procedure;
+- implementation surface;
+- required proof/evidence.
+
+**Proof receipt should identify enough state to decide reuse/invalidation, such as:**
+- source revision/SHA;
+- field-sample ID or stable sample hash;
+- procedure version;
+- behaviour/contract version;
+- relevant runtime/environment;
+- factual result.
+
+The exact receipt schema is implementation detail unless later evidence justifies standardisation.
+
+**PASS signals:**
+- real samples influence implementation before late-stage testing rather than appearing only after build;
+- one reusable procedure can execute multiple cases without copy-pasting the procedure into each task;
+- a real defect/sample can become a durable regression case;
+- proof reuse is factual and traceable;
+- a controlled change invalidates only the proofs whose assumptions were affected;
+- no required regression is skipped merely to reduce work;
+- task/result lineage remains clear;
+- measured execution/retest overhead is lower than an equivalent duplicated-case workflow.
+
+**FAIL / ESCALATE signals:**
+- real sample meaning is sanitised until ambiguity/field behaviour is lost;
+- synthetic examples are reported as real field evidence;
+- PASS_REUSED is claimed without a valid reuse key/invalidation check;
+- proof reuse hides a regression;
+- the reusable procedure becomes so generic that it obscures workflow-specific acceptance criteria;
+- the method creates more governance overhead than the repeated work it is intended to remove.
+
+**Upstream gate:** Do not change the shared ZASS System Architecture-to-Execution Standard from this idea alone. First review E-019 evidence. If the pilot demonstrates material benefit without weaker reliability/traceability, propose the smallest upstream ZASS refinement separately.
+
+---
+
 # 18. ARCHITECTURE READINESS
 
 ZERO → ARCHITECTURE measures readiness to form and confirm architecture. It is not coding progress.
@@ -2160,7 +2320,7 @@ ZERO → ARCHITECTURE measures readiness to form and confirm architecture. It is
 | Critical assumptions closed or have experiments | 15% | 0.5 | 7.5% | E-001A and E-001B tested one workflow family and corrected the runtime map; major assumptions remain open. |
 | Major risks addressed | 10% | 0.5 | 5% | Guardrails exist; evidence of effectiveness is pending. |
 | Main system flows clear | 10% | 0.5 | 5% | One stateful workflow is mapped and a direct/read path is now observed, but ownership and broader cross-workflow evidence remain incomplete. |
-| Major decisions LOCKED | 10% | 0.75 | 7.5% | Product, tenant/channel, quota, reliability, institutional-data, pilot/scale/partner and 4V growth principles are locked; extraction/runtime boundaries still require evidence. |
+| Major decisions LOCKED | 10% | 0.75 | 7.5% | Product, tenant/channel, quota, reliability, institutional-data, pilot/scale/partner, V-Road and real-field-evidence execution principles are locked; extraction/runtime boundaries still require evidence. |
 | No critical architecture blockers | 5% | 0 | 0% | Evidence baseline, contracts and reproduction proof are still missing. |
 
 **ZERO → ARCHITECTURE score:** **65%**
@@ -2479,6 +2639,19 @@ Until then, this remains an extraction proof project, not a framework claim.
 
 # PROJECT ZASS CHANGELOG
 
+## 2026-10-09 — Real-field-evidence-first execution LOCK
+
+- LOCKED D-049 / L-042: real operator/customer samples become first-class execution evidence from the earliest available day.
+- Locked **No sample, no assumption**: when no real sample exists, the behaviour is UNVALIDATED rather than field-proven.
+- Added the Kerani execution bridge: field corpus → execution proof matrix → reusable test procedure → atomic task instance → proof receipt → invalidation check → PASS_REUSED or rerun.
+- Added task evidence anchors: real evidence anchor, field sample IDs, expected behaviour contract, proof reuse key and invalidation triggers.
+- Locked procedure-vs-case separation to reduce repeated execution prose/work while preserving observable acceptance criteria.
+- Locked defect-to-corpus flow so real defects become durable regression assets.
+- Added E-019 Evidence-Seeded Execution Pilot using one Purchase slice and an initial target of roughly 5–10 real field samples.
+- Deferred any shared ZASS System execution-standard change until E-019 demonstrates reduced repetition without weaker reliability/traceability.
+- ZERO → ARCHITECTURE remains 65% and Evidence Confidence remains LOW; the execution method is approved but not yet proven on Kerani.
+
+
 ## 2026-10-08 — V-Road / 7V Core + Extended V-Gates LOCK
 
 - SUPERSEDED D-047 / L-040 historical 4V principle without deleting lineage.
@@ -2635,6 +2808,6 @@ Until then, this remains an extraction proof project, not a framework claim.
 [🧠 ZASS!!]-[▶️ PROCEED]-[📦 COMMIT]
 
 🏗️ ZERO → ARCHITECTURE: [███████░░░] 65% — DECIDING
-🔬 EVIDENCE CONFIDENCE: LOW — one OpsMate workflow has direct runtime verification; most V-Road evidence beyond early Value/Verbal foundations, including Volume/Viral/Vary/Venture/Versatile, remains incomplete.
+🔬 EVIDENCE CONFIDENCE: LOW — one OpsMate workflow has direct runtime verification; the new real-field-evidence execution bridge and most later V-Road stages remain unproven on Kerani.
 
 ✅ ZASS UP TO DATE — v0.3.10

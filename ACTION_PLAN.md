@@ -498,6 +498,119 @@ Before any major public push:
 8. document partner-activation threshold and rollback/exit path;
 9. only then treat a named event as launch-ready.
 
+
+## REAL-FIELD-EVIDENCE-FIRST EXECUTION PILOT
+
+**Authority:** D-049 / L-042.  
+**Experiment:** E-019.  
+**State:** PLANNED — OWNER APPROVED 2026-10-09.  
+**Upstream ZASS change:** NOT APPROVED; evidence required first.
+
+### Operating rule
+
+> **No sample, no assumption.**
+
+For every critical user-facing workflow, anchor implementation/tests to real operator/customer samples as soon as they exist. If no real sample exists, label the behaviour **UNVALIDATED**. Synthetic fixtures may supplement the corpus but must never be mislabeled as field evidence.
+
+### Evidence substrate
+
+Maintain a first-class field corpus or equivalent durable artifact. Exact filename/storage format is implementation-local, but each sample needs a stable ID and should preserve relevant raw semantics such as shorthand, ambiguity, incompleteness, formatting and attachment/input type. Redact sensitive identifiers without erasing the behaviour being tested.
+
+### Execution proof matrix
+
+Before slicing repetitive sample-by-sample tasks, map:
+
+~~~text
+decision / architecture contract
+↕
+field sample IDs
+↕
+expected behaviour contract
+↕
+reusable procedure
+↕
+implementation surface
+↕
+proof / regression evidence
+~~~
+
+A critical architecture/behaviour contract should not float without at least one field example once such evidence is available.
+
+### Atomic task additions
+
+Where real evidence exists, derived execution packets should include:
+- REAL EVIDENCE ANCHOR;
+- FIELD SAMPLE IDs;
+- EXPECTED BEHAVIOUR CONTRACT;
+- PROOF REUSE KEY;
+- INVALIDATION TRIGGERS.
+
+Keep **procedure ≠ case**:
+- write the reusable workflow proof procedure once;
+- pass different field cases/samples as data;
+- do not duplicate long execution prose for every sample unless the behaviour genuinely differs.
+
+### Proof receipts and reuse
+
+A proof receipt should retain enough state to decide whether reuse is still valid. Candidate dimensions:
+- source revision/SHA;
+- sample ID/hash;
+- procedure version;
+- behaviour/contract version;
+- relevant environment/runtime;
+- factual result.
+
+Use **PASS_REUSED** only when none of the receipt's relevant assumptions were invalidated.
+
+Typical invalidation triggers include relevant change to:
+- parser/extractor;
+- routing;
+- behaviour/domain contract;
+- validator/guard;
+- confirmation flow;
+- writer/persistence boundary;
+- provider/runtime behaviour that the proof depends on;
+- expected sample behaviour.
+
+Do not rerun unaffected proofs by default; do not reuse a proof when an assumption changed.
+
+### Defect-to-corpus flow
+
+~~~text
+real defect
+→ freeze exact relevant field input
+→ stable sample ID
+→ reproduce FAIL
+→ regression expectation
+→ minimal fix
+→ PASS
+→ retain as corpus/proof asset
+~~~
+
+### E-019 first slice
+
+Use one small Purchase-intake workflow with approximately 5–10 real samples when available:
+1. collect/preserve samples;
+2. classify expected behaviour without inventing missing facts;
+3. build proof matrix;
+4. define one reusable procedure;
+5. execute bounded implementation/proof;
+6. issue proof receipts;
+7. make one controlled relevant change;
+8. calculate which receipts become invalid;
+9. rerun only affected cases;
+10. compare repeated work/traceability with duplicated per-case execution.
+
+**PASS to consider upstreaming into ZASS System:**
+- materially less duplicated procedure/retesting work;
+- equal or better regression safety;
+- clear lineage;
+- no hidden skipped proofs;
+- manageable governance overhead.
+
+If those conditions are not met, keep D-049 local to Kerani and revise/reject the execution mechanism rather than changing shared ZASS.
+
+
 ## GOVERNMENT ASSISTANCE & IMPACT BRIDGE VALIDATION
 
 **Experiment:** E-017  
