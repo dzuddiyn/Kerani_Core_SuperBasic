@@ -2756,6 +2756,17 @@ Until then, this remains an extraction proof project, not a framework claim.
 
 # PROJECT ZASS CHANGELOG
 
+## 2026-10-09 — ZASSIMPLE surface migration contract committed
+
+- Owner-approved `ZASSIMPLE/MIGRATION_CONTRACT.md` v0.1 persisted using ZASSIMPLE v0.3.3 as the method baseline.
+- Created `ZASSIMPLE/DESIGN.md`, `ZASSIMPLE/ACTION_PLAN.md`, and `ZASSIMPLE/TASKS.md`.
+- Moved canonical planning location to `ZASSIMPLE/ACTION_PLAN.md` while preserving the complete pre-migration root Action Plan content.
+- Converted root `ACTION_PLAN.md` to a compatibility pointer so two planning authorities cannot diverge.
+- Full ZASS remains the governance/evidence/decision backplane; ZASSIMPLE is the human-facing design/planning/execution surface.
+- No D/L/Q/R/E/AC architecture/product decision was added, removed, superseded, confirmed or re-scored by this migration.
+- ZERO → ARCHITECTURE remains 65% and Evidence Confidence remains LOW.
+
+
 ## 2026-10-09 — Premium Intelligence + Cloudflare control-plane candidates
 
 - Added I-016 and D-051 **CANDIDATE** for **Premium Intelligence Pack — Analysis · Correlation · Graph · Proposal · Forecast**.
