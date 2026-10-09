@@ -703,3 +703,37 @@ Do not submit an architecture claim as evidence of impact. A future grant/develo
 - development/scale roadmap.
 
 A specific grant remains optional external funding, never a product dependency.
+
+
+## PREMIUM OPERATIONS PACK — CANDIDATE REVIEW
+
+**Authority:** D-050 CANDIDATE only. Do not implement or market as LOCKED Premium entitlement yet.
+
+Candidate pack:
+
+~~~text
+ALERT  → IoT/device event → contextual push/escalation
+REMIND → Task/time/status → reminder/push
+REPORT → scheduled report delivery
+ASK    → richer interactive query/retrieval
+~~~
+
+Review path before LOCK:
+
+1. Audit OpsMate for real behaviour evidence covering reminder, periodic report, query/retrieval and push/notification families.
+2. Classify each mechanism as GENERIC / AGRO-GENERIC / OPSMATE-BSE-SPECIFIC / UNCERTAIN.
+3. Preserve Free Core usefulness:
+   - basic Task stays Free;
+   - basic/manual report stays Free;
+   - basic deterministic retrieval stays Free;
+   - Premium candidacy focuses on automation, scheduling, richer context/intelligence and cross-channel convenience.
+4. For **IoT Alert Bridge**, keep a non-negotiable safety boundary:
+   - local/device/PLC/HA deterministic alarm path remains authoritative for critical conditions;
+   - Kerani may add context, history, notification and escalation;
+   - Kerani/LLM/cloud outage must not suppress the base critical alarm.
+5. Define truthful delivery semantics for reminder/report/push: SENT / DELIVERED where verifiable / FAILED / RETRYING; never imply success without evidence.
+6. Measure provider/channel/AI/storage cost before assigning Credit Pass values or quotas.
+7. Test at least one reusable/non-BSE scenario before claiming the pack is generic.
+8. Return to ZASS for owner review before D-050 can become LOCKED.
+
+Exact schedule cadence, credit price, message allowance, IoT protocol, supported devices and escalation chain remain deferred.

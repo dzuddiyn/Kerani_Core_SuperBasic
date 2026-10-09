@@ -216,6 +216,7 @@ Nothing in this section is automatically approved.
 | I-012 | Product thesis candidate: **take the discipline of larger-company systems and make it light enough for small businesses.** | Product discussion 2026-10-06 | CANDIDATE |
 | I-013 | Give Free users a very small Kerani-hosted OCR allowance, then preserve free receipt recording through manual entry or user-assisted OCR (personal Gemini/Lens to pasted text). | Product/cost discussion 2026-10-07 | CANDIDATE |
 | I-014 | V1 central-control-plane candidate: Cloud Run + Firestore + Secret Manager + basic Cloud Logging/Monitoring, while Apps Script remains useful for Google Workspace/customer-edge integration. | Infrastructure discussion 2026-10-07 | CANDIDATE |
+| I-015 | Premium Operations Pack candidate: **Alert · Remind · Report · Ask** — IoT alert bridge, task reminder/push, scheduled report, and richer interactive query/retrieval. | Product/extraction discussion 2026-10-09 | CANDIDATE |
 
 ---
 
@@ -253,6 +254,7 @@ Nothing in this section is automatically approved.
 | Q-028 | What tested load/cost/reliability envelope qualifies Kerani as ready for a large event or sudden viral spike? | Defines event-readiness gate. | OPEN |
 | Q-029 | What measurable threshold should activate an infrastructure partner or dedicated scale tier? | Prevents both premature spend and emergency-only escalation. | OPEN |
 | Q-030 | What evidence and permissions are required before citing a partner's enterprise client history or applying for a specific development grant? | Protects credibility and grant claims. | OPEN |
+| Q-031 | Where should the Free/Premium boundary sit for reminder/push, scheduled reports and interactive retrieval, and which OpsMate behaviours are genuinely reusable? | Prevents useful Free basics from being crippled while avoiding unbounded automation/AI cost. | OPEN |
 
 ---
 
@@ -289,6 +291,7 @@ Nothing in this section is automatically approved.
 | R-027 | Event-driven roadmap distortion | MAHA or another event forces premature features/architecture. | Treat event as candidate milestone; readiness gates remain authoritative. | OPEN | Scope changes are justified only by event date. |
 | R-028 | Grant-dependency distortion | Product decisions optimize for grant criteria instead of user value. | 4V Value-first principle; architecture viable without specific grant. | OPEN | Roadmap stalls or breaks if grant is unavailable. |
 | R-029 | Unsupported impact causality | Programme reporting overclaims that funding caused observed outcomes. | Separate descriptive outcomes from causal evidence/methodology. | OPEN | Before/after delta is presented as proof of causation. |
+| R-030 | Safety-critical IoT alert depends on Kerani/LLM/cloud | A Kerani/provider outage could suppress a real-world safety alarm. | Keep deterministic/local device/PLC/HA alarm path authoritative; Kerani adds context, push, history and escalation only. | OPEN | Safety response is unavailable when Kerani, AI or internet is unavailable. |
 
 ---
 
@@ -1430,6 +1433,34 @@ A PASS may be reused only while its relevant source/contract/procedure/runtime a
 ---
 
 
+
+## D-050 — Premium Operations Pack: Alert · Remind · Report · Ask
+**Status:** CANDIDATE
+**Origin:** OpsMate/Kerani extraction + product discussion 2026-10-09
+
+Selected operational automation and richer retrieval capabilities may form a Premium Operations Pack:
+
+| Candidate | Capability | Candidate boundary |
+|---|---|---|
+| **P-01 — IoT Alert Bridge** | Receive an event/alert from a SuperBasic IoT/device integration and notify the user with useful context/history/escalation. | Kerani is not the sole critical alarm/controller. Device/PLC/HA or equivalent deterministic local path remains authoritative for critical alarm behaviour. |
+| **P-02 — Task Reminder + Push Notification** | Automatically remind users about tasks/time/status and push through supported channels. | Basic Task remains available in Free Core; automated reminder/push is a Premium convenience candidate. |
+| **P-03 — Scheduled Report** | Deliver daily/weekly/monthly or event-timed reports automatically. | Basic/manual report remains available in Free Core; scheduled delivery is a Premium automation candidate. |
+| **P-04 — Interactive Query / Retrieval** | Let users ask richer conversational questions over their own structured history and receive tenant-scoped retrieval/summaries. | Basic deterministic lookup/retrieval remains Free; richer conversational/multi-record retrieval is a Premium candidate. |
+
+> **Premium Operations Pack — Alert · Remind · Report · Ask**
+
+Important boundaries:
+- This is a **CANDIDATE**, not a LOCKED premium entitlement.
+- Free Core must remain genuinely useful under D-016/D-020.
+- Premium candidacy focuses on automation, richer context/intelligence, scheduled delivery and cross-channel convenience rather than removing basic task/report/retrieval capability from Free.
+- Critical alarms must not depend solely on Kerani Premium, an LLM, internet connectivity or a cloud provider.
+- Exact credit cost, quota, cadence, delivery channel, IoT protocol and escalation policy are deferred.
+- Reusable runtime mechanisms should be extracted from OpsMate only after behaviour evidence shows they are generic.
+
+Evidence needed before LOCK: OpsMate behaviour audit for reminder/report/query/push families, one non-BSE reuse example where practical, cost/load measurements, delivery/failure semantics, and an IoT alert safety-boundary test.
+
+---
+
 # 13. LOCKED DECISIONS
 
 This section is authoritative. Architecture and implementation must not contradict these records.
@@ -1742,6 +1773,7 @@ No project idea is newly marked REJECTED by this migration.
 | D-045-P | Petronas/customer reference wording | A vendor's client history and permission to cite it must be verified. | Verifiable reference + permitted wording. |
 | D-046-P | Specific grant programme/application | No particular funding approval or eligibility is assumed. | Current official programme + eligibility/evidence review. |
 | D-048-P | Exact viral/load/partner thresholds | V-Road principle is locked; thresholds require measured traffic/cost/reliability data. | Pilot + load-test evidence. |
+| D-050-P | Premium Operations Pack entitlement/pricing/automation parameters | Alert/Reminder/Report/Ask boundaries and costs are not yet evidenced enough to LOCK. | OpsMate behaviour audit + pilot/reuse/cost/safety evidence. |
 
 ---
 
@@ -2638,6 +2670,17 @@ Until then, this remains an extraction proof project, not a framework claim.
 ---
 
 # PROJECT ZASS CHANGELOG
+
+## 2026-10-09 — Premium Operations Pack candidates saved
+
+- Added I-015 and D-050 **CANDIDATE** for **Premium Operations Pack — Alert · Remind · Report · Ask**.
+- Candidate capabilities: P-01 IoT Alert Bridge, P-02 Task Reminder + Push Notification, P-03 Scheduled Report, P-04 Interactive Query/Retrieval.
+- Preserved Free usefulness: basic Task, manual/basic reporting and deterministic/basic retrieval are not removed from Free by this candidate.
+- Added R-030 safety boundary: critical IoT alarms retain a deterministic/local authoritative path; Kerani may add context, push, history and escalation.
+- Added Q-031 for Free/Premium boundary and OpsMate reuse evidence.
+- Exact pricing, quotas, cadence, delivery channel, IoT protocol and escalation policy remain deferred under D-050-P.
+- No LOCKED decision or architecture-readiness score changed; this commit records product candidates and their evidence requirements.
+
 
 ## 2026-10-09 — Real-field-evidence-first execution LOCK
 
