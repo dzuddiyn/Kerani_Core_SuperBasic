@@ -400,21 +400,51 @@ Before locking a Free hosted-OCR quota:
 6. Keep 1–3/month as a candidate range until pilot evidence supports a number.
 7. Avoid unnecessary image retention; measure storage cost separately from OCR processing.
 
-## AC-007 V1 CONTROL-PLANE BENCHMARK
+## E-016 V1 CONTROL-PLANE BENCHMARK
 
-Compare:
-- central Apps Script; versus
-- Cloud Run + Firestore + Secret Manager + basic Logging/Monitoring.
+Compare three low-complexity options:
+
+1. **Central Apps Script**
+2. **AC-010 Cloudflare Workers + D1**, adding queue/schedule services only where evidence requires them
+3. **AC-007 Cloud Run + Firestore + Secret Manager + basic Logging/Monitoring**
+
+Do not treat OpenClaw as a fourth control-plane option. D-032/E-013 keeps OpenClaw as a replaceable synthetic reliability/audit agent.
 
 Measure:
 1. initial setup and maintenance burden;
-2. latency and concurrency headroom;
-3. tenant/quota/waitlist implementation clarity;
-4. secret handling/security;
-5. observability and OpenClaw audit integration;
-6. estimated low-traffic/free-tier cost;
-7. scale-up path when Premium users increase;
-8. migration/rollback effort.
+2. account/billing entry friction and estimated low-traffic cost;
+3. webhook behaviour, latency and concurrency headroom;
+4. tenant/quota/waitlist implementation clarity;
+5. secret handling/security;
+6. scheduled-trigger and lightweight async requirements;
+7. observability and OpenClaw audit integration;
+8. truthful provider/storage failure behaviour;
+9. scale-up path when Premium users increase;
+10. migration/rollback effort and provider lock-in.
+
+### First Cloudflare feasibility slice
+
+Run only a bounded disposable/synthetic path:
+
+~~~text
+webhook
+→ tenant lookup
+→ quota/state update
+→ async/durable handoff if required
+→ reply
+~~~
+
+Then test one scheduled path:
+
+~~~text
+scheduled trigger
+→ Task Reminder or Scheduled Report fixture
+→ delivery result / failure receipt
+~~~
+
+Do not use real customer data for this feasibility slice.
+
+The owner's current approximately RM200 Google Cloud billing/onboarding barrier is a practical constraint for this project, not a universal Cloud Run pricing claim. Reverify provider pricing, free-tier limits and account requirements from current official sources at execution time.
 
 Choose the smallest implementation that satisfies LOCKED multi-tenant/channel/quota/reliability decisions. Do not add Kubernetes, BigQuery, Agent Platform, Redis or multi-service decomposition without evidence.
 
@@ -737,3 +767,38 @@ Review path before LOCK:
 8. Return to ZASS for owner review before D-050 can become LOCKED.
 
 Exact schedule cadence, credit price, message allowance, IoT protocol, supported devices and escalation chain remain deferred.
+
+
+## PREMIUM INTELLIGENCE PACK — CANDIDATE REVIEW
+
+**Authority:** D-051 CANDIDATE only. Do not implement or market the full pack as a LOCKED Premium entitlement yet.
+
+Candidate pack:
+
+~~~text
+STRUCTURED TENANT HISTORY
+          ↓
+ANALYSIS
+CORRELATION
+GRAPH
+PROPOSAL
+FORECAST
+~~~
+
+Review path before LOCK:
+
+1. Select a small representative subset first; do not build all five merely because they are named.
+2. Use real or evidence-backed structured tenant records where available.
+3. Preserve the Free baseline:
+   - basic summary remains Free;
+   - basic/manual report remains Free;
+   - basic deterministic retrieval remains Free.
+4. For **Analysis**, define the user question, input data boundary and factual output contract.
+5. For **Correlation**, label association as association; do not imply causation without supporting methodology.
+6. For **Graph**, verify the chart faithfully represents underlying data and remains understandable to the target user.
+7. For **Proposal**, expose material assumptions and separate generated advice from external/official approval.
+8. For **Forecast**, record data horizon, inputs, uncertainty, failure/insufficient-data behaviour and provider/model cost.
+9. Measure cost per useful completed capability, not raw token/API use alone.
+10. Return to ZASS for owner review before D-051 can become LOCKED.
+
+Exact Credit Pass values, included allowances, model/provider, chart/export format and domain-specific intelligence remain deferred.

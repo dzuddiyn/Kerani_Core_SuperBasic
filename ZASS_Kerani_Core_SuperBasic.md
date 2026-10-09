@@ -217,6 +217,7 @@ Nothing in this section is automatically approved.
 | I-013 | Give Free users a very small Kerani-hosted OCR allowance, then preserve free receipt recording through manual entry or user-assisted OCR (personal Gemini/Lens to pasted text). | Product/cost discussion 2026-10-07 | CANDIDATE |
 | I-014 | V1 central-control-plane candidate: Cloud Run + Firestore + Secret Manager + basic Cloud Logging/Monitoring, while Apps Script remains useful for Google Workspace/customer-edge integration. | Infrastructure discussion 2026-10-07 | CANDIDATE |
 | I-015 | Premium Operations Pack candidate: **Alert · Remind · Report · Ask** — IoT alert bridge, task reminder/push, scheduled report, and richer interactive query/retrieval. | Product/extraction discussion 2026-10-09 | CANDIDATE |
+| I-016 | Premium Intelligence Pack candidate: **Analysis · Correlation · Graph · Proposal · Forecast** over the tenant's structured history, with capability pricing/credit use derived from measured cost and user value. | Product discussion 2026-10-09 | CANDIDATE |
 
 ---
 
@@ -255,6 +256,7 @@ Nothing in this section is automatically approved.
 | Q-029 | What measurable threshold should activate an infrastructure partner or dedicated scale tier? | Prevents both premature spend and emergency-only escalation. | OPEN |
 | Q-030 | What evidence and permissions are required before citing a partner's enterprise client history or applying for a specific development grant? | Protects credibility and grant claims. | OPEN |
 | Q-031 | Where should the Free/Premium boundary sit for reminder/push, scheduled reports and interactive retrieval, and which OpsMate behaviours are genuinely reusable? | Prevents useful Free basics from being crippled while avoiding unbounded automation/AI cost. | OPEN |
+| Q-032 | Can Cloudflare Workers + D1 satisfy the V1 webhook/router, tenant/quota/waitlist, scheduled-trigger and lightweight async needs more cheaply/simply than Cloud Run or central Apps Script? | Determines whether a lower-entry-cost control plane can meet Kerani's locked boundaries. | OPEN |
 
 ---
 
@@ -292,6 +294,7 @@ Nothing in this section is automatically approved.
 | R-028 | Grant-dependency distortion | Product decisions optimize for grant criteria instead of user value. | 4V Value-first principle; architecture viable without specific grant. | OPEN | Roadmap stalls or breaks if grant is unavailable. |
 | R-029 | Unsupported impact causality | Programme reporting overclaims that funding caused observed outcomes. | Separate descriptive outcomes from causal evidence/methodology. | OPEN | Before/after delta is presented as proof of causation. |
 | R-030 | Safety-critical IoT alert depends on Kerani/LLM/cloud | A Kerani/provider outage could suppress a real-world safety alarm. | Keep deterministic/local device/PLC/HA alarm path authoritative; Kerani adds context, push, history and escalation only. | OPEN | Safety response is unavailable when Kerani, AI or internet is unavailable. |
+| R-031 | Free-tier control-plane ceiling becomes hidden dependency | A pilot works cheaply, then hits provider limits or reset windows unexpectedly during growth. | Meter usage, test exhaustion/fallback, keep provider boundary portable, and define upgrade/partner trigger before public scale. | OPEN | Request/database/queue limits are approached without alerting or a paid/alternate path. |
 
 ---
 
@@ -584,6 +587,37 @@ Further Scale
 **Named-event/vendor boundary:** MAHA 2027, any specific Jabatan, any specific software/infrastructure vendor, Petronas-related credentials and any grant programme remain candidate/deferred counterpart details until independently verified and formally available.
 
 **Partner boundary:** Partner capacity may strengthen operational credibility, but Kerani must remain portable and must not imply that a partner's client endorses Kerani.
+
+---
+
+
+## AC-010 — Cloudflare-First Lightweight Control Plane
+
+**Status:** CANDIDATE  
+**Origin:** cost/hosting review 2026-10-09
+
+~~~text
+WhatsApp / Telegram / future channel
+                ↓
+        Cloudflare Worker
+        API / Router / Control
+                │
+      ┌─────────┼───────────┐
+      ↓         ↓           ↓
+      D1      Queue/Cron   external services
+ tenant/quota  async/time   AI / Apps Script /
+ waitlist      work         Drive / customer edge
+~~~
+
+**Intent:** Test a low-entry-cost serverless control plane using Cloudflare Workers with D1 for compact tenant/quota/waitlist state, plus scheduled/async facilities only where evidence requires them. Apps Script may remain a Google Workspace/customer-edge integration surface.
+
+**Why candidate, not LOCKED:** Kerani has not yet benchmarked webhook behaviour, state access, concurrency, queue/schedule semantics, observability, security, failure recovery, migration or real workload cost on this stack.
+
+**Cost constraint:** The owner currently encounters an approximately RM200 Google Cloud billing/onboarding barrier in their own account context. Treat this as a practical user-side constraint, **not** as a universal Cloud Run fee. Provider pricing/free-tier terms remain externally changeable and must be reverified before implementation.
+
+**OpenClaw boundary:** OpenClaw remains the replaceable reliability/synthetic-agent layer under D-032/E-013, not the production control-plane authority. Self-hosted or rented-server OpenClaw may be used for reliability execution later, but does not replace the V1 control-plane benchmark.
+
+**Anti-lock-in rule:** Cloudflare-specific storage/scheduling semantics must stay behind stable Kerani contracts so moving to Cloud Run, another provider or customer-owned infrastructure does not require rewriting business logic or migrating tenant identity.
 
 ---
 
@@ -1461,6 +1495,46 @@ Evidence needed before LOCK: OpsMate behaviour audit for reminder/report/query/p
 
 ---
 
+
+## D-051 — Premium Intelligence Pack: Analysis · Correlation · Graph · Proposal · Forecast
+**Status:** CANDIDATE  
+**Origin:** product discussion 2026-10-09
+
+Kerani may package higher-order intelligence over structured tenant history as a separate Premium Intelligence layer:
+
+| Candidate | Capability | Candidate boundary |
+|---|---|---|
+| **PI-01 — Analysis** | Analyse operational/business records for patterns, performance, cost, output or other domain-relevant questions. | Basic summary/report remains Free; deeper multi-record reasoning is Premium candidate. |
+| **PI-02 — Correlation** | Explore relationships between selected variables/records. | Must distinguish observed association from causal claim. |
+| **PI-03 — Graph** | Generate useful visualisations/trends from structured data. | Simple tabular/basic reporting may remain Free; richer generated visualisation is Premium candidate. |
+| **PI-04 — Proposal** | Draft recommendations, proposals or structured action documents from the user's own data and stated goals. | Must surface assumptions and avoid presenting generated recommendations as authoritative external approval. |
+| **PI-05 — Forecast** | Produce bounded forecasts using sufficient history and appropriate domain/external inputs. | Forecast uncertainty, source data and assumptions must be visible; exact model/provider/cost is deferred. |
+
+Candidate product ladder:
+
+~~~text
+FREE CORE
+record → retrieve → basic summary/report
+
+PREMIUM OPERATIONS
+Alert · Remind · Report · Ask
+
+PREMIUM INTELLIGENCE
+Analysis · Correlation · Graph · Proposal · Forecast
+~~~
+
+**Important boundaries:**
+- This is a **CANDIDATE**, not a LOCKED premium entitlement or pricing decision.
+- Premium Intelligence must operate on tenant-authorised data and preserve D-018 portability/no artificial lock-in.
+- Correlation must not be presented as causation without evidence.
+- Forecast/proposal output must expose uncertainty/assumptions where material.
+- Exact Credit Pass values, included allowance, model/provider, chart/export format and domain-specific intelligence remain deferred.
+- Free Core remains useful without these capabilities.
+
+Evidence needed before LOCK: representative real records, useful-output tests, error/uncertainty behaviour, latency/cost measurements, and user-value evidence for at least a small subset of these capabilities.
+
+---
+
 # 13. LOCKED DECISIONS
 
 This section is authoritative. Architecture and implementation must not contradict these records.
@@ -1764,7 +1838,7 @@ No project idea is newly marked REJECTED by this migration.
 | D-032-P | Reliability-agent cadence | Synthetic volume must not distort capacity. | Reliability pilot. |
 | D-033-P | POS/ERP vendor contracts | No real integration selected. | First integration customer/use case. |
 | D-034-P | Hosted OCR monthly allowance | Exact free allowance must balance first-value usefulness with OCR/storage/provider cost. | Pilot completed-receipt rate + OCR cost-per-use + conversion evidence. |
-| AC-007-P | V1 central control-plane choice | Cloud stack looks viable but has not been benchmarked against central Apps Script for Kerani workload/ops complexity. | Small load/cost/ops comparison before PRE-ARCH lock. |
+| AC-007-P | V1 central control-plane choice | Cloud Run remains viable but has not been benchmarked against Cloudflare Workers+D1 or central Apps Script for Kerani workload, entry cost and ops complexity. | E-016 three-way load/cost/ops comparison before PRE-ARCH lock. |
 | D-035-P | Exact programme/agency integration | No real government programme contract is selected. | Real programme/counterpart + authoritative data requirements. |
 | D-037-P | Exact shared fields/consent wording/legal basis | Requirements differ by programme and jurisdiction. | Programme-specific legal/privacy review. |
 | D-042-P | MAHA 2027 / named event arrangement | Strategic target only; booth/access/load commitment is not yet evidenced. | Formal event/agency opportunity + readiness evidence. |
@@ -1774,6 +1848,8 @@ No project idea is newly marked REJECTED by this migration.
 | D-046-P | Specific grant programme/application | No particular funding approval or eligibility is assumed. | Current official programme + eligibility/evidence review. |
 | D-048-P | Exact viral/load/partner thresholds | V-Road principle is locked; thresholds require measured traffic/cost/reliability data. | Pilot + load-test evidence. |
 | D-050-P | Premium Operations Pack entitlement/pricing/automation parameters | Alert/Reminder/Report/Ask boundaries and costs are not yet evidenced enough to LOCK. | OpsMate behaviour audit + pilot/reuse/cost/safety evidence. |
+| D-051-P | Premium Intelligence Pack packaging/pricing/model choices | Analysis/Correlation/Graph/Proposal/Forecast need measured cost, output-quality and user-value evidence. | Representative real-data pilot + unit-economics review. |
+| AC-010-P | Cloudflare control-plane service mix and limits | Exact Workers/D1/queue/schedule usage and provider limits are externally changeable and workload-dependent. | Current official-term verification + E-016 benchmark evidence. |
 
 ---
 
@@ -1809,7 +1885,7 @@ Architecture freeze is blocked by the following:
 - [ ] Test one POS/ERP-like adapter fixture before claiming enterprise readiness.
 - [ ] Test hosted OCR vs personal-Gemini/Lens paste fallback through the same candidate/confirmation/validation path; measure cost per completed receipt.
 - [ ] Decide the Free hosted-OCR allowance only after pilot evidence; keep 1–3/month as a candidate range.
-- [ ] Benchmark AC-007 (Cloud Run + Firestore + Secret Manager + basic Monitoring) against central Apps Script for V1 cost, latency, concurrency, operational effort and migration flexibility.
+- [ ] Run E-016 three-way benchmark: central Apps Script vs AC-010 Cloudflare Workers+D1 vs AC-007 Cloud Run stack for V1 cost/entry barrier, latency, concurrency, state/quota/waitlist clarity, scheduling/async needs, observability and migration flexibility.
 - [ ] Convert operational pilot cases into a documented proof/regression set under D-040.
 - [ ] Run E-017 mock Government Program Bridge: potential match → consented evidence pack → sponsor entitlement → outcome report, with no unrelated-data leakage.
 - [ ] Run E-018 viral/event-scale drill: onboarding spike, quotas/backpressure, waitlist/fallback, cost ceiling, OpenClaw reliability and partner-scale activation/rollback.
@@ -2197,11 +2273,20 @@ Exact test cadence and traffic volume remain deferred/pilot-calibrated.
 
 **Status:** PLANNED
 
-**Question:** Is AC-007 materially better for V1 than keeping the central control plane in Apps Script?
+**Question:** Which low-complexity control-plane option best satisfies Kerani's LOCKED multi-tenant/channel/quota/reliability boundaries at the lowest practical entry cost?
 
-**Compare:** setup/maintenance effort, request latency, concurrency headroom, tenant/quota/waitlist implementation, secret handling, observability, estimated low-traffic cost and migration flexibility.
+**Compare:**
+1. central Apps Script;
+2. **AC-010 Cloudflare Workers + D1** with only evidence-needed queue/schedule services;
+3. **AC-007 Cloud Run + Firestore + Secret Manager + basic Logging/Monitoring**.
 
-**Pass condition:** choose the smallest option that satisfies LOCKED multi-tenant/channel/quota/reliability decisions without premature infrastructure.
+**Measure:** setup/maintenance effort, webhook behaviour, request latency, concurrency headroom, tenant/quota/waitlist implementation, secret handling, scheduled/async capability, observability, failure recovery, estimated low-traffic cost, free-tier/entry barriers, scale-up path and migration/rollback flexibility.
+
+**Required practical test for AC-010:** webhook → tenant lookup → quota/state update → durable/async step where needed → reply; then one scheduled trigger → reminder/report path.
+
+**OpenClaw note:** OpenClaw is not a fourth control-plane competitor. D-032/E-013 keeps it as a replaceable synthetic reliability/audit agent.
+
+**Pass condition:** choose the smallest option that satisfies LOCKED boundaries, has truthful failure behaviour and a documented upgrade/exit path, without premature infrastructure or hidden provider lock-in.
 
 ---
 
@@ -2670,6 +2755,19 @@ Until then, this remains an extraction proof project, not a framework claim.
 ---
 
 # PROJECT ZASS CHANGELOG
+
+## 2026-10-09 — Premium Intelligence + Cloudflare control-plane candidates
+
+- Added I-016 and D-051 **CANDIDATE** for **Premium Intelligence Pack — Analysis · Correlation · Graph · Proposal · Forecast**.
+- Preserved product ladder: Free Core basic record/retrieve/summary/report → Premium Operations automation/retrieval → Premium Intelligence higher-order reasoning/visualisation/forecasting.
+- Added AC-010 **CANDIDATE — Cloudflare-First Lightweight Control Plane**.
+- Updated E-016 from a two-way Cloud Run vs Apps Script comparison to a three-way benchmark: Apps Script vs Cloudflare Workers+D1 vs Cloud Run stack.
+- Recorded the owner's current approximately RM200 Google Cloud billing/onboarding barrier as a practical account-side constraint only; it is not treated as a universal Cloud Run fee.
+- Kept OpenClaw under D-032/E-013 as a replaceable synthetic reliability/audit agent, not a production control-plane competitor.
+- Added Q-032 for Cloudflare feasibility and R-031 for free-tier/limit exhaustion risk.
+- Added D-051-P and AC-010-P deferred parameters; provider limits/pricing must be reverified when implementation begins.
+- No provider is LOCKED. ZERO → ARCHITECTURE remains 65%; E-016 must produce evidence before control-plane selection.
+
 
 ## 2026-10-09 — Premium Operations Pack candidates saved
 
