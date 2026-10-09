@@ -23,7 +23,7 @@ A task is READY only when it has:
 - evidence expectations;
 - no unresolved architecture judgment.
 
-If the worker must choose between materially different designs, return the item to ACTION PLAN / DESIGN / Full ZASS review.
+If the worker must choose between materially different designs, return the item to ZASSIMPLE ACTION PLAN / DESIGN. Escalate to retained Full ZASS governance only when materially stronger governance is actually required.
 
 ## Task template
 

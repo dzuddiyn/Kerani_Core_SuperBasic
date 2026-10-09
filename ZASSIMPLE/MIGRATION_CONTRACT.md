@@ -114,7 +114,7 @@ ZASSIMPLE proposal
 → report factual persistence
 ~~~
 
-ZASSIMPLE must never report a decision as persisted when Full ZASS/Git state does not support that claim.
+ZASSIMPLE must never report a decision as persisted unless verified Git state and the retained LOCKED project lineage support that claim.
 
 ## 6. Sync / stale rule
 
@@ -139,8 +139,8 @@ Migration succeeds only if:
 - zero governance/evidence information is lost;
 - the user can understand the current project without reading the full D/Q/R/E ledger;
 - NEXT exact action remains clear;
-- simplified claims are traceable to Full ZASS;
-- COMMIT updates the relevant backplane/surface artifacts atomically;
+- simplified claims are traceable to verified Git state and retained project lineage;
+- COMMIT updates the relevant ZASSIMPLE artifacts atomically and touches retained lineage only when materially required;
 - ZASSIMPLE remains the primary operating method while Git remains the durable Source of Truth;
 - existing architecture readiness, evidence confidence and decision states do not change merely because of this migration.
 

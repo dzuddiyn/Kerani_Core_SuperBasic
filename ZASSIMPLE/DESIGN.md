@@ -204,7 +204,7 @@ Do not silently revise a LOCKED decision. Material architecture findings must re
 - **Baseline version/reference:** none
 - **Challenge summary:** not run
 - **Owner approval:** none
-- **Evidence still required before final confirmation:** governed by Full ZASS experiments/open loops
+- **Evidence still required before final confirmation:** tracked by the current ZASSIMPLE design/action-plan evidence state, with retained project lineage consulted when needed
 - **Supersedes / superseded by:** none
 
 ## Lineage

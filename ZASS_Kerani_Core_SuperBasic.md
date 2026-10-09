@@ -1899,7 +1899,7 @@ Architecture freeze is blocked by the following:
 - [ ] Build the first Kerani real-field corpus from earliest available pilot/operator messages; preserve raw semantics and mark missing-real-sample behaviours UNVALIDATED.
 - [ ] Run E-019 Evidence-Seeded Execution Pilot on one Purchase slice: field corpus → proof matrix → reusable procedure → atomic task instance → proof receipts → deliberate invalidation/reuse check.
 - [ ] Measure whether E-019 materially reduces duplicated procedure prose/retesting while preserving reliability and traceability before proposing any upstream ZASS System change.
-- [ ] Before architecture confirmation, follow Full ZASS v0.3.10 governance: DRAFT ARCH → ARCHITECTURE CHALLENGE → controlled revision → owner LOCK PRE-ARCH → detailed ACTION_PLAN ↔ PRE-ARCH → atomic evidence tasks → PRE-ARCH review → LAST ARCHITECTURE CHALLENGE → BUILD ARCHITECTURE → explicit YA, CONFIRM ARCHITECTURE.
+- [ ] Before final architecture confirmation, follow the current project-local ZASSIMPLE flow: DESIGN 4/4 → CHALLENGE DESIGN / ARCHITECTURE → controlled revision → owner **YA, LOCK PRE-ARCH** → Execution Reality Check → real artifact/sample pack + execution-surface map → detailed ZASSIMPLE ACTION PLAN ↔ PRE-ARCH → evidence-bounded vertical atomic tasks → result/proof → delta planning + PRE-ARCH review → LAST DESIGN / ARCHITECTURE CHALLENGE → explicit owner final confirmation.
 
 ---
 
@@ -2461,7 +2461,7 @@ Architecture blockers:
 - no non-farm genericity proof;
 - no reproduction-test result.
 
-A DRAFT ARCH may be proposed only after readiness reaches at least 70%. Architecture confirmation requires the Full ZASS v0.3.10 PRE-ARCH evidence loop, LAST ARCHITECTURE CHALLENGE, BUILD ARCHITECTURE gate and the exact owner response **YA, CONFIRM ARCHITECTURE**.
+The current ZASSIMPLE DESIGN is already distilled at 4/4 and is **READY FOR CHALLENGE**, but architecture readiness remains 65% because the evidence blockers above are still open. Final architecture confirmation requires: CHALLENGE → explicit **YA, LOCK PRE-ARCH** → Execution Reality Check with real artifacts/samples where available → evidence-bounded execution and PRE-ARCH review → LAST DESIGN / ARCHITECTURE CHALLENGE → explicit owner final confirmation.
 
 ## Evidence Confidence
 
@@ -2534,58 +2534,56 @@ Canonical migration:
 This mapping preserves historical traceability and prevents future misuse of AC IDs.
 
 
-## Full ZASS v0.3.10 / ZASS SYSTEM v0.2.1 alignment — 2026-10-07
+## Current project-local ZASSIMPLE operating alignment — 2026-10-09
 
-This project now follows the current official ZASS SYSTEM surface and architecture-to-execution contract.
+This project operates primarily through **ZASSIMPLE v0.3.3**.
 
-**System routing:** DUMP / DECIDE / DESIGN. Full ZASS remains the stronger-governance DESIGN path.
+**System routing:** DUMP / DECIDE / DESIGN. DESIGN stays in project-local ZASSIMPLE by default. Retained Full ZASS lineage is consulted or escalated into only when materially stronger governance is required.
 
 **Human-facing rule:** progressive disclosure; present only the next meaningful human action; never claim SAVE/sync without a real persistence receipt.
 
-**Architecture-to-execution gate for this project:**
+**Technical architecture gate for this project:**
 
 ~~~text
-DRAFT ARCH
-→ ARCHITECTURE CHALLENGE
+DESIGN
+→ CHALLENGE DESIGN / ARCHITECTURE
 → CONTROLLED REVISION
 → owner: YA, LOCK PRE-ARCH
 → PRE-ARCH BASELINE — LOCKED FOR EXECUTION
-→ capable reasoner / planner
-→ DETAILED ACTION_PLAN ↔ PRE-ARCH
-→ DETAILED ATOMIC TASK SLICING
-→ EXECUTE ONE TASK
-→ RESULT / EVIDENCE
-→ PRE-ARCH REVIEW
-   ├─ PASS → NEXT TASK
-   ├─ REWORK → task/action plan
+→ EXECUTION REALITY CHECK
+→ REAL ARTIFACT / SAMPLE PACK + EXECUTION-SURFACE MAP
+→ DETAILED ZASSIMPLE ACTION PLAN ↔ PRE-ARCH
+→ EVIDENCE-BOUNDED VERTICAL ATOMIC TASK
+→ RESULT / PROOF
+→ DELTA PLANNING + PRE-ARCH REVIEW
+   ├─ NO ARCH IMPACT → PASS → NEXT UNRESOLVED TASK
+   ├─ TASK-PLAN ISSUE → REWORK
    ├─ ARCH FINDING → revise/supersede PRE-ARCH
    └─ LOCKED-DECISION IMPACT → STOP → OWNER
 → sufficient implementation evidence
-→ FINAL ARCHITECTURE REVIEW
-→ LAST ARCHITECTURE CHALLENGE
+→ LAST DESIGN / ARCHITECTURE CHALLENGE
 → FINAL IMPROVE / REVISION
-→ BUILD ARCHITECTURE
-→ owner: YA, CONFIRM ARCHITECTURE
-→ ARCHITECTURE CONFIRMED
-→ rebuild release ACTION PLAN
-→ release atomic tasks
-→ BUILD FIRST RELEASE
-→ integration / hardening / verification / acceptance
+→ explicit owner final confirmation
+→ rebuild RELEASE ACTION PLAN
+→ fresh release atomic tasks
+→ BUILD / TEST / INTEGRATE / HARDEN / VERIFY
+→ RELEASE ACCEPTANCE
 → DELIVERED !!
 ~~~
 
-ACTION_PLAN.md remains planning/execution authority only; it cannot decide or silently change architecture. Derived atomic task packets are execution views, never a second planning authority.
+`ZASSIMPLE/ACTION_PLAN.md` remains planning/execution authority only; it cannot silently change LOCKED decisions or architecture. `ZASSIMPLE/TASKS.md` is the canonical atomic execution queue. Retained Full ZASS records remain lineage/escalation reference rather than the default operating surface.
 
+## Project-local command compatibility note
 
-## v0.3.6 project semantic alignment note
+Current operation preserves the useful command semantics while routing them through project-local ZASSIMPLE:
 
-The project baseline was aligned on 2026-10-01 from v0.3.2 to **v0.3.6**. Current project operation therefore also follows:
-- the ZASS Convergence Loop principle;
-- explicit `PROPOSED FOR PROCEED` approval sets;
-- Architecture Readiness and qualitative Evidence Confidence as separate axes;
-- the current Full-ZASS command surface `ZASS!! / PROCEED / PIVOT / COMMIT`; `PARKED` remains a state, not a Full-ZASS command.
+- explicit `PROPOSED FOR PROCEED` approval sets remain bounded;
+- Architecture Readiness and qualitative Evidence Confidence remain separate axes;
+- `ZASS!! / PROCEED / COMMIT` remain the visible project controls;
+- `PARKED` remains a state, not a command;
+- invoking `ZASS` or `ZASS!!` means **this project's ZASSIMPLE**, not the upstream ZASS repository.
 
-Historical v0.3.2 migration notes above remain as provenance.
+Historical method-alignment notes remain preserved in the project changelog as provenance.
 
 ## ZASS SYSTEM UI/UX alignment — 2026-10-01
 
@@ -2607,70 +2605,51 @@ The official ZASS SYSTEM UI/UX contract is also active for this project. This is
 
 ---
 
-# 21. RECOMMENDED PROJECT STRUCTURE
+# 21. CURRENT PROJECT-LOCAL ZASS STRUCTURE
 
-Before extraction, keep the repository deliberately small.
-
-Current/near-term authority structure:
+Keep the repository deliberately small and use the actual current operating artifacts:
 
 ~~~
 Kerani_Core_SuperBasic/
-├── ZASS_Kerani_Core_SuperBasic.md    ← project SoT
-├── ACTION_PLAN.md                    ← current execution plan only
+├── ZASSIMPLE/
+│   ├── MIGRATION_CONTRACT.md   ← project-local method/surface contract
+│   ├── DESIGN.md               ← current design surface
+│   ├── ACTION_PLAN.md          ← canonical planning artifact
+│   └── TASKS.md                ← canonical atomic execution queue
+├── ZASS_Kerani_Core_SuperBasic.md
+│                               ← retained LOCKED/evidence lineage + escalation reference
+├── ACTION_PLAN.md              ← compatibility pointer only
 ├── docs/
 │   └── DEV_WORKFLOW.md
 └── README.md
 ~~~
 
-When evidence justifies growth:
-
-~~~
-Kerani_Core_SuperBasic/
-├── ZASS_Kerani_Core_SuperBasic.md
-├── ACTION_PLAN.md                    ← optional; execution only
-├── ARCHITECTURE.md                   ← only after architecture is built
-├── README.md
-├── src/
-├── tests/
-├── config/
-└── docs/
-    ├── DEV_WORKFLOW.md
-    ├── EXTRACTION_LEDGER.md
-    ├── adr/
-    ├── experiments/
-    └── reviews/
-~~~
-
 Do not create code, abstractions or folders merely to make the project look mature.
 
-Authority hierarchy:
+Current authority/operation order:
 
-1. GitHub project ZASS file — project facts/decisions/readiness.
-2. Official ZASS v0.3.6 — workflow semantics.
-3. ACTION_PLAN.md — current execution/progress plan only; it does not decide architecture.
-4. ARCHITECTURE.md — confirmed/draft architecture representation when applicable.
-5. Local repository — working copy.
-6. AI project workspace / memory / chat — context only.
+1. Verified Git state — durable Source of Truth.
+2. `ZASSIMPLE/DESIGN.md` — current project-local design surface.
+3. `ZASSIMPLE/ACTION_PLAN.md` — canonical planning/execution plan.
+4. `ZASSIMPLE/TASKS.md` — canonical atomic execution queue.
+5. `ZASS_Kerani_Core_SuperBasic.md` — retained LOCKED decisions/evidence/history and escalation reference.
+6. Chat / AI memory — context only; never authoritative without persistence.
 
 ---
 
-# 22. STANDARD ZASS COMMANDS
+# 22. PROJECT-LOCAL ZASS COMMANDS
 
-This project inherits ZASS v0.3.6 command semantics.
+In this project, **ZASS means the project-local ZASSIMPLE workflow**.
 
-- **ZASS / ZASS!!** — full structured exploration; do not change LOCKED decisions.
-- **ZASS REVIEW** — challenge using a named method/perspective.
-- **ACTION PLAN** — show/update execution state only; never LOCK a decision.
-- **ZASS CHALLENGE** — attack assumptions, edge cases and contradictions.
-- **ZASS DECIDE** — show unresolved candidate decisions and trade-offs.
-- **PROCEED** — approve exactly the explicit `PROPOSED FOR PROCEED` set shown in the latest ZASS mapping. Unlisted items are excluded; proposals marked for LOCK become LOCKED. PROCEED does not commit or push.
-- **COMMIT** — after approval, commit and push the approved project-file changes atomically and report the real commit SHA.
-- **DRAFT ARCH** — prepare/revise a working architecture draft from authoritative state; does not confirm architecture.
-- **BUILD ARCHITECTURE** — run the confirmation gate; if READY, request exact owner response **YA, CONFIRM ARCHITECTURE**.
-- **ZASS AUDIT** — audit architecture against ZASS state.
-- **ZASS IMPACT** — analyse impact before changing architecture.
+- **ZASS / ZASS!!** — review/update the relevant current ZASSIMPLE project surface; do not touch the upstream ZASS repository.
+- **ACTION PLAN** — show/update `ZASSIMPLE/ACTION_PLAN.md`; it cannot LOCK a decision by itself.
+- **CHALLENGE DESIGN !** — run the required technical design/architecture challenge when DESIGN is ready.
+- **PROCEED** — approve exactly the explicit `PROPOSED FOR PROCEED` set currently shown; unlisted items are excluded. PROCEED does not commit or push.
+- **LOCK PRE-ARCH** — surface the owner gate; only exact owner approval **YA, LOCK PRE-ARCH** creates the execution baseline.
+- **COMMIT** — persist only the approved project-local change set atomically, verify the real Git SHA, then report factual SAVE/SYNC status.
+- **DETAIL / HISTORY / REVIEW** — progressively disclose deeper lineage, evidence, trade-offs or historical records only when useful/requested.
 
-When the user intentionally invokes ZASS or ZASS!!, check the project baseline against the latest official ZASS repository when access is available.
+**Hard boundary:** do not read, check, update, patch or commit the upstream ZASS repository merely because the user says `ZASS` or `ZASS!!`. Upstream access requires an explicit instruction naming that upstream repository or clearly asking to inspect/update the official ZASS method.
 
 ---
 
@@ -2760,6 +2739,17 @@ Until then, this remains an extraction proof project, not a framework claim.
 ---
 
 # PROJECT ZASS CHANGELOG
+
+## 2026-10-09 — Project-local ZASSIMPLE current-facing cleanup
+
+- Corrected only stale current-facing project references after the ZASSIMPLE migration.
+- `ZASS` / `ZASS!!` now explicitly mean the project-local ZASSIMPLE workflow for Kerani Core SuperBasic.
+- Removed the current-facing instruction to check the upstream ZASS repository on ordinary project ZASS invocation.
+- Updated current project structure, challenge/PRE-ARCH execution flow and footer to ZASSIMPLE v0.3.3.
+- Historical snapshots and dated changelog records were intentionally preserved unchanged.
+- No D/L/Q/R/E/AC decision, readiness score, evidence-confidence state or architecture candidate was changed.
+- Upstream ZASS repository was not accessed or modified by this cleanup.
+
 
 ## 2026-10-09 — Method baseline corrected to current ZASS SYSTEM / ZASSIMPLE
 
@@ -2985,6 +2975,6 @@ Until then, this remains an extraction proof project, not a framework claim.
 [🧠 ZASS!!]-[▶️ PROCEED]-[📦 COMMIT]
 
 🏗️ ZERO → ARCHITECTURE: [███████░░░] 65% — DECIDING
-🔬 EVIDENCE CONFIDENCE: LOW — one OpsMate workflow has direct runtime verification; the new real-field-evidence execution bridge and most later V-Road stages remain unproven on Kerani.
+🔬 EVIDENCE CONFIDENCE: LOW — DESIGN is distilled at 4/4, but Challenge has not run, PRE-ARCH is not LOCKED, and the major execution/runtime evidence gaps remain open.
 
-✅ ZASS UP TO DATE — v0.3.10
+✅ ZASS UP TO DATE — ZASSIMPLE v0.3.3
