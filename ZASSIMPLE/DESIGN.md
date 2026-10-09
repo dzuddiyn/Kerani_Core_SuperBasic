@@ -2,7 +2,7 @@
 
 **Status:** DRAFT READY FOR CHALLENGE  
 **Design Progress:** 4/4 — purpose / main flow / main elements / relevant LOCKED decisions  
-**Authority:** Human-readable projection only. Full ZASS remains authoritative for decisions, evidence, questions, risks, experiments and architecture candidates.
+**Authority:** Current ZASSIMPLE design surface. It must preserve existing LOCKED project lineage and verified evidence; Full ZASS is retained for governance/history and escalation when materially required.
 
 **Project state:** 65% — DECIDING  
 **Evidence confidence:** LOW  
@@ -14,7 +14,9 @@
 
 > **Show the project, not the repository.**
 
-This file distils the current Full ZASS truth into a human-facing design view. It does **not** add, remove, confirm, supersede or re-score any architecture/product decision.
+This file distils retained project truth into the current ZASSIMPLE human-facing design view. It does **not** add, remove, confirm, supersede or re-score any architecture/product decision.
+
+**Method baseline:** ZASS SYSTEM v0.2.2 · ZASSIMPLE v0.3.3 · Full ZASS v0.3.11 (escalation/governance when required).
 
 ## Purpose
 
@@ -184,7 +186,7 @@ Design coverage is now **4/4**, so the next design gate is challenge, not confir
 
 **Why:** the product/design surface is coherent, but several material architecture boundaries and the V1 control-plane choice remain candidates.
 
-A challenge PASS does not automatically confirm final architecture. For this technical project it should lead toward a reviewed PRE-ARCH candidate and explicit owner gate when the evidence is sufficient.
+A challenge PASS does not automatically confirm final architecture. For this technical project it should lead toward a reviewed PRE-ARCH candidate and explicit owner gate when the evidence is sufficient. After PRE-ARCH lock, run Execution Reality Check before detailed task slicing, using real artifacts/samples and execution-surface mapping before evidence-bounded vertical atomic tasks.
 
 ## Final challenge lineage
 
@@ -215,5 +217,6 @@ Human-facing compact lineage only:
 - **Premium candidates:** D-050 · D-051
 - **Architecture candidates:** AC-005–AC-010
 - **Current control-plane evidence gate:** E-016
-- **Full authority:** `../ZASS_Kerani_Core_SuperBasic.md`
+- **Retained Full ZASS lineage / escalation reference:** `../ZASS_Kerani_Core_SuperBasic.md`
+- **Method baseline:** ZASS SYSTEM v0.2.2 · ZASSIMPLE v0.3.3 · Full ZASS v0.3.11
 - **Migration contract:** `MIGRATION_CONTRACT.md`

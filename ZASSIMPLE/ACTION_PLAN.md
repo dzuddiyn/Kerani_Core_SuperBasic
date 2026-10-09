@@ -3,7 +3,10 @@
 **Status:** INTERNAL WORKING ARTIFACT — CANONICAL PLANNING LOCATION  
 **Authority:** Planning artifact only. It must not override LOCKED owner decisions.  
 **Migration:** Canonical planning moved here from root `ACTION_PLAN.md` on 2026-10-09.  
-**Full governance/evidence authority:** `../ZASS_Kerani_Core_SuperBasic.md`
+**Primary method:** ZASSIMPLE v0.3.3  
+**System baseline:** ZASS SYSTEM v0.2.2  
+**Full ZASS escalation baseline:** v0.3.11  
+**Retained governance/evidence lineage:** `../ZASS_Kerani_Core_SuperBasic.md`
 
 ## Purpose
 
@@ -842,4 +845,4 @@ Not started under the ZASSIMPLE surface.
 
 ## Execution gates
 
-Continue to use the preserved current plan and Full ZASS governance until the plan is deliberately distilled/refined in a later owner-approved step.
+Continue to use this canonical ZASSIMPLE plan while preserving existing LOCKED lineage. Escalate to Full ZASS only when materially stronger governance is required. Before detailed technical task slicing after PRE-ARCH, apply the Execution Reality Check and real artifact/sample + execution-surface mapping required by the current shared method baseline.

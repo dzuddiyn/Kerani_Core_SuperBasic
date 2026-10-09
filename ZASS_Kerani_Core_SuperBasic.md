@@ -1,29 +1,34 @@
 # ZASS — Kerani_Core_SuperBasic
 
-**ZASS baseline:** v0.3.10  
-**ZASS SYSTEM:** v0.2.1  
+**Full ZASS baseline:** v0.3.11  
+**ZASS SYSTEM:** v0.2.2  
+**Primary project method:** ZASSIMPLE v0.3.3  
 **Project status:** DECIDING — evidence harvesting planned; substantive Core build parked  
 **Owner:** Project Owner  
-**Updated:** 2026-10-07  
+**Updated:** 2026-10-09  
 **Repository:** dzuddiyn/Kerani_Core_SuperBasic  
-**Project Source of Truth:** this file  
-**Method baseline:** https://github.com/dzuddiyn/ZASS-Zero-to-Architecture-Structured-Sprint/blob/main/ZASS.md
+**Retained governance / lineage file:** this file  
+**Primary method baseline:** https://github.com/dzuddiyn/ZASS-Zero-to-Architecture-Structured-Sprint/blob/main/ZASSIMPLE/ZASSIMPLE_MY.md
 
 > **Motto:** **Genericity is Generosity.**
 >
 > We earn genericity through evidence and reuse, then share the useful stack openly so small teams can build on proven work instead of rebuilding it alone.
 
-This project follows the operating semantics of **Full ZASS v0.3.10 / ZASS SYSTEM v0.2.1**:
+This project now operates primarily under **ZASSIMPLE v0.3.3**, aligned with **ZASS SYSTEM v0.2.2**. Existing Full ZASS project records are retained as governance/evidence lineage and may be consulted or escalated into when stronger governance is materially required.
 
-1. **Bukan potong fikir; potong ulang fikir.**
-2. **Fikir bebas. Rekod keputusan. Kunci yang pasti. Bina dari yang terkunci.**
-3. **AI menghasilkan kemungkinan. Evidence menguji. Manusia memutuskan. Architecture mematuhi keputusan.**
-4. **Tangkap luas, tumpu dengan sengaja:** bentuk candidate dahulu, kemudian research hanya soalan yang boleh mengubah pilihan; silang evidence, LOCK keputusan, dan biarkan architecture muncul daripada keputusan itu.
-5. **Architecture-to-execution is governed:** draft architecture must be challenged before PRE-ARCH lock; PRE-ARCH drives detailed ACTION_PLAN and atomic evidence tasks; final architecture is challenged again and requires explicit owner confirmation before first-release build.
+Current method principles:
 
-If this project file and the official ZASS baseline differ, use:
-- this file for **project facts, questions, risks, candidates, decisions, evidence and readiness**;
-- the official Full ZASS v0.3.10 / ZASS SYSTEM v0.2.1 baseline for **workflow/command semantics**.
+1. **Lightweight di permukaan, lineage kuat sampai execution.**
+2. **Present only the next meaningful human action.**
+3. **DESIGN starts in ZASSIMPLE; Full ZASS is escalation capability, not the default burden.**
+4. **Technical architecture is governed:** DESIGN → CHALLENGE → explicit owner PRE-ARCH lock.
+5. **After PRE-ARCH:** run Execution Reality Check → real artifact/sample pack + execution-surface map → detailed ACTION PLAN ↔ PRE-ARCH → evidence-bounded vertical atomic tasks → result/proof → delta planning + PRE-ARCH review.
+6. **Before final confirmation:** run the LAST DESIGN / ARCHITECTURE CHALLENGE; after confirmation rebuild the RELEASE ACTION PLAN and release task queue.
+
+If project artifacts and the official method baseline differ, use:
+- the retained project lineage for **existing project facts, LOCKED decisions, evidence and historical traceability**;
+- `ZASSIMPLE/DESIGN.md`, `ZASSIMPLE/ACTION_PLAN.md`, and `ZASSIMPLE/TASKS.md` for the **current operating surface**;
+- official **ZASS SYSTEM v0.2.2 / ZASSIMPLE v0.3.3 / Full ZASS v0.3.11** for current workflow/command semantics.
 
 Only the project owner may make a decision **LOCKED**. A suggestion, AI output, model agreement, experiment PASS, or implementation detail is not automatically a decision.
 
@@ -58,7 +63,7 @@ Other states:
 
 **REJECTED · DEFERRED · SUPERSEDED**
 
-Project execution state in ACTION_PLAN.md must use the separate ACTION PLAN states from Full ZASS v0.3.10 and must not become a second decision ledger or architecture authority.
+Project execution state in `ZASSIMPLE/ACTION_PLAN.md` must use the ZASSIMPLE v0.3.3 execution/planning states and must not become a second decision ledger or architecture authority.
 
 ---
 
@@ -2756,6 +2761,16 @@ Until then, this remains an extraction proof project, not a framework claim.
 
 # PROJECT ZASS CHANGELOG
 
+## 2026-10-09 — Method baseline corrected to current ZASS SYSTEM / ZASSIMPLE
+
+- Updated current-facing method truth to **ZASS SYSTEM v0.2.2 / Full ZASS v0.3.11 / ZASSIMPLE v0.3.3**.
+- Kerani Core SuperBasic now operates primarily under ZASSIMPLE; retained Full ZASS records remain governance/evidence lineage and escalation material when stronger governance is materially required.
+- Current technical execution semantics now include **Execution Reality Check**, real artifact/sample pack, execution-surface mapping, evidence-bounded vertical atomic tasks and delta planning/PRE-ARCH review.
+- Historical snapshots embedded inside migrated planning history were intentionally not rewritten.
+- No project D/L/Q/R/E/AC architecture/product decision was added, removed, superseded, confirmed or re-scored.
+- ZERO → ARCHITECTURE remains 65% and Evidence Confidence remains LOW.
+
+
 ## 2026-10-09 — ZASSIMPLE current-design distillation committed
 
 - Distilled current Full ZASS truth into `ZASSIMPLE/DESIGN.md` as a human-first project/design view.
@@ -2844,7 +2859,7 @@ Until then, this remains an extraction proof project, not a framework claim.
 - Corrected the project footer to the canonical Full ZASS v0.3.10 surface: `[🧠 ZASS!!]-[▶️ PROCEED]-[📦 COMMIT]`.
 - Removed PIVOT from the footer only; the PIVOT command remains valid in the method.
 - Updated the Evidence Confidence reason to cite actual current evidence and unresolved tests.
-- Normalized the version-check line to `✅ ZASS UP TO DATE — v0.3.10`.
+- Normalized the version-check line to `✅ METHOD BASELINE — ZASS SYSTEM v0.2.2 · Full ZASS v0.3.11 · ZASSIMPLE v0.3.3`.
 - No decision, readiness score, experiment result or architecture state changed.
 
 

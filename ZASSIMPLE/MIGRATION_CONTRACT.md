@@ -1,13 +1,15 @@
 # ZASSIMPLE Migration Contract — Kerani Core SuperBasic
 
-**Version:** 0.1  
+**Version:** 0.2  
 **Status:** OWNER APPROVED — COMMITTED  
 **Approved:** 2026-10-09  
-**ZASSIMPLE baseline:** v0.3.3  
-**Migration type:** presentation + workflow surface migration  
+**ZASS SYSTEM baseline:** v0.2.2  
+**Full ZASS baseline:** v0.3.11  
+**Primary project method:** ZASSIMPLE v0.3.3  
+**Migration type:** method + presentation/workflow surface migration  
 **Architecture impact:** NONE by itself
 
-> **Full ZASS remains the governance/evidence backplane. ZASSIMPLE becomes the primary human-facing operating surface.**
+> **Kerani Core SuperBasic operates primarily under ZASSIMPLE. Existing Full ZASS artifacts remain retained governance/evidence lineage and an escalation capability when stronger governance is materially required.**
 
 > **Show the project, not the repository.**
 
@@ -17,28 +19,28 @@
 
 ## 1. Authority boundary
 
-ZASSIMPLE is a simplified projection and execution surface. It must never become a second architecture/decision authority.
+ZASSIMPLE is the primary project operating method and human-facing design/planning/execution surface. It must preserve existing LOCKED project lineage and must not silently rewrite retained governance/evidence.
 
-| Concern | ZASSIMPLE | Full ZASS |
+| Concern | ZASSIMPLE | Retained Full ZASS lineage |
 |---|---|---|
-| Current status/focus | Primary human display | Backing authority/evidence |
-| NEXT exact action | Primary human display | Must remain governance-compatible |
-| Design/architecture summary | Human-readable projection | AC/D/evidence authority |
-| Action Plan | Canonical planning artifact | Constrained by LOCKED decisions |
-| Atomic tasks | Canonical execution queue | Must obey governance/evidence gates |
-| Locked decisions | Summarised only when relevant | Authoritative |
-| Questions/risks/experiments | Active/current subset only | Full Q/R/E ledger |
-| Evidence/receipts | Summary/status | Full durable evidence |
-| Superseded history/changelog | Hidden by default | Preserved permanently |
+| Current status/focus | **Primary** | Historical/governance reference |
+| NEXT exact action | **Primary** | Consult when governance impact exists |
+| Design/architecture | **Current DESIGN surface** | Existing AC/D/evidence lineage retained |
+| Action Plan | **Canonical planning artifact** | Existing decisions constrain planning |
+| Atomic tasks | **Canonical execution queue** | Existing locks/evidence constrain execution |
+| Existing LOCKED decisions | Must honour them | Retained authoritative lineage |
+| Questions/risks/experiments | Surface only what is currently useful | Full historical ledger retained |
+| Evidence/receipts | Current execution summary/receipts | Historical evidence retained |
+| Escalation | Starts in ZASSIMPLE | Full ZASS used when materially stronger governance is required |
 
-**Conflict rule:** verified Full ZASS + Git state wins.
+**Conflict rule:** verified Git state and existing LOCKED project lineage win. Current workflow/command semantics follow ZASS SYSTEM v0.2.2 + ZASSIMPLE v0.3.3; Full ZASS v0.3.11 is used when escalation requires it.
 
 ## 2. Repository mapping
 
 ~~~text
 Kerani_Core_SuperBasic/
 ├── ZASS_Kerani_Core_SuperBasic.md
-│   └── Full ZASS governance/evidence backplane
+│   └── retained Full ZASS governance/evidence lineage + escalation reference
 ├── ACTION_PLAN.md
 │   └── compatibility pointer only
 └── ZASSIMPLE/
@@ -103,9 +105,10 @@ Presentation rules:
 ~~~text
 ZASSIMPLE proposal
 → owner PROCEED
-→ governance-compatible update prepared
+→ method/governance-compatible update prepared
 → owner COMMIT
-→ update affected Full ZASS + ZASSIMPLE artifacts
+→ update affected ZASSIMPLE artifacts
+→ update retained Full ZASS lineage only when the change materially touches its governed decisions/evidence/history
 → atomic Git commit
 → verify real SHA
 → report factual persistence
@@ -117,17 +120,17 @@ ZASSIMPLE must never report a decision as persisted when Full ZASS/Git state doe
 
 ZASSIMPLE artifacts are derived from current project truth.
 
-If the simplified surface is stale relative to Full ZASS or verified repository state:
+If the ZASSIMPLE surface is stale relative to verified repository state or retained LOCKED project lineage:
 
-> **ZASSIMPLE STATUS: STALE — refresh from Full ZASS before decision/execution.**
+> **ZASSIMPLE STATUS: STALE — refresh project truth before decision/execution.**
 
-Do not silently overwrite governance records from the simplified surface.
+Do not silently overwrite retained governance/evidence records from the simplified surface.
 
 ## 7. Escalation rule
 
-Escalate from ZASSIMPLE to Full ZASS Architecture Challenge when there is a material architecture contradiction, safety/security impact, authority change, evidence conflict with a LOCKED decision, multiple materially different architecture choices, or another irreversible/high-cost decision.
+Start DESIGN in ZASSIMPLE. Escalate to Full ZASS only when materially stronger governance is needed, such as a material architecture contradiction, safety/security impact, authority change, evidence conflict with a LOCKED decision, multiple materially different architecture choices, or another irreversible/high-cost decision.
 
-After review, distil the result back into ZASSIMPLE.
+No automatic migration/escalation is allowed. After any Full ZASS review, distil the governed result back into ZASSIMPLE.
 
 ## 8. Acceptance criteria
 
@@ -138,7 +141,7 @@ Migration succeeds only if:
 - NEXT exact action remains clear;
 - simplified claims are traceable to Full ZASS;
 - COMMIT updates the relevant backplane/surface artifacts atomically;
-- ZASSIMPLE remains a projection/planning/execution surface, not a second Source of Truth;
+- ZASSIMPLE remains the primary operating method while Git remains the durable Source of Truth;
 - existing architecture readiness, evidence confidence and decision states do not change merely because of this migration.
 
 ## 9. Scope of this commit
@@ -149,3 +152,41 @@ This commit:
 - moves canonical planning authority from the root Action Plan to `ZASSIMPLE/ACTION_PLAN.md` while preserving the prior plan content;
 - converts root `ACTION_PLAN.md` into a compatibility pointer;
 - does **not** migrate, modify, confirm, supersede or re-score architecture decisions.
+
+
+## 10. Current technical execution baseline
+
+For substantial technical work, use the current shared method flow:
+
+~~~text
+DESIGN
+→ CHALLENGE DESIGN / ARCHITECTURE
+→ controlled revision
+→ YA, LOCK PRE-ARCH
+→ EXECUTION REALITY CHECK
+→ real artifact/sample pack + execution-surface map
+→ detailed ACTION PLAN ↔ PRE-ARCH
+→ evidence-bounded vertical atomic task
+→ result/proof
+→ delta planning + PRE-ARCH review
+→ next unresolved task only
+→ sufficient evidence
+→ LAST DESIGN / ARCHITECTURE CHALLENGE
+→ final improvement/revision
+→ YA, CONFIRM DESIGN / ARCHITECTURE
+→ rebuild RELEASE ACTION PLAN
+→ fresh release atomic tasks
+→ release acceptance
+→ DELIVERED !!
+~~~
+
+Real artifacts/samples should be used as early as reasonably, safely and legitimately obtainable. Synthetic substitutes must be marked provisional when they stand in for unavailable real evidence.
+
+## 11. Baseline correction note
+
+This v0.2 correction changes method/surface semantics only. It does not alter any Kerani architecture/product decision, readiness score or evidence state.
+
+Current baseline:
+- ZASS SYSTEM v0.2.2
+- Full ZASS v0.3.11
+- ZASSIMPLE v0.3.3
