@@ -561,6 +561,58 @@ This LOCK does not prescribe Apps Script, Cloudflare, Cloud Run, OCI, Gemini, Op
 
 ---
 
+## PUBLIC GAS AGENTIC PATTERN AUDIT — CHALLENGE EVIDENCE INPUT
+
+**Status:** SAVED EVIDENCE INPUT — NO RUNTIME SELECTED  
+**Source note:** `../docs/GAS_AGENTIC_PATTERN_AUDIT.md`
+
+Audit of `adk-gas`, `GeminiWithFiles` and `GeminiApp` supports feasibility of Gemini/function-tool orchestration on Google Apps Script, including native tool execution and, in adk-gas, policy hooks plus HITL suspend/resume patterns.
+
+### Extract for challenge
+
+- approved/fixed tool registry;
+- function schema + structured arguments;
+- model-selected tool routing;
+- deterministic fast-track/bypass;
+- pre-tool policy/authorization hook;
+- HITL suspend/resume;
+- hard runtime/time budget;
+- concurrency/state guard;
+- token/payload safeguards;
+- structured logging/latency telemetry.
+
+### Park/avoid for V1 unless evidence requires it
+
+- arbitrary dynamic JavaScript execution;
+- unrestricted replanning;
+- full DAG planner;
+- MCP/A2A everywhere;
+- subagent hierarchy by default.
+
+### Central Control Plane vs Customer-Owned Apps Script Edge
+
+Do **not** collapse these into one question.
+
+**Central control plane** may own channel ingress, tenant identity, authorization/scope, quotas, routing, shared-AI policy, central audit and cross-channel coordination.
+
+**Customer-owned Apps Script edge** may be tested as an optional Premium execution/data edge for customer-owned Sheets/Drive/Workspace APIs and optional customer-owned AI credentials.
+
+This edge role is **not a fifth E-016 central control-plane candidate**.
+
+Challenge must measure:
+- deployment/update burden per customer;
+- Apps Script quota/runtime constraints;
+- auth/delegation model;
+- customer data ownership/isolation;
+- telemetry fragmentation;
+- failure/recovery behaviour;
+- migration/replaceability;
+- whether central policy can remain independent from customer-owned Google execution.
+
+No architecture selection, PRE-ARCH lock or implementation task is created by this audit.
+
+---
+
 ## E-016 V1 CONTROL-PLANE BENCHMARK
 
 Compare four low-complexity options:

@@ -2481,6 +2481,36 @@ tenant profile/history
 ---
 
 
+## E-020 — Public GAS Agentic Pattern Audit
+
+**Status:** EVIDENCE INPUT — CHALLENGE NOT RUN
+
+**Question:** What implementation patterns from existing Google Apps Script + Gemini projects are relevant to Kerani's bounded Agentic Tool architecture, and should customer-owned Apps Script be treated as a separate execution/data edge rather than conflated with the central control plane?
+
+**Sources audited:**
+- `tanaikech/adk-gas`
+- `tanaikech/GeminiWithFiles`
+- `mhawksey/GeminiApp`
+
+**Supported findings:**
+- Apps Script can execute Gemini function/tool-calling patterns;
+- Native GAS functions can be exposed as tools;
+- public GAS implementations show fast-path, timeout, state/concurrency protection, logging and token/payload safeguards;
+- `adk-gas` demonstrates a Human-in-the-Loop suspend/resume pattern around tool execution;
+- customer-owned Apps Script is a plausible **edge role** for Google-owned customer resources, but this does not prove it should be Kerani's central control plane.
+
+**Architecture distinction to challenge:**
+- **Central Control Plane:** ingress, tenant identity, authorization/scope, quotas, routing, shared-AI policy, central audit/telemetry and cross-channel coordination.
+- **Customer-Owned Apps Script Edge:** optional customer-owned execution/data edge for Sheets/Drive/Workspace APIs and optional customer-owned AI credentials.
+
+**Constraint:** customer-owned Apps Script edge is **not** added as a fifth E-016 central control-plane candidate. E-016 remains a four-way central benchmark.
+
+**Not proven by this audit:** Kerani production scale, tenant-isolation correctness, latency target, or superiority of Apps Script over Cloudflare/Cloud Run/OCI.
+
+**Evidence note:** `docs/GAS_AGENTIC_PATTERN_AUDIT.md`.
+
+---
+
 ## E-019 — Evidence-Seeded Execution Pilot
 **Status:** PLANNED — OWNER APPROVED 2026-10-09
 
@@ -2862,6 +2892,17 @@ Until then, this remains an extraction proof project, not a framework claim.
 ---
 
 # PROJECT ZASS CHANGELOG
+
+## 2026-10-11 — Public GAS agentic audit saved as Challenge evidence
+
+- Owner approved saving the deep audit of `adk-gas`, `GeminiWithFiles` and `GeminiApp` as evidence input only.
+- Added `docs/GAS_AGENTIC_PATTERN_AUDIT.md` and E-020.
+- Recorded extractable patterns: bounded function/tool calling, fixed tool registry, fast-path bypass, policy hooks, HITL suspend/resume, timeout/concurrency/token/payload safeguards, and structured logging.
+- Recorded V1 patterns to park/avoid without evidence: unrestricted dynamic JS, full DAG planner, broad autonomous replanning, MCP/A2A everywhere, and default subagent hierarchy.
+- Added explicit distinction between **Central Control Plane** and **Customer-Owned Apps Script Edge**.
+- Kept E-016 as a four-way central control-plane benchmark; customer-owned Apps Script edge is not a fifth central candidate.
+- No runtime selected, Challenge Design was not run, AC-012 remains CANDIDATE, and PRE-ARCH remains NOT LOCKED.
+
 
 ## 2026-10-11 — Durable Ingress and Authorization Guard challenge inputs saved
 
