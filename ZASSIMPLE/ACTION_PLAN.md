@@ -518,6 +518,18 @@ Kerani fails delivery if evidence shows any material unresolved problem in:
 4. **Queue boundary** — simple requests inherit unnecessary queue/poll latency because all traffic is treated the same.
 5. **Control-plane sustainability** — the selected runtime is too costly, operationally heavy or difficult to scale/maintain.
 
+### UX / commercial usability checks
+
+The current multi-user product should be challenged against these owner-approved UX priorities:
+- onboarding friction is as low as practical;
+- useful value becomes visible quickly;
+- top-up is simple and understandable;
+- user can continue using Kerani without forced migration to another system;
+- latency, accuracy and trust remain strong under real usage;
+- the product supports the channel users actually want.
+
+Do not introduce ownership/BYO/Premium complexity into baseline onboarding unless measured user behaviour proves that it solves a real pain.
+
 ### Current additional challenge hypotheses
 
 **User-owned Google Drive OAuth**

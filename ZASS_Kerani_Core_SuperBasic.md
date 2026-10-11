@@ -1650,6 +1650,36 @@ Premium/customer-owned Apps Script edge is deferred from the current delivery de
 
 ---
 
+## D-054 — Convenience-First UX and Evidence-Led Premium
+**Status:** LOCKED  
+**Owner approval:** 2026-10-11
+
+Two product principles are authoritative for the current Kerani multi-user project:
+
+> **User buys convenience and usefulness first; ownership is secondary unless it solves a real pain.**
+
+> **Premium must emerge from observed demand, not architectural imagination.**
+
+### Current UX priorities
+
+Kerani multi-user should optimize for:
+- friction onboarding as low as practical;
+- value becoming visible quickly;
+- top-up being easy and understandable;
+- usage continuing without forcing migration to another system;
+- strong latency / accuracy / trust;
+- support for the channel users actually want.
+
+### Product boundary
+
+Do not force user-owned infrastructure, BYO integrations, data-ownership complexity or Premium architecture into onboarding unless real user evidence proves that those features solve a meaningful pain.
+
+Hosted Kerani + top-up is a valid long-term user path if that is what users prefer.
+
+Premium architecture remains future work and must be shaped by observed user behaviour after real multi-user usage.
+
+---
+
 # 13. LOCKED DECISIONS
 
 This section is authoritative. Architecture and implementation must not contradict these records.
@@ -1932,6 +1962,13 @@ This section is authoritative. Architecture and implementation must not contradi
 ## L-044
 **Source Decision:** D-053  
 **Decision:** Final Kerani delivery requires a minimum user-value gate: measured acceptable latency, trustworthy language routing, proven tenant isolation, evidence-based direct READ vs durable queue boundary, and sustainable control-plane cost/maintenance. User-owned GDrive OAuth and robust/responsive AI API fallback are current multi-user challenge hypotheses; Premium customer-owned edge is future work to restart from zero architecture in a separate repository after multi-user experience.  
+**Locked by:** Project Owner  
+**Date:** 2026-10-11  
+**Supersedes:** None
+
+## L-045
+**Source Decision:** D-054  
+**Decision:** Kerani is convenience-first: users buy usefulness and convenience before ownership; Premium must emerge from observed demand, not architectural imagination. Current UX priorities are low-friction onboarding, fast time-to-value, easy top-up, continuity without migration, strong latency/accuracy/trust, and support for the channels users actually want.  
 **Locked by:** Project Owner  
 **Date:** 2026-10-11  
 **Supersedes:** None
@@ -2985,6 +3022,18 @@ Therefore:
 ---
 
 # PROJECT ZASS CHANGELOG
+
+## 2026-10-11 — Convenience-first UX principles locked
+
+- Owner approved and requested persistence of two product principles:
+  - **User buys convenience and usefulness first; ownership is secondary unless it solves a real pain.**
+  - **Premium must emerge from observed demand, not architectural imagination.**
+- Added D-054 / L-045.
+- Locked current multi-user UX priorities: low-friction onboarding, fast time-to-value, easy top-up, continuity without forced migration, strong latency/accuracy/trust, and support for the channels users actually want.
+- Explicitly allowed hosted Kerani + top-up as a valid long-term user path if user behaviour supports it.
+- Premium remains future work shaped by observed demand after real multi-user usage.
+- Challenge Design was not run and PRE-ARCH remains NOT LOCKED.
+
 
 ## 2026-10-11 — Minimum User Value Gate locked; Premium edge deferred
 

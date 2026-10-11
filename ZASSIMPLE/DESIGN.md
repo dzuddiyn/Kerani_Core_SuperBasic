@@ -209,6 +209,7 @@ The design must preserve these boundaries:
 - **Real field evidence comes early.** When real samples exist they are first-class execution evidence; missing real samples must be marked UNVALIDATED rather than field-proven.
 - **V-Road applies:** Value → Verbal → Volume → Viral → Vary → Venture → Versatile. Every V must be earned through evidence.
 - **Latency Observability from Day 1 — LOCKED.** Every implemented request path must emit enough timing evidence to decompose user-visible latency by stage from ingress to reply. At minimum capture request start, queue wait where applicable, AI/tool-router time where applicable, tool execution, validation/storage, retry count + retry-wait, and total response time. Aggregate at least P50/P95/P99 plus error/retry rate, segmented by tool/channel/runtime/provider where meaningful. Instrumentation begins with the first executable slice; do not wait until the system feels slow.
+- **Convenience-first UX — LOCKED.** User value is prioritized over ownership complexity. Onboarding friction, time-to-value, top-up continuity, latency/accuracy/trust and desired-channel fit are first-order design concerns. Premium features must arise from observed demand rather than being forced into the current Core architecture.
 
 ## Open assumptions / unresolved boundaries
 
@@ -293,6 +294,7 @@ Human-facing compact lineage only:
 - **Programme/growth/partner:** D-035–D-049
 - **Observability requirement:** D-052 / L-043
 - **Delivery Value Gate:** D-053 / L-044
+- **Convenience-first UX / evidence-led Premium:** D-054 / L-045
 - **Premium candidates:** D-050 · D-051
 - **Architecture candidates:** AC-005–AC-012
 - **Current control-plane evidence gate:** E-016
