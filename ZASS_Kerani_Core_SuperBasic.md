@@ -262,6 +262,8 @@ Nothing in this section is automatically approved.
 | Q-030 | What evidence and permissions are required before citing a partner's enterprise client history or applying for a specific development grant? | Protects credibility and grant claims. | OPEN |
 | Q-031 | Where should the Free/Premium boundary sit for reminder/push, scheduled reports and interactive retrieval, and which OpsMate behaviours are genuinely reusable? | Prevents useful Free basics from being crippled while avoiding unbounded automation/AI cost. | OPEN |
 | Q-032 | Can Cloudflare Workers + D1 satisfy the V1 webhook/router, tenant/quota/waitlist, scheduled-trigger and lightweight async needs more cheaply/simply than Cloud Run or central Apps Script? | Determines whether a lower-entry-cost control plane can meet Kerani's locked boundaries. | OPEN |
+| Q-033 | How much of the user-visible latency is caused by runtime/poll/retry scheduling versus Gemini/provider inference versus storage/channel work, especially after transient AI/provider errors? | Kerani cannot choose a viable product runtime or retry policy from end-to-end “slow” perception alone; the latency must be decomposed. | OPEN |
+| Q-034 | Can deterministic-first routing recognise sufficiently diverse short operational language from many users without brittle keyword explosion, unsafe misrouting, or forcing most traffic back to AI? | Determines whether deterministic-first can materially reduce latency/cost while preserving D-015 Verbal usability and safe clarification. | OPEN |
 
 ---
 
@@ -300,6 +302,8 @@ Nothing in this section is automatically approved.
 | R-029 | Unsupported impact causality | Programme reporting overclaims that funding caused observed outcomes. | Separate descriptive outcomes from causal evidence/methodology. | OPEN | Before/after delta is presented as proof of causation. |
 | R-030 | Safety-critical IoT alert depends on Kerani/LLM/cloud | A Kerani/provider outage could suppress a real-world safety alarm. | Keep deterministic/local device/PLC/HA alarm path authoritative; Kerani adds context, push, history and escalation only. | OPEN | Safety response is unavailable when Kerani, AI or internet is unavailable. |
 | R-031 | Free-tier control-plane ceiling becomes hidden dependency | A pilot works cheaply, then hits provider limits or reset windows unexpectedly during growth. | Meter usage, test exhaustion/fallback, keep provider boundary portable, and define upgrade/partner trigger before public scale. | OPEN | Request/database/queue limits are approached without alerting or a paid/alternate path. |
+| R-032 | Retry / polling delay amplifies transient AI-provider errors into unacceptable user-facing latency | A 5xx/provider failure can make an otherwise simple operation feel stuck for tens of seconds or longer, damaging product usability even when eventual recovery succeeds. | Measure retry scheduling separately from inference; prefer explicit bounded backoff/async acknowledgement where justified; test P50/P95 and failure-recovery time before PRE-ARCH selection. | OPEN | Transient 5xx errors cause long silent waits, repeated polling windows, or user retries/duplicates. |
+| R-033 | Deterministic language handling becomes brittle across real user phrasing | A growing list of keywords/rules may miss synonyms, shorthand, mixed Malay/English, spelling variation or ambiguous phrasing, causing misroutes or forcing excessive AI fallback. | Test deterministic-first routing against real field corpus; use confidence/clarification boundary; measure coverage, misroute rate and AI-fallback rate instead of assuming universal keyword coverage. | OPEN | New user wording repeatedly bypasses the fast path, requires rule patches, or is routed to the wrong record family. |
 
 ---
 
@@ -2287,6 +2291,28 @@ Exact test cadence and traffic volume remain deferred/pilot-calibrated.
 
 **Measure:** setup/maintenance effort, webhook behaviour, request latency, concurrency headroom, tenant/quota/waitlist implementation, secret handling, scheduled/async capability, observability, failure recovery, estimated low-traffic cost, free-tier/entry barriers, scale-up path and migration/rollback flexibility.
 
+**New field signals to preserve (2026-10-11):**
+- **REPORTED:** owner observed OpsMate user-visible response stalls associated with retry/poll timing after transient Gemini/provider errors such as HTTP 502; owner recalls a roughly 30-second retry/poll interval in the experienced path.
+- **VERIFIED against accessible OpsMate snapshots:** TelegramWorkerTest.js at both 10e20cd... and a6b504... records API_OR_OUTPUT_ERROR as RETRY_NEEDED with Date.now()+60000*Math.min(16,Math.pow(2,job.attempt-1)), i.e. a 60-second base exponential retry in that worker snapshot. Therefore the exact 30-second interval is **not verified from the accessible source snapshot**, but retry scheduling is confirmed as a real latency amplifier.
+- **REPORTED / inference:** deterministic-first processing may reduce AI latency/cost, but real Telegram language variation across many users may be too broad for a brittle keyword-only approach.
+
+**Required latency decomposition for E-016:**
+1. channel ingress → runtime/router;
+2. runtime/router → AI/provider request where used;
+3. AI/provider response/failure time;
+4. retry/backoff/poll delay after transient failure;
+5. deterministic/domain validation + storage;
+6. outbound reply/acknowledgement;
+7. total user-visible P50/P95 and recovery time after 5xx/provider failure.
+
+**Required language-variability evidence:**
+- deterministic fast-path coverage on real field samples;
+- misroute rate;
+- clarification rate;
+- AI-fallback rate;
+- representative mixed-language/shorthand/spelling variants;
+- proof that deterministic-first means “avoid AI where confidence is strong”, not “hard-code every possible phrase”.
+
 **Required practical test for AC-010:** webhook → tenant lookup → quota/state update → durable/async step where needed → reply; then one scheduled trigger → reminder/report path.
 
 **OpenClaw note:** OpenClaw is not a fourth control-plane competitor. D-032/E-013 keeps it as a replaceable synthetic reliability/audit agent.
@@ -2739,6 +2765,16 @@ Until then, this remains an extraction proof project, not a framework claim.
 ---
 
 # PROJECT ZASS CHANGELOG
+
+## 2026-10-11 — Response-time and language-variability field signals saved
+
+- Recorded owner field observation that transient Gemini/provider failures can make OpsMate feel stuck because retry/poll scheduling adds a large user-visible delay.
+- Preserved the owner's recalled ~30-second interval as **REPORTED**, not VERIFIED.
+- Cross-checked accessible OpsMate TelegramWorkerTest.js snapshots (10e20cd..., a6b504...): the audited worker stores API_OR_OUTPUT_ERROR as RETRY_NEEDED with a **60-second base exponential retry**, so the exact experienced 30-second cadence remains unresolved.
+- Added Q-033/R-032 so E-016 must decompose latency instead of blaming Apps Script or Gemini generically.
+- Added Q-034/R-033 for deterministic-first language variability: real multi-user phrasing must be tested for coverage, misroutes, clarification and AI-fallback rate.
+- No provider was selected, no architecture candidate was LOCKED, and ZERO → ARCHITECTURE / Evidence Confidence were unchanged.
+
 
 ## 2026-10-09 — Project-local ZASSIMPLE current-facing cleanup
 

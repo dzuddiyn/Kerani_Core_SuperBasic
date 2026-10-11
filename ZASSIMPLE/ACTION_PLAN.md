@@ -443,13 +443,24 @@ Measure:
 1. initial setup and maintenance burden;
 2. account/billing entry friction and estimated low-traffic cost;
 3. webhook behaviour, latency and concurrency headroom;
-4. tenant/quota/waitlist implementation clarity;
-5. secret handling/security;
-6. scheduled-trigger and lightweight async requirements;
-7. observability and OpenClaw audit integration;
-8. truthful provider/storage failure behaviour;
-9. scale-up path when Premium users increase;
-10. migration/rollback effort and provider lock-in.
+4. **latency decomposition:** ingress/router, AI inference, retry/backoff/poll delay, validation/storage, outbound reply;
+5. **5xx/provider recovery:** P50/P95 user-visible response time and time-to-recovery after transient failure;
+6. **deterministic fast-path language coverage:** real-sample coverage, misroute rate, clarification rate and AI-fallback rate;
+7. tenant/quota/waitlist implementation clarity;
+8. secret handling/security;
+9. scheduled-trigger and lightweight async requirements;
+10. observability and OpenClaw audit integration;
+11. truthful provider/storage failure behaviour;
+12. scale-up path when Premium users increase;
+13. migration/rollback effort and provider lock-in.
+
+### Field note — response time / retry / dynamic language (2026-10-11)
+
+- **REPORTED:** owner experienced OpsMate stalls after Gemini/provider errors such as HTTP 502 and recalls approximately 30-second retry/poll timing in the affected path.
+- **VERIFIED source check:** accessible TelegramWorkerTest.js snapshots at 10e20cd... and a6b504... use a 60-second base exponential RETRY_NEEDED delay for API_OR_OUTPUT_ERROR.
+- Therefore do not encode “30 seconds” or “60 seconds” as a Kerani architecture constant. Benchmark the actual end-to-end retry/recovery path.
+- Deterministic-first remains desirable for latency/cost, but must be tested against real Telegram wording diversity; it must not degrade into a growing keyword patch list.
+- A fast acknowledgement + asynchronous completion path may be evaluated where appropriate, but is **not selected/LOCKED** by this note.
 
 ### First Cloudflare feasibility slice
 

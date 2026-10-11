@@ -116,6 +116,15 @@ No provider is selected or LOCKED.
 
 **E-016** must compare setup/maintenance burden, entry/billing friction, webhook behaviour, latency/concurrency, tenant/quota/waitlist handling, secrets, scheduling/async needs, observability, failure recovery, low-traffic economics, scale-up and migration/rollback.
 
+### Response-time + language-variability viability signals
+
+- **REPORTED field signal:** OpsMate can feel stuck after transient Gemini/provider failures because retry/poll scheduling adds a large visible wait. The owner recalls an approximately 30-second retry/poll interval in the experienced path.
+- **VERIFIED source contrast:** accessible OpsMate worker snapshots currently show a 60-second base exponential retry for API_OR_OUTPUT_ERROR; therefore exact retry timing is unresolved and must be measured rather than assumed.
+- **OPEN architecture question:** deterministic-first can only be a genuine fast path if it handles enough real short operational language without fragile keyword explosion or unsafe misrouting.
+- **Product viability implication:** SuperBasic must prove both acceptable response time and bounded cost per useful action. Moving runtimes alone does not solve AI inference/retry latency.
+
+E-016 must therefore measure latency by stage, including retry/backoff time after provider 5xx errors, and must measure deterministic fast-path coverage / misroute / clarification / AI-fallback rates over real field language samples.
+
 The owner's current approximately RM200 Google Cloud billing/onboarding barrier is a practical account-side constraint only; it is not treated as a universal Cloud Run fee.
 
 ### Programme and scale candidates
@@ -158,6 +167,8 @@ These remain open; this design projection does not resolve them:
 9. **Premium Operations Pack** — candidate only; needs OpsMate/reuse/cost/safety evidence.
 10. **Premium Intelligence Pack** — candidate only; needs real-data usefulness, uncertainty/error and unit-economics evidence.
 11. **Government-programme bridge / event-scale / partner-scale** — planned experiments/evidence still incomplete.
+12. **Response-time root cause + retry policy** — Q-033/R-032; exact experienced 30-second cadence is reported, while accessible worker snapshots show 60-second base exponential retry.
+13. **Deterministic language coverage** — Q-034/R-033; must be proven against real multi-user phrasing rather than assumed from keyword rules.
 
 ## Evidence posture
 
