@@ -429,6 +429,57 @@ Before locking a Free hosted-OCR quota:
 6. Keep 1–3/month as a candidate range until pilot evidence supports a number.
 7. Avoid unnecessary image retention; measure storage cost separately from OCR processing.
 
+## AGENTIC TOOL BOUNDARY — CHALLENGE INPUT ONLY
+
+**Status:** PROPOSED DIMENSION SAVED — CHALLENGE NOT RUN
+
+Purpose: prepare one mandatory dimension for the next Architecture Assumption + Boundary Challenge without deciding the architecture in advance.
+
+### Challenge rule
+
+For every reusable behaviour considered for AI/tool orchestration, ask in this order:
+
+~~~text
+GENERIC behaviour?
+      ↓
+TOOL-WORTHY?
+      ↓
+AUTHORITY CLASS?
+READ / PROPOSE / CLARIFY / VALIDATE / MUTATE / SYSTEM
+      ↓
+HUMAN GATE?
+      ↓
+DETERMINISTIC / DOMAIN GATE?
+      ↓
+AUDIT / IDEMPOTENCY / TENANT-SCOPE REQUIREMENTS?
+~~~
+
+**Do not equate:**
+- GENERIC = AGENT_TOOL;
+- AGENT_TOOL = autonomous authority;
+- function calling = permission to mutate authoritative data.
+
+### Priority candidates for challenge
+
+1. **`retrieve_history` — READ**
+   - Goal: let users ask natural questions such as status/history without rigid Telegram slash-command syntax.
+   - Expected implementation boundary: AI may infer intent + query parameters; the actual tenant-scoped retrieval remains deterministic.
+   - Challenge evidence: correctness across synonyms/shorthand/mixed language, tenant isolation, latency, AI-fallback rate and no unintended mutation.
+
+2. **`prepare_candidate` — PROPOSE**
+   - Goal: let users submit natural operational reports and receive a structured candidate.
+   - Expected implementation boundary: AI may extract fields/confidence/missing information; candidate remains non-authoritative.
+   - Required downstream boundary: clarification/preview → explicit confirmation where required → deterministic/domain validation → controlled write.
+   - Challenge evidence: field accuracy, ambiguity handling, missing-field behaviour, misroute rate and no direct authoritative write.
+
+### Mutation stop rule
+
+Any candidate tool that can create/update/delete authoritative records must be treated as **MUTATE** and cannot be granted free model authority. It requires explicit authority design, human confirmation where applicable, deterministic/domain validation, tenant scope, idempotency and audit evidence.
+
+No Challenge result, PRE-ARCH lock or implementation task is created by this saved input.
+
+---
+
 ## E-016 V1 CONTROL-PLANE BENCHMARK
 
 Compare four low-complexity options:

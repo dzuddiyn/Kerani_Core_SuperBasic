@@ -264,6 +264,7 @@ Nothing in this section is automatically approved.
 | Q-032 | Can Cloudflare Workers + D1 satisfy the V1 webhook/router, tenant/quota/waitlist, scheduled-trigger and lightweight async needs more cheaply/simply than Cloud Run or central Apps Script? | Determines whether a lower-entry-cost control plane can meet Kerani's locked boundaries. | OPEN |
 | Q-033 | How much of the user-visible latency is caused by runtime/poll/retry scheduling versus Gemini/provider inference versus storage/channel work, especially after transient AI/provider errors? | Kerani cannot choose a viable product runtime or retry policy from end-to-end “slow” perception alone; the latency must be decomposed. | OPEN |
 | Q-034 | Can deterministic-first routing recognise sufficiently diverse short operational language from many users without brittle keyword explosion, unsafe misrouting, or forcing most traffic back to AI? | Determines whether deterministic-first can materially reduce latency/cost while preserving D-015 Verbal usability and safe clarification. | OPEN |
+| Q-035 | Which reusable behaviours should become agent-callable tools, and what authority class/gates must each tool carry? | Prevents genericity from being confused with agent authority and tests whether natural-language UX can improve without weakening D-015 human/deterministic control. | OPEN |
 
 ---
 
@@ -304,6 +305,7 @@ Nothing in this section is automatically approved.
 | R-031 | Free-tier control-plane ceiling becomes hidden dependency | A pilot works cheaply, then hits provider limits or reset windows unexpectedly during growth. | Meter usage, test exhaustion/fallback, keep provider boundary portable, and define upgrade/partner trigger before public scale. | OPEN | Request/database/queue limits are approached without alerting or a paid/alternate path. |
 | R-032 | Retry / polling delay amplifies transient AI-provider errors into unacceptable user-facing latency | A 5xx/provider failure can make an otherwise simple operation feel stuck for tens of seconds or longer, damaging product usability even when eventual recovery succeeds. | Measure retry scheduling separately from inference; prefer explicit bounded backoff/async acknowledgement where justified; test P50/P95 and failure-recovery time before PRE-ARCH selection. | OPEN | Transient 5xx errors cause long silent waits, repeated polling windows, or user retries/duplicates. |
 | R-033 | Deterministic language handling becomes brittle across real user phrasing | A growing list of keywords/rules may miss synonyms, shorthand, mixed Malay/English, spelling variation or ambiguous phrasing, causing misroutes or forcing excessive AI fallback. | Test deterministic-first routing against real field corpus; use confidence/clarification boundary; measure coverage, misroute rate and AI-fallback rate instead of assuming universal keyword coverage. | OPEN | New user wording repeatedly bypasses the fast path, requires rule patches, or is routed to the wrong record family. |
+| R-034 | Agent tool authority creep | A reusable/tool-callable capability is mistaken for permission to mutate business truth, causing unsafe writes, cross-tenant access or model-driven policy decisions. | Classify every tool by authority; keep READ/PROPOSE separate from MUTATE; require tenant scope, human confirmation where applicable, deterministic/domain validation, idempotency and audit before authoritative changes. | OPEN | Function/tool calls write or delete authoritative records without an explicit gate or a new GENERIC behaviour is automatically exposed as an agent tool. |
 
 ---
 
@@ -659,6 +661,25 @@ WhatsApp / Telegram / future channel
 **Cost boundary:** Treat compute cost as potentially near-zero only while actual usage remains inside current Always Free limits. Provider terms and limits are externally changeable and must be reverified at implementation time.
 
 **Anti-lock-in rule:** OCI-specific VM/storage/networking details must remain behind stable Kerani contracts so the control plane can move to Cloudflare, Cloud Run, central Apps Script, another provider, or paid infrastructure without changing tenant identity/business logic.
+
+---
+
+## AC-012 — Bounded Agent Tool Orchestration
+
+**Status:** CANDIDATE  
+**Origin:** owner UX/agentic architecture discussion 2026-10-11
+
+**Intent:** Let AI translate natural user language into bounded capability/tool calls while preserving Kerani's existing human, deterministic, domain and tenant-authority boundaries.
+
+**Key distinction:** `GENERIC` behaviour is a reuse classification, not an agent permission. A behaviour must separately prove that it is tool-worthy and declare one authority class: READ, PROPOSE, CLARIFY, VALIDATE, MUTATE or SYSTEM/AUTOMATION.
+
+**Priority tool candidates:**
+- `retrieve_history` — READ: AI may map natural questions to tenant-scoped deterministic retrieval parameters.
+- `prepare_candidate` — PROPOSE: AI may map short operational language into a structured non-authoritative candidate.
+
+**Mutation boundary:** authoritative create/update/delete capabilities require explicit authority design, tenant scope, human confirmation where applicable, deterministic/domain validation, idempotency and audit. Function calling alone never grants mutation authority.
+
+**Why candidate, not LOCKED:** tool registry shape, authority metadata, model/provider behaviour, latency/cost, multi-user language coverage, tenant isolation and mutation gates have not yet passed the Architecture Assumption + Boundary Challenge or real execution evidence.
 
 ---
 
@@ -2800,6 +2821,16 @@ Until then, this remains an extraction proof project, not a framework claim.
 ---
 
 # PROJECT ZASS CHANGELOG
+
+## 2026-10-11 — Agentic Tool Boundary saved as challenge dimension
+
+- Owner approved saving Agentic Tool Boundary as a mandatory dimension for the next Architecture Assumption + Boundary Challenge.
+- Added AC-012 **CANDIDATE — Bounded Agent Tool Orchestration**, Q-035 and R-034.
+- Explicitly separated GENERIC behaviour from AGENT_TOOL permission and classified candidate authority as READ / PROPOSE / CLARIFY / VALIDATE / MUTATE / SYSTEM.
+- Recorded `retrieve_history` as a strong READ candidate for natural-language history/status retrieval and `prepare_candidate` as a strong PROPOSE candidate for natural operational reporting.
+- Preserved D-015: AI-interpreted mutation still requires the governed human/deterministic/domain authority path before authoritative persistence.
+- Challenge Design was **not run**, PRE-ARCH was not locked, and no implementation task was created.
+
 
 ## 2026-10-11 — OCI Ampere A1 Always Free added to E-016 benchmark
 

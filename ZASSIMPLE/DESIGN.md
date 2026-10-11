@@ -104,6 +104,50 @@ Still unresolved:
 
 Tenant identity and history remain independent from channel/provider choices. Shared Free infrastructure may later transition to owned/dedicated Premium infrastructure without tenant/data migration.
 
+### Agentic Tool Boundary — CANDIDATE
+
+**AC-012 — Bounded Agent Tool Orchestration**
+
+Kerani may use AI as a bounded language-to-tool orchestrator, but **GENERIC behaviour does not automatically become an agent-callable tool, and an agent-callable tool does not automatically receive mutation authority**.
+
+Candidate authority classes:
+
+| Authority class | Candidate examples | Agent role | Required gate |
+|---|---|---|---|
+| **READ** | `retrieve_history`, retrieve status/report | Interpret natural-language request into tenant-scoped query parameters | deterministic tenant/query scope; no mutation |
+| **PROPOSE** | `prepare_candidate` | Convert short operational language into structured candidate + confidence/missing fields | preview/clarification; no authoritative write |
+| **CLARIFY** | ask missing field / disambiguate intent | Ask bounded follow-up question | no mutation; preserve original evidence |
+| **VALIDATE** | deterministic/domain validator | Invoke/check rule boundary | validator remains authoritative for rules |
+| **MUTATE** | commit/update/delete authoritative record | Agent must not receive free mutation authority | explicit human confirmation + deterministic/domain validation + audit/idempotency |
+| **SYSTEM / AUTOMATION** | scheduled reminder/report | Invoke only pre-authorised bounded automation | entitlement + tenant scope + audit/failure receipt |
+
+Two priority candidates for challenge:
+- **`retrieve_history` — READ candidate:** natural-language history/status questions may map to deterministic tenant-scoped retrieval instead of requiring rigid commands such as `/retrieve_status <plot>`.
+- **`prepare_candidate` — PROPOSE candidate:** natural-language operational reports may become structured candidates for clarification/preview before any authoritative mutation.
+
+Candidate flow:
+
+~~~text
+natural-language input
+        ↓
+bounded language/tool router
+        ↓
+tool registry + authority metadata
+   ┌──────────┬──────────┬──────────┐
+   ↓          ↓          ↓
+ READ       PROPOSE    CLARIFY
+   │          │          │
+   └──────────┴────┬─────┘
+                   ↓
+         human confirmation where required
+                   ↓
+        deterministic/domain validation
+                   ↓
+          controlled MUTATION
+~~~
+
+This remains **CANDIDATE** until challenged against real OpsMate behaviour, D-015 human-authority rules, tenant isolation, latency/cost and real-language variability.
+
 ### V1 control-plane candidates
 
 No provider is selected or LOCKED.
@@ -172,6 +216,7 @@ These remain open; this design projection does not resolve them:
 11. **Government-programme bridge / event-scale / partner-scale** — planned experiments/evidence still incomplete.
 12. **Response-time root cause + retry policy** — Q-033/R-032; exact experienced 30-second cadence is reported, while accessible worker snapshots show 60-second base exponential retry.
 13. **Deterministic language coverage** — Q-034/R-033; must be proven against real multi-user phrasing rather than assumed from keyword rules.
+14. **Agentic Tool Boundary** — Q-035/R-034/AC-012; challenge must distinguish GENERIC behaviour → tool-worthiness → authority class → required human/deterministic gate. Priority candidates: `retrieve_history` as READ and `prepare_candidate` as PROPOSE.
 
 ## Evidence posture
 
@@ -198,7 +243,13 @@ Design coverage is now **4/4**, so the next design gate is challenge, not confir
 
 **Recommended challenge:** Architecture Assumption + Boundary Challenge.
 
-**Why:** the product/design surface is coherent, but several material architecture boundaries and the V1 control-plane choice remain candidates.
+**Mandatory challenge dimensions:**
+1. runtime/module and routing ownership;
+2. response-time/retry + dynamic-language viability;
+3. V1 control-plane selection evidence;
+4. **Agentic Tool Boundary:** GENERIC behaviour ≠ automatically AGENT_TOOL; classify candidate tools as READ / PROPOSE / CLARIFY / VALIDATE / MUTATE / SYSTEM, and prove the human/deterministic gate for each authority level.
+
+**Why:** the product/design surface is coherent, but several material architecture boundaries, agent/tool authority boundaries and the V1 control-plane choice remain candidates.
 
 A challenge PASS does not automatically confirm final architecture. For this technical project it should lead toward a reviewed PRE-ARCH candidate and explicit owner gate when the evidence is sufficient. After PRE-ARCH lock, run Execution Reality Check before detailed task slicing, using real artifacts/samples and execution-surface mapping before evidence-bounded vertical atomic tasks.
 
@@ -229,7 +280,7 @@ Human-facing compact lineage only:
 - **Tenant/channel/quota/reliability:** D-023–D-033
 - **Programme/growth/partner:** D-035–D-049
 - **Premium candidates:** D-050 · D-051
-- **Architecture candidates:** AC-005–AC-010
+- **Architecture candidates:** AC-005–AC-012
 - **Current control-plane evidence gate:** E-016
 - **Retained Full ZASS lineage / escalation reference:** `../ZASS_Kerani_Core_SuperBasic.md`
 - **Method baseline:** ZASS SYSTEM v0.2.2 · ZASSIMPLE v0.3.3 · Full ZASS v0.3.11
