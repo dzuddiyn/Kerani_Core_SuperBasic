@@ -2859,6 +2859,15 @@ Until then, this remains an extraction proof project, not a framework claim.
 
 # PROJECT ZASS CHANGELOG
 
+## 2026-10-11 — OpsMate vs Kerani Agentic Tool comparison documented
+
+- Added `docs/OPSMATE_VS_KERANI_AGENTIC_TOOL.md` as the supporting architecture comparison note requested by the owner.
+- Recorded side-by-side action/mutation and read/retrieval flows, the proposed Kerani Agentic Tool flow, 1:1 differences, KEEP lessons from OpsMate, REFACTOR-INTO-TOOL candidates, and mutation authority boundaries.
+- Documented the core distinction: **OpsMate = workflow-centric operational system; Kerani AI = governed capability/tool system with a natural-language front end.**
+- Added a pointer from `ZASSIMPLE/DESIGN.md` under AC-012.
+- No design challenge was run, AC-012 remains CANDIDATE, PRE-ARCH remains NOT LOCKED, and no new implementation task was created.
+
+
 ## 2026-10-11 — Latency Observability from Day 1 LOCKED
 
 - Owner explicitly issued **PROCEED LOCK SAVE** for Day-1 latency observability.

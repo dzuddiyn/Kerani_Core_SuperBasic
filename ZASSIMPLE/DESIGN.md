@@ -148,6 +148,8 @@ tool registry + authority metadata
 
 This remains **CANDIDATE** until challenged against real OpsMate behaviour, D-015 human-authority rules, tenant isolation, latency/cost and real-language variability.
 
+**Supporting comparison note:** `../docs/OPSMATE_VS_KERANI_AGENTIC_TOOL.md` — visual/data-flow comparison of OpsMate workflow-centric behaviour versus the candidate Kerani bounded Agentic Tool architecture. The note is supporting evidence/analysis only; it does not LOCK AC-012 or run Challenge Design.
+
 ### V1 control-plane candidates
 
 No provider is selected or LOCKED.
