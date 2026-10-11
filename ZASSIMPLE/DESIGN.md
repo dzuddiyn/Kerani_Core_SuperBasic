@@ -148,6 +148,10 @@ tool registry + authority metadata
 
 This remains **CANDIDATE** until challenged against real OpsMate behaviour, D-015 human-authority rules, tenant isolation, latency/cost and real-language variability.
 
+**Additional challenge inputs — SAVED, not LOCKED:**
+- **Durable Ingress / Idempotency Boundary:** determine which request classes require durable inbox/queue semantics and idempotency, and which READ paths should bypass queueing to preserve responsiveness. Do **not** assume every request must traverse a queue.
+- **Authorization / Scope Guard:** tenant identity resolution is not sufficient on its own; challenge must prove authorization/scope enforcement before tool execution and again at the tool/data boundary. AI-supplied arguments must not be trusted to define tenant authority.
+
 **Supporting comparison note:** `../docs/OPSMATE_VS_KERANI_AGENTIC_TOOL.md` — visual/data-flow comparison of OpsMate workflow-centric behaviour versus the candidate Kerani bounded Agentic Tool architecture. The note is supporting evidence/analysis only; it does not LOCK AC-012 or run Challenge Design.
 
 ### V1 control-plane candidates
@@ -250,7 +254,7 @@ Design coverage is now **4/4**, so the next design gate is challenge, not confir
 1. runtime/module and routing ownership;
 2. response-time/retry + dynamic-language viability, with the LOCKED Day-1 latency telemetry requirement treated as a non-negotiable execution constraint;
 3. V1 control-plane selection evidence;
-4. **Agentic Tool Boundary:** GENERIC behaviour ≠ automatically AGENT_TOOL; classify candidate tools as READ / PROPOSE / CLARIFY / VALIDATE / MUTATE / SYSTEM, and prove the human/deterministic gate for each authority level.
+4. **Agentic Tool Boundary:** GENERIC behaviour ≠ automatically AGENT_TOOL; classify candidate tools as READ / PROPOSE / CLARIFY / VALIDATE / MUTATE / SYSTEM, and prove the human/deterministic gate for each authority level. This dimension must also test **Durable Ingress / Idempotency scope** and **Authorization / Scope Guard enforcement**, without pre-deciding that every request uses a queue.
 
 **Why:** the product/design surface is coherent, but several material architecture boundaries, agent/tool authority boundaries and the V1 control-plane choice remain candidates.
 

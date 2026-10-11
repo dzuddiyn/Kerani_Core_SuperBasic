@@ -476,7 +476,31 @@ AUDIT / IDEMPOTENCY / TENANT-SCOPE REQUIREMENTS?
 
 Any candidate tool that can create/update/delete authoritative records must be treated as **MUTATE** and cannot be granted free model authority. It requires explicit authority design, human confirmation where applicable, deterministic/domain validation, tenant scope, idempotency and audit evidence.
 
-No Challenge result, PRE-ARCH lock or implementation task is created by this saved input.
+### Additional saved challenge inputs
+
+#### Durable Ingress / Idempotency Boundary
+
+Challenge must determine:
+- which request classes truly require durable inbox/queue handling;
+- where idempotency keys/receipts are required to prevent duplicate authoritative effects;
+- whether READ requests can use a lower-latency direct path;
+- how retries, duplicate delivery and process restarts are handled;
+- how the LOCKED Day-1 latency telemetry exposes queue wait and retry cost.
+
+**Constraint:** do not lock a universal "all requests go through queue" rule before evidence. Q-016 remains open.
+
+#### Authorization / Scope Guard
+
+Challenge must distinguish identity from authorization:
+- channel/user binding resolves trusted tenant/user context;
+- authorization/scope must be checked before protected tool execution;
+- tool/data access must re-enforce trusted tenant scope rather than accepting model-provided tenant identity as authority;
+- READ and MUTATE tools both require tenant isolation tests;
+- cross-tenant/resource access must fail closed and leave an auditable result where appropriate.
+
+**Constraint:** AI/tool arguments may describe the requested resource, but must not define or expand the caller's trusted tenant/authorization scope.
+
+No Challenge result, PRE-ARCH lock or implementation task is created by these saved inputs.
 
 ---
 

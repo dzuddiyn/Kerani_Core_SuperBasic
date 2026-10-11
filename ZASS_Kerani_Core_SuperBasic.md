@@ -265,6 +265,8 @@ Nothing in this section is automatically approved.
 | Q-033 | How much of the user-visible latency is caused by runtime/poll/retry scheduling versus Gemini/provider inference versus storage/channel work, especially after transient AI/provider errors? | Kerani cannot choose a viable product runtime or retry policy from end-to-end “slow” perception alone; the latency must be decomposed. | OPEN |
 | Q-034 | Can deterministic-first routing recognise sufficiently diverse short operational language from many users without brittle keyword explosion, unsafe misrouting, or forcing most traffic back to AI? | Determines whether deterministic-first can materially reduce latency/cost while preserving D-015 Verbal usability and safe clarification. | OPEN |
 | Q-035 | Which reusable behaviours should become agent-callable tools, and what authority class/gates must each tool carry? | Prevents genericity from being confused with agent authority and tests whether natural-language UX can improve without weakening D-015 human/deterministic control. | OPEN |
+| Q-036 | Which Kerani request classes require durable ingress/queue + idempotency, and which can safely use a direct low-latency path? | Prevents blindly inheriting OpsMate queueing into all paths while still protecting mutation/retry/restart correctness. | OPEN |
+| Q-037 | Where must authorization/scope be enforced between channel identity, tool routing and data access? | Tenant identity alone does not prove permission; the challenge must prevent AI/tool arguments from becoming authority and prove fail-closed tenant isolation. | OPEN |
 
 ---
 
@@ -306,6 +308,8 @@ Nothing in this section is automatically approved.
 | R-032 | Retry / polling delay amplifies transient AI-provider errors into unacceptable user-facing latency | A 5xx/provider failure can make an otherwise simple operation feel stuck for tens of seconds or longer, damaging product usability even when eventual recovery succeeds. | Measure retry scheduling separately from inference; prefer explicit bounded backoff/async acknowledgement where justified; test P50/P95 and failure-recovery time before PRE-ARCH selection. | OPEN | Transient 5xx errors cause long silent waits, repeated polling windows, or user retries/duplicates. |
 | R-033 | Deterministic language handling becomes brittle across real user phrasing | A growing list of keywords/rules may miss synonyms, shorthand, mixed Malay/English, spelling variation or ambiguous phrasing, causing misroutes or forcing excessive AI fallback. | Test deterministic-first routing against real field corpus; use confidence/clarification boundary; measure coverage, misroute rate and AI-fallback rate instead of assuming universal keyword coverage. | OPEN | New user wording repeatedly bypasses the fast path, requires rule patches, or is routed to the wrong record family. |
 | R-034 | Agent tool authority creep | A reusable/tool-callable capability is mistaken for permission to mutate business truth, causing unsafe writes, cross-tenant access or model-driven policy decisions. | Classify every tool by authority; keep READ/PROPOSE separate from MUTATE; require tenant scope, human confirmation where applicable, deterministic/domain validation, idempotency and audit before authoritative changes. | OPEN | Function/tool calls write or delete authoritative records without an explicit gate or a new GENERIC behaviour is automatically exposed as an agent tool. |
+| R-035 | Universal queueing recreates OpsMate-style latency and unnecessary complexity | Forcing all READ and ACTION requests through one durable queue can increase response time, retry amplification and operational burden even when some requests are safe to execute directly. | Challenge durable-ingress scope by request class; retain direct/read paths where safe; require idempotency/durability where authoritative side effects or retries justify them; measure queue wait from Day 1. | OPEN | Simple read requests accumulate queue wait/poll delay or require worker recovery despite having no authoritative side effect. |
+| R-036 | Identity resolved but authorization scope not enforced at tool/data boundary | A valid user/tenant binding could still access another tenant/resource if AI arguments or downstream queries are trusted without re-checking scope. | Use trusted context for tenant/user authority; fail closed; re-check scope before protected tool execution and deterministic data access; test cross-tenant denial for READ and MUTATE. | OPEN | Model/tool arguments can select another tenant/resource or a retrieval query returns data outside the caller's authorized scope. |
 
 ---
 
@@ -2858,6 +2862,16 @@ Until then, this remains an extraction proof project, not a framework claim.
 ---
 
 # PROJECT ZASS CHANGELOG
+
+## 2026-10-11 — Durable Ingress and Authorization Guard challenge inputs saved
+
+- Owner approved recording two additional inputs for the upcoming Architecture Assumption + Boundary Challenge.
+- Added **Durable Ingress / Idempotency Boundary** without locking a universal queue requirement; Q-016 remains open.
+- Added **Authorization / Scope Guard** as a separate boundary from tenant identity, with trusted-context and tool/data-boundary enforcement.
+- Added Q-036/Q-037 and R-035/R-036 to preserve lineage.
+- Explicitly rejected the assumption that every request must traverse a queue before evidence; direct READ paths remain challenge candidates.
+- Challenge Design was not run, AC-012 remains CANDIDATE, PRE-ARCH remains NOT LOCKED, and no implementation task was created.
+
 
 ## 2026-10-11 — OpsMate vs Kerani Agentic Tool comparison documented
 
