@@ -480,6 +480,63 @@ No Challenge result, PRE-ARCH lock or implementation task is created by this sav
 
 ---
 
+## LATENCY OBSERVABILITY FROM DAY 1 — LOCKED
+
+**Authority:** D-052 / L-043  
+**Status:** OWNER LOCKED 2026-10-11  
+**Challenge status:** NOT RUN  
+**PRE-ARCH impact:** constraint only; does not lock a provider/runtime or PRE-ARCH baseline.
+
+Every executable Kerani request path must emit a timing receipt sufficient to localise latency rather than relying on user perception after degradation appears.
+
+### Minimum per-request timing receipt
+
+~~~text
+request_id
+request_received_at
+channel
+runtime
+tool_name / route
+ai_used
+ai_provider / model where applicable
+
+queue_wait_ms
+ai_router_ms
+tool_exec_ms
+validation_storage_ms
+retry_count
+retry_wait_ms
+outbound_reply_ms
+total_response_ms
+
+provider_status / error_class
+~~~
+
+Fields that do not apply to a path may be null/zero, but the receipt must still support end-to-end timing reconstruction.
+
+### Minimum aggregated latency view
+
+Track from the earliest executable slice:
+- P50 total response latency;
+- P95 total response latency;
+- P99 total response latency;
+- error rate;
+- retry rate;
+- queue-wait distribution where applicable;
+- AI-router / provider latency where applicable;
+- tool latency by tool name;
+- comparison by channel/runtime/provider where sample size is meaningful.
+
+### Operating principle
+
+> **Measure before optimize. Every request must expose enough timing evidence to locate latency by stage.**
+
+Do not defer observability until after complaints appear. Any later latency optimisation must compare before/after measurements using the same or explicitly versioned telemetry semantics.
+
+This LOCK does not prescribe Apps Script, Cloudflare, Cloud Run, OCI, Gemini, OpenAI, Python, n8n or any other implementation.
+
+---
+
 ## E-016 V1 CONTROL-PLANE BENCHMARK
 
 Compare four low-complexity options:

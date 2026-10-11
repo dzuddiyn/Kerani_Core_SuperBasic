@@ -198,6 +198,7 @@ The design must preserve these boundaries:
 - **Infrastructure/partners must remain replaceable.** Core, tenant identity, portability and business authority cannot be surrendered to one provider/partner.
 - **Real field evidence comes early.** When real samples exist they are first-class execution evidence; missing real samples must be marked UNVALIDATED rather than field-proven.
 - **V-Road applies:** Value → Verbal → Volume → Viral → Vary → Venture → Versatile. Every V must be earned through evidence.
+- **Latency Observability from Day 1 — LOCKED.** Every implemented request path must emit enough timing evidence to decompose user-visible latency by stage from ingress to reply. At minimum capture request start, queue wait where applicable, AI/tool-router time where applicable, tool execution, validation/storage, retry count + retry-wait, and total response time. Aggregate at least P50/P95/P99 plus error/retry rate, segmented by tool/channel/runtime/provider where meaningful. Instrumentation begins with the first executable slice; do not wait until the system feels slow.
 
 ## Open assumptions / unresolved boundaries
 
@@ -245,7 +246,7 @@ Design coverage is now **4/4**, so the next design gate is challenge, not confir
 
 **Mandatory challenge dimensions:**
 1. runtime/module and routing ownership;
-2. response-time/retry + dynamic-language viability;
+2. response-time/retry + dynamic-language viability, with the LOCKED Day-1 latency telemetry requirement treated as a non-negotiable execution constraint;
 3. V1 control-plane selection evidence;
 4. **Agentic Tool Boundary:** GENERIC behaviour ≠ automatically AGENT_TOOL; classify candidate tools as READ / PROPOSE / CLARIFY / VALIDATE / MUTATE / SYSTEM, and prove the human/deterministic gate for each authority level.
 
@@ -279,6 +280,7 @@ Human-facing compact lineage only:
 - **Core/product:** D-010–D-022
 - **Tenant/channel/quota/reliability:** D-023–D-033
 - **Programme/growth/partner:** D-035–D-049
+- **Observability requirement:** D-052 / L-043
 - **Premium candidates:** D-050 · D-051
 - **Architecture candidates:** AC-005–AC-012
 - **Current control-plane evidence gate:** E-016

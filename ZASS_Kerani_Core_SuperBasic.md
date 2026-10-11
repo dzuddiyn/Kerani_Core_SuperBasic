@@ -1597,6 +1597,36 @@ Evidence needed before LOCK: representative real records, useful-output tests, e
 
 ---
 
+## D-052 — Latency Observability from Day 1
+**Status:** LOCKED  
+**Owner approval:** 2026-10-11
+
+Kerani must instrument response-time evidence from the first executable implementation slice rather than adding latency observability only after the system becomes visibly slow.
+
+**Required per-request evidence, where applicable:**
+- request received timestamp / request ID;
+- queue wait;
+- AI/tool-router time;
+- selected tool execution time;
+- deterministic/domain validation + storage time;
+- retry count;
+- retry-wait time;
+- outbound reply time;
+- total user-visible response time;
+- relevant channel/runtime/provider/tool/error classification.
+
+**Required aggregate evidence:** at minimum P50/P95/P99 total latency, error rate and retry rate, with segmentation by tool/channel/runtime/provider where meaningful.
+
+Canonical principle:
+
+> **Measure before optimize. Every request must expose enough timing evidence to locate latency by stage.**
+
+**Boundary:** This is an observability/viability requirement, not a provider selection. It does not decide whether Kerani uses Apps Script, Cloudflare, Cloud Run, OCI, Gemini, OpenAI, Python, n8n, Botpress or another runtime/provider.
+
+**Architecture consequence:** response-time comparisons and future optimisation must use factual timing receipts rather than only subjective “slow/fast” impressions. Telemetry semantics may evolve, but any material change should remain versionable/comparable.
+
+---
+
 # 13. LOCKED DECISIONS
 
 This section is authoritative. Architecture and implementation must not contradict these records.
@@ -1867,6 +1897,13 @@ This section is authoritative. Architecture and implementation must not contradi
 **Decision:** Real field samples are first-class execution evidence from the earliest available day; critical user-facing workflows use a field-corpus → proof-matrix → reusable-procedure → atomic-instance → proof-receipt → invalidation/reuse path, and synthetic fixtures do not silently substitute for available field evidence.  
 **Locked by:** Project Owner  
 **Date:** 2026-10-09  
+**Supersedes:** None
+
+## L-043
+**Source Decision:** D-052  
+**Decision:** Latency observability is mandatory from the first executable Kerani slice; request paths must emit stage-level timing evidence sufficient to compare P50/P95/P99, retries/errors and latency by relevant tool/channel/runtime/provider rather than waiting for subjective responsiveness problems.  
+**Locked by:** Project Owner  
+**Date:** 2026-10-11  
 **Supersedes:** None
 
 ---
@@ -2821,6 +2858,17 @@ Until then, this remains an extraction proof project, not a framework claim.
 ---
 
 # PROJECT ZASS CHANGELOG
+
+## 2026-10-11 — Latency Observability from Day 1 LOCKED
+
+- Owner explicitly issued **PROCEED LOCK SAVE** for Day-1 latency observability.
+- Added D-052 / L-043 as a LOCKED Kerani execution/viability requirement.
+- Every executable request path must expose stage-level timing evidence from ingress through reply, including retry/queue/AI/tool/storage timing where applicable.
+- Required aggregate view includes at least P50/P95/P99 total latency plus error/retry rate and meaningful tool/channel/runtime/provider segmentation.
+- Canonical principle: **Measure before optimize. Every request must expose enough timing evidence to locate latency by stage.**
+- This lock does not select a runtime, control plane or AI provider.
+- Challenge Design was not run and PRE-ARCH remains NOT LOCKED.
+
 
 ## 2026-10-11 — Agentic Tool Boundary saved as challenge dimension
 
