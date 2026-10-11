@@ -504,6 +504,38 @@ No Challenge result, PRE-ARCH lock or implementation task is created by these sa
 
 ---
 
+## VALUE GATE / DEFINITION OF DELIVERY — LOCKED
+
+**Authority:** D-053 / L-044  
+**Status:** OWNER-LOCKED MINIMUM DELIVERY GATE  
+**Final review timing:** re-check at the end of the current Kerani multi-user project before declaring delivery/done.
+
+Kerani fails delivery if evidence shows any material unresolved problem in:
+
+1. **Latency / responsiveness** — user-visible latency remains troublesome.
+2. **Dynamic-language routing trust** — misrouting/ambiguity handling is unreliable.
+3. **Tenant isolation** — cross-tenant access is possible or insufficiently proven.
+4. **Queue boundary** — simple requests inherit unnecessary queue/poll latency because all traffic is treated the same.
+5. **Control-plane sustainability** — the selected runtime is too costly, operationally heavy or difficult to scale/maintain.
+
+### Current additional challenge hypotheses
+
+**User-owned Google Drive OAuth**
+- Test OAuth onboarding, minimum scopes, token storage/refresh/revocation, tenant binding, permission failures, support burden, data portability and whether it actually improves user value.
+- Treat this as an optional current multi-user storage/data-ownership path, not as customer-owned Apps Script edge.
+
+**AI API failure fallback**
+- Test provider/API failure behaviour with measured failover/retry/degraded-mode latency.
+- Prevent duplicate business effects during retry/failover.
+- Preserve truthful user feedback when AI is unavailable.
+- Do not preselect multi-provider failover, deterministic fallback, queue-and-retry or any other mechanism before evidence.
+
+### Premium scope stop
+
+Customer-owned Apps Script edge / Premium architecture is now **FUTURE WORK**. Preserve the existing audit as historical evidence only. After real multi-user Kerani operating experience, start Premium architecture from ZERO → ARCHITECTURE in a separate repository/project.
+
+---
+
 ## LATENCY OBSERVABILITY FROM DAY 1 — LOCKED
 
 **Authority:** D-052 / L-043  
@@ -589,9 +621,15 @@ Audit of `adk-gas`, `GeminiWithFiles` and `GeminiApp` supports feasibility of Ge
 - MCP/A2A everywhere;
 - subagent hierarchy by default.
 
-### Central Control Plane vs Customer-Owned Apps Script Edge
+### Central Control Plane vs Customer-Owned Apps Script Edge — scope update
 
-Do **not** collapse these into one question.
+The audit distinction remains useful historical evidence, but owner scope is now:
+- **current project:** prove the central multi-user Kerani Core;
+- **future separate Premium project:** reconsider customer-owned Apps Script edge from ZERO → ARCHITECTURE after multi-user operating experience.
+
+Do **not** use the Premium edge candidate to bias the current control-plane winner.
+
+Historical audit question was:
 
 **Central control plane** may own channel ingress, tenant identity, authorization/scope, quotas, routing, shared-AI policy, central audit and cross-channel coordination.
 

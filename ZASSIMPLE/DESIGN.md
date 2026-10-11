@@ -239,6 +239,7 @@ What is materially stronger:
 - real-field-evidence-first execution method is approved.
 
 What is still not proven enough:
+- **final User Value Gate / Definition of Delivery (D-053):** measured latency, routing trust, tenant isolation, queue-boundary fitness and sustainable control-plane operations;
 - generic Core extraction across multiple workflows/domains;
 - non-farm reuse;
 - quota/isolation/migration behaviour at scale;
@@ -257,8 +258,8 @@ Design coverage is now **4/4**, so the next design gate is challenge, not confir
 **Mandatory challenge dimensions:**
 1. runtime/module and routing ownership;
 2. response-time/retry + dynamic-language viability, with the LOCKED Day-1 latency telemetry requirement treated as a non-negotiable execution constraint;
-3. V1 control-plane selection evidence, while explicitly separating **central control-plane selection** from the possible **customer-owned Apps Script edge** role;
-4. **Agentic Tool Boundary:** GENERIC behaviour ≠ automatically AGENT_TOOL; classify candidate tools as READ / PROPOSE / CLARIFY / VALIDATE / MUTATE / SYSTEM, and prove the human/deterministic gate for each authority level. This dimension must also test **Durable Ingress / Idempotency scope** and **Authorization / Scope Guard enforcement**, without pre-deciding that every request uses a queue.
+3. V1 control-plane selection evidence for the current multi-user Kerani Core. The previously explored **customer-owned Apps Script edge** is now FUTURE WORK for a separate Premium ZERO → ARCHITECTURE project and must not influence the current control-plane winner;
+4. **Agentic Tool Boundary:** GENERIC behaviour ≠ automatically AGENT_TOOL; classify candidate tools as READ / PROPOSE / CLARIFY / VALIDATE / MUTATE / SYSTEM, and prove the human/deterministic gate for each authority level. This dimension must also test **Durable Ingress / Idempotency scope**, **Authorization / Scope Guard enforcement**, **user-owned Google Drive OAuth feasibility**, and **robust/responsive AI API failure fallback**, without pre-deciding that every request uses a queue or a specific fallback provider.
 
 **Why:** the product/design surface is coherent, but several material architecture boundaries, agent/tool authority boundaries and the V1 control-plane choice remain candidates.
 
@@ -291,6 +292,7 @@ Human-facing compact lineage only:
 - **Tenant/channel/quota/reliability:** D-023–D-033
 - **Programme/growth/partner:** D-035–D-049
 - **Observability requirement:** D-052 / L-043
+- **Delivery Value Gate:** D-053 / L-044
 - **Premium candidates:** D-050 · D-051
 - **Architecture candidates:** AC-005–AC-012
 - **Current control-plane evidence gate:** E-016

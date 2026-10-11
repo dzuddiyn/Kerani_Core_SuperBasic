@@ -1631,6 +1631,25 @@ Canonical principle:
 
 ---
 
+## D-053 — Minimum User Value Gate / Definition of Delivery
+**Status:** LOCKED  
+**Owner approval:** 2026-10-11
+
+Kerani is not delivered merely because implementation completes. Final delivery must re-check a minimum user-value gate covering:
+- acceptable measured user-visible latency;
+- trustworthy dynamic-language routing;
+- proven tenant isolation;
+- evidence-based direct READ vs durable queue boundary;
+- sustainable control-plane cost/maintenance.
+
+Two additional current multi-user hypotheses must be challenged before delivery:
+- user-owned Google Drive OAuth as an optional data-ownership/storage path;
+- robust, responsive AI API failure fallback/recovery without assuming a specific provider/mechanism.
+
+Premium/customer-owned Apps Script edge is deferred from the current delivery definition. After real multi-user experience, Premium architecture must restart from ZERO → ARCHITECTURE in a separate repository/project.
+
+---
+
 # 13. LOCKED DECISIONS
 
 This section is authoritative. Architecture and implementation must not contradict these records.
@@ -1906,6 +1925,13 @@ This section is authoritative. Architecture and implementation must not contradi
 ## L-043
 **Source Decision:** D-052  
 **Decision:** Latency observability is mandatory from the first executable Kerani slice; request paths must emit stage-level timing evidence sufficient to compare P50/P95/P99, retries/errors and latency by relevant tool/channel/runtime/provider rather than waiting for subjective responsiveness problems.  
+**Locked by:** Project Owner  
+**Date:** 2026-10-11  
+**Supersedes:** None
+
+## L-044
+**Source Decision:** D-053  
+**Decision:** Final Kerani delivery requires a minimum user-value gate: measured acceptable latency, trustworthy language routing, proven tenant isolation, evidence-based direct READ vs durable queue boundary, and sustainable control-plane cost/maintenance. User-owned GDrive OAuth and robust/responsive AI API fallback are current multi-user challenge hypotheses; Premium customer-owned edge is future work to restart from zero architecture in a separate repository after multi-user experience.  
 **Locked by:** Project Owner  
 **Date:** 2026-10-11  
 **Supersedes:** None
@@ -2481,6 +2507,27 @@ tenant profile/history
 ---
 
 
+## E-021 — Multi-User Value Gate Validation
+
+**Status:** PLANNED / REQUIRED BEFORE DELIVERY
+
+**Question:** Does the current Kerani multi-user implementation deliver enough real user value to be declared done?
+
+**Minimum pass dimensions:**
+1. measured latency is acceptable enough that users are not materially burdened;
+2. dynamic-language routing is accurate/trustworthy across real field language;
+3. tenant isolation is proven fail-closed for READ and MUTATE;
+4. direct READ vs durable queue boundary is evidence-based rather than universal queueing;
+5. selected control plane is operationally and economically sustainable.
+
+**Additional hypotheses to test:**
+- user-owned Google Drive OAuth can improve data ownership/storage without unacceptable auth/support burden;
+- AI API failure fallback/recovery is robust and responsive enough under real transient/provider failures.
+
+**Premium exclusion:** customer-owned Apps Script edge is not part of E-021. It is future work for a separate Premium ZERO → ARCHITECTURE repository after current multi-user experience.
+
+---
+
 ## E-020 — Public GAS Agentic Pattern Audit
 
 **Status:** EVIDENCE INPUT — CHALLENGE NOT RUN
@@ -2889,9 +2936,66 @@ This sequence is a candidate plan, not a LOCKED decision:
 
 Until then, this remains an extraction proof project, not a framework claim.
 
+## VALUE GATE — MINIMUM DEFINITION OF DELIVERY / DONE
+
+**Status:** OWNER-REQUIRED DELIVERY GATE  
+**Date:** 2026-10-11  
+**Purpose:** Kerani is not considered delivered merely because the architecture works or the code runs. The final project review must re-check these minimum user-value conditions against measured evidence.
+
+### Minimum fail conditions
+
+Kerani is **NOT DONE** if any of the following remains materially unresolved:
+
+1. **Latency is high enough to feel troublesome to users.**
+   - Must be checked using the LOCKED Day-1 latency telemetry, not only subjective impressions.
+   - P50/P95/P99, queue wait, AI/tool time, retries and recovery behaviour must identify where delay comes from.
+
+2. **Dynamic-language routing is inaccurate enough to damage trust.**
+   - Real-user wording, shorthand, mixed language and ambiguous phrasing must be tested.
+   - Misroute, clarification and AI-fallback rates must be measured.
+
+3. **Tenant isolation can leak or cross-read another tenant's data.**
+   - This is a hard product-failure condition.
+   - READ and MUTATE paths must both prove trusted-context authorization/scope enforcement and fail-closed cross-tenant denial.
+
+4. **All requests are forced through queueing when direct paths would be safer/faster.**
+   - Queue/durable ingress scope must be justified by request class.
+   - Simple READ paths must not inherit unnecessary queue/poll latency merely because mutation paths need durability.
+
+5. **The chosen control plane creates unsustainable cost or maintenance burden.**
+   - Final selection must be justified by measured latency, concurrency, reliability, operational effort, low-traffic cost, scale-up path and migration/rollback evidence.
+
+### Additional current multi-user value hypotheses
+
+These are **challenge/evidence inputs**, not yet locked architecture:
+
+- **User-owned Google Drive OAuth:** test whether Kerani can securely connect to each user's own Google Drive as a useful storage/data-ownership option without introducing unacceptable onboarding, token, scope, revocation or support burden.
+- **AI API failure fallback:** prove a fallback/recovery path that is robust and sufficiently responsive under provider failures. The challenge must not assume that “fallback” means a specific provider or mechanism; measure failover/retry latency, duplicate-risk, degraded-mode behaviour and truthful user feedback.
+
+### Premium boundary
+
+Premium/customer-owned Apps Script edge is **FUTURE WORK outside the current delivery definition**.
+
+The current project should first prove Kerani for many users. After real multi-user operational experience exists, Premium architecture should be reconsidered from **ZERO → ARCHITECTURE in a separate new repository/project**, rather than treating the current customer-owned edge candidate as inherited final architecture.
+
+Therefore:
+- difficulty deploying/updating a customer-owned edge is **not** a current-project Value Gate;
+- current work may preserve evidence about the idea, but must not let Premium edge concerns distort the present multi-user Core architecture.
+
 ---
 
 # PROJECT ZASS CHANGELOG
+
+## 2026-10-11 — Minimum User Value Gate locked; Premium edge deferred
+
+- Owner defined and required a final **Value Gate / Definition of Delivery** for the current Kerani multi-user project.
+- Added D-053 / L-044 and E-021.
+- Minimum delivery gate now requires measured acceptable latency, trustworthy dynamic-language routing, proven tenant isolation, evidence-based direct READ vs durable queue boundary, and sustainable control-plane cost/maintenance.
+- Added current challenge hypotheses for **user-owned Google Drive OAuth** and **robust/responsive AI API failure fallback**.
+- Premium/customer-owned Apps Script edge is explicitly deferred from the current delivery definition; after real multi-user operating experience, Premium architecture must restart from ZERO → ARCHITECTURE in a separate repository/project.
+- Existing GAS edge audit remains historical evidence only and must not bias the current multi-user control-plane winner.
+- Challenge Design was not run and PRE-ARCH remains NOT LOCKED.
+
 
 ## 2026-10-11 — Public GAS agentic audit saved as Challenge evidence
 
