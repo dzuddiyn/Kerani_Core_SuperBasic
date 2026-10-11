@@ -111,10 +111,13 @@ No provider is selected or LOCKED.
 | Option | Current role |
 |---|---|
 | **Central Apps Script** | Simplicity baseline for E-016 |
-| **Cloudflare Workers + D1** | AC-010 lightweight low-entry-cost candidate |
-| **Cloud Run + Firestore + Secret Manager + basic Monitoring** | AC-007 scalable serverless candidate |
+| **Cloudflare Workers + D1** | AC-010 lightweight low-entry-cost serverless candidate |
+| **Cloud Run + Firestore + Secret Manager + basic Monitoring** | AC-007 scalable managed-serverless candidate |
+| **OCI Ampere A1 Always Free VM** | AC-011 low-cost always-on VM candidate with direct queue/retry/runtime control |
 
 **E-016** must compare setup/maintenance burden, entry/billing friction, webhook behaviour, latency/concurrency, tenant/quota/waitlist handling, secrets, scheduling/async needs, observability, failure recovery, low-traffic economics, scale-up and migration/rollback.
+
+For AC-011, current Oracle documentation checked 2026-10-11 reports 1,500 OCPU-hours + 9,000 GB-hours/month of Ampere A1 Always Free usage, equivalent to approximately 2 OCPUs + 12 GB memory for an Always Free tenancy within the allowance. The benchmark must also treat idle-instance reclamation and free-shape capacity availability as real reliability risks rather than assuming “free forever” equals guaranteed uptime.
 
 ### Response-time + language-variability viability signals
 

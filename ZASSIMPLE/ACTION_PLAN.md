@@ -431,13 +431,31 @@ Before locking a Free hosted-OCR quota:
 
 ## E-016 V1 CONTROL-PLANE BENCHMARK
 
-Compare three low-complexity options:
+Compare four low-complexity options:
 
 1. **Central Apps Script**
 2. **AC-010 Cloudflare Workers + D1**, adding queue/schedule services only where evidence requires them
 3. **AC-007 Cloud Run + Firestore + Secret Manager + basic Logging/Monitoring**
+4. **AC-011 OCI Ampere A1 Always Free VM**, adding only the local services/queue/storage required by evidence
 
-Do not treat OpenClaw as a fourth control-plane option. D-032/E-013 keeps OpenClaw as a replaceable synthetic reliability/audit agent.
+Do not treat OpenClaw as a control-plane option. D-032/E-013 keeps OpenClaw as a replaceable synthetic reliability/audit agent.
+
+### OCI A1 candidate note — current evidence 2026-10-11
+
+Oracle's current documentation records the Ampere A1 Always Free allowance as **1,500 OCPU-hours + 9,000 GB-hours/month**, equivalent to approximately **2 OCPUs + 12 GB RAM** for an Always Free tenancy within the allowance.
+
+Benchmark AC-011 for:
+- ARM compatibility with the intended Kerani stack;
+- webhook/API latency and sustained process availability;
+- queue/worker/retry/backoff control;
+- OS/security maintenance effort;
+- state/database + backup/restore design;
+- observability and restart/recovery;
+- idle-instance reclamation risk;
+- out-of-host-capacity risk for Always Free shapes;
+- transition path to paid OCI or another provider without tenant/data migration.
+
+Do not interpret Always Free as a guaranteed production SLA or guaranteed capacity.
 
 Measure:
 1. initial setup and maintenance burden;

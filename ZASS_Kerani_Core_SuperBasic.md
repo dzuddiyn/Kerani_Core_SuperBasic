@@ -630,6 +630,38 @@ WhatsApp / Telegram / future channel
 
 ---
 
+## AC-011 — OCI Ampere A1 Always Free VM Control Plane
+
+**Status:** CANDIDATE  
+**Origin:** owner infrastructure-cost review 2026-10-11
+
+~~~text
+WhatsApp / Telegram / future channel
+                ↓
+        OCI Ampere A1 VM
+     API / Router / Worker
+                │
+      ┌─────────┼───────────┐
+      ↓         ↓           ↓
+ local state  queue/job    external services
+ / DB         runner       AI / Apps Script /
+                           Drive / customer edge
+~~~
+
+**Intent:** Benchmark a low-cost always-on VM control plane where Kerani can control webhook handling, queue/worker behaviour, timeout/retry/backoff, asynchronous acknowledgement and observability more directly than an Apps Script-only runtime.
+
+**Current official Always Free evidence checked 2026-10-11:** Oracle documents the Ampere A1 Always Free allowance as the first **1,500 OCPU-hours + 9,000 GB-hours per month**, equivalent for an Always Free tenancy to approximately **2 OCPUs + 12 GB memory** when used continuously within the allowance. Oracle describes Always Free resources as available free of charge for the life of the account, subject to eligibility/limits.
+
+**Important risks:** Always Free compute can be reclaimed when Oracle's idle criteria are met, and Oracle documents possible out-of-host-capacity availability for free shapes. Therefore OCI Always Free cannot be assumed to provide a guaranteed production SLA or guaranteed capacity merely because the compute allowance is free.
+
+**Why candidate, not LOCKED:** Kerani has not benchmarked ARM compatibility, operational maintenance burden, webhook latency, queue/retry behaviour, storage design, backup/restore, observability, security patching, idle-reclaim risk, capacity availability, or migration/exit effort on this stack.
+
+**Cost boundary:** Treat compute cost as potentially near-zero only while actual usage remains inside current Always Free limits. Provider terms and limits are externally changeable and must be reverified at implementation time.
+
+**Anti-lock-in rule:** OCI-specific VM/storage/networking details must remain behind stable Kerani contracts so the control plane can move to Cloudflare, Cloud Run, central Apps Script, another provider, or paid infrastructure without changing tenant identity/business logic.
+
+---
+
 # 12. DECISION LEDGER
 
 ## D-001 — Repository purpose
@@ -2287,7 +2319,8 @@ Exact test cadence and traffic volume remain deferred/pilot-calibrated.
 **Compare:**
 1. central Apps Script;
 2. **AC-010 Cloudflare Workers + D1** with only evidence-needed queue/schedule services;
-3. **AC-007 Cloud Run + Firestore + Secret Manager + basic Logging/Monitoring**.
+3. **AC-007 Cloud Run + Firestore + Secret Manager + basic Logging/Monitoring**;
+4. **AC-011 OCI Ampere A1 Always Free VM** with only evidence-needed local services/queue/storage.
 
 **Measure:** setup/maintenance effort, webhook behaviour, request latency, concurrency headroom, tenant/quota/waitlist implementation, secret handling, scheduled/async capability, observability, failure recovery, estimated low-traffic cost, free-tier/entry barriers, scale-up path and migration/rollback flexibility.
 
@@ -2316,6 +2349,8 @@ Exact test cadence and traffic volume remain deferred/pilot-calibrated.
 **Required practical test for AC-010:** webhook → tenant lookup → quota/state update → durable/async step where needed → reply; then one scheduled trigger → reminder/report path.
 
 **OpenClaw note:** OpenClaw is not a fourth control-plane competitor. D-032/E-013 keeps it as a replaceable synthetic reliability/audit agent.
+
+**OCI-specific benchmark requirements:** verify current Always Free entitlement/eligibility, ARM compatibility, webhook/process uptime, idle-reclaim exposure, host-capacity availability, OS/security maintenance burden, backup/restore, queue/retry control, observability, and a paid/alternate migration trigger.
 
 **Pass condition:** choose the smallest option that satisfies LOCKED boundaries, has truthful failure behaviour and a documented upgrade/exit path, without premature infrastructure or hidden provider lock-in.
 
@@ -2765,6 +2800,16 @@ Until then, this remains an extraction proof project, not a framework claim.
 ---
 
 # PROJECT ZASS CHANGELOG
+
+## 2026-10-11 — OCI Ampere A1 Always Free added to E-016 benchmark
+
+- Owner approved adding OCI Ampere A1 Always Free as the fourth V1 control-plane candidate.
+- Added AC-011 as **CANDIDATE**, not LOCKED.
+- Current Oracle documentation checked 2026-10-11 records Always Free A1 allowance as 1,500 OCPU-hours + 9,000 GB-hours/month, equivalent to about 2 OCPUs + 12 GB memory for an Always Free tenancy within the allowance.
+- Recorded Oracle-documented risks: idle compute may be reclaimed and Always Free shapes can encounter out-of-host-capacity conditions.
+- Expanded E-016 from a three-way to a four-way benchmark: central Apps Script vs Cloudflare Workers+D1 vs Cloud Run stack vs OCI A1 Always Free VM.
+- No provider was selected. ZERO → ARCHITECTURE and Evidence Confidence were unchanged.
+
 
 ## 2026-10-11 — Response-time and language-variability field signals saved
 
