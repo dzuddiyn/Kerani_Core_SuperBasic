@@ -634,6 +634,8 @@ WhatsApp / Telegram / future channel
 
 **Anti-lock-in rule:** Cloudflare-specific storage/scheduling semantics must stay behind stable Kerani contracts so moving to Cloud Run, another provider or customer-owned infrastructure does not require rewriting business logic or migrating tenant identity.
 
+**2026-10-12 reference evidence (not architecture proof):** Talorys uses Cloudflare Pages + Worker + SQLite-backed Durable Object + Workers AI, NOT D1/Queues. It demonstrates a bounded single-user agent/tool experience with deterministic features usable after AI quota exhaustion. This is **reference evidence for feasibility**, not validation of Kerani's multi-tenant Workers+D1 workload. See `docs/TALORYS_CLOUDFLARE_GOOGLE_FALLBACK_EVIDENCE.md`; keep AC-010 **CANDIDATE** and E-016's four-way comparison unchanged.
+
 ---
 
 ## AC-011 — OCI Ampere A1 Always Free VM Control Plane
@@ -684,6 +686,8 @@ WhatsApp / Telegram / future channel
 **Mutation boundary:** authoritative create/update/delete capabilities require explicit authority design, tenant scope, human confirmation where applicable, deterministic/domain validation, idempotency and audit. Function calling alone never grants mutation authority.
 
 **Why candidate, not LOCKED:** tool registry shape, authority metadata, model/provider behaviour, latency/cost, multi-user language coverage, tenant isolation and mutation gates have not yet passed the Architecture Assumption + Boundary Challenge or real execution evidence.
+
+**2026-10-12 reference evidence:** Talorys illustrates bounded language-to-tools plus a working non-AI path, but its single-user tool permission model cannot be imported as Kerani multi-tenant authorization/mutation policy. A no-AI deterministic path is the **always-on business execution authority**, not an emergency-only replacement; AI-assisted interpretation, model failover and degraded/manual UX are separable candidate routing strategies. See `docs/TALORYS_CLOUDFLARE_GOOGLE_FALLBACK_EVIDENCE.md`. The 80–90% no-AI routine-operation coverage figure is **HYPOTHESIS ONLY**, not field performance evidence.
 
 ---
 
@@ -1680,6 +1684,18 @@ Premium architecture remains future work and must be shaped by observed user beh
 
 ---
 
+## D-055 — Free Core Independent Utility; AI as Optional Convenience
+**Status:** LOCKED  
+**Owner approval:** 2026-10-12
+
+**Decision:** **Free Core must remain useful on its own. AI is an additional convenience/interpretation capability, never a prerequisite for the basic application to operate.** This explicitly reinforces D-016/L-011, D-013/L-008 and D-015/L-010 without replacing their boundaries.
+
+**Consequences:** Purchase, Sale, Inventory, Observation and Task baseline workflows plus basic retrieval/reporting and available receipt/manual input must retain a usable no-AI path. AI interpretation and bounded tools may improve natural-language UX, but AI/provider failure or quota exhaustion must not make essential Free Core functionality inaccessible. Authoritative business operations continue to require deterministic/domain rules, authorization/scope, confirmation where applicable, audit and idempotency; AI/tool calls cannot become business authority. Existing convenience-first UX remains mandatory: a no-AI pathway must be usable, not merely technically possible.
+
+**Architecture boundary:** This locks a product/authority invariant, **not** deterministic parser implementation, deterministic-first language coverage percentage, a provider, AI failover routing, storage, queue/service mix, control plane or PRE-ARCH. Those remain evidence-bound AC-010/AC-012/E-016 challenge topics.
+
+---
+
 # 13. LOCKED DECISIONS
 
 This section is authoritative. Architecture and implementation must not contradict these records.
@@ -1971,6 +1987,13 @@ This section is authoritative. Architecture and implementation must not contradi
 **Decision:** Kerani is convenience-first: users buy usefulness and convenience before ownership; Premium must emerge from observed demand, not architectural imagination. Current UX priorities are low-friction onboarding, fast time-to-value, easy top-up, continuity without migration, strong latency/accuracy/trust, and support for the channels users actually want.  
 **Locked by:** Project Owner  
 **Date:** 2026-10-11  
+**Supersedes:** None
+
+## L-046
+**Source Decision:** D-055  
+**Decision:** Free Core must independently deliver basic operational value without AI; AI is optional convenience, not an operational prerequisite. No-AI/manual completion stays usable through model failure/quota exhaustion, while deterministic/domain validation and human/tenant authority always govern business truth.  
+**Locked by:** Project Owner  
+**Date:** 2026-10-12  
 **Supersedes:** None
 
 ---
@@ -2472,6 +2495,8 @@ Exact test cadence and traffic volume remain deferred/pilot-calibrated.
 - proof that deterministic-first means “avoid AI where confidence is strong”, not “hard-code every possible phrase”.
 
 **Required practical test for AC-010:** webhook → tenant lookup → quota/state update → durable/async step where needed → reply; then one scheduled trigger → reminder/report path.
+
+**2026-10-12 comparative evidence / fallback test expansion:** Include Cloudflare Free vs Google Apps Script/Sheets/Gemini Free quotas, account friction, truthful hard-cap exhaustion, tenant isolation, webhook CPU/runtime time, 5xx/429/timeout and privacy/logging controls. Simulate **no-AI direct action**, **AI-assisted interpretation**, **bounded alternate-model/provider failover**, and **degraded manual completion**, independently; do not preselect an implementation. Separate (a) routine action types with a usable no-AI path (hypothesised 80–90% coverage) from (b) actual field-message AI bypass rate (UNVALIDATED). Evidence: `docs/TALORYS_CLOUDFLARE_GOOGLE_FALLBACK_EVIDENCE.md`.
 
 **OpenClaw note:** OpenClaw is not a fourth control-plane competitor. D-032/E-013 keeps it as a replaceable synthetic reliability/audit agent.
 
@@ -3022,6 +3047,15 @@ Therefore:
 ---
 
 # PROJECT ZASS CHANGELOG
+
+## 2026-10-12 — Talorys reference evidence, Free Core independence LOCK and AI fallback research
+
+- Saved Talorys as public **reference evidence** for AC-010 and AC-012, NOT architecture proof or a new V1 candidate; Talorys uses Durable Objects SQLite, not AC-010 D1.
+- Added `docs/TALORYS_CLOUDFLARE_GOOGLE_FALLBACK_EVIDENCE.md` with dated Cloudflare/Google free-quota comparison, privacy/cost warnings, falsifiable fallback experiments and measurement denominators.
+- **LOCKED D-055/L-046** at owner instruction: Free Core remains independently useful; AI adds convenience but cannot be a prerequisite.
+- Expanded E-016 challenge inputs to compare AI failure/provider failover vs no-AI primary/degraded flow without selecting vendors or architecture.
+- **80–90% is an experimental hypothesis about routine action-type no-AI capability coverage, not proven message-level AI bypass.**
+- AC-010 and AC-012 remain CANDIDATE, E-016 remains PLANNED, DESIGN/Challenge state and PRE-ARCH remain unchanged; no implementation executed.
 
 ## 2026-10-11 — Convenience-first UX principles locked
 
