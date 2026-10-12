@@ -33,6 +33,8 @@ Its Free baseline centres on:
 
 The product should stay lightweight, affordable and portable. Domain depth, richer automation and higher-order intelligence sit outside the generic Free Core rather than turning Core into a large special-case system.
 
+**OWNER LOCKED — D-055/L-046 (2026-10-12):** Free Core must stay independently useful even if all AI services fail or quota is exhausted. **AI is optional convenience, never the prerequisite for basic operation.** The deterministic business/authorization/validation path is always authoritative; fallback routing details are not architecture-locked.
+
 ## Main flow
 
 ### Locked user-facing record flow
@@ -152,6 +154,8 @@ This remains **CANDIDATE** until challenged against real OpsMate behaviour, D-01
 - **Durable Ingress / Idempotency Boundary:** determine which request classes require durable inbox/queue semantics and idempotency, and which READ paths should bypass queueing to preserve responsiveness. Do **not** assume every request must traverse a queue.
 - **Authorization / Scope Guard:** tenant identity resolution is not sufficient on its own; challenge must prove authorization/scope enforcement before tool execution and again at the tool/data boundary. AI-supplied arguments must not be trusted to define tenant authority.
 
+**Talorys / Free cloud evidence (2026-10-12) — SAVED, not architecture proof:** `../docs/TALORYS_CLOUDFLARE_GOOGLE_FALLBACK_EVIDENCE.md` compares Cloudflare Free vs Google Free, records Talorys' single-user Pages/Worker/Durable Object SQLite/Workers AI design (which **does not use D1/Queues**), and defines separable no-AI core, bounded AI interpretation, model failover and degraded-manual experiments. Its 80–90% no-AI routine-operation coverage is **hypothesis**, not verified field-message bypass. AC-012 remains CANDIDATE.
+
 **Supporting comparison notes:**
 - `../docs/OPSMATE_VS_KERANI_AGENTIC_TOOL.md` — visual/data-flow comparison of OpsMate workflow-centric behaviour versus the candidate Kerani bounded Agentic Tool architecture.
 - `../docs/GAS_AGENTIC_PATTERN_AUDIT.md` — public implementation-pattern audit of `adk-gas`, `GeminiWithFiles` and `GeminiApp`, including the **Central Control Plane vs Customer-Owned Apps Script Edge** distinction.
@@ -170,6 +174,8 @@ No provider is selected or LOCKED.
 | **OCI Ampere A1 Always Free VM** | AC-011 low-cost always-on VM candidate with direct queue/retry/runtime control |
 
 **E-016** must compare setup/maintenance burden, entry/billing friction, webhook behaviour, latency/concurrency, tenant/quota/waitlist handling, secrets, scheduling/async needs, observability, failure recovery, low-traffic economics, scale-up and migration/rollback.
+
+**New evidence input, not a winner:** Use `../docs/TALORYS_CLOUDFLARE_GOOGLE_FALLBACK_EVIDENCE.md` for a dated Cloudflare Free vs Google Free quota/AI/privacy baseline and separately test provider failure (429/5xx/timeout), AI-free core completion, explicit user clarification, and one budgeted alternate-AI recovery path. Talorys proves a bounded personal-agent pattern exists, **not** that Cloudflare Workers+D1 meets Kerani multi-tenant requirements. All four control-plane options remain in E-016.
 
 For AC-011, current Oracle documentation checked 2026-10-11 reports 1,500 OCPU-hours + 9,000 GB-hours/month of Ampere A1 Always Free usage, equivalent to approximately 2 OCPUs + 12 GB memory for an Always Free tenancy within the allowance. The benchmark must also treat idle-instance reclamation and free-shape capacity availability as real reliability risks rather than assuming “free forever” equals guaranteed uptime.
 
@@ -194,7 +200,7 @@ The owner's current approximately RM200 Google Cloud billing/onboarding barrier 
 
 The design must preserve these boundaries:
 
-- **Free must remain genuinely useful.** Premium adds higher-order intelligence, domain capability, automation and convenience rather than blocking basic access.
+- **Free must remain genuinely useful — D-055/L-046 explicitly LOCKED.** Basic Core operation must not require AI; deterministic execution and a usable no-AI input/retrieval path stay available under model outage/quota exhaustion. Premium adds higher-order intelligence, domain capability, automation and convenience rather than blocking basic access.
 - **Genericity is earned.** OpsMate supplies evidence; reusable mechanisms may feed Core, agriculture behaviour may feed Agro, and BSE-specific rules stay outside generic Core.
 - **Human authority remains explicit.** AI-interpreted mutations require review/confirmation and deterministic/domain validation before authoritative write.
 - **No artificial data lock-in.** Users may access/export their own data.
