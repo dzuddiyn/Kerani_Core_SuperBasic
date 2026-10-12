@@ -1,0 +1,105 @@
+# Talorys reference evidence — AC-010 / AC-012; Free-cloud comparison and AI fallback
+
+**Date checked:** 2026-10-12  
+**Classification:** PUBLIC REFERENCE EVIDENCE + ENGINEERING INFERENCE; NOT KERANI RUNTIME TEST  
+**Authority:** Supports AC-010 (CANDIDATE), AC-012 (CANDIDATE), E-016, Q-033/Q-034/Q-035 and D-053. Does not select a provider, promote architecture, change PRE-ARCH, or justify new execution tasks.  
+**Owner direction:** Talorys is *reference evidence*, not the target application or a direct architecture decision.
+
+## A. What Talorys actually proves (and does not)
+
+Sources:
+- [Talorys repository / README](https://github.com/rociiu/talorys)
+- [Hackaday, "A Free Cloud AI", 2026-10-12](https://hackaday.com/2026/10/12/a-free-cloud-ai/)
+
+**SOURCE-DOCUMENTED:** Talorys is an open-source, **single-user** assistant deployed inside the user's own Cloudflare account. Its published stack is **Cloudflare Pages + private Worker + Agents SDK / SQLite-backed Durable Object + Workers AI**, with Durable Object alarms for reminders. Tasks, notes and reminders continue **without AI** when AI is down or its free allocation is exhausted. It advertises bounded output/context/tool-step budgets and local deterministic mock mode. Its app is not a general multi-tenant micro-SME control plane.
+
+**CRITICAL DIFFERENCE:** Talorys **does not provision D1, R2, KV, Queues, or Workflows** according to its README. Therefore Talorys is **NOT** a direct proof that Kerani's AC-010 **Workers + D1** candidate satisfies tenant isolation, quotas, webhook throughput, message channels, billing, durable ingress or scheduled workloads.
+
+**HACKADAY FIELD REPORT (NOT FORMAL BENCHMARK):** one calendar/reminder test was assigned the wrong day; another ran into a Cloudflare rate limit. This illustrates quota and language/time interpretation risks. Hackaday did not audit all code.
+
+**TRANSFERABLE PATTERN (INFERRED; TO CHALLENGE):**
+- useful deterministic tasks/read/write UI remain available without model inference;
+- model acts as bounded natural-language-to-tool coordinator, not as business truth;
+- private execution + explicit tool registry + safe tool guards;
+- cap model calls/steps, publish truthful AI-unavailable status, retain manual path;
+- track per-request quota/latency and distinguish model-side success from persisted tool success.
+
+**NOT TRANSFERABLE WITHOUT TESTS:** single-user password/auth, one Durable Object / local SQLite authority, Talorys data schema, uncontrolled agent mutation permissions, agent framework footprint, accuracy of free-text recognition, and Cloudflare production multi-tenant capacity.
+
+## B. Cloudflare Free vs Google Free — AC-010 / E-016 optimisation evidence
+
+**Provider terms are dated evidence, not architectural constants. Verify again at implementation.** Different resources have different limits and reset clocks. Free means bounded, not unlimited.
+
+| Need | Cloudflare candidate | Google free candidate | E-016 implication |
+|---|---|---|---|
+| Webhook/API/router | Workers Free: **100,000 requests/day; 10 ms CPU/request**; CPU-heavy parse must be measured | Apps Script: **6 min/execution**, daily service quotas, concurrency limits; easy Google integration | Test real response P50/P95/P99, CPU and cold/retry behaviour; request limits do not equal completed business actions |
+| Tenant/quota relational state | D1: **5M rows read/day; 100k rows written/day; 5 GB storage** Free; hard failures when daily caps reached | Sheets/Drive + Apps Script can prototype; row permissions, concurrency and write contention need explicit tests | Prefer portable storage repository contract; test isolation, transactions, backup/export, quota-exhaustion |
+| Stateful coordination | SQLite-backed Durable Objects work on Free; single-user Talorys pattern is NOT tenant design proof | Apps Script LockService/Properties + Triggers for modest workloads | Compare only if coordination/state is required; avoid D1 + Durable Object double-write without evidence |
+| Durable async | Queues currently include **10k operations/day** Free, but writes+reads+deletes count separately | Apps Script time-driven triggers + jobs possible within quotas | Queue only request classes needing durability; preserve direct READ path |
+| Schedule | Workers Free: **5 Cron Triggers/account**; DO alarms possible | Apps Script installable time-driven triggers with daily runtime limit | Benchmark operational schedule needs; do not add Cron/DO/Queues by default |
+| AI execution | Workers AI: **10k Neurons/day free allocation**; model-specific consumption/rate limit | Gemini Developer API model-specific free allowances/limits; **free-tier content may be used to improve products** under published pricing terms | Provider-neutral AI adapter; default minimal payload, privacy review, budgets and structured output validation |
+| AI routing/fallback | Cloudflare AI Gateway offers provider fallbacks/dynamic routing but upstream provider keys, billing and logging controls still apply | Application-side model/provider adapter plus Gemini fallback policies | Fallback routing is not free model capacity; no hidden paid API / retries |
+| Receipt OCR/media | R2 is an option, NOT part of Talorys; storage/media quota must be separately assessed | Drive/Sheets receipts or user-assisted Lens → pasted text | Manual receipt entry remains usable; hosted OCR is separately metered |
+| Low-maintenance path | No VPS OS; vendor quotas and portability remain risks | Familiar Workspace APIs; quota + deployment and concurrent shared-service constraints | Benchmark against Cloud Run and OCI too; do not presuppose Cloudflare win |
+
+Official Cloudflare sources:
+- [Workers limits (2026-10-08)](https://developers.cloudflare.com/workers/platform/limits/)
+- [D1 pricing and Free quotas](https://developers.cloudflare.com/d1/platform/pricing/)
+- [D1 Free exhaustion behaviour (2026-09-01)](https://developers.cloudflare.com/changelog/product/d1/)
+- [Queues Free operations](https://developers.cloudflare.com/queues/platform/pricing/)
+- [Durable Objects Free limits](https://developers.cloudflare.com/durable-objects/platform/limits/)
+- [Workers AI free allocation (2026-10-01)](https://developers.cloudflare.com/workers-ai/platform/pricing/)
+- [AI Gateway fallbacks](https://developers.cloudflare.com/ai-gateway/configuration/fallbacks/)
+- [AI Gateway dynamic routing](https://developers.cloudflare.com/ai-gateway/features/dynamic-routing/)
+- [AI Gateway logs/retention (2026-09-24)](https://developers.cloudflare.com/ai-gateway/observability/logging/)
+
+Official Google sources:
+- [Apps Script quotas](https://developers.google.com/apps-script/guides/services/quotas)
+- [Gemini Developer API pricing/privacy by tier](https://ai.google.dev/gemini-api/docs/pricing)
+
+**AI privacy caveat:** do not route raw private tenant data to a free AI endpoint merely because it has remaining quota. Obtain a defensible data-processing policy, redact/minimise payloads, define consent/retention, and check whether gateway logs hold prompts/responses (Cloudflare AI Gateway logging is enabled by default unless changed). Budget and prompt privacy must both pass.
+
+## C. AI fallback ≠ deterministic authority
+
+Candidate request strategy for AC-012 challenge, **NOT ARCH LOCK**:
+
+1. **Default deterministic core, ALWAYS ACTIVE:** trusted tenant auth/scope; business schema, permission/entitlement, validation, confirmation and authoritative write/read. This is NOT a fallback; it is the mandatory engine for every business mutation.
+2. **No-AI direct path, PRIMARY when possible:** explicit form/button/short structured commands/strongly proven exact patterns → bounded deterministic operation. Keep natural-language UX convenient; do not force technical commands.
+3. **AI-assisted interpretation, ON DEMAND:** if direct path cannot confidently recognise intent/fields, use bounded tool-calling or small classifier/extractor. Model only offers READ query parameters or non-authoritative PROPOSE candidate. Fail closed to CLARIFY.
+4. **AI provider/model failover, CONDITION-ACTIVATED:** on real timeout/5xx/429/quota/provider outage and only within latency/cost/privacy budget; at most a tested limited retry/secondary route; do not trigger parallel indiscriminate calls or uncontrolled payment.
+5. **Degraded no-AI interaction, CONDITION-ACTIVATED:** if all AI options fail, keep manual form/button/direct retrieval and safe draft capture where useful; never claim an uncommitted transaction succeeded.
+6. **Optional proactive safety/budget mode (POLICY-ACTIVE, CANDIDATE):** early bypass AI when quota near exhausted, cost ceiling reached, unhealthy upstream, or direct exact task known; this is not a change in business authority.
+
+**Active versus passive terminology:** deterministic authority is always active; no-AI UX may be both a primary fast path and an automatically offered degraded fallback. Provider failover is an active, trigger-driven recovery mechanism, not an always-on second inference. A passive fallback is merely a backup route shown to users but not automatically executed.
+
+**Fail-closed invariant:** retries/provider switch may repeat interpretation, NEVER duplicate an authoritative business effect. A unique request/idempotency key, trusted tenant context, explicit confirmation and deterministic/domain validation govern commit operations. Provider fallback must not assume the model's reported tool success is an actual persisted success.
+
+## D. 80–90% no-AI hypothesis: separate denominators
+
+**HYPOTHESIS ONLY, not measured evidence.** Target `80–90%` only for **catalogued routine action TYPES having a usable no-AI completion path**. Do **not** assume 80–90% of real incoming free-text MESSAGES will skip AI, or claim 80–90% token savings without workload measurement.
+
+Track:
+- `no_ai_capability_coverage = routine_action_types_with_usable_no_ai_path / all_catalogued_routine_action_types`
+- `actual_ai_bypass_rate = requests_completed_without_ai / all_completed_requests`
+- `misroute_rate = wrongly_routed_intents / labelled_requests`
+- `clarification_rate = requests_requiring_clarification / eligible_requests`
+- `ai_fallback_rate = requests_invoking_model_after_deterministic_attempt / eligible_requests`
+- `safe_degraded_completion_rate = core_requests_successfully_completed_with_ai_unavailable / eligible_core_requests`
+- segmented P50/P95/P99 end-to-end response time, retry waiting, API spend per useful action, false-success, duplicate authoritative writes, tenant-isolation failures.
+
+**Accept/reject criteria for challenge:** no incorrect cross-tenant access; zero duplicate writes on retry; no unconfirmed AI-derived mutation; no false-success; clear manual completion for each mandatory Free Core family; responsiveness and AI bypass measured from real Malay/English shorthand/misspelling samples. Numeric performance thresholds to be calibrated from the real pilot, not invented here.
+
+## E. E-016 / AC-012 minimal test packs (NOT RUN)
+
+- **A — Cloudflare Free feasibility:** isolated synthetic Worker webhook → trusted tenant context → D1 read/write/quota test → reply, then a scheduled trigger; separately test DO alarms/Queues only if workload demands. Test daily-limit exhaustion, 10ms CPU pressure, two tenants attempting cross-access, retry/idempotency, event burst, restore/export and rollback.
+- **B — Google free baseline:** same synthetic operations on Apps Script + controlled Sheets/store; compare equivalent privacy/latency/cost gates. Account for Google OAuth user-owned Drive separately from central control plane.
+- **C — Tool authority:** `retrieve_history` READ, `prepare_candidate` PROPOSE, ambiguous CLARIFY, controlled MUTATE via human/domain gate. Test explicit no-AI mode and multi-provider fallback with forced 429/5xx/timeout; verify business truth and credit receipts.
+- **D — UX coverage:** same corpus in structured no-AI, short realistic language, typo/mixed-language, ambiguous and adversarial cases; compute denominators above, time-to-value and incomplete/incorrect records.
+- **E — Vendor comparison:** compare the existing **four** E-016 candidates (central Apps Script, Cloudflare Workers+D1, Cloud Run stack, OCI A1); do not silently treat Talorys as a fifth candidate or replace D1 with DO by implication.
+
+## F. Status / owner lock boundary
+
+- **OWNER-LOCKED principle (D-055/L-046):** Free Core must remain independently useful without AI. AI adds convenience/interpretation and is never a condition of basic function.
+- **SAVED REFERENCE:** Talorys / Cloudflare / Google sources and engineering hypotheses above.
+- **CANDIDATE:** AC-010, AC-012 and AI fallback mechanics; **E-016 PLANNED**, not executed.
+- **NOT LOCKED:** vendor selection, deterministic coverage %, automatic failover sequence/provider, queue/storage/agent service mix, PRE-ARCH.
