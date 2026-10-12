@@ -5,6 +5,8 @@
 **Authority:** Supports AC-010 (CANDIDATE), AC-012 (CANDIDATE), E-016, Q-033/Q-034/Q-035 and D-053. Does not select a provider, promote architecture, change PRE-ARCH, or justify new execution tasks.  
 **Owner direction:** Talorys is *reference evidence*, not the target application or a direct architecture decision.
 
+**Owner update 2026-10-12 — CHALLENGE DIRECTION, NOT PRE-ARCH:** Preserve an **AI-first natural-language experience**. For explicitly structured/selected commands, take a deterministic fast path; for ordinary free-text, try bounded AI language-to-tool interpretation first. If AI/latency/free-quota optimisations (including safe early acknowledgement/progressive Telegram updates) cannot meet usefulness goals, evaluate a measured swap/hybrid. **Deterministic remains always authoritative for execution, and becomes an active interaction fallback when AI is down.** This routing preference is a testable product hypothesis, not a measured implementation success. Existing locked D-029 ('deterministic where AI adds no value') still applies to clear/explicit cases; changes to its stronger reading must pass explicit owner change control.
+
 ## A. What Talorys actually proves (and does not)
 
 Sources:
@@ -59,18 +61,19 @@ Official Google sources:
 
 **AI privacy caveat:** do not route raw private tenant data to a free AI endpoint merely because it has remaining quota. Obtain a defensible data-processing policy, redact/minimise payloads, define consent/retention, and check whether gateway logs hold prompts/responses (Cloudflare AI Gateway logging is enabled by default unless changed). Budget and prompt privacy must both pass.
 
-## C. AI fallback ≠ deterministic authority
+## C. AI-first UX, deterministic authority and hybrid active fallback — owner trial
 
 Candidate request strategy for AC-012 challenge, **NOT ARCH LOCK**:
 
-1. **Default deterministic core, ALWAYS ACTIVE:** trusted tenant auth/scope; business schema, permission/entitlement, validation, confirmation and authoritative write/read. This is NOT a fallback; it is the mandatory engine for every business mutation.
-2. **No-AI direct path, PRIMARY when possible:** explicit form/button/short structured commands/strongly proven exact patterns → bounded deterministic operation. Keep natural-language UX convenient; do not force technical commands.
-3. **AI-assisted interpretation, ON DEMAND:** if direct path cannot confidently recognise intent/fields, use bounded tool-calling or small classifier/extractor. Model only offers READ query parameters or non-authoritative PROPOSE candidate. Fail closed to CLARIFY.
-4. **AI provider/model failover, CONDITION-ACTIVATED:** on real timeout/5xx/429/quota/provider outage and only within latency/cost/privacy budget; at most a tested limited retry/secondary route; do not trigger parallel indiscriminate calls or uncontrolled payment.
-5. **Degraded no-AI interaction, CONDITION-ACTIVATED:** if all AI options fail, keep manual form/button/direct retrieval and safe draft capture where useful; never claim an uncommitted transaction succeeded.
-6. **Optional proactive safety/budget mode (POLICY-ACTIVE, CANDIDATE):** early bypass AI when quota near exhausted, cost ceiling reached, unhealthy upstream, or direct exact task known; this is not a change in business authority.
+1. **Always-active deterministic business authority:** trusted tenant auth/scope; schema/entitlements, validation, confirmation, write/read controls, audit and idempotency. This is not just fallback — it is the mandatory trusted execution engine behind AI and direct input.
+2. **Explicitly selected/structured intent → deterministic primary:** buttons, Telegram form fields, menu operations and unambiguously typed structured commands execute without inferencing, subject to normal rules. No heavy keyword grammar masquerading as natural-language AI.
+3. **Ordinary free text → bounded AI-first:** one small/fast model and compact prompt+tool schemas attempt intent detection and READ or PROPOSE tool arguments. Preview, clarification and human/domain gates still govern mutations.
+4. **AI optimisation before changing routing:** measure model and network latency separately; short context/schema, cap tool calls/tokens, choose responsive eligible free model, use fast Telegram acknowledgement and optional safe incremental status updates. 'Chunking' improves perceived waiting when real progress is shown; splitting messages alone does not reduce inference time. No partial unvalidated record should be represented as saved.
+5. **Condition-triggered active AI failover:** on timeout, 429, 5xx or quota (with privacy/cost/rate ceilings), attempt bounded alternate AI only if time budget permits. Do not re-run already executed mutations.
+6. **Condition-triggered active deterministic UX fallback:** auto-propose Telegram inline-keyboard/ForceReply wizard, Mini App web form (optional), or manual entry when AI fails or is slow/unaffordable. User can always open this route directly (passively available); do not abandon the request without actionable continuation.
+7. **Review the actual evidence:** if free AI latency cannot be made tolerable even with optimisation, compare conditional bypass, pre-routing, model swap or hybrid based on P50/P95/P99 and task completion, not a predetermined deterministic-first reversal.
 
-**Active versus passive terminology:** deterministic authority is always active; no-AI UX may be both a primary fast path and an automatically offered degraded fallback. Provider failover is an active, trigger-driven recovery mechanism, not an always-on second inference. A passive fallback is merely a backup route shown to users but not automatically executed.
+**Terminology:** primary routing is AI-first for ordinary free text, deterministic-first for explicit input; *active fallback* is automatically triggered; *passive fallback* is the always-accessible manual path; *hybrid* combines them. Never confuse the fallback UX with the deterministic execution authority.
 
 **Fail-closed invariant:** retries/provider switch may repeat interpretation, NEVER duplicate an authoritative business effect. A unique request/idempotency key, trusted tenant context, explicit confirmation and deterministic/domain validation govern commit operations. Provider fallback must not assume the model's reported tool success is an actual persisted success.
 
@@ -89,19 +92,33 @@ Track:
 
 **Accept/reject criteria for challenge:** no incorrect cross-tenant access; zero duplicate writes on retry; no unconfirmed AI-derived mutation; no false-success; clear manual completion for each mandatory Free Core family; responsiveness and AI bypass measured from real Malay/English shorthand/misspelling samples. Numeric performance thresholds to be calibrated from the real pilot, not invented here.
 
-## E. E-016 / AC-012 minimal test packs (NOT RUN)
+## E. E-016 / AC-012 DELTA-ONLY evidence plan (NOT RUN)
 
-- **A — Cloudflare Free feasibility:** isolated synthetic Worker webhook → trusted tenant context → D1 read/write/quota test → reply, then a scheduled trigger; separately test DO alarms/Queues only if workload demands. Test daily-limit exhaustion, 10ms CPU pressure, two tenants attempting cross-access, retry/idempotency, event burst, restore/export and rollback.
-- **B — Google free baseline:** same synthetic operations on Apps Script + controlled Sheets/store; compare equivalent privacy/latency/cost gates. Account for Google OAuth user-owned Drive separately from central control plane.
-- **C — Tool authority:** `retrieve_history` READ, `prepare_candidate` PROPOSE, ambiguous CLARIFY, controlled MUTATE via human/domain gate. Test explicit no-AI mode and multi-provider fallback with forced 429/5xx/timeout; verify business truth and credit receipts.
-- **D — UX coverage:** same corpus in structured no-AI, short realistic language, typo/mixed-language, ambiguous and adversarial cases; compute denominators above, time-to-value and incomplete/incorrect records.
-- **E — Vendor comparison:** compare the existing **four** E-016 candidates (central Apps Script, Cloudflare Workers+D1, Cloud Run stack, OCI A1); do not silently treat Talorys as a fifth candidate or replace D1 with DO by implication.
+**Owner stop rule (2026-10-12): DO NOT replay the same end-to-end Purchase implementation across deterministic-only, Gemini, Workers AI and forced-failure models just to prove the known OpsMate Purchase-like business flow again.** OpsMate is the reference implementation. First inventory actual source/test/proof receipts and mark which behaviours are already VERIFIED vs merely ASSUMED; do not claim all AI providers or Cloudflare are proven by OpsMate.
 
-## F. Status / owner lock boundary
+- **A — Evidence reuse:** map existing OpsMate candidate → confirmation → validation → persistence, known provider failure/retry and Telegram behaviour to E-016 with exact code/test/commit anchors; preserve known failure modes and do not copy farm assumptions into Kerani.
+- **B — Infrastructure delta:** compare *only missing* Cloudflare Workers+D1 multi-tenant webhook/quota/permissions/CPU/scheduled/budget/restore properties vs existing Google baseline, and retain Cloud Run/OCI as existing candidate comparators. Use tiny synthetic fixtures; do not reconstruct Purchase domain logic.
+- **C — New agent model/tool delta:** verify only new model/provider response and tool-schema compatibility plus tenant/read/propose authority and fail-closed mutation where not previously proven. Existing regression/proof receipts may be reused where valid.
+- **D — AI-first UX delta:** evaluate real language variability and operational responsiveness with a bounded tool response, early Telegram acknowledgement, 429/5xx/time-budget fallback to an actionable no-AI form. Full multi-model Purchase A/B is *not* a prerequisite; test only gaps with evidence.
+- **E — Platform comparison:** retain existing **four** E-016 central candidates; Talorys is reference evidence, not a fifth architecture and does not imply D1/Queues verification.
+
+**Telegram interfaces to evaluate:** inline keyboards, ForceReply multi-step wizard and optional Mini App Web App with form validation. Inline keyboard alone is not a native arbitrary-field form; a Mini App is a separate HTTPS-based web UI. Assess user onboarding friction rather than choosing the most elaborate UI.
+
+## F. Cloudflare Free vs Google Free — what to optimise (NOT RUNTIME SELECTION)
+
+1. **Cloudflare hypothesis:** Workers for API/Telegram webhook, D1 for tenant/record/quota only if AC-010 proof passes, Workers AI for small bounded intent/tool selection under free Neuron budget, and optional AI Gateway for alternate provider. A Gateway does not magically make the other provider free; tenant payload/logging/retention and billing settings must be vetted.
+2. **Google baseline:** use working Apps Script/Sheets/Gemini OpsMate artefacts as evidence. Google integration may remain useful independently; avoid new Google Cloud setup obligations simply because Google has familiar products. Free Gemini policies/model quotas differ by SKU and change over time.
+3. **Free optimisation:** choose the *fewest* paid-billing prerequisites, external calls, queue hops, duplicate data stores and AI turns that preserve user experience. Protect useful-action capacity with independent transport/storage/AI/report quotas, fail-closed tenant scope, indexed queries and budget alarms.
+4. **Do not confuse limits:** Cloudflare Workers Free 100,000 requests/day + 10ms CPU/request; D1 5M rows read/day + 100k rows written/day + 5GB total; Queues 10k operations/day (typically three operations per delivered message, if used); Workers AI 10k Neurons/day. Google Apps Script typically 6min/execution with service-specific quotas. Limits are dated vendor terms, not guaranteed project throughput.
+5. **Priority:** user-experienced AI-first responsiveness, safe and usable degraded interaction, and predictable truly-free pilot economics. Cloudflare-first is a **trial preference** and VPS alternative worth testing; no winner declared.
+
+Updated sources checked 2026-10-12: https://developers.cloudflare.com/workers/platform/limits/ ; https://developers.cloudflare.com/d1/platform/pricing/ ; https://developers.cloudflare.com/queues/platform/pricing/ ; https://developers.cloudflare.com/workers-ai/platform/pricing/ ; https://developers.google.com/apps-script/guides/services/quotas ; https://ai.google.dev/gemini-api/docs/pricing ; https://core.telegram.org/bots/api .
+
+## G. Status / owner lock boundary
 
 - **OWNER-LOCKED principle (D-055/L-046):** Free Core must remain independently useful without AI. AI adds convenience/interpretation and is never a condition of basic function.
 - **SAVED REFERENCE:** Talorys / Cloudflare / Google sources and engineering hypotheses above.
-- **CANDIDATE:** AC-010, AC-012 and AI fallback mechanics; **E-016 PLANNED**, not executed.
+- **CANDIDATE / OWNER-SELECTED TRIAL:** AC-010, AC-012; AI-first free-text + explicit deterministic fast-path + hybrid active fallback; **E-016 DELTA-ONLY PLANNED**, not executed. D-029/L-023 remains LOCKED with 'where AI adds no value' preserved; do not silently supersede.
 - **NOT LOCKED:** vendor selection, deterministic coverage %, automatic failover sequence/provider, queue/storage/agent service mix, PRE-ARCH.
 
 
