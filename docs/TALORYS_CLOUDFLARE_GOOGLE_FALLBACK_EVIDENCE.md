@@ -103,3 +103,47 @@ Track:
 - **SAVED REFERENCE:** Talorys / Cloudflare / Google sources and engineering hypotheses above.
 - **CANDIDATE:** AC-010, AC-012 and AI fallback mechanics; **E-016 PLANNED**, not executed.
 - **NOT LOCKED:** vendor selection, deterministic coverage %, automatic failover sequence/provider, queue/storage/agent service mix, PRE-ARCH.
+
+
+---
+
+## G. 2026-10-12 OWNER CORRECTION — Hybrid **AI-first UX**, deterministic **active fallback** (trial, NOT PRE-ARCH LOCK)
+
+**Why this section exists:** The earlier Section C outlined a deterministic-first approach to *request interpretation*. The project owner explicitly prefers testing **AI-first language UX**, to avoid merely replicating OpsMate's feeling of rigid/slow workflow processing. The earlier advice is superseded at the *UX-routing hypothesis* level, but D-029's LOCKED provision that AI adds no value on explicit/clear operations and D-055's independently usable Free Core both remain intact. Do **not** construe the deterministic business guard as a fallback: it remains mandatory, even for the AI-first path.
+
+**OWNER-DIRECTED TRIAL POLICY (CANDIDATE architecture / selected trial posture):**
+- **Natural or context-dependent free text → AI-first** bounded intent classification / tool selection / candidate extraction, with small efficient model or tool router.
+- **Unambiguous explicit command, button, structured form or proven exact pattern → deterministic-first** fast path: do not call AI solely for brand identity or unnecessary interpretation.
+- **On AI timeout/5xx/429/quota/invalid structured output → hybrid *active* fallback:** optionally one bounded alternate provider/model attempt if privacy, timeout and free/cost ceilings permit; otherwise automatically show a guided Telegram interaction (inline keyboard, ForceReply, or Mini App form), preserving user input and draft/candidate. Never silently guess fields.
+- **Always-on deterministic business authority:** trusted tenant identity and authorization, data validation, confirmation for AI-derived mutation, idempotency and actual persistent result receipts stay in place on every path; there is no AI-side unrestricted MUTATE.
+- **User override / no-AI accessibility:** Free Core basic records, retrieval, reports and available receipt/manual entry do not stop when AI is unavailable. An accessible structured form path is part of usability, not a hidden emergency developer command.
+- **Operational fallback:** policy-active quotas/circuit breakers may proactively skip an unhealthy, slow or exhausted model *without falsely reporting a successful AI reply*. Switches cannot silently incur paid usage.
+
+**Latency optimisation before any swap (test against measured stage timings):**
+1. Measure ingress, time-to-first-user-ack, model time-to-first-token, model completion/tool decision, validation/persistence, outbound Telegram reply, retry wait and full request P50/P95/P99. Preserve D-052 semantics.
+2. Use bounded intent/tool schema, compact prompts and selected history; avoid huge conversation contexts and redundant model turns; test small/free/fast models on real mixed Malay-English field samples.
+3. Keep model and tool execution distinct; call one bounded tool intent when possible rather than unlimited recursive steps or serial multi-model chains.
+4. Telegram quick acknowledgement / typing status / progressive message edits may improve perceived latency, **but do not reduce inference time** or count as authoritative completion. Telegram chat chunking is not a guarantee of faster tool routing. Chunk context only when semantic boundaries are safe, and avoid splitting one transaction into independently committed chunks.
+5. Introduce bounded timeout; use a circuit breaker and sensible recovery. Do not repeat OpsMate's long silent poll/retry path. A 429 rate limit is different from a 5xx temporary error and may require direct degraded UX rather than more calls.
+6. If the AI-first route cannot deliver acceptable field accuracy/latency/free-tier cost despite tuning, compare model/provider changes, targeted deterministic fast paths and UX forms before deciding whether to change the default UX path. Do not equate slow AI with slow Cloudflare.
+
+**Telegram candidate options (each requires app-level access checks and UX testing):**
+- InlineKeyboardMarkup for category/confirm/correct/cancel choices.
+- ForceReply and stepwise prompts for missing fields.
+- Telegram Mini Apps for richer mobile structured forms if justified by time-to-value; validate signed `initData` server-side, not `initDataUnsafe`.
+Official sources: https://core.telegram.org/bots/api and https://core.telegram.org/bots/webapps
+
+**Cloudflare vs Google study SAVED:** Section B remains the dated comparative reference. Relevant 2026 verification: Cloudflare Worker Free **10ms CPU** budget is **not a 10ms AI/network wait timeout** (network wait does not count as CPU time); see https://developers.cloudflare.com/workers/platform/limits/. D1 Free **5M rows read/day**, **100k rows written/day**, **5GB storage**: https://developers.cloudflare.com/d1/platform/pricing/. Google Apps Script quotas are **per account/service**, including consumer **20k URL Fetch/day**, **6min/script execution**, trigger total runtime **90min/day**: https://developers.google.com/apps-script/guides/services/quotas . Cloudflare AI Gateway dynamic routing can enforce budgets/rates and use fallback, but upstream free model capacity/keys/privacy do not become guaranteed/free merely because routing is available: https://developers.cloudflare.com/ai-gateway/features/dynamic-routing/.
+
+**Evidence reuse, avoid redundant Purchase tests:** OpsMate already supplies the selected Purchase behaviour/guard/regression reference. Do **not** run a new four-mode end-to-end Purchase behaviour trial as a prerequisite to E-016. Reuse OpsMate's frozen behaviour maps, tests and documented known gaps. E-016 remains the four-way **central infrastructure** comparison; new tests must focus on unresolved DELTAS (Cloudflare free hosting/webhook/tenant/quota and AI-first-to-form recovery/Telegram UX, privacy and measured latency), with the *smallest* necessary synthetic contract smoke tests. Later E-006 cross-composition regression stays a separate release/integration proof, not a mandate to repeat an earlier exploratory Purchase bake-off.
+
+**New measurement terms for AI-first trial:**
+- AI-first routing adoption by natural-language request class; initial AI success/clarification/misinterpretation rates.
+- clear/explicit deterministic bypass without wrong-route incidence.
+- AI primary failure -> secondary provider recovery within latency/privacy/cost budget.
+- fallback-to-form useful-action completion rate, abandoned sessions, retained field/draft state and duplicate write count.
+- subjective conversational convenience AND objective P50/P95/P99, first acknowledgement and full completion.
+- separate infrastructure cost per useful action from provider/model usage and storage expense.
+- `80–90%` remains an exploratory *no-AI capability availability* denominator only; it is **not** a product KPI or expectation of message-level AI bypass in an intentionally AI-first design.
+
+**Status:** OWNER-REQUESTED TRIAL DIRECTION / E-022 PLANNED (not executed); AC-010 & AC-012 CANDIDATE; D-029/L-023 and D-055/L-046 remain LOCKED; PRE-ARCH NOT LOCKED.
