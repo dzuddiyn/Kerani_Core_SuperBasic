@@ -52,7 +52,7 @@ The pre-migration Action Plan is preserved below without semantic rewrite. This 
 
 - Do not redesign OpsMate during extraction work.
 - Respect the LOCKED product boundary: Core = Purchase / Sale / Inventory / Observation / Task + receipt capture; planned modules = Agro / Servis Teknikal / Makanan & Tempahan only.
-- Free Core must remain independently useful for basic records, basic retrieval/reporting and operational-log summary; premium gates must explain what extra intelligence/automation requires credits.
+- **D-055/L-046 owner LOCK (2026-10-12):** Free Core must remain independently useful even without any AI provider or quota; basic record, retrieval/reporting, receipt/manual-input and operational-log paths must remain actually usable. AI adds convenience only; premium gates must explain extra intelligence/automation credits. This does **not** preselect an AI/provider fallback implementation.
 - Treat Credit Pass/pay-per-capability as the current paid model direction; do not assume a mandatory subscription.
 - Do not hard-code candidate credit values yet; 5/10/20/100 examples remain deferred until unit economics are measured.
 - Preserve user data portability; do not create artificial export/data-access restrictions to enforce monetisation.
@@ -673,6 +673,14 @@ Compare four low-complexity options:
 4. **AC-011 OCI Ampere A1 Always Free VM**, adding only the local services/queue/storage required by evidence
 
 Do not treat OpenClaw as a control-plane option. D-032/E-013 keeps OpenClaw as a replaceable synthetic reliability/audit agent.
+
+### Public reference evidence — Talorys / Cloudflare Free / Google Free (2026-10-12)
+
+**Evidence note:** `../docs/TALORYS_CLOUDFLARE_GOOGLE_FALLBACK_EVIDENCE.md`. Talorys demonstrates a **single-user** Cloudflare Pages + Workers + SQLite Durable Object + Workers AI model with usable non-AI functions. It **does not use D1 or Queues**; therefore its success cannot substitute for an AC-010 Workers+D1 multi-tenant benchmark.
+
+For E-016 and AC-012 challenge, compare the dated Free-quota/entry/privacy limits and simulate: (a) direct deterministic completion, (b) bounded AI interpretation, (c) rate-limited/time-budgeted alternate AI provider/model on 429/5xx/timeout, and (d) usable degraded no-AI mode. The deterministic authority is always active; AI failover is a conditional resilience mechanism. Keep exact provider selection and active/passive fallback sequencing **OPEN** until evidence exists.
+
+Do not misstate `80–90%` as actual model bypass: it is only a **hypothesis about routine action TYPES offering a usable no-AI workflow**. Actual model bypass across real Malay/English free-text messages is a separate measured numerator/denominator. No code, account or implementation task is authorized by recording this evidence.
 
 ### OCI A1 candidate note — current evidence 2026-10-11
 
