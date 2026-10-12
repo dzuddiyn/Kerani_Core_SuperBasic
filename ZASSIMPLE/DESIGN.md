@@ -67,7 +67,7 @@ Whether routing ownership, Durable Inbox usage and confirmation responsibility b
 | **Premium domain solution** | OpsMate-grade validated operational workflows may require structured onboarding, domain contracts and controlled validation/persistence. |
 | **Premium Operations — CANDIDATE** | Alert · Remind · Report · Ask. |
 | **Premium Intelligence — CANDIDATE** | Analysis · Correlation · Graph · Proposal · Forecast. |
-| **AI boundary** | Deterministic-first where AI adds no value; constrained natural-language convenience may exist in Free; rich/open-ended conversation remains Premium. |
+| **AI boundary** | **D-056 owner-selected CHALLENGE DIRECTION (not PRE-ARCH):** AI-first for ordinary free-text messages; deterministic first for explicit menu/form/structured requests; hybrid active AI/provider and no-AI UX fallback. Deterministic business validation/authority always active. Free remains usable without AI; rich/open-ended conversation remains Premium. |
 | **Free channels** | Telegram is the economic/high-usage Free channel; shared WhatsApp is a controlled convenience/discovery channel. |
 | **Premium channel path** | Dedicated/owned WhatsApp and optional customer-owned Google/Apps Script/AI may be configured later without changing tenant identity. |
 | **Reliability** | OpenClaw is a replaceable external synthetic reliability/audit harness, not Kerani business authority or the production control plane. |
@@ -154,7 +154,7 @@ This remains **CANDIDATE** until challenged against real OpsMate behaviour, D-01
 - **Durable Ingress / Idempotency Boundary:** determine which request classes require durable inbox/queue semantics and idempotency, and which READ paths should bypass queueing to preserve responsiveness. Do **not** assume every request must traverse a queue.
 - **Authorization / Scope Guard:** tenant identity resolution is not sufficient on its own; challenge must prove authorization/scope enforcement before tool execution and again at the tool/data boundary. AI-supplied arguments must not be trusted to define tenant authority.
 
-**Talorys / Free cloud evidence (2026-10-12) — SAVED, not architecture proof:** `../docs/TALORYS_CLOUDFLARE_GOOGLE_FALLBACK_EVIDENCE.md` compares Cloudflare Free vs Google Free, records Talorys' single-user Pages/Worker/Durable Object SQLite/Workers AI design (which **does not use D1/Queues**), and defines separable no-AI core, bounded AI interpretation, model failover and degraded-manual experiments. Its 80–90% no-AI routine-operation coverage is **hypothesis**, not verified field-message bypass. AC-012 remains CANDIDATE.
+**Talorys / Free cloud evidence (2026-10-12) — SAVED, not architecture proof:** `../docs/TALORYS_CLOUDFLARE_GOOGLE_FALLBACK_EVIDENCE.md` compares Cloudflare Free vs Google Free, records Talorys' single-user Pages/Worker/Durable Object SQLite/Workers AI design (which **does not use D1/Queues**), and provides the updated **AI-first free-text + explicit deterministic fast path + hybrid active fallback** candidate. AI latency should be optimised first (compact prompts/tools, timely Telegram acknowledgement and safe incremental status); only then reconsider routing/model provider. Telegram inline buttons, ForceReply wizard and optional Mini App are candidate Free no-AI entry surfaces. Its 80–90% no-AI routine-operation coverage is **hypothesis**, not verified field-message bypass. AC-012 remains CANDIDATE.
 
 **Supporting comparison notes:**
 - `../docs/OPSMATE_VS_KERANI_AGENTIC_TOOL.md` — visual/data-flow comparison of OpsMate workflow-centric behaviour versus the candidate Kerani bounded Agentic Tool architecture.
@@ -175,7 +175,7 @@ No provider is selected or LOCKED.
 
 **E-016** must compare setup/maintenance burden, entry/billing friction, webhook behaviour, latency/concurrency, tenant/quota/waitlist handling, secrets, scheduling/async needs, observability, failure recovery, low-traffic economics, scale-up and migration/rollback.
 
-**New evidence input, not a winner:** Use `../docs/TALORYS_CLOUDFLARE_GOOGLE_FALLBACK_EVIDENCE.md` for a dated Cloudflare Free vs Google Free quota/AI/privacy baseline and separately test provider failure (429/5xx/timeout), AI-free core completion, explicit user clarification, and one budgeted alternate-AI recovery path. Talorys proves a bounded personal-agent pattern exists, **not** that Cloudflare Workers+D1 meets Kerani multi-tenant requirements. All four control-plane options remain in E-016.
+**New evidence input, not a winner:** Use `../docs/TALORYS_CLOUDFLARE_GOOGLE_FALLBACK_EVIDENCE.md` for a dated Cloudflare Free vs Google Free quota/AI/privacy baseline and **E-016 delta-only work**. Reuse OpsMate's already evidenced candidate/confirm/validate/Purchase-like workflow; **do not repeat one full Purchase flow through deterministic-only/Gemini/Workers AI/forced-failure variants**. Test only missing provider/tool-schema and Cloudflare multi-tenant/runtime/latency/quota/Telegram UX/fallback properties using bounded synthetic fixtures. Talorys proves a personal-agent pattern exists, **not** Workers+D1 multi-tenant readiness. All four control-plane options remain in E-016.
 
 For AC-011, current Oracle documentation checked 2026-10-11 reports 1,500 OCPU-hours + 9,000 GB-hours/month of Ampere A1 Always Free usage, equivalent to approximately 2 OCPUs + 12 GB memory for an Always Free tenancy within the allowance. The benchmark must also treat idle-instance reclamation and free-shape capacity availability as real reliability risks rather than assuming “free forever” equals guaranteed uptime.
 
@@ -183,10 +183,10 @@ For AC-011, current Oracle documentation checked 2026-10-11 reports 1,500 OCPU-h
 
 - **REPORTED field signal:** OpsMate can feel stuck after transient Gemini/provider failures because retry/poll scheduling adds a large visible wait. The owner recalls an approximately 30-second retry/poll interval in the experienced path.
 - **VERIFIED source contrast:** accessible OpsMate worker snapshots currently show a 60-second base exponential retry for API_OR_OUTPUT_ERROR; therefore exact retry timing is unresolved and must be measured rather than assumed.
-- **OPEN architecture question:** deterministic-first can only be a genuine fast path if it handles enough real short operational language without fragile keyword explosion or unsafe misrouting.
+- **OPEN architecture question:** can **AI-first ordinary free-text** improve comprehension without intolerable Free-model latency, and can explicit deterministic actions and active Telegram-form fallback preserve continuity without creating an OpsMate-style retry wait?
 - **Product viability implication:** SuperBasic must prove both acceptable response time and bounded cost per useful action. Moving runtimes alone does not solve AI inference/retry latency.
 
-E-016 must therefore measure latency by stage, including retry/backoff time after provider 5xx errors, and must measure deterministic fast-path coverage / misroute / clarification / AI-fallback rates over real field language samples.
+E-016 must therefore measure latency by stage including provider wait and 5xx recovery; evaluate AI-first ordinary free-text comprehension/response, explicit deterministic bypass, failover and Telegram form completion on **only evidence gaps** after OpsMate proofs are mapped. Do not require a fresh complete Purchase implementation or hard 80–90% model bypass.
 
 The owner's current approximately RM200 Google Cloud billing/onboarding barrier is a practical account-side constraint only; it is not treated as a universal Cloud Run fee.
 
@@ -206,7 +206,7 @@ The design must preserve these boundaries:
 - **No artificial data lock-in.** Users may access/export their own data.
 - **Tenant identity is channel-independent.** Moving between WhatsApp, Telegram or future channels must not require a new tenant/history.
 - **Quotas are independent.** Transport, storage/media, AI/processing, report/retrieval fair-use and Premium credits are separate controls.
-- **Deterministic-first Free processing.** Free onboarding does not require BYO Gemini.
+- **D-029/L-023 preserved:** deterministic routing/retrieval/validation **where AI adds no value**, including explicit forms/menus/structured commands, and Free onboarding without BYO Gemini. **D-056 is an owner-selected AI-first free-text trial, not a silent supersession of D-029.**
 - **OpenClaw is not business authority.** Synthetic monitoring must not bypass normal controls or contaminate customer truth.
 - **Critical IoT alarm path stays local/deterministic.** Kerani may augment it, not become the sole safety dependency.
 - **Sponsor ≠ data authority.** Programme sharing is minimum-necessary and purpose-bound; agency remains programme authority.
@@ -235,6 +235,7 @@ These remain open; this design projection does not resolve them:
 12. **Response-time root cause + retry policy** — Q-033/R-032; exact experienced 30-second cadence is reported, while accessible worker snapshots show 60-second base exponential retry.
 13. **Deterministic language coverage** — Q-034/R-033; must be proven against real multi-user phrasing rather than assumed from keyword rules.
 14. **Agentic Tool Boundary** — Q-035/R-034/AC-012; challenge must distinguish GENERIC behaviour → tool-worthiness → authority class → required human/deterministic gate. Priority candidates: `retrieve_history` as READ and `prepare_candidate` as PROPOSE.
+15. **AI-first / hybrid active fallback UX trial** — D-056/Q-038/R-037: ordinary free text → bounded AI; explicit menu/form → deterministic; 429/5xx/quota/latency → constrained provider fallback and actionable Telegram deterministic form, while deterministic validation/authority remains universal.
 
 ## Evidence posture
 
