@@ -263,7 +263,7 @@ Nothing in this section is automatically approved.
 | Q-031 | Where should the Free/Premium boundary sit for reminder/push, scheduled reports and interactive retrieval, and which OpsMate behaviours are genuinely reusable? | Prevents useful Free basics from being crippled while avoiding unbounded automation/AI cost. | OPEN |
 | Q-032 | Can Cloudflare Workers + D1 satisfy the V1 webhook/router, tenant/quota/waitlist, scheduled-trigger and lightweight async needs more cheaply/simply than Cloud Run or central Apps Script? | Determines whether a lower-entry-cost control plane can meet Kerani's locked boundaries. | OPEN |
 | Q-033 | How much of the user-visible latency is caused by runtime/poll/retry scheduling versus Gemini/provider inference versus storage/channel work, especially after transient AI/provider errors? | Kerani cannot choose a viable product runtime or retry policy from end-to-end “slow” perception alone; the latency must be decomposed. | OPEN |
-| Q-034 | Can deterministic-first routing recognise sufficiently diverse short operational language from many users without brittle keyword explosion, unsafe misrouting, or forcing most traffic back to AI? | Determines whether deterministic-first can materially reduce latency/cost while preserving D-015 Verbal usability and safe clarification. | OPEN |
+| Q-034 | Which genuinely explicit commands/menu/form actions can safely bypass AI without brittle keyword matching or misrouting? | Under the 2026-10-12 owner AI-first free-text trial, deterministic parsing is a fast path for explicit input and an active degraded-mode UX, not a mandate to interpret all natural-language variants via keyword rules. | OPEN — refined owner trial scope |
 | Q-035 | Which reusable behaviours should become agent-callable tools, and what authority class/gates must each tool carry? | Prevents genericity from being confused with agent authority and tests whether natural-language UX can improve without weakening D-015 human/deterministic control. | OPEN |
 | Q-036 | Which Kerani request classes require durable ingress/queue + idempotency, and which can safely use a direct low-latency path? | Prevents blindly inheriting OpsMate queueing into all paths while still protecting mutation/retry/restart correctness. | OPEN |
 | Q-037 | Where must authorization/scope be enforced between channel identity, tool routing and data access? | Tenant identity alone does not prove permission; the challenge must prevent AI/tool arguments from becoming authority and prove fail-closed tenant isolation. | OPEN |
@@ -1688,6 +1688,18 @@ Premium architecture remains future work and must be shaped by observed user beh
 
 ---
 
+## D-055 — Free Core Independent Utility; AI as Optional Convenience
+**Status:** LOCKED  
+**Owner approval:** 2026-10-12
+
+**Decision:** **Free Core must remain useful on its own. AI is an additional convenience/interpretation capability, never a prerequisite for the basic application to operate.** This explicitly reinforces D-016/L-011, D-013/L-008 and D-015/L-010 without replacing their boundaries.
+
+**Consequences:** Purchase, Sale, Inventory, Observation and Task baseline workflows plus basic retrieval/reporting and available receipt/manual input must retain a usable no-AI path. AI interpretation and bounded tools may improve natural-language UX, but AI/provider failure or quota exhaustion must not make essential Free Core functionality inaccessible. Authoritative business operations continue to require deterministic/domain rules, authorization/scope, confirmation where applicable, audit and idempotency; AI/tool calls cannot become business authority. Existing convenience-first UX remains mandatory: a no-AI pathway must be usable, not merely technically possible.
+
+**Architecture boundary:** This locks a product/authority invariant, **not** deterministic parser implementation, deterministic-first language coverage percentage, a provider, AI failover routing, storage, queue/service mix, control plane or PRE-ARCH. Those remain evidence-bound AC-010/AC-012/E-016 challenge topics.
+
+---
+
 ## D-056 — AI-first Verbal UX + Hybrid Active Fallback Trial
 **Status:** CANDIDATE — OWNER-SELECTED TRIAL, NOT ARCH LOCK  
 **Owner direction:** 2026-10-12
@@ -1704,17 +1716,6 @@ Premium architecture remains future work and must be shaped by observed user beh
 
 ---
 
-## D-055 — Free Core Independent Utility; AI as Optional Convenience
-**Status:** LOCKED  
-**Owner approval:** 2026-10-12
-
-**Decision:** **Free Core must remain useful on its own. AI is an additional convenience/interpretation capability, never a prerequisite for the basic application to operate.** This explicitly reinforces D-016/L-011, D-013/L-008 and D-015/L-010 without replacing their boundaries.
-
-**Consequences:** Purchase, Sale, Inventory, Observation and Task baseline workflows plus basic retrieval/reporting and available receipt/manual input must retain a usable no-AI path. AI interpretation and bounded tools may improve natural-language UX, but AI/provider failure or quota exhaustion must not make essential Free Core functionality inaccessible. Authoritative business operations continue to require deterministic/domain rules, authorization/scope, confirmation where applicable, audit and idempotency; AI/tool calls cannot become business authority. Existing convenience-first UX remains mandatory: a no-AI pathway must be usable, not merely technically possible.
-
-**Architecture boundary:** This locks a product/authority invariant, **not** deterministic parser implementation, deterministic-first language coverage percentage, a provider, AI failover routing, storage, queue/service mix, control plane or PRE-ARCH. Those remain evidence-bound AC-010/AC-012/E-016 challenge topics.
-
----
 
 # 13. LOCKED DECISIONS
 
