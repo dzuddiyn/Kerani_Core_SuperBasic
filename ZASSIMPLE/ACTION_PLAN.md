@@ -675,6 +675,11 @@ Compare four low-complexity options:
 
 Do not treat OpenClaw as a control-plane option. D-032/E-013 keeps OpenClaw as a replaceable synthetic reliability/audit agent.
 
+### Optional paid escape hatch — Evoxt VPS (2026-10-14; NOT AN ACTIVE FIFTH CANDIDATE)
+
+**Status:** SAVED CANDIDATE / DEFERRED. See `../docs/EVOXT_PAID_VPS_CONTINGENCY.md` and the project SoT. E-016 **still benchmarks four** free/managed options using only unproven deltas from OpsMate evidence. **Do not buy/deploy Evoxt for the Wan/Hamidun Agro Demo** absent a measured blocker. If all viable free/managed options encounter evidence-backed cost/capacity/operability barriers, seek owner approval for a capped **one-month synthetic VPS trial** measuring RAM, CPU performance, transfer quota, webhook P50/P95/P99, security, backup, restart/recovery, maintenance burden and total cost before considering annual billing or architecture selection.
+
+
 ### Public reference evidence — Talorys / Cloudflare Free / Google Free (2026-10-12)
 
 **Evidence note:** `../docs/TALORYS_CLOUDFLARE_GOOGLE_FALLBACK_EVIDENCE.md`. Talorys demonstrates a **single-user** Cloudflare Pages + Workers + SQLite Durable Object + Workers AI model with usable non-AI functions. It **does not use D1 or Queues**; therefore its success cannot substitute for an AC-010 Workers+D1 multi-tenant benchmark.
