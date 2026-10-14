@@ -672,6 +672,20 @@ WhatsApp / Telegram / future channel
 
 ---
 
+### Paid-server contingency — Evoxt Malaysia VPS (2026-10-14)
+
+**Status:** CANDIDATE — BACKUP / LAST CHOICE ONLY; **NOT a fifth active E-016 control-plane candidate**.
+
+**Owner direction:** Retain Evoxt Malaysia VPS as a **paid emergency/last-resort hosting option** if Cloudflare, Google managed/free alternatives or OCI free capacity prove unsuitable for measured Kerani requirements. Do not purchase a server or lock its architecture simply because low-cost VPS hosting exists.
+
+**Reported evidence (NOT TESTED):** an owner-shared Evoxt advertisement claims Malaysia VPS from USD 2.99/month and up-to-6.0-GHz turbo CPU. One owner-supplied user experience reports limited bandwidth/transfer and small RAM for running other services and prefers longer billing. Neither proves sustained CPU performance, usable memory/headroom, network transfer, uptime or real Kerani economics.
+
+**Activation gate:** Only consider a time-limited paid VM trial after specific free/managed alternative blockers have been measured. Validate real VM SKU/RAM, transfer allowance, pricing, monthly vs annual terms, webhook P50/P95/P99, restore/security/patch/monitoring overhead, privacy, portability and total cost. Monthly test before committing annually. CPU clock claims do not speed up external AI provider inference.
+
+**Scope:** Not needed for the first Kerani Agro Basic Demo unless a proven deployment blocker emerges. Keep OpsMate reproduction tests reusable; no redoing Purchase end-to-end. Detailed evidence/guardrails: `docs/EVOXT_PAID_VPS_CONTINGENCY.md`. This does not change AC-010/AC-011 status, E-016's four principal candidates or PRE-ARCH.
+
+---
+
 ## AC-012 — Bounded Agent Tool Orchestration
 
 **Status:** CANDIDATE  
@@ -2060,6 +2074,7 @@ No project idea is newly marked REJECTED by this migration.
 | D-050-P | Premium Operations Pack entitlement/pricing/automation parameters | Alert/Reminder/Report/Ask boundaries and costs are not yet evidenced enough to LOCK. | OpsMate behaviour audit + pilot/reuse/cost/safety evidence. |
 | D-051-P | Premium Intelligence Pack packaging/pricing/model choices | Analysis/Correlation/Graph/Proposal/Forecast need measured cost, output-quality and user-value evidence. | Representative real-data pilot + unit-economics review. |
 | AC-010-P | Cloudflare control-plane service mix and limits | Exact Workers/D1/queue/schedule usage and provider limits are externally changeable and workload-dependent. | Current official-term verification + E-016 benchmark evidence. |
+| E-016-EVOXT-P | Evoxt paid Malaysia VPS contingency | Avoid premature paid VPS and security/maintenance overhead; entry-level RAM/transfer/performance claims not tested. | Measured blocker to free/managed candidates + owner-approved capped one-month synthetic trial. |
 
 ---
 
@@ -2492,6 +2507,8 @@ Exact test cadence and traffic volume remain deferred/pilot-calibrated.
 4. **AC-011 OCI Ampere A1 Always Free VM** with only evidence-needed local services/queue/storage.
 
 **Measure:** setup/maintenance effort, webhook behaviour, request latency, concurrency headroom, tenant/quota/waitlist implementation, secret handling, scheduled/async capability, observability, failure recovery, estimated low-traffic cost, free-tier/entry barriers, scale-up path and migration/rollback flexibility.
+
+**2026-10-14 PAID SERVER CONTINGENCY (NOT FIFTH ACTIVE OPTION):** Evoxt Malaysia VPS is retained as a last-choice paid hosting escape hatch if measured barriers invalidate free/managed alternatives. Use `docs/EVOXT_PAID_VPS_CONTINGENCY.md`; do not prototype or buy proactively, and do not inflate the active four-way E-016 benchmark.
 
 **New field signals to preserve (2026-10-11):**
 - **REPORTED:** owner observed OpsMate user-visible response stalls associated with retry/poll timing after transient Gemini/provider errors such as HTTP 502; owner recalls a roughly 30-second retry/poll interval in the experienced path.
@@ -3068,6 +3085,13 @@ Therefore:
 ---
 
 # PROJECT ZASS CHANGELOG
+
+## 2026-10-14 — Evoxt Malaysia VPS saved as paid server last-choice contingency
+
+- At owner request, added Evoxt to `docs/EVOXT_PAID_VPS_CONTINGENCY.md` as **CANDIDATE — BACKUP / LAST CHOICE**, not a default runtime, provider selection or architecture LOCK.
+- Kept marketing figures and one user's RAM/transfer remarks clearly separated from independent test evidence; no VPS speed, stability or cost advantage claimed as proven.
+- Added conditional activation criteria under E-016; **four active control-plane candidates remain unchanged**, with Evoxt outside immediate benchmarking, implementation and the Kerani Agro Basic Demo prerequisite.
+- No account signup, purchase, production changes, PRE-ARCH lock, new implementation task or architecture-readiness increase.
 
 ## 2026-10-12 — AI-first Verbal UX and hybrid active fallback trial; E-016 delta-only
 
