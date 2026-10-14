@@ -173,6 +173,8 @@ No provider is selected or LOCKED.
 | **Cloud Run + Firestore + Secret Manager + basic Monitoring** | AC-007 scalable managed-serverless candidate |
 | **OCI Ampere A1 Always Free VM** | AC-011 low-cost always-on VM candidate with direct queue/retry/runtime control |
 
+**Paid server contingency (NOT fifth active candidate):** Evoxt Malaysia VPS is **CANDIDATE — BACKUP / LAST CHOICE ONLY**, to be considered if measured limitations prevent the four active alternatives from meeting Kerani needs. No annual purchase, demo prerequisite or runtime lock. Check RAM/transfer/ops costs and trial monthly if explicitly authorised. See `../docs/EVOXT_PAID_VPS_CONTINGENCY.md` (2026-10-14).
+
 **E-016** must compare setup/maintenance burden, entry/billing friction, webhook behaviour, latency/concurrency, tenant/quota/waitlist handling, secrets, scheduling/async needs, observability, failure recovery, low-traffic economics, scale-up and migration/rollback.
 
 **New evidence input, not a winner:** Use `../docs/TALORYS_CLOUDFLARE_GOOGLE_FALLBACK_EVIDENCE.md` for a dated Cloudflare Free vs Google Free quota/AI/privacy baseline and **E-016 delta-only work**. Reuse OpsMate's already evidenced candidate/confirm/validate/Purchase-like workflow; **do not repeat one full Purchase flow through deterministic-only/Gemini/Workers AI/forced-failure variants**. Test only missing provider/tool-schema and Cloudflare multi-tenant/runtime/latency/quota/Telegram UX/fallback properties using bounded synthetic fixtures. Talorys proves a personal-agent pattern exists, **not** Workers+D1 multi-tenant readiness. All four control-plane options remain in E-016.
