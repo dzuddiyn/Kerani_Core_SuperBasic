@@ -62,6 +62,7 @@ The pre-migration Action Plan is preserved below without semantic rewrite. This 
 - Keep full natural-language conversation in Kerani AI Premium; do not make it a SuperBasic dependency.
 - SuperBasic constrained natural-language intake is allowed only as: intent suggestion → candidate/confidence → clarification if needed → preview → human confirmation → deterministic domain validation → authoritative record.
 - **D-056 owner-selected CHALLENGE trial (not PRE-ARCH):** ordinary free text should try bounded AI-first tool interpretation; explicit form/menu/selected structured action should bypass AI; model failure/429/5xx/quota/slow response triggers **hybrid active fallback** (bounded alternate model where worthwhile, then Telegram deterministic form/manual path). Always-on deterministic authority/validation remains non-negotiable. Optimise AI latency and safe Telegram acknowledgement/chunked progress before revisiting model/provider/routing.
+- **D-057/L-047 OWNER LOCK (2026-10-16):** Telegram Mini App is a **first-class thin deterministic Free Core UI**, not just an emergency fallback, coexisting with conversational Telegram chat. Both must share authoritative tenant mapping, protected business API, validation/confirmation, idempotency, audit and data records; backend must verify Telegram WebApp signed initData and never trust initDataUnsafe/browser user/tenant claims. The exact screens, hosting, Telegram entry point and PRE-ARCH remain OPEN.
 - Treat ambiguous input as a clarification test case; never reward the agent for guessing.
 - Reject module work that creates special-case branching or Apps Script spaghetti.
 - Do not treat source-file layout as architecture.
@@ -679,6 +680,16 @@ Do not treat OpenClaw as a control-plane option. D-032/E-013 keeps OpenClaw as a
 
 **Status:** SAVED CANDIDATE / DEFERRED. See `../docs/EVOXT_PAID_VPS_CONTINGENCY.md` and the project SoT. E-016 **still benchmarks four** free/managed options using only unproven deltas from OpsMate evidence. **Do not buy/deploy Evoxt for the Wan/Hamidun Agro Demo** absent a measured blocker. If all viable free/managed options encounter evidence-backed cost/capacity/operability barriers, seek owner approval for a capped **one-month synthetic VPS trial** measuring RAM, CPU performance, transfer quota, webhook P50/P95/P99, security, backup, restart/recovery, maintenance burden and total cost before considering annual billing or architecture selection.
 
+
+### Telegram Mini App UI decision and sequencing — D-057/L-047 LOCKED PRODUCT PRINCIPLE (2026-10-16)
+
+**Approved outcome:** Provide Telegram Mini App as a regular deterministic Free interface alongside AI-assisted chat; same business API/source of truth, no duplicated frontend business logic or unsafely trusted client identity. Keep an actionable **hybrid active fallback** from failed AI to a Mini App or smaller chat form/menu while retaining an always-available direct no-AI path.
+
+**Candidate UI v0.1 (not frozen screens):** Rekod Baru, Semak Rekod, Resit, Ringkasan. For first Agro Demo, **one Rekod Aktiviti Kebun form** is a possible bounded enhancement, *not a prerequisite*. Telegram `/setmenubutton` is a small entry-point candidate; `/newapp` Main Mini App registration is optional. Any Mini App needs HTTPS hosting; **Cloudflare Pages Free remains a candidate, not selected infrastructure**. Keep the generic three-product CrossAI/Kerani/Temaya Mini-App Shell **DEFERRED** to avoid speculative abstraction.
+
+**Gate / next allowed planning, not execution:** (1) OpsMate PILOT_REAL handover and stable proof baseline; (2) independent clean Agro Demo without BSE secrets/data; (3) assess Mini App delta-only feasibility and integration against existing proven business contracts; (4) pursue one lightweight UI slice only if explicitly authorised and no added blocker to Wan/Hamidun demonstration. Verify server-side Telegram `initData` authentication, tenant isolation, role/scope, CSRF/session considerations, confirmation/idempotency and true persisted write receipts; test no-AI completion when provider is off. Capture P50/P95 and usability feedback. **No new ready atomic task or runtime deployment is created here.**
+
+**Reference:** `../ZASS_Kerani_Core_SuperBasic.md` D-057/L-047, Q-039/R-038; `../ZASSIMPLE/DESIGN.md`. E-016 still uses four active control-plane candidates and reuses OpsMate evidence rather than repeating Purchase workflows.
 
 ### Public reference evidence — Talorys / Cloudflare Free / Google Free (2026-10-12)
 
