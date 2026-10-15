@@ -48,6 +48,18 @@ The product should stay lightweight, affordable and portable. Domain depth, rich
 7. Authoritative records can then be retrieved, summarised and reported.
 8. When a request crosses the Free boundary, Kerani should clearly surface the relevant Premium capability rather than silently failing.
 
+### Telegram dual-surface UX — OWNER LOCKED D-057/L-047 (provider/implementation NOT LOCKED)
+
+- **Telegram Chat:** language-first interface; bounded AI assistance when useful, with the candidate AI-first free-text route in D-056.
+- **Telegram Mini App:** structured forms, history, receipt input and basic summaries through a **thin UI**; a normal self-service deterministic route, not merely an AI-error screen.
+- **Common backend:** both share the same tenant/session trust, protected business API, data integrity/validation, confirmation where applicable, idempotency/audit and authoritative records; no business-rule duplication in JavaScript or direct front-end data authority.
+- **Hybrid active fallback:** when AI is unavailable or slow, offer a usable structured continuation, including Mini App or smaller Telegram menu/wizard where appropriate. Mini App remains accessible proactively while AI is healthy.
+- **Security:** validate Telegram WebApp `initData` signature/expiry at backend, then enforce tenant scope and permissions on each API action; never accept `initDataUnsafe` or client tenant claims as authoritative.
+- **Evidence candidates, not locked screens:** simple record, review/history, receipt input, summary; a single **Rekod Aktiviti Kebun** form may be tested after Agro demo extraction. Menu button before evaluating `/newapp`; Cloudflare Pages Free as only a hosting candidate. No cross-product generic Mini App shell until a second proven use.
+- **Sequencing:** OpsMate PILOT_REAL closeout → separate clean Agro Demo baseline → optional small Mini App slice only if it will not delay Wan/Hamidun demo. No PRE-ARCH lock/implementation authorization implied.
+
+**Lineage:** D-057/L-047; D-055/L-046; D-056 (candidate); Q-039/R-038; E-016; `../ZASS_Kerani_Core_SuperBasic.md`.
+
 ### Candidate runtime shape — not LOCKED
 
 The current runtime candidate separates direct/read work from stateful/mutation work, with channel adaptation before business logic and a Core ↔ Domain Module boundary.
@@ -60,14 +72,14 @@ Whether routing ownership, Durable Inbox usage and confirmation responsibility b
 
 | Layer | Current distilled truth |
 |---|---|
-| **Experience** | WhatsApp, Telegram and future interfaces are channels/bindings, not the identity of Kerani or the tenant. |
+| **Experience** | WhatsApp, Telegram chat, **Telegram Mini App as first-class deterministic Free UI (D-057/L-047 LOCKED)** and future interfaces are presentation surfaces/bindings, not Kerani tenant identity or separate Sources of Truth. |
 | **Identity & data** | One persistent tenant identity; tenant-isolated history; channel migration without data migration; user export rights preserved. |
 | **Free Core** | Purchase · Sale · Inventory · Observation · Task · receipt input · basic retrieval · basic summaries/reports. |
 | **Domain modules** | Exactly three planned modules: Agro · Servis Teknikal · Makanan & Tempahan. |
 | **Premium domain solution** | OpsMate-grade validated operational workflows may require structured onboarding, domain contracts and controlled validation/persistence. |
 | **Premium Operations — CANDIDATE** | Alert · Remind · Report · Ask. |
 | **Premium Intelligence — CANDIDATE** | Analysis · Correlation · Graph · Proposal · Forecast. |
-| **AI boundary** | **D-056 owner-selected CHALLENGE DIRECTION (not PRE-ARCH):** AI-first for ordinary free-text messages; deterministic first for explicit menu/form/structured requests; hybrid active AI/provider and no-AI UX fallback. Deterministic business validation/authority always active. Free remains usable without AI; rich/open-ended conversation remains Premium. |
+| **AI boundary** | **D-056 owner-selected CHALLENGE DIRECTION (not PRE-ARCH):** AI-first for ordinary free-text messages; deterministic first for explicit menu/form/structured requests; hybrid active AI/provider and no-AI UX fallback through structured surfaces including the D-057 LOCKED Mini App. Deterministic business validation/authority always active. Free remains usable without AI; rich/open-ended conversation remains Premium. |
 | **Free channels** | Telegram is the economic/high-usage Free channel; shared WhatsApp is a controlled convenience/discovery channel. |
 | **Premium channel path** | Dedicated/owned WhatsApp and optional customer-owned Google/Apps Script/AI may be configured later without changing tenant identity. |
 | **Reliability** | OpenClaw is a replaceable external synthetic reliability/audit harness, not Kerani business authority or the production control plane. |
@@ -202,7 +214,7 @@ The owner's current approximately RM200 Google Cloud billing/onboarding barrier 
 
 The design must preserve these boundaries:
 
-- **Free must remain genuinely useful — D-055/L-046 explicitly LOCKED.** Basic Core operation must not require AI; deterministic execution and a usable no-AI input/retrieval path stay available under model outage/quota exhaustion. Premium adds higher-order intelligence, domain capability, automation and convenience rather than blocking basic access.
+- **Free must remain genuinely useful — D-055/L-046 explicitly LOCKED.** Basic Core operation must not require AI; deterministic execution and a usable no-AI input/retrieval path stay available under model outage/quota exhaustion. **D-057/L-047 LOCKS the Telegram Mini App dual-surface product/UI principle**, with common backend authority and active fallback. Premium adds higher-order intelligence, domain capability, automation and convenience rather than blocking basic access.
 - **Genericity is earned.** OpsMate supplies evidence; reusable mechanisms may feed Core, agriculture behaviour may feed Agro, and BSE-specific rules stay outside generic Core.
 - **Human authority remains explicit.** AI-interpreted mutations require review/confirmation and deterministic/domain validation before authoritative write.
 - **No artificial data lock-in.** Users may access/export their own data.
@@ -238,6 +250,7 @@ These remain open; this design projection does not resolve them:
 13. **Deterministic language coverage** — Q-034/R-033; must be proven against real multi-user phrasing rather than assumed from keyword rules.
 14. **Agentic Tool Boundary** — Q-035/R-034/AC-012; challenge must distinguish GENERIC behaviour → tool-worthiness → authority class → required human/deterministic gate. Priority candidates: `retrieve_history` as READ and `prepare_candidate` as PROPOSE.
 15. **AI-first / hybrid active fallback UX trial** — D-056/Q-038/R-037: ordinary free text → bounded AI; explicit menu/form → deterministic; 429/5xx/quota/latency → constrained provider fallback and actionable Telegram deterministic form, while deterministic validation/authority remains universal.
+16. **Mini App entry point / UX / auth and hosting** — Q-039/R-038; **D-057/L-047 product/UI principle is LOCKED**, but menu button vs Main Mini App, exact v0.1 screens, auth integration test, Cloudflare Pages vs other HTTPS hosting and first rollout are still DESIGN/CHALLENGE candidates.
 
 ## Evidence posture
 
