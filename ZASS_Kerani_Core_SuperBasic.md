@@ -268,6 +268,7 @@ Nothing in this section is automatically approved.
 | Q-036 | Which Kerani request classes require durable ingress/queue + idempotency, and which can safely use a direct low-latency path? | Prevents blindly inheriting OpsMate queueing into all paths while still protecting mutation/retry/restart correctness. | OPEN |
 | Q-037 | Where must authorization/scope be enforced between channel identity, tool routing and data access? | Tenant identity alone does not prove permission; the challenge must prevent AI/tool arguments from becoming authority and prove fail-closed tenant isolation. | OPEN |
 | Q-038 | Can AI-first free text + deterministic-first explicit interactions + hybrid active fallback give better Verbal UX and latency than deterministic-first language matching without uncontrolled Free AI use? | Owner's 2026-10-12 trial preference is not yet field evidence; models, early acknowledgement/chunking, quota, provider fallback and Telegram forms should be judged against OpsMate evidence and real language. | OPEN — owner-selected challenge hypothesis |
+| Q-039 | Which Telegram Mini App entry point, UI scope, auth binding and hosting path deliver a genuinely usable AI-independent structured experience without duplicating business logic or obstructing the Agro demo? | D-057/L-047 fixes the product surface principle; menu button vs Main Mini App, Cloudflare Pages, web session security and exact screen build remain unproven. | OPEN — DESIGN/TEST detail |
 
 ---
 
@@ -312,6 +313,7 @@ Nothing in this section is automatically approved.
 | R-035 | Universal queueing recreates OpsMate-style latency and unnecessary complexity | Forcing all READ and ACTION requests through one durable queue can increase response time, retry amplification and operational burden even when some requests are safe to execute directly. | Challenge durable-ingress scope by request class; retain direct/read paths where safe; require idempotency/durability where authoritative side effects or retries justify them; measure queue wait from Day 1. | OPEN | Simple read requests accumulate queue wait/poll delay or require worker recovery despite having no authoritative side effect. |
 | R-036 | Identity resolved but authorization scope not enforced at tool/data boundary | A valid user/tenant binding could still access another tenant/resource if AI arguments or downstream queries are trusted without re-checking scope. | Use trusted context for tenant/user authority; fail closed; re-check scope before protected tool execution and deterministic data access; test cross-tenant denial for READ and MUTATE. | OPEN | Model/tool arguments can select another tenant/resource or a retrieval query returns data outside the caller's authorized scope. |
 | R-037 | AI-first language UX degrades under Free-model latency, rate limits or unreliable tool results; weak deterministic fallback feels like a dead end | Verbal UX loses trust, users repeat or abandon requests, AI calls multiply, or incomplete tool plans are presented as completed writes. | Bounded AI-first free-text calls, early truthful Telegram acknowledgment, active failover within budget and time box, inline-keyboard/ForceReply/manual fallback, verified tool receipts and D-015 mutation gates. | OPEN | P95/P99 spikes, 429/5xx retry loops, form abandonment, unbounded model invocations or false success. |
+| R-038 | Mini App front-end identity, validation or data handling bypasses tenant/business authority | Spoofed Telegram context, cross-tenant reads, duplicate commits or inconsistent Chat/Mini App history can corrupt trust. | Backend verifies Telegram WebApp initData using bot-token signature/expiry, maps a trusted tenant/session, enforces permission server-side on every API call, uses the same business contracts/validation/idempotency/audit, and tests cross-tenant/replay rejection. | OPEN | Browser-provided initDataUnsafe/tenant IDs accepted as authority; UI directly writes records without Core gate; chat and Mini App diverge. |
 
 ---
 
@@ -1731,6 +1733,29 @@ Premium architecture remains future work and must be shaped by observed user beh
 ---
 
 
+## D-057 — Telegram Mini App as First-Class Deterministic Free UI
+
+**Status:** LOCKED — PRODUCT / UI PRINCIPLE (not PRE-ARCH selection)  
+**Owner approval:** 2026-10-16
+
+**Decision:** Kerani SuperBasic shall support a **first-class, independently usable deterministic interface** alongside conversational Telegram chat. **Telegram Mini App is the approved target UI surface** for structured Free Core operations, rather than merely an emergency screen shown when AI fails. Both surfaces must access the **same bounded Core/business API contracts, trusted tenant identity, authorization, validation, idempotency, audit and authoritative business records**. The primary conversational experience remains the AI-first free-text *candidate trial* in D-056, not newly LOCKED as a provider/router architecture here.
+
+**Dual-surface interaction invariant:**
+- **Chat:** natural-language interaction; bounded AI intent/candidate tools where relevant; D-015 human/validator authority remains.
+- **Mini App:** explicit forms/menu/history/summary and other deterministic Free Core operations **without compulsory AI inference**.
+- **Hybrid active fallback:** if AI is unavailable/slow/quota-exhausted, Kerani should provide an actionable structured continuation via Mini App or smaller Telegram menu/wizard when practical, keeping unsaved data as drafts and never pretending a write succeeded. The Mini App is also proactively accessible when AI is healthy.
+- **Thin UI:** Telegram Mini App is a replaceable presentation surface, not a parallel business system or a separate Source of Truth. Backend verifies signed Telegram WebApp `initData`, maps the user to trusted tenant context, and enforces server-side scope and mutation gates. Never trust `initDataUnsafe` or browser-submitted tenant ID as authority.
+
+**V0.1 candidate scope for evidence:** record/create, view/history, receipt entry and basic summary; first Agro demo delta may be one small **Rekod Aktiviti Kebun** form reusing proven OpsMate data/validation. **These exact screens and their order are CANDIDATE, not frozen requirements.** Trial Telegram menu button (`/setmenubutton`) before deciding whether Main Mini App registration (`/newapp`) adds value; both require an HTTPS-hosted web front end. Cloudflare Pages Free is only a hosting CANDIDATE; central runtime/provider and API remain governed by E-016.
+
+**Sequence/stop rules:** finish OpsMate PILOT_REAL handover and evidence freeze first. Generate a clean separate Agro Demo without BSE secrets/data; do not make Mini App mandatory for the first Wan/Hamidun demo. Introduce one bounded UI slice only if it does not destabilize the demo or require speculative backend redesign. A generic cross-product Mini-App Shell for CrossAI/Temaya/Kerani is **DEFERRED** until real demonstrated reuse (D-002), and CrossAI Companion is not restarted by this decision.
+
+**Does not lock:** Cloudflare/GAS/OCI/VPS hosting, `/newapp` vs menu entry, final layouts, exact UI components, UI framework, database/queue, E-016 outcome, AC-010/AC-012, implementation task, Challenge PASS or PRE-ARCH. All remain evidence-bound.
+
+**Lineage:** D-015/L-010; D-016/L-011; D-029/L-023; D-055/L-046; D-056 (CANDIDATE); Q-039/R-038; E-016; ZASSIMPLE DESIGN/ACTION_PLAN.
+
+---
+
 # 13. LOCKED DECISIONS
 
 This section is authoritative. Architecture and implementation must not contradict these records.
@@ -2029,6 +2054,13 @@ This section is authoritative. Architecture and implementation must not contradi
 **Decision:** Free Core must independently deliver basic operational value without AI; AI is optional convenience, not an operational prerequisite. No-AI/manual completion stays usable through model failure/quota exhaustion, while deterministic/domain validation and human/tenant authority always govern business truth.  
 **Locked by:** Project Owner  
 **Date:** 2026-10-12  
+**Supersedes:** None
+
+## L-047
+**Source Decision:** D-057  
+**Decision:** Telegram Mini App is the first-class thin deterministic Free Core UI alongside Telegram conversational chat, independently usable when AI is healthy and usable as an actionable hybrid active fallback when AI fails. Both interfaces use the same trusted tenant/backend authority, validation/idempotency/audit and authoritative records. Specific UI entry point, screen designs, hosting, rollout/demo priority and PRE-ARCH remain unselected.  
+**Locked by:** Project Owner  
+**Date:** 2026-10-16  
 **Supersedes:** None
 
 ---
@@ -3085,6 +3117,14 @@ Therefore:
 ---
 
 # PROJECT ZASS CHANGELOG
+
+## 2026-10-16 — Telegram Mini App deterministic dual-surface direction LOCK
+
+- Owner instructed **LOCK COMMIT** for Telegram Mini App as a *first-class* deterministic Free UI complementary to conversational Telegram chat; added **D-057/L-047** (owner-LOCKED PRODUCT/UI principle, **not** PRE-ARCH).
+- The Mini App is independently available and supports actionable **hybrid active fallback** during model outage, while always using the same tenant identity, Core/business API contracts, server-side auth/validation, idempotency and audit.
+- Added Q-039/R-038 for entry-point/UI/hosting/security challenge: server-side Telegram WebApp initData validation is mandatory, and frontend-supplied user/tenant fields have no authority.
+- The exact v0.1 screen set, `/setmenubutton` vs `/newapp`, Cloudflare Pages Free and single Agro Demo form are **CANDIDATE**. Shared Mini-App shell across CrossAI/Kerani/Temaya is **DEFERRED**. OpsMate handover and independent clean Agro Demo remain the first priority; UI cannot delay it.
+- No production code, deployment, provider selection, PRE-ARCH/Challenge result, progress increase or new execution task is claimed.
 
 ## 2026-10-14 — Evoxt Malaysia VPS saved as paid server last-choice contingency
 
