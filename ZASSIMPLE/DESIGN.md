@@ -79,6 +79,7 @@ Whether routing ownership, Durable Inbox usage and confirmation responsibility b
 | **Premium domain solution** | OpsMate-grade validated operational workflows may require structured onboarding, domain contracts and controlled validation/persistence. |
 | **Premium Operations — CANDIDATE** | Alert · Remind · Report · Ask. |
 | **Premium Intelligence — CANDIDATE** | Analysis · Correlation · Graph · Proposal · Forecast. |
+| **Premium Business Workspace — CANDIDATE D-059** | Tenant-specific Telegram summary → interactive Web UI dashboard; source-grounded charts, tables/search and optional future forecast/PWA/Drive links/task-sync. **Not LOCKED, implemented, entitled or architecture-selected.** See `../docs/KERANI_PREMIUM_BUSINESS_WORKSPACE_CANDIDATE.md`. |
 | **AI boundary** | **D-056 owner-selected CHALLENGE DIRECTION (not PRE-ARCH):** AI-first for ordinary free-text messages; deterministic first for explicit menu/form/structured requests; hybrid active AI/provider and no-AI UX fallback through structured surfaces including the D-057 LOCKED Mini App. Deterministic business validation/authority always active. Free remains usable without AI; rich/open-ended conversation remains Premium. |
 | **Free channels** | Telegram is the economic/high-usage Free channel; shared WhatsApp is a controlled convenience/discovery channel. |
 | **Premium channel path** | Dedicated/owned WhatsApp and optional customer-owned Google/Apps Script/AI may be configured later without changing tenant identity. |
@@ -235,6 +236,12 @@ The design must preserve these boundaries:
 
 The active business/development philosophy is **D-058/L-048**. The original D-048/L-041 7V remains in retained Full ZASS as superseded history; do not show it as today's canonical sequence. Current 8V: **VALID → VALUE → VERBAL (Word-of-Mouth) → VOLUME → VENTURE → VIRAL → VARY → VERSATILE**. **VOUCH** is a continuous Extended V-Gate (genuine, evidence-backed user endorsement) and not a ninth stage. VALID is a repeated real-use experiment/improve/retest gate rather than a generic software syntax/data validation step. In later stages, new target customers or contexts can trigger VALID again. Vital/V-King remain unnumbered destinations. This LOCK does not prove Kerani has passed any new maturity stage or alter technical architecture.
 
+## Premium Business Workspace — CANDIDATE concept projection (D-059)
+
+User request: **AI business summary in Telegram → Buka Dashboard button → interactive tenant-specific business view**. Potential views: charts/tables with factual source links, filtering/search, bounded forecast when data is sufficient, internal Task status, authorised Google Drive links, and future Android Home Screen/PWA entry. All customer-facing analytics must use trusted data and tenant/role permission checks; standalone browser/PWA cannot rely on Telegram WebApp initData as its session authority. **No cross-provider external task sync or OAuth is authorised**, and no new standalone dashboard backend or separate business SoT is chosen.
+
+**Only the candidate is recorded**, not an implementation slice or release promise. Existing D-057/L-047 Free deterministic Mini App remains first-class; basic Task/report/retrieval remains Free. Premium packs D-050/D-051 and Drive OAuth remain CANDIDATE. Refer to `../docs/KERANI_PREMIUM_BUSINESS_WORKSPACE_CANDIDATE.md` for proposed journey, experiment and STOP boundaries. Priority remains OpsMate PILOT_REAL handover → clean Agro Demo; return to this idea when real usefulness warrants a pilot, following the D-058 VALID-first philosophy.
+
 ## Open assumptions / unresolved boundaries
 
 These remain open; this design projection does not resolve them:
@@ -255,6 +262,7 @@ These remain open; this design projection does not resolve them:
 14. **Agentic Tool Boundary** — Q-035/R-034/AC-012; challenge must distinguish GENERIC behaviour → tool-worthiness → authority class → required human/deterministic gate. Priority candidates: `retrieve_history` as READ and `prepare_candidate` as PROPOSE.
 15. **AI-first / hybrid active fallback UX trial** — D-056/Q-038/R-037: ordinary free text → bounded AI; explicit menu/form → deterministic; 429/5xx/quota/latency → constrained provider fallback and actionable Telegram deterministic form, while deterministic validation/authority remains universal.
 16. **Mini App entry point / UX / auth and hosting** — Q-039/R-038; **D-057/L-047 product/UI principle is LOCKED**, but menu button vs Main Mini App, exact v0.1 screens, auth integration test, Cloudflare Pages vs other HTTPS hosting and first rollout are still DESIGN/CHALLENGE candidates.
+17. **Premium Business Workspace UX** — **D-059 CANDIDATE, NOT LOCKED**: Chat produces a truthful, tenant-scoped textual summary plus contextual dashboard button; Web UI offers business-relevant interactive source-linked charts/tables/search and later bounded analytics. PWA Android entry needs separate browser auth; user-permitted Google Drive links ≠ Drive OAuth; tasks start with Kerani Task and any external task sync is deferred and authority-led. No feature-price/entitlement, PRE-ARCH, Google scopes, deployment or task execution is approved.
 
 ## Evidence posture
 
