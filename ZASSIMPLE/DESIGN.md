@@ -86,7 +86,7 @@ Whether routing ownership, Durable Inbox usage and confirmation responsibility b
 | **IoT safety boundary** | Kerani may add context, history, notification and escalation; a critical device/PLC/HA alarm must not depend solely on Kerani/LLM/cloud. |
 | **POS / ERP growth** | Future adapter/contract path; established ERP-owned records remain authoritative in the ERP. |
 | **Government/programme bridge** | Optional; sponsor funding does not grant blanket data authority; agency/programme remains authority for eligibility/approval/status. |
-| **Growth model** | Evidence-first, low-cost-at-low-usage, controlled scale, replaceable partners, V-Road maturity. |
+| **Growth model** | **D-058/L-048 LOCKED V-Road 8V:** VALID → VALUE → VERBAL (Word-of-Mouth) → VOLUME → VENTURE → VIRAL → VARY → VERSATILE; extended **VOUCH** gate for authentic user endorsement. Evidence-first, sustainable and replaceable partners. |
 
 ## Product ladder
 
@@ -224,12 +224,16 @@ The design must preserve these boundaries:
 - **OpenClaw is not business authority.** Synthetic monitoring must not bypass normal controls or contaminate customer truth.
 - **Critical IoT alarm path stays local/deterministic.** Kerani may augment it, not become the sole safety dependency.
 - **Sponsor ≠ data authority.** Programme sharing is minimum-necessary and purpose-bound; agency remains programme authority.
-- **Growth must be evidence-led.** Pilot proof precedes public-scale claims; viral readiness requires load, cost, reliability, fallback and observability evidence.
+- **Growth must be evidence-led.** The LOCKED 8V makes **VALID real-world iterative problem/solution testing** the first stage; only then may experienced VALUE, genuine VERBAL referrals, retained VOLUME, responsible VENTURE and prepared VIRAL scale be claimed. Pilot proof precedes public-scale claims; viral readiness requires load, cost, reliability, fallback and observability evidence.
 - **Infrastructure/partners must remain replaceable.** Core, tenant identity, portability and business authority cannot be surrendered to one provider/partner.
 - **Real field evidence comes early.** When real samples exist they are first-class execution evidence; missing real samples must be marked UNVALIDATED rather than field-proven.
-- **V-Road applies:** Value → Verbal → Volume → Viral → Vary → Venture → Versatile. Every V must be earned through evidence.
+- **V-Road 8V — D-058/L-048 is LOCKED and supersedes historical D-048/L-041 7V:** **VALID → VALUE → VERBAL (Word-of-Mouth) → VOLUME → VENTURE → VIRAL → VARY → VERSATILE**. VALID begins with iterative experiments using real use cases to establish that a solution is useful, effective, usable and worth continuing; then pilot/real users must actually experience VALUE. Word-of-mouth requires authentic recommendation evidence; Extended V-Gate **VOUCH** verifies genuine endorsements with user consent. Previous *Verbal UX* remains the natural-language interaction principle, distinct from growth VERBAL. Every V is earned with evidence, and substantive new contexts may require re-validation.
 - **Latency Observability from Day 1 — LOCKED.** Every implemented request path must emit enough timing evidence to decompose user-visible latency by stage from ingress to reply. At minimum capture request start, queue wait where applicable, AI/tool-router time where applicable, tool execution, validation/storage, retry count + retry-wait, and total response time. Aggregate at least P50/P95/P99 plus error/retry rate, segmented by tool/channel/runtime/provider where meaningful. Instrumentation begins with the first executable slice; do not wait until the system feels slow.
 - **Convenience-first UX — LOCKED.** User value is prioritized over ownership complexity. Onboarding friction, time-to-value, top-up continuity, latency/accuracy/trust and desired-channel fit are first-order design concerns. Premium features must arise from observed demand rather than being forced into the current Core architecture.
+
+## Growth-maturity truth — owner-LOCKED 8V
+
+The active business/development philosophy is **D-058/L-048**. The original D-048/L-041 7V remains in retained Full ZASS as superseded history; do not show it as today's canonical sequence. Current 8V: **VALID → VALUE → VERBAL (Word-of-Mouth) → VOLUME → VENTURE → VIRAL → VARY → VERSATILE**. **VOUCH** is a continuous Extended V-Gate (genuine, evidence-backed user endorsement) and not a ninth stage. VALID is a repeated real-use experiment/improve/retest gate rather than a generic software syntax/data validation step. In later stages, new target customers or contexts can trigger VALID again. Vital/V-King remain unnumbered destinations. This LOCK does not prove Kerani has passed any new maturity stage or alter technical architecture.
 
 ## Open assumptions / unresolved boundaries
 
@@ -313,7 +317,7 @@ Human-facing compact lineage only:
 
 - **Core/product:** D-010–D-022
 - **Tenant/channel/quota/reliability:** D-023–D-033
-- **Programme/growth/partner:** D-035–D-049
+- **Programme/growth/partner:** D-035–D-049 historical lineage + **D-058/L-048 canonical V-Road 8V**; D-048/L-041 7V SUPERSEDED.
 - **Observability requirement:** D-052 / L-043
 - **Delivery Value Gate:** D-053 / L-044
 - **Convenience-first UX / evidence-led Premium:** D-054 / L-045
