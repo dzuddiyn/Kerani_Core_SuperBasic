@@ -1809,6 +1809,24 @@ Retain prior V-Gates such as **Vision, Vocabulary, Vibe, Veracity, Validation, V
 
 ---
 
+## D-059 — Kerani Premium Business Workspace (Tenant Dashboard and Chat-to-Web)
+**Status:** **CANDIDATE — PRODUCT/UX CONCEPT ONLY; NOT LOCKED**  
+**Owner direction:** 2026-10-19 — Save formally, track in Linear, do not LOCK architecture or initiate build.
+
+**Concept:** A business-specific **Kerani Premium Business Workspace** reachable through Telegram: when a user requests a business summary, Kerani delivers a readable, *source-grounded* text explanation and—when available and authorised—a **Buka Dashboard Interaktif** button/link. A thin dashboard can present tenant-specific KPIs, interactive graphs/tables, time filters/search, source-record drilldown, bounded analytic/forecast views with source provenance/uncertainty, internal tasks and authorised document links. A future Android Home Screen PWA/browser entry is **candidate only**, not a committed supported client.
+
+**Authority and Free boundary:** Reuse the same Kerani Core/tenant data and server-side authorization as the D-057/L-047 **LOCKED Free deterministic Telegram Mini App**; do not build a second business database or let UI/AI fabricate numbers or decide permissions. Free must retain basic reports, records, Task and deterministic retrieval (D-055/L-046). Premium Operations/Intelligence D-050/D-051 remain **CANDIDATE**; neither entitlement nor pricing is locked by this idea.
+
+**Integration boundary:** User-approved Google Drive *links* can be examined first; full Drive OAuth is a separate unproven hypothesis under D-053. Show Kerani internal Task first; external task sync is **deferred**, to be challenged read-only and then single-direction only if justified (consent, source authority, dedup, conflict/revocation audit). Telegram's verified WebApp initData cannot substitute for a separate browser/PWA session/login authority. Any link or deep link must not itself grant business-data access.
+
+**VALID-first discipline:** Future narrow proof (not authorised now) would test `Telegram factual summary → Open Dashboard → inspect one chart/table → verify source rows` with representative non-sensitive data and real-user usability evidence. Do not build an ERP, cross-product generic Mini App shell or forecast engine without demonstrated demand. OpsMate reference handover and clean Agro Demo remain prioritised.
+
+**Explicitly NOT selected:** architecture/runtime/hosting, web framework, dashboard layout, PWA authentication, Google Drive integration, task sync direction/backend, pricing/credits, source-data schema, deployment or production rollout. **No PRE-ARCH LOCK, no implementation tasks, no tests PASS, no readiness-progress increase.**
+
+**Evidence:** `docs/KERANI_PREMIUM_BUSINESS_WORKSPACE_CANDIDATE.md`; Linear tracking issue `KAI-7`; lineage D-057/L-047, D-050, D-051, D-053/L-044, D-054/L-045, D-055/L-046, D-058/L-048.
+
+---
+
 # 13. LOCKED DECISIONS
 
 This section is authoritative. Architecture and implementation must not contradict these records.
@@ -3180,6 +3198,12 @@ Therefore:
 ---
 
 # PROJECT ZASS CHANGELOG
+
+## 2026-10-19 — Premium Business Workspace recorded as PRODUCT/UX CANDIDATE (NOT LOCKED)
+
+- Owner authorised capture of a **tenant-specific Premium Business Workspace** with truthful Telegram AI text summary → scoped interactive dashboard link/button, graphs/tables/search/forecast, optional Android PWA icon, user-authorised Google Drive links and possible later task sync.
+- Recorded **D-059 CANDIDATE — NOT LOCKED** with independent evidence note `docs/KERANI_PREMIUM_BUSINESS_WORKSPACE_CANDIDATE.md` and Linear tracker KAI-7. Kept D-057/L-047 Free deterministic Mini App LOCK unchanged; D-050/D-051 Premium capability packs and Drive OAuth still CANDIDATE.
+- No implementation task, customer data access, external sync, framework/hosting/architecture selection, PRE-ARCH, entitlement price or product VALID claim. OpsMate / clean Agro Demo priority unchanged.
 
 ## 2026-10-19 — V-Road 8V owner LOCK; VALID first, VERBAL Word-of-Mouth, VOUCH gate
 
