@@ -1367,14 +1367,15 @@ Grant approval is never assumed, and product architecture must remain viable wit
 
 **Why superseded:** The 4V principle captured growth direction but compressed several distinct maturity disciplines into four words. The owner expanded the model so user interaction, trust, operating quality, variability, partnership, ecosystem portability and maturity can be governed and evidenced explicitly without changing the underlying value-first philosophy.
 
-Historical 4V lineage is preserved. New growth/maturity authority is D-048.
+Historical 4V lineage is preserved. D-048 was the subsequent 7V authority (2026-10-08); current authority is **D-058 / L-048 — 8V** (2026-10-19).
 
 ---
 
 ## D-048 — V-Road / 7V Core + Extended V-Gates
-**Status:** LOCKED  
+**Status:** SUPERSEDED — historical 7V owner LOCK, preserved verbatim below for lineage  
 **Owner approval:** 2026-10-08  
-**Supersedes:** D-047
+**Supersedes:** D-047  
+**Superseded by:** D-058 / L-048 — canonical 8V (2026-10-19)
 
 ### Canonical principle
 
@@ -1756,6 +1757,58 @@ Premium architecture remains future work and must be shaped by observed user beh
 
 ---
 
+## D-058 — V-Road 8V Core + Extended V-Gates: VALID First, VERBAL Word-of-Mouth
+**Status:** LOCKED — OWNER APPROVED BUSINESS / DEVELOPMENT PHILOSOPHY  
+**Owner approval:** 2026-10-19  
+**Supersedes:** D-048 / L-041 (7V core and its growth-stage semantics); prior D-047/L-040 (4V) remains historical.
+
+### Canonical 8V
+
+> **VALID → VALUE → VERBAL → VOLUME → VENTURE → VIRAL → VARY → VERSATILE**
+>
+> **No V is free. Every V must be earned with fit-for-purpose real-world evidence.**  
+> **Jangan kejar jadi besar. Buktikan berguna, kemudian berkembang kerana pengguna benar-benar merasai nilainya.**
+
+This is a **business and development-maturity philosophy**, not an implementation runtime, guaranteed sequential calendar, release claim, or AI/business database validation rule. Meaningful changes in scope, audience or context may require a return to VALID; learning loops remain welcome.
+
+1. **VALID — practical solution proof FIRST.** Identify a concrete real-user problem, develop a possible solution and run **repeated experiments and iterations on actual use cases** until there is sufficient evidence it **truly works, is useful, effective, usable and worth continuing**. A technical PASS, prototype or a single synthetic test alone does not establish VALID. If evidence fails, improve, pivot or stop; repeat when assumptions change.
+2. **VALUE — experienced user benefit.** Pilot testers and then several real users **feel tangible value** from repeated practical use: problem solved, effort/time/errors reduced, usefulness over their current alternative. Provider intent, claimed feature value or an enthusiastic demo do not substitute for real user outcomes.
+3. **VERBAL — authentic Word-of-Mouth.** Users who experienced VALUE voluntarily tell others, recommend and discuss the solution. Measure real referrals/testimonials rather than developer announcements or manufactured hype. **This VERBAL is growth-by-human-recommendation**, distinct from existing *Verbal UX* (natural-language AI/chat interface), which continues as a cross-stage product design discipline.
+4. **VOLUME — repeated adoption.** More real users, completed valuable workflows, retention, useful records and demand demonstrate growing usage, not merely sign-ups/downloads or publicity.
+5. **VENTURE — evidence-backed growth partnership.** Credible VOLUME makes the project more persuasive to partners, sponsors, funders, collaborators and channels for expansion. Partnership must not surrender tenant identity, user data authority, independence or replaceability.
+6. **VIRAL — prepared and/or observed wider spread.** Organic growth can begin before formal Venture, but the **chosen business development path** places VENTURE before deliberate large-scale VIRAL growth. Claim VIRAL maturity only with evidenced onboarding capacity, quota/backpressure, privacy, reliability, sustainable cost, monitoring and truthful degraded operation.
+7. **VARY — real-world adaptation.** Handle demonstrable differences in customer needs, channels, domains, costs, partners, providers and operating constraints without uncontrolled product/Core fragmentation; return to VALID when a materially new problem or user segment demands it.
+8. **VERSATILE — proven transferability.** Independent contexts genuinely work on reusable contracts and an adaptable foundation rather than promised genericity or domain-specific copy-paste. Evidence across multiple contexts, not only architecture drawings, earns this V.
+
+### VALID proof loop (continuous, not merely a one-time sticker)
+
+`REAL PROBLEM → HYPOTHESIS → BUILD → FIELD EXPERIMENT → FEEDBACK/MEASURE → ITERATE/RETEST → VALID (or PIVOT/STOP)`
+
+Minimal acceptance dimensions: **useful, effective, usable, repeatable, evidence-backed, practical within cost/effort constraints**. Trace sample cohort/use case, comparison baseline where meaningful, failed cases, iteration and verified outcome. Mark evidence as *PILOT / PARTIAL / UNVALIDATED* rather than inflating maturity. D-049's real-field-corpus and proof-reuse rules continue to apply.
+
+### Extended V-Gates (continuous quality guardrails, NOT a ninth core stage)
+
+Retain prior V-Gates such as **Vision, Vocabulary, Vibe, Veracity, Validation, Verification, Volition, Vault, Vulnerability, Velocity, Visibility, Viability, Vigilance, Versioning, Variability, Venue, Vendor-neutral, Value-chain and Vertical**.
+
+**Add: VOUCH — authentic, permission-respecting user endorsement.** Users can credibly stand behind and recommend a product because they experienced its actual value. Evidence may be genuine testimonials, voluntary referrals and attributable experience with appropriate consent; never invent quotes, claim endorsement without permission or use a paid/promotional statement as if organically volunteered. **VOUCH supports and constrains VERBAL (Word-of-Mouth), but is not a ninth step.**
+
+**Terminology boundary:** *VALID* = whole-solution usefulness/effectiveness verified by iterative real use. *Validation* = data/domain correctness and business-rule checking. *Verification* = technical/audit proof against specified behaviour. These do not replace one another. The earlier *Verbal UX* for conversational language remains a valid technical principle independent from VERBAL growth.
+
+### Guardrails and proof progression
+
+- No VALUE claim from prototype/functionality alone without felt user benefit.
+- No VERBAL/VOUCH claim from developer marketing without genuine experience/referral proof.
+- No VOLUME maturity from sign-ups alone; demand/retention/useful activity must be demonstrated.
+- No VENTURE growth story without credible evidence and safeguards for user/tenant authority.
+- No VIRAL readiness without cost/load/reliability/scale proof; organic referrals may occur anytime, but scale readiness must be earned.
+- No VARY/VERSATILE claim by speculative abstractions or forking the Core.
+- Preserve **Vital** (operationally important through voluntarily relied-upon utility) and **V-King** (aspirational “become needed, not merely known”) as destinations **outside the numbered eight stages**, not as a ninth or tenth V.
+- Existing functional, safety, Free Core, AI-first candidate, OpsMate extraction and architectural approval boundaries are unchanged. This decision does **not** certify the current Kerani application as VALID or advance its execution/readiness percentage.
+
+**Evidence/lineage:** historical D-047/L-040 → D-048/L-041 → **D-058/L-048 current**; D-049/L-042 real-field evidence; D-053/L-044 Value Gate; `ZASSIMPLE/DESIGN.md` and `ZASSIMPLE/ACTION_PLAN.md`.
+
+---
+
 # 13. LOCKED DECISIONS
 
 This section is authoritative. Architecture and implementation must not contradict these records.
@@ -2016,6 +2069,8 @@ This section is authoritative. Architecture and implementation must not contradi
 
 ## L-041
 **Source Decision:** D-048  
+**Status:** SUPERSEDED — historical 7V LOCK  
+**Superseded by:** L-048 / D-058 (2026-10-19)  
 **Decision:** **V-Road — 7V Core + Extended V-Gates**: Value → Verbal → Volume → Viral → Vary → Venture → Versatile; each V must be earned by evidence, Extended V-Gates continuously govern trust/UX/operations/scale/ecosystem quality, Vital is operational dependence through utility, and V-King is an aspirational north star rather than an eighth V.  
 **Locked by:** Project Owner  
 **Date:** 2026-10-08  
@@ -2062,6 +2117,14 @@ This section is authoritative. Architecture and implementation must not contradi
 **Locked by:** Project Owner  
 **Date:** 2026-10-16  
 **Supersedes:** None
+
+## L-048
+**Source Decision:** D-058  
+**Status:** LOCKED  
+**Decision:** Canonical **V-Road 8V — VALID → VALUE → VERBAL (Word-of-Mouth) → VOLUME → VENTURE → VIRAL → VARY → VERSATILE**. VALID is repeated real-use experimentation/iteration until practical usefulness and effectiveness are evidenced; VALUE is felt by pilot and real users; VERBAL is genuine recommendations/referrals, not synonymous with Verbal UX. Add **VOUCH** to continuous Extended V-Gates as real user endorsement, **not** another core V. Keep Venture before deliberate Viral scaling as the strategic default, without denying earlier organic spread. Preserve Vital and V-King as destinations.  
+**Locked by:** Project Owner  
+**Date:** 2026-10-19  
+**Supersedes:** L-041 / D-048 (historical 7V; D-047/L-040 4V already superseded)
 
 ---
 
@@ -3117,6 +3180,14 @@ Therefore:
 ---
 
 # PROJECT ZASS CHANGELOG
+
+## 2026-10-19 — V-Road 8V owner LOCK; VALID first, VERBAL Word-of-Mouth, VOUCH gate
+
+- **LOCKED D-058/L-048**, promoting the approved 8V sequence: **VALID → VALUE → VERBAL (Word-of-Mouth) → VOLUME → VENTURE → VIRAL → VARY → VERSATILE**.
+- VALID = experiment and iterate on actual use cases until the solution is proven useful, effective, usable and worth continuing; VALUE follows when pilot/real users experience benefit. VERBAL means their genuine word-of-mouth, while existing Verbal UX remains a separate design discipline.
+- Added **VOUCH** to Extended V-Gates as verified authentic user endorsement/referral, **not** a ninth V and not an invented testimonial.
+- Set D-048/L-041 historical 7V to **SUPERSEDED**, retained its full original model for audit; D-047/L-040 4V remains historical. Updated active ZASSIMPLE projections, no change to OpsMate evidence, PRE-ARCH, architecture, tests or production.
+- Linear post-commit reconciliation required under `docs/LINEAR_DEVELOPMENT_TRACKING_CONTRACT.md`; no issue or project IDs may be fabricated.
 
 ## 2026-10-16 — Telegram Mini App deterministic dual-surface direction LOCK
 
