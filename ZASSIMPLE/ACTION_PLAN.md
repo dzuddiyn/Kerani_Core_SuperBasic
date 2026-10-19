@@ -89,7 +89,7 @@ The pre-migration Action Plan is preserved below without semantic rewrite. This 
 - Keep the candidate 1–3 hosted OCR uses/month uncommitted until E-015 measures cost/usefulness.
 - Evaluate Cloud Run + Firestore + Secret Manager + basic Monitoring as AC-007, but reject cloud complexity that does not earn its operational cost against central Apps Script.
 - When PRE-ARCH is eventually locked, ACTION_PLAN becomes the detailed planning authority for sequence/dependencies/tests/rollback/evidence, but it still cannot decide architecture.
-- Apply the LOCKED V-Road: **Value → Verbal → Volume → Viral → Vary → Venture → Versatile**; no V may be claimed without appropriate evidence, and Extended V-Gates continuously constrain trust/UX/operations/scale/ecosystem quality.
+- Apply the **current LOCKED V-Road 8V (D-058/L-048): VALID → VALUE → VERBAL (Word-of-Mouth) → VOLUME → VENTURE → VIRAL → VARY → VERSATILE**. VALID first requires iterative real-use solution experiments until the outcome is useful/effective/usable/practical; VALUE is demonstrated by pilot/real users; VERBAL requires authentic referrals. Add **VOUCH** as continuous Extended V-Gate, not a ninth stage. D-048/L-041 7V is SUPERSEDED/historical. Never claim maturity without fit-for-stage evidence.
 - Keep government/agency programme integration outside generic Core; sponsor funding and data access remain separate.
 - Treat MAHA 2027, shared-booth arrangements, named Jabatan relationships, named infrastructure vendors, Petronas references and grants as external opportunities requiring factual agreements/evidence.
 - A strategic infrastructure partner is a replaceable scale option, not a new Source of Truth or tenant owner.
@@ -766,85 +766,98 @@ The owner's current approximately RM200 Google Cloud billing/onboarding barrier 
 Choose the smallest implementation that satisfies LOCKED multi-tenant/channel/quota/reliability decisions. Do not add Kubernetes, BigQuery, Agent Platform, Redis or multi-service decomposition without evidence.
 
 
-## PILOT-TO-PROOF / V-ROAD GROWTH + MATURITY GATE
+## PILOT-TO-PROOF / V-ROAD 8V GROWTH + MATURITY GATE
 
-**Authority:** D-040 through D-046 + D-048 / L-033 through L-039 + L-041.  
-**Historical note:** D-047/L-040 4V is SUPERSEDED.
+**Current authority:** **D-058/L-048 (LOCKED, 2026-10-19)**, alongside D-040–D-046 and D-049/L-042 real-field evidence.  
+**Historical only:** D-047/L-040 4V and D-048/L-041 7V are **SUPERSEDED**, retained for governance lineage, not current execution semantics.
 
-Canonical 7V Core:
+### Canonical 8V
 
-> **Value → Verbal → Volume → Viral → Vary → Venture → Versatile**
+> **VALID → VALUE → VERBAL (Word-of-Mouth) → VOLUME → VENTURE → VIRAL → VARY → VERSATILE**
 
-Operating discipline:
-
-> **No V is free. Every V must be earned. Do not skip the Vs.**
+**No V is free. Every V must be earned from evidence.** Organic sharing can happen before VENTURE, but the strategic growth path reserves prepared large-scale VIRAL expansion until credible usage/partner-capacity evidence exists.
 
 ~~~text
+VALID
+real problem → repeated experiment/iteration → practical solution proof
+       ↓
 VALUE
-real micro-SME problem solved
-        ↓
-VERBAL
-simple human-language interaction
-        ↓
+pilot testers + real users experience measurable usefulness
+       ↓
+VERBAL (WORD-OF-MOUTH)
+actual users voluntarily recommend and share their experience
+       ↓
 VOLUME
-repeat usage + useful records + history
-        ↓
-VIRAL
-load/cost/reliability readiness
-        ↓
-VARY
-absorb channel/domain/provider/payer/load variation
-        ↓
+growing real adoption + retention + completed useful work
+       ↓
 VENTURE
-partner/programme/funding acceleration without authority loss
-        ↓
+credible partnerships/funding/infrastructure supported by volume proof
+       ↓
+VIRAL
+wider spread with tested reliable low-friction growth capacity
+       ↓
+VARY
+adapt to real customer/domain/channel/provider/payer variation
+       ↓
 VERSATILE
-portable proven use across contexts
-        ↓
-VITAL
-operational importance through utility
-        ↓
-👑 V-KING
-become needed, not merely known
+cross-context transferability proven through real reuse
+       ↓
+VITAL → 👑 V-KING
+utility-earned importance → aspirational 'become needed, not merely known'
 ~~~
 
-Extended V-Gates continuously constrain the road:
+### VALID: actual repeated proof, not a software test label
+
+`PROBLEM → HYPOTHESIS → BUILD → FIELD EXPERIMENT → FEEDBACK + MEASURE → ITERATE/RETEST → VALID / PIVOT / STOP`
+
+The owner-approved definition is: **Menjalankan eksperimen dan iterasi berulang menggunakan kes penggunaan sebenar sehingga terdapat bukti yang mencukupi bahawa sesuatu penyelesaian benar-benar berguna, berkesan, boleh digunakan, dan berbaloi untuk diteruskan.**
+
+Required proof categories: actual use-case cohort/sample IDs; observed task outcomes and failures; usability, effectiveness, reproducibility and practical cost/effort; iteration changes and repeat-test results. Synthetic-only technical PASS does **not** mean real-world VALID. D-049 corpus/proof receipts still govern concrete execution. Mark missing evidence **UNVALIDATED**, not PASS.
+
+### Evidence to earn each stage
+
+1. **VALID** — iterative real-use solution testing demonstrates practical usefulness/effectiveness, with failed tests retained honestly.
+2. **VALUE** — pilot testers and other real users report or demonstrate concrete benefits in daily operations versus their prior alternative; record real outcomes, not anticipated value.
+3. **VERBAL** — genuine user-to-user recommendations, word-of-mouth or voluntary referrals/testimonials based on their own experience, not developer advertising.
+4. **VOLUME** — retained/repeated adoption, completed useful work and growing real activity, not just sign-ups.
+5. **VENTURE** — credible partners/funders/business arrangements supported by observed VOLUME, with owner/tenant authority protected; do not assume a partner or funding decision from interest alone.
+6. **VIRAL** — genuine wider spread backed by onboarding/quotas/latency/cost/monitoring/fallback/burst capacity; organic sharing may start sooner without declaring Viral maturity.
+7. **VARY** — successfully handle actual differing customers/domains/channels/providers/payers without Core duplication.
+8. **VERSATILE** — independent reuse across contexts, with audited portability and boundaries rather than asserted genericity.
+9. **VITAL** — sustained utility-driven operational reliance; not lock-in, not a ninth core V.
+10. **V-KING** — aspirational north star, not a tenth core V or market-dominance claim.
+
+### Continuous Extended V-Gates
 
 - **Foundation/Human:** Vision, Vocabulary, Vibe.
-- **Trust/Authority:** Veracity, Validation, Verification, Volition, Vault, Vulnerability.
+- **Trust/Authority:** Veracity, Validation, Verification, Volition, Vault, Vulnerability, **VOUCH (authentic user endorsement and permission to attribute it)**.
 - **Operating:** Velocity, Visibility, Viability, Vigilance, Versioning.
 - **Scale:** Variability, Venue.
 - **Ecosystem:** Vendor-neutral, Value-chain, Vertical.
 
-Evidence interpretation:
-1. **Value** — completed useful workflows and repeated usefulness.
-2. **Verbal** — successful understandable constrained-NL intake with safe clarify/confirm behaviour.
-3. **Volume** — retained/repeated real use and completed useful records, not signup count alone.
-4. **Viral** — event-neutral spike/load, cost, fallback and reliability proof.
-5. **Vary** — multiple channels/domains/providers/payers without Core fork/spaghetti.
-6. **Venture** — real partner/programme path without data/product/tenant authority leakage.
-7. **Versatile** — proven portability/reuse across multiple contexts.
-8. **Vital** — sustained operational dependence caused by utility/history/workflow, not artificial lock-in.
-9. **V-King** — aspirational only until broad voluntary adoption/trust is evidenced.
+**Do not confuse terms:** VALID means whole-solution practical use-case proof; Validation and Verification remain technical/domain checks; **VERBAL in this growth roadmap means Word-of-Mouth**, while *Verbal UX* elsewhere means natural-language chat/interaction. VOUCH is a V-Gate, not a ninth stage; genuine user endorsement is not automatically implied by usage.
 
-Anti-shortcut execution checks:
-- no Viral claim before Value + Viability + Vigilance;
-- no Volume success claim when data quality/Veracity is weak;
-- no Venture partnership that bypasses Volition or portability;
-- no Versatile claim from speculative abstraction alone;
-- no V-King branding treated as architecture/product evidence.
+### Stop/anti-shortcut rules
 
-Before any major public push:
-1. convert pilot cases into reproducible regression/reliability evidence;
-2. measure time-to-first-value and repeated-use behaviour;
-3. validate Free cost envelope and quotas;
-4. pass event-neutral spike/load drill;
-5. verify waitlist/fallback/degradation behaviour;
-6. run OpenClaw synthetic checks under load;
-7. demonstrate at least one Vary case without Core fork;
-8. document partner-activation threshold and rollback/exit path;
-9. only then treat a named event as launch-ready.
+- No VALUE from feature count, a pilot demo alone or assumed customer delight.
+- No VERBAL/VOUCH based on fabricated or unconsented testimonials.
+- No VOLUME claim from traffic or sign-up totals when actual useful completion/retention is weak.
+- No VENTURE claim without practical partnership evidence; do not surrender tenant/data/product authority.
+- No VIRAL readiness without load, failure-recovery, quota and economics proof; VENTURE is a chosen growth strategy, **not** a ban on organic referrals before partners.
+- No VARY/VERSATILE claim from speculative abstraction; material new use cases should re-enter VALID.
+- An owner-LOCKED philosophy is **not evidence that Kerani has passed VALID**; no fake maturity score, architecture confirmation, new implementation task or change to existing acceptance gates.
 
+### Before a major public launch
+
+1. Validate representative real customer problems through iterative pilot-use experiments.
+2. Show genuine experienced VALUE and, where available, user-verifiable VERBAL/VOUCH signals.
+3. Measure adoption/retention, cost per useful completion, time-to-value, quotas and AI/API latency.
+4. Prove event-neutral surge/load, monitoring, waitlist/backpressure and degraded fallback.
+5. Verify tenant/privacy boundaries and capacity/exit for any Venture partner.
+6. Demonstrate real Vary and transferable reuse before claiming Versatile.
+7. Decide public-event readiness from evidence, not the calendar or hype.
+
+---
 
 ## REAL-FIELD-EVIDENCE-FIRST EXECUTION PILOT
 
