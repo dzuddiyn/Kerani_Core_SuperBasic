@@ -242,6 +242,16 @@ User request: **AI business summary in Telegram → Buka Dashboard button → in
 
 **Only the candidate is recorded**, not an implementation slice or release promise. Existing D-057/L-047 Free deterministic Mini App remains first-class; basic Task/report/retrieval remains Free. Premium packs D-050/D-051 and Drive OAuth remain CANDIDATE. Refer to `../docs/KERANI_PREMIUM_BUSINESS_WORKSPACE_CANDIDATE.md` for proposed journey, experiment and STOP boundaries. Priority remains OpsMate PILOT_REAL handover → clean Agro Demo; return to this idea when real usefulness warrants a pilot, following the D-058 VALID-first philosophy.
 
+## Channel / storage / AI-policy / concurrency — D-060 CANDIDATE projection
+
+**Owner discussion 2026-10-22, ZASS-reviewed but NOT LOCKED.** Candidate user-choice model: one Kerani backend and tenant identity; WhatsApp onboarding welcome credit with proposed cost-reflective paid transport after expiry; Telegram as lower-overhead default; optional user-controlled Google Drive attachments/exports instead of assuming Drive is a live transactional database; ongoing minimal useful Free Core storage with paid capacity upgrades; provider-policy-compliant Free/Paid AI options; and concurrency-safe class-specific request control.
+
+**Trust boundary:** Existing D-016/D-017/D-018/D-020/D-023–D-030/D-052–D-055 LOCKED rules remain. In particular D-025's continuing controlled Free shared WhatsApp allocation may need formal supersession for a stronger paid-only-after-onboarding policy; D-055 prevents the removal of a useful Free baseline. Paid AI protections are contractual and conditional, not an unconditional privacy/SLA guarantee, and user consent cannot override API vendor bans on sensitive data.
+
+**Resilience challenge hypothesis:** Direct authorized indexed READ where safe; mutations with deterministic rule enforcement, confirmation if required, tenant scope, idempotency and evidence-based durability; AI calls with provider/tenant/global concurrency budgets, bounded retry/recovery and privacy-compliant fallback; background work with backpressure. Preserve real data correctness and truthful SAVE results during bursts. E-016/E-018 benchmarks must justify queue/database/AI provider choice; do not select any infrastructure from this projection.
+
+**Documentation:** `../docs/KERANI_CHANNEL_CLOUD_AI_RESILIENCE_ZASS_CANDIDATE.md`; master decision `D-060 CANDIDATE`; tracker KAI-8 BACKLOG. This projection has **NO** code, deployment, authenticated Drive connection, payment/AI invocation, implementation task or PRE-ARCH selection. This project does **not** include competitors or Claude trend discussions in D-060.
+
 ## Open assumptions / unresolved boundaries
 
 These remain open; this design projection does not resolve them:
@@ -263,6 +273,7 @@ These remain open; this design projection does not resolve them:
 15. **AI-first / hybrid active fallback UX trial** — D-056/Q-038/R-037: ordinary free text → bounded AI; explicit menu/form → deterministic; 429/5xx/quota/latency → constrained provider fallback and actionable Telegram deterministic form, while deterministic validation/authority remains universal.
 16. **Mini App entry point / UX / auth and hosting** — Q-039/R-038; **D-057/L-047 product/UI principle is LOCKED**, but menu button vs Main Mini App, exact v0.1 screens, auth integration test, Cloudflare Pages vs other HTTPS hosting and first rollout are still DESIGN/CHALLENGE candidates.
 17. **Premium Business Workspace UX** — **D-059 CANDIDATE, NOT LOCKED**: Chat produces a truthful, tenant-scoped textual summary plus contextual dashboard button; Web UI offers business-relevant interactive source-linked charts/tables/search and later bounded analytics. PWA Android entry needs separate browser auth; user-permitted Google Drive links ≠ Drive OAuth; tasks start with Kerani Task and any external task sync is deferred and authority-led. No feature-price/entitlement, PRE-ARCH, Google scopes, deployment or task execution is approved.
+18. **Modular cost / Drive / AI data policy / burst resilience** — **D-060 CANDIDATE, NOT LOCKED**: Q-040–Q-044; test official WhatsApp/BSP unit costs, trial-only channel credits vs D-025, permanent Free operational storage vs pay-for-extra cloud, tenant-owned Drive adapter, legal/provider-specific Free/Paid AI data terms and E-016/E-018 burst, queue, idempotency and privacy-safe fallback. No architecture/provider/pricing/Free-policy change implied.
 
 ## Evidence posture
 
