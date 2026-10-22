@@ -48,6 +48,18 @@ The product should stay lightweight, affordable and portable. Domain depth, rich
 7. Authoritative records can then be retrieved, summarised and reported.
 8. When a request crosses the Free boundary, Kerani should clearly surface the relevant Premium capability rather than silently failing.
 
+### Free Chat-First & user-created group — OWNER LOCKED D-061/L-049 (2026-10-23)
+
+**Free first user journey:** Begin with a 1-to-1 personal Telegram chatbot, not a supervised employee-group application or mandatory Mini App form. Business/company name is required at onboarding; backend assigns immutable Business ID and User ID with verified Telegram/user-to-tenant binding. Joining an existing Business ID requires a trusted invitation/verification path; a visible ID or membership in a group is not authorization.
+
+**Multiple active Free users in one business:** Show a bounded warning that independent reports may overlap, with tips for users to create their own Telegram group, invite the bot and explicitly address it. Do **not** scan/correlate separate workers' record content with AI, automatically dedup human-originated reports, or introduce Owner/Admin/Worker organizational roles into Free. The same Telegram update/retry must still have inexpensive transport idempotency; ordinary business validation is retained.
+
+**User-created group (not Kerani group administration):** Preferred `@KeraniBot rekod ...` and `@KeraniBot jana report ...` are **UNTESTED with default Privacy Mode ON**; official Telegram Bot FAQ only guarantees directed slash commands and replies. If plain mention fails, choose `/rekod@KeraniBot` / `/report@KeraniBot` (command auto-sends) → bot `ForceReply` prompt → user answers normally. Match replies by group, trusted user and prompt ID; authorize READ/MUTATE and show honest receipts. Do not quietly disable Privacy Mode or grant bot admin rights. Inline Mode draft/prefill is a distinct experiment, not the same plain-message route.
+
+**Required T01–T06 acceptance remains PENDING** (mention privacy ON/OFF, slash auto-send, ForceReply, two-worker reply routing, inline prefill comparative UX). Product direction is LOCKED; syntax choice, phone UX, group setup and all runtime claims await actual controlled test. **D-057/L-047 Mini App is still first-class deterministic Free UI**, but it is not required during the initial chat flow or a mandatory first-launch blocker. Premium coordinated-team workflows are future candidates, not Free obligations.
+
+**Lineage:** `../docs/KERANI_FREE_CHAT_GROUP_UX_D061.md`, master D-061/L-049; KAI-9.
+
 ### Telegram dual-surface UX — OWNER LOCKED D-057/L-047 (provider/implementation NOT LOCKED)
 
 - **Telegram Chat:** language-first interface; bounded AI assistance when useful, with the candidate AI-first free-text route in D-056.
@@ -72,8 +84,8 @@ Whether routing ownership, Durable Inbox usage and confirmation responsibility b
 
 | Layer | Current distilled truth |
 |---|---|
-| **Experience** | WhatsApp, Telegram chat, **Telegram Mini App as first-class deterministic Free UI (D-057/L-047 LOCKED)** and future interfaces are presentation surfaces/bindings, not Kerani tenant identity or separate Sources of Truth. |
-| **Identity & data** | One persistent tenant identity; tenant-isolated history; channel migration without data migration; user export rights preserved. |
+| **Experience** | **D-061/L-049 LOCKED:** Free personal Telegram chatbot first, with user-created group coordination *optional/UX untested*. **D-057/L-047 LOCKED:** first-class deterministic Free Mini App as a separate optional UI that follows chat launch sequencing, not a required form. WhatsApp and future interfaces are presentation/channel bindings only. |
+| **Identity & data** | Required business name, backend-assigned Business ID + User ID, verified membership and Telegram binding for Free (D-061/L-049); persistent tenant identity, tenant isolation, channel migration without data migration and export rights preserved. |
 | **Free Core** | Purchase · Sale · Inventory · Observation · Task · receipt input · basic retrieval · basic summaries/reports. |
 | **Domain modules** | Exactly three planned modules: Agro · Servis Teknikal · Makanan & Tempahan. |
 | **Premium domain solution** | OpsMate-grade validated operational workflows may require structured onboarding, domain contracts and controlled validation/persistence. |
@@ -274,6 +286,7 @@ These remain open; this design projection does not resolve them:
 16. **Mini App entry point / UX / auth and hosting** — Q-039/R-038; **D-057/L-047 product/UI principle is LOCKED**, but menu button vs Main Mini App, exact v0.1 screens, auth integration test, Cloudflare Pages vs other HTTPS hosting and first rollout are still DESIGN/CHALLENGE candidates.
 17. **Premium Business Workspace UX** — **D-059 CANDIDATE, NOT LOCKED**: Chat produces a truthful, tenant-scoped textual summary plus contextual dashboard button; Web UI offers business-relevant interactive source-linked charts/tables/search and later bounded analytics. PWA Android entry needs separate browser auth; user-permitted Google Drive links ≠ Drive OAuth; tasks start with Kerani Task and any external task sync is deferred and authority-led. No feature-price/entitlement, PRE-ARCH, Google scopes, deployment or task execution is approved.
 18. **Modular cost / Drive / AI data policy / burst resilience** — **D-060 CANDIDATE, NOT LOCKED**: Q-040–Q-044; test official WhatsApp/BSP unit costs, trial-only channel credits vs D-025, permanent Free operational storage vs pay-for-extra cloud, tenant-owned Drive adapter, legal/provider-specific Free/Paid AI data terms and E-016/E-018 burst, queue, idempotency and privacy-safe fallback. No architecture/provider/pricing/Free-policy change implied.
+19. **Telegram Group UX PROOF after D-061/L-049 OWNER LOCK:** T01 plain @mention Privacy ON, T02 Privacy OFF isolated, T03 slash command auto-send, T04 ForceReply targeted, T05 concurrent user/prompt routing with transport retry idempotency, T06 Inline Mode usefulness. All NOT TESTED; do not pretend product LOCK is a functional acceptance.
 
 ## Evidence posture
 
