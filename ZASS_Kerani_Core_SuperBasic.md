@@ -223,6 +223,7 @@ Nothing in this section is automatically approved.
 | I-014 | V1 central-control-plane candidate: Cloud Run + Firestore + Secret Manager + basic Cloud Logging/Monitoring, while Apps Script remains useful for Google Workspace/customer-edge integration. | Infrastructure discussion 2026-10-07 | CANDIDATE |
 | I-015 | Premium Operations Pack candidate: **Alert · Remind · Report · Ask** — IoT alert bridge, task reminder/push, scheduled report, and richer interactive query/retrieval. | Product/extraction discussion 2026-10-09 | CANDIDATE |
 | I-016 | Premium Intelligence Pack candidate: **Analysis · Correlation · Graph · Proposal · Forecast** over the tenant's structured history, with capability pricing/credit use derived from measured cost and user value. | Product discussion 2026-10-09 | CANDIDATE |
+| I-017 | Modular channel credits, tenant-owned document storage, extra Kerani Cloud, data-policy-aware Free/Paid AI routing and multi-tenant concurrency resilience, without changing the one Kerani backend or permanent Free Core promise. | Owner discussion 2026-10-22 | CANDIDATE — D-060 |
 
 ---
 
@@ -269,6 +270,11 @@ Nothing in this section is automatically approved.
 | Q-037 | Where must authorization/scope be enforced between channel identity, tool routing and data access? | Tenant identity alone does not prove permission; the challenge must prevent AI/tool arguments from becoming authority and prove fail-closed tenant isolation. | OPEN |
 | Q-038 | Can AI-first free text + deterministic-first explicit interactions + hybrid active fallback give better Verbal UX and latency than deterministic-first language matching without uncontrolled Free AI use? | Owner's 2026-10-12 trial preference is not yet field evidence; models, early acknowledgement/chunking, quota, provider fallback and Telegram forms should be judged against OpsMate evidence and real language. | OPEN — owner-selected challenge hypothesis |
 | Q-039 | Which Telegram Mini App entry point, UI scope, auth binding and hosting path deliver a genuinely usable AI-independent structured experience without duplicating business logic or obstructing the Agro demo? | D-057/L-047 fixes the product surface principle; menu button vs Main Mini App, Cloudflare Pages, web session security and exact screen build remain unproven. | OPEN — DESIGN/TEST detail |
+| Q-040 | Can one-time WhatsApp welcome credit plus metered transport coexist with D-025's shared-WA discovery Free allowance while keeping channel-neutral paid AI pricing? | The proposed no-recurring-Free-WA policy may require explicit owner supersession and official Meta/BSP unit costs. | OPEN — D-060 CANDIDATE |
+| Q-041 | Which minimal tenant operational record store must remain always accessible, and which receipt/media/export/backup content may optionally reside in user-owned Drive? | Avoids using Drive as unproven hot OLTP, hidden dual SoT, and an unusable Free Core after a cloud trial. | OPEN — D-060 CANDIDATE |
+| Q-042 | Which real AI Free/Paid provider terms, data classes, retention/training conditions and fallback authorizations are acceptable for confidential SME data? | User consent cannot override provider restrictions; paid does not automatically mean zero-retention. | OPEN — D-060 CANDIDATE |
+| Q-043 | Which class-based request admission, fair concurrency, durable write/receipt, AI rate limiting and overload controls pass E-016/E-018 for many simultaneous tenants? | Prevents slow AI/providers or one heavy tenant from blocking core reads or corrupting writes. | OPEN — D-060 CANDIDATE |
+| Q-044 | What permanent Free storage baseline, paid-cloud/transport/AI credit units, trial expiry and refund semantics prove sustainable without coercive data lock-in? | Preserves LOCKED Free/portability promises and protects cost ledger under failures. | OPEN — D-060 CANDIDATE |
 
 ---
 
@@ -314,6 +320,11 @@ Nothing in this section is automatically approved.
 | R-036 | Identity resolved but authorization scope not enforced at tool/data boundary | A valid user/tenant binding could still access another tenant/resource if AI arguments or downstream queries are trusted without re-checking scope. | Use trusted context for tenant/user authority; fail closed; re-check scope before protected tool execution and deterministic data access; test cross-tenant denial for READ and MUTATE. | OPEN | Model/tool arguments can select another tenant/resource or a retrieval query returns data outside the caller's authorized scope. |
 | R-037 | AI-first language UX degrades under Free-model latency, rate limits or unreliable tool results; weak deterministic fallback feels like a dead end | Verbal UX loses trust, users repeat or abandon requests, AI calls multiply, or incomplete tool plans are presented as completed writes. | Bounded AI-first free-text calls, early truthful Telegram acknowledgment, active failover within budget and time box, inline-keyboard/ForceReply/manual fallback, verified tool receipts and D-015 mutation gates. | OPEN | P95/P99 spikes, 429/5xx retry loops, form abandonment, unbounded model invocations or false success. |
 | R-038 | Mini App front-end identity, validation or data handling bypasses tenant/business authority | Spoofed Telegram context, cross-tenant reads, duplicate commits or inconsistent Chat/Mini App history can corrupt trust. | Backend verifies Telegram WebApp initData using bot-token signature/expiry, maps a trusted tenant/session, enforces permission server-side on every API call, uses the same business contracts/validation/idempotency/audit, and tests cross-tenant/replay rejection. | OPEN | Browser-provided initDataUnsafe/tenant IDs accepted as authority; UI directly writes records without Core gate; chat and Mini App diverge. |
+| R-039 | Welcome credits expire and customer business records become inaccessible/deleted | Violates lasting Free usefulness, export rights and trust. | Preserve small durable Core Free baseline, clear quota/retention and non-destructive upgrade/export path; charge for additional capacity, not record hostage-taking. | OPEN | Post-trial customer cannot retrieve/export saved basic records. |
+| R-040 | Free AI provider data policy/training or fallback violates confidentiality | Sensitive tenant info leaks or terms/privacy obligations are violated even with a generic consent checkbox. | Classify/redact/limit data, validate each provider tier's live terms, consent where appropriate, fail closed to deterministic route; never auto-route confidential payload to unsuitable Free API. | OPEN | Unrestricted raw customer records sent to a Free endpoint or a retry changes privacy terms silently. |
+| R-041 | Concurrent load stalls database and AI provider, amplifying retries and duplicates | Customers lose trust, experience P95 spikes, data integrity fails and token spend runs away. | Tenant/global admission limits, direct protected READ, class-specific durable mutation, idempotency receipts, provider-aware budgets/fairness and E-016/E-018 multi-tenant fault drills. | OPEN | Unbounded queue, 429/5xx storms, duplicate authoritative writes, missing save receipts. |
+| R-042 | Customer-owned Drive becomes an unbounded live database/sync authority | Revoked OAuth, quota/hotspot and stale files corrupt operational state or degrade access. | Keep backend authoritative contracts, treat Drive as optional scoped attachment/export adapter, test disconnect/restore/migration and permission revocation. | OPEN | A document move in Drive silently changes live transaction truth, or record access fails on Drive outage. |
+| R-043 | Multi-dimensional credits are impossible for a small SME to understand | Confusing pricing, failed-charge disputes and users abandon onboarding. | Simple Telegram+Free defaults, itemized transport/storage/AI entitlements and clear cost-before-action, refund/pending receipt tests with real pilots. | OPEN | Failed AI calls charged as delivered, inconsistent balances or pricing questions prevent first useful record. |
 
 ---
 
@@ -1827,6 +1838,37 @@ Retain prior V-Gates such as **Vision, Vocabulary, Vibe, Veracity, Validation, V
 
 ---
 
+## D-060 — Modular Cost, Tenant Drive, AI Data Policy and Concurrent Resilience
+**Status:** **CANDIDATE — ZASS REVIEWED, NOT LOCKED**  
+**Owner direction:** 2026-10-22 — discuss, ZASS, save and commit concept; **no PRE-ARCH, provider, pricing or implementation LOCK**.
+
+**Owner proposals (DUMP):**
+- One Kerani backend/tenant identity regardless of WhatsApp, Telegram, Google Drive and AI API choices.
+- Trial WhatsApp credits at onboarding, then cost-reflective paid WhatsApp transport; Telegram remains the economic channel.
+- Optional use of tenant-owned Google Drive, with additional hosted Kerani Cloud storage paid; avoid forcing every user into a large hosted plan.
+- Free AI vs Paid AI as transparent opt-in data/processing/quality choices with provider-specific terms; avoid unnecessary charges while keeping legitimate data safe.
+- Database + AI API must not jam under large simultaneous tenant access; no lost/duplicated business records or silent AI failure.
+
+**Distilled preferred challenge direction (NOT selected architecture):**
+1. **Separate transport/channel credits from channel-neutral AI capability credits.** Validate Meta/BSP provider-specific billable events, actual cost/markup, welcome allowance and account migration. **D-025 remains LOCKED**; a full end to ongoing shared WhatsApp Free could need an explicit owner commercial-policy supersession.
+2. **Separate minimal authoritative operational data from optional file/document storage.** Keep tenant-linked hot transactional records, authorization, ids, audit, idempotency and query indexes behind one Kerani Core contract. Explore user Drive for receipts, documents, export and backup, not as an assumed concurrent database replacement. OAuth is unapproved and must be challenged.
+3. **Keep permanent useful Free records and basic access.** A cloud onboarding bonus may expire, but a model with no durable Free base after trial contradicts D-016/D-020/D-024/D-055 and D-018 portability. Paid Kerani Cloud adds justified storage/retention/media capacity; exact units and policy OPEN.
+4. **AI privacy and cost choice is governed by actual provider terms.** Free AI eligibility depends on tier/endpoint and the nature of submitted data; a blanket “agree to training” checkbox cannot override provider prohibitions on confidential/personal/sensitive information. Paid API protections and data residency/retention must be contract-specific, not assumed. If no compliant AI route is available, remain truthful and provide deterministic Free functions.
+5. **Classify load, not all requests alike.** Direct, authorised basic READ should avoid avoidable queue/AI latency. Mutation operations use scoped validation, consent when relevant, durable admission/receipt when evidenced, idempotency and reconciliation. AI requests use provider/tenant concurrency and token budgets, deadline/backoff, safe permitted fallback and bounded background work; protective backpressure and monitoring prevent cascading stall.
+6. **VALID-first commercialization:** Trial one understandable set of options with real users; measure cost per useful record, consent/privacy comprehension, P50/P95/P99, outage/replay data correctness and unit economics before commercial or architecture LOCK.
+
+**Alternatives rejected as default assumptions:** all-inclusive compulsory paid subscription; Drive as the universal live transactional database; universal queue for every GET/READ; deleting or blocking basic customer records when trial ends; routing all customer confidential data to Free AI solely on blanket consent; charging a failed AI request as a delivered result.
+
+**Must preserve:** D-016/017/018/020/023/024/025/027/029/030/052/053/054/055/057 (LOCKED); D-050/051/056/059 (CANDIDATE). This review does **not** silently supersede any L-xxx. E-016/E-018 and new Q-040–Q-044 / R-039–R-043 remain OPEN.
+
+**Evidence/extended analysis:** `docs/KERANI_CHANNEL_CLOUD_AI_RESILIENCE_ZASS_CANDIDATE.md`; Linear `KAI-8` (BACKLOG).
+
+**Explicit exclusion:** No Claude, agent industry trend, competitors, Krani.ai or trademark discussion is included in this ZASS decision.
+
+**Execution status:** Documented only, no customer data, paid transaction, AI provider call, Drive authorization, database/queue/service change, benchmark receipt or deployed feature.
+
+---
+
 # 13. LOCKED DECISIONS
 
 This section is authoritative. Architecture and implementation must not contradict these records.
@@ -3198,6 +3240,13 @@ Therefore:
 ---
 
 # PROJECT ZASS CHANGELOG
+
+## 2026-10-22 — ZASS D-060 modular channel/cloud/AI-resilience review saved as CANDIDATE
+
+- Captured owner propositions for trial-only WhatsApp welcome credit then metered WA transport, economical Telegram, optional customer-owned Drive, paid extra Kerani Cloud, controlled Free/Paid AI data terms and safe multi-tenant database/API concurrency.
+- Registered **I-017, Q-040–Q-044, R-039–R-043, D-060 CANDIDATE** and detailed `docs/KERANI_CHANNEL_CLOUD_AI_RESILIENCE_ZASS_CANDIDATE.md`; tracking KAI-8.
+- Preserved LOCKED Free usefulness and old WhatsApp quota terms; no silent commercial supersession, provider choice, PRE-ARCH/implementation, actual pricing, test PASS or product maturity increase.
+- Explicitly excluded Claude/industry news and competitor/brand-name discussion, which must be handled separately.
 
 ## 2026-10-19 — Premium Business Workspace recorded as PRODUCT/UX CANDIDATE (NOT LOCKED)
 
