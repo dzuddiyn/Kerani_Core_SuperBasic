@@ -63,6 +63,7 @@ The pre-migration Action Plan is preserved below without semantic rewrite. This 
 - SuperBasic constrained natural-language intake is allowed only as: intent suggestion → candidate/confidence → clarification if needed → preview → human confirmation → deterministic domain validation → authoritative record.
 - **D-056 owner-selected CHALLENGE trial (not PRE-ARCH):** ordinary free text should try bounded AI-first tool interpretation; explicit form/menu/selected structured action should bypass AI; model failure/429/5xx/quota/slow response triggers **hybrid active fallback** (bounded alternate model where worthwhile, then Telegram deterministic form/manual path). Always-on deterministic authority/validation remains non-negotiable. Optimise AI latency and safe Telegram acknowledgement/chunked progress before revisiting model/provider/routing.
 - **D-057/L-047 OWNER LOCK (2026-10-16):** Telegram Mini App is a **first-class thin deterministic Free Core UI**, not just an emergency fallback, coexisting with conversational Telegram chat. Both must share authoritative tenant mapping, protected business API, validation/confirmation, idempotency, audit and data records; backend must verify Telegram WebApp signed initData and never trust initDataUnsafe/browser user/tenant claims. The exact screens, hosting, Telegram entry point and PRE-ARCH remain OPEN.
+- **D-061/L-049 OWNER LOCK (2026-10-23):** Free first launch prioritises **1:1 personal chat** and required business name/Business ID/User ID with verified membership; other Free workers in same company get a **warning only** about independent report overlaps, **NO semantic duplicate comparison**. User-created Telegram group may be linked to the same tenant without OpsMate admin/role complexity. Preferred `@KeraniBot ...` is **UNVERIFIED**, so test Telegram Privacy ON and use `/command@KeraniBot → targeted ForceReply → natural reply` if required. All six synthetic UX tests T01–T06 are PENDING. D-057 Mini App remains first-class optional UI but not a mandatory chat form or initial chat release blocker. No product-code task or Telegram bot run is authorised by this documentation note.
 - Treat ambiguous input as a clarification test case; never reward the agent for guessing.
 - Reject module work that creates special-case branching or Apps Script spaghetti.
 - Do not treat source-file layout as architecture.
@@ -690,6 +691,25 @@ Do not treat OpenClaw as a control-plane option. D-032/E-013 keeps OpenClaw as a
 **Gate / next allowed planning, not execution:** (1) OpsMate PILOT_REAL handover and stable proof baseline; (2) independent clean Agro Demo without BSE secrets/data; (3) assess Mini App delta-only feasibility and integration against existing proven business contracts; (4) pursue one lightweight UI slice only if explicitly authorised and no added blocker to Wan/Hamidun demonstration. Verify server-side Telegram `initData` authentication, tenant isolation, role/scope, CSRF/session considerations, confirmation/idempotency and true persisted write receipts; test no-AI completion when provider is off. Capture P50/P95 and usability feedback. **No new ready atomic task or runtime deployment is created here.**
 
 **Reference:** `../ZASS_Kerani_Core_SuperBasic.md` D-057/L-047, Q-039/R-038; `../ZASSIMPLE/DESIGN.md`. E-016 still uses four active control-plane candidates and reuses OpsMate evidence rather than repeating Purchase workflows.
+
+### Free personal chatbot first — D-061/L-049 LOCKED scope, Telegram group UX PROOF PENDING (2026-10-23)
+
+**Scope:** A small 1:1 Free chat product with durable business/user ID onboarding and minimum tenant/actor security. Multi-Free-user shared-company overlap receives a lightweight informational warning plus user group/tips; no AI report-content cross-worker comparison, automatic merge or workflow approval. User-created group must not imply Kerani manages organizations or opens tenant data to everyone knowing a group link/Business ID. Maintain technical update/retry idempotency and honest persistence receipts.
+
+**UX experiment gate — NOT EXECUTED:**
+
+| Proof | Synthetic procedure (future only) | State |
+|---|---|---|
+| T01 | Plain `@KeraniBot rekod ...` and `@KeraniBot jana report ...` in ordinary group, Privacy ON, verify actual received Telegram update | NOT TESTED |
+| T02 | Same mention in isolated Privacy OFF fixture, compare privacy exposure; no automatic change to production Privacy Mode/admin privileges | NOT TESTED |
+| T03 | Slash command chooser `/rekod@KeraniBot` / `/report@KeraniBot`, verify it sends command automatically and bot receives it | NOT TESTED |
+| T04 | Bot's targeted `ForceReply` opens native Reply composer and receives the worker's record/report request with Privacy ON | NOT TESTED |
+| T05 | Two workers initiate separate prompts/replies concurrently, verify group/user/message correlation, authorization and same-update idempotency | NOT TESTED |
+| T06 | Compare Inline Mode prefill with simple ForceReply, count steps/accuracy/latency, keep only if easier | NOT TESTED |
+
+**No new ready atomic task, bot credential, group setup, implementation or PRE-ARCH approval is created here.** Before executing trials, obtain separate approval and prepare non-production bot/group/account fixtures. A Telegram documentation-based expectation is NOT a runtime PASS. Prefer `@mention` only if it works under approved simple privacy settings; otherwise choose the tested slash→ForceReply path. **Do not delete or demote D-057/L-047 Mini App LOCK**: it remains a first-class deterministic Free UI surface when developed, not a form required for chatting.
+
+**Reference:** `../docs/KERANI_FREE_CHAT_GROUP_UX_D061.md`; `../ZASS_Kerani_Core_SuperBasic.md` D-061/L-049; Linear KAI-9.
 
 ### Public reference evidence — Talorys / Cloudflare Free / Google Free (2026-10-12)
 
