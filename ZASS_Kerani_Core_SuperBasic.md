@@ -225,6 +225,8 @@ Nothing in this section is automatically approved.
 | I-016 | Premium Intelligence Pack candidate: **Analysis · Correlation · Graph · Proposal · Forecast** over the tenant's structured history, with capability pricing/credit use derived from measured cost and user value. | Product discussion 2026-10-09 | CANDIDATE |
 | I-017 | Modular channel credits, tenant-owned document storage, extra Kerani Cloud, data-policy-aware Free/Paid AI routing and multi-tenant concurrency resilience, without changing the one Kerani backend or permanent Free Core promise. | Owner discussion 2026-10-22 | CANDIDATE — D-060 |
 
+| I-018 | Free personal-chat bot first; simple Business/User IDs; warn if multiple active Free users of same company may overlap; let users create their own group and call KeraniBot without an OpsMate-style group workflow. | Owner approval 2026-10-23 | LOCKED product/UX — D-061/L-049; delivery details TEST PENDING |
+
 ---
 
 # 6. QUESTIONS / UNKNOWNS
@@ -276,6 +278,11 @@ Nothing in this section is automatically approved.
 | Q-043 | Which class-based request admission, fair concurrency, durable write/receipt, AI rate limiting and overload controls pass E-016/E-018 for many simultaneous tenants? | Prevents slow AI/providers or one heavy tenant from blocking core reads or corrupting writes. | OPEN — D-060 CANDIDATE |
 | Q-044 | What permanent Free storage baseline, paid-cloud/transport/AI credit units, trial expiry and refund semantics prove sustainable without coercive data lock-in? | Preserves LOCKED Free/portability promises and protects cost ledger under failures. | OPEN — D-060 CANDIDATE |
 
+| Q-045 | Can `@KeraniBot rekod ...` and `@KeraniBot jana report ...` reach Kerani reliably in a normal user-created Telegram group with Privacy Mode ON? | Default Telegram privacy restricts visibility; natural @mention delivery is not a guaranteed command route. | OPEN — T01/T02 mandatory |
+| Q-046 | Does slash-command auto-send followed by targeted `ForceReply` provide a natural single-reply data entry UX without switching off Privacy Mode? | Owner observed direct command sending is clumsy; native command-menu draft-only mode is not a Bot API promise. | OPEN — T03/T04 |
+| Q-047 | Can separate workers' concurrent group replies be matched to trusted user/group/bot-prompt context without role hierarchy or semantic dedup? | A simple Free group must not mix workers, expose tenant records or duplicate the same transport update. | OPEN — T05 |
+| Q-048 | Does Inline Mode prefill improve group UX enough to justify the extra inline-results interaction? | Avoids new complexity merely to fill text without auto-send. | OPEN — T06 |
+
 ---
 
 # 7. RISKS & FAILURE SCENARIOS
@@ -325,6 +332,11 @@ Nothing in this section is automatically approved.
 | R-041 | Concurrent load stalls database and AI provider, amplifying retries and duplicates | Customers lose trust, experience P95 spikes, data integrity fails and token spend runs away. | Tenant/global admission limits, direct protected READ, class-specific durable mutation, idempotency receipts, provider-aware budgets/fairness and E-016/E-018 multi-tenant fault drills. | OPEN | Unbounded queue, 429/5xx storms, duplicate authoritative writes, missing save receipts. |
 | R-042 | Customer-owned Drive becomes an unbounded live database/sync authority | Revoked OAuth, quota/hotspot and stale files corrupt operational state or degrade access. | Keep backend authoritative contracts, treat Drive as optional scoped attachment/export adapter, test disconnect/restore/migration and permission revocation. | OPEN | A document move in Drive silently changes live transaction truth, or record access fails on Drive outage. |
 | R-043 | Multi-dimensional credits are impossible for a small SME to understand | Confusing pricing, failed-charge disputes and users abandon onboarding. | Simple Telegram+Free defaults, itemized transport/storage/AI entitlements and clear cost-before-action, refund/pending receipt tests with real pilots. | OPEN | Failed AI calls charged as delivered, inconsistent balances or pricing questions prevent first useful record. |
+
+| R-044 | Overbuilt Free group semantics recreate OpsMate complexity | Free needs roles, AI semantic dedup and approvals, causing cost/latency spikes and user friction. | Keep 1:1 bot as Free first, warning-only multiple-Free overlap, optional user-created group, no cross-worker content matching. | OPEN | New group admin/AI dedup introduced as Free dependency. |
+| R-045 | Plain @mention assumed to reach privacy-enabled Telegram bot | Bot silently misses reports and users believe data was stored. | Treat @mention as unverified; T01/T02 actual update receipts, verified fallback slash command → ForceReply; honest acknowledgement. | OPEN | Mention generates no update but UI implies successful save. |
+| R-046 | Business ID or group membership treated as permission | A guessed ID or unauthorized group member can view/write another tenant's data. | Verified user↔Business ID association, consented group binding, server-side read/write scope checks, no role hierarchy requirement. | OPEN | Anyone knowing an ID or joining group can retrieve company records. |
+| R-047 | Two users' group replies/retries are routed to wrong action or create duplicate effects | Concurrent prompts cross wires and authoritative data becomes corrupt. | Scoped chat/user/reply-to-message ID matching, TTL/validity and transport-event idempotency; retain normal approval/validation as needed. | OPEN | Worker A's reply saved for worker B or same Telegram update double-commits. |
 
 ---
 
@@ -1869,6 +1881,31 @@ Retain prior V-Gates such as **Vision, Vocabulary, Vibe, Veracity, Validation, V
 
 ---
 
+## D-061 — Free Chat-First, Business/User Identity & User-Created Telegram Group
+
+**Status: LOCKED — OWNER-APPROVED PRODUCT/UX SCOPE & PROOF GATE (NOT PRE-ARCH)**  
+**Owner approval:** 2026-10-23.  
+**Scope:** Kerani AI Free launch sequencing, registration, lightweight group coordination and supported/unverified Telegram UX boundaries. **NOT** a guarantee that a plain `@mention` works or that a Telegram bot has been tested.
+
+**Decision:**
+
+1. **Free = personal chat bot first**, with basic Purchase/Sale/Inventory/Observation/Task/retrieval/report workflows and ordinary tenant-scoped business validation. Avoid OpsMate group management complexity in Free. Telegram Mini App D-057/L-047 **remains LOCKED as a first-class deterministic Free surface**, but is not a mandatory form or launch-blocking prerequisite for initial personal chat; separate follow-up slice.
+2. **Mandatory onboarding:** business/company name, backend-assigned durable Kerani Business ID and Kerani User ID, bind trusted Telegram user identity. More Free users may be affiliated with the same Business ID via a verified enrollment/invite; knowing an ID or being in a group **never authorizes access by itself**. No default hierarchy of Owner/Admin/Supervisor/Worker in Free.
+3. **Free multi-user overlap:** when backend knows *more than one verified active Free user* for the same Business ID, show a simple, non-blocking warning about possible independent duplicate reports and tips to create their own Telegram group, add bot and address it explicitly. **Do not perform AI/semantic comparison or automatic reconciliation/merge/discard between separate workers' reports.** Preserve cheap **transport retry / same-update idempotency** and record validation for ALL tiers.
+4. **User-created group:** User creates and administers normal Telegram group, optionally adds KeraniBot; Kerani only securely binds a permitted Telegram Group ID to the Business ID and checks each actor's right to request or disclose reports. It does not create groups, manage company roles or need all group messages as default.
+5. **Preferred UX to prove:** `@KeraniBot rekod Baja out N M1P12 1 set` and `@KeraniBot jana report bulan ni`. **NOT TESTED / NOT GUARANTEED under Privacy Mode ON**; Telegram official FAQ confirms `/command@bot` and replies, but does not establish reliability of plain mentions for bot update delivery. Do not claim PASS or quietly switch Privacy Mode OFF/elevate group admin.
+6. **Fall back if mention fails:** user selects `/rekod@KeraniBot` or `/report@KeraniBot` from Telegram command menu (command is sent) → bot sends targeted `ForceReply` prompt such as “Balas mesej ini untuk rekod/report” → user replies in natural text. A normal slash-command menu is not known to offer native *compose-only without send*; Inline Mode prefill is an optional separate experiment, not a locked solution.
+7. **Concurrency safety without semantic dedup:** group/chat ID + trusted Telegram user ID + bot prompt/reply-to-message ID + bounded request state route each user's reply; normal tenant scope, validation, auditable receipt and same-transport-event idempotency remain mandatory. This is low-level correctness, **not Premium team reconciliation**.
+8. **Premium boundary:** company/team roles, coordinated worker approvals, semantically detecting equivalent reports, automatic reconciliation and larger group operations are outside Free baseline, future Premium/domain **CANDIDATES** only (not automatically required or priced by this LOCK).
+
+**Mandatory proof BEFORE actual group UX selection or deployment:** T01 privacy-ON plain mention; T02 privacy-OFF isolated comparative test (never default silent change); T03 native slash auto-send and delivery; T04 `ForceReply` targeted privacy-ON; T05 two users' concurrent replies and update retry idempotency/tenant rights; T06 Inline Mode UX vs ForceReply. Record real Telegram/client/update receipts and FAIL/NOT TESTED candidly. No tests are reported as PASS by this documentation LOCK.
+
+**Compatibility / authority:** D-015 (record/confirmation/validation gates), D-016 (Free record utility), D-023 (independent Business ID), D-052 (timing), D-055/L-046 (Free no-AI), D-057/L-047 (Free Mini App), D-059 and D-060 (candidate only). This LOCK does not select runtime/database, pricing, credentials, API, bot Privacy Mode, domain role model or PRE-ARCH, and does not start implementation.
+
+**Evidence:** `docs/KERANI_FREE_CHAT_GROUP_UX_D061.md`; Telegram official Bot FAQ/Features/Bot API ForceReply; Linear `KAI-9`.
+
+---
+
 # 13. LOCKED DECISIONS
 
 This section is authoritative. Architecture and implementation must not contradict these records.
@@ -2187,6 +2224,14 @@ This section is authoritative. Architecture and implementation must not contradi
 **Supersedes:** L-041 / D-048 (historical 7V; D-047/L-040 4V already superseded)
 
 ---
+
+## L-049
+**Source Decision:** D-061  
+**Status:** LOCKED — PRODUCT/UX SCOPE AND TEST-GATE ONLY  
+**Decision:** Free personal chatbot FIRST; require Business name, backend-assigned Business ID + User ID with verified tenant membership, no Free role hierarchy; more than one active Free user per business triggers only a warning of possible independent report overlap (no AI semantic dedup). Users may create their own Telegram group and add the bot; a plain `@KeraniBot` natural command is the preferred **UNTESTED** group UX, with `/command@KeraniBot → targeted ForceReply → natural Reply` as supported fallback to verify in synthetic trials T01–T06. Preserve same-update idempotency, tenant authorization, and D-057 first-class Free Mini App as optional following UI, NOT mandatory chat form. No actual group/Telegram test passed and no PRE-ARCH/provider/premium-team implementation selected.  
+**Locked by:** Project Owner  
+**Date:** 2026-10-23  
+**Supersedes:** None; D-057/L-047 unchanged.
 
 # 14. REJECTED IDEAS
 
@@ -3240,6 +3285,13 @@ Therefore:
 ---
 
 # PROJECT ZASS CHANGELOG
+
+## 2026-10-23 — D-061/L-049 Free chat first + user-created group UX owner LOCK
+
+- Owner LOCKED a small Kerani Free personal bot; business/user ID onboarding and verified membership, warning-only when one business has multiple active Free users. No cross-worker semantic duplicate scanning/merging or Free admin-role/group workflow.
+- User-created Telegram group is the optional coordination idea. Preferred ordinary `@KeraniBot` command remains **UNTESTED**, fallback `/command@KeraniBot → ForceReply → reply` awaits synthetic T01–T06; no forced privacy-OFF or bot group admin setting.
+- Telegram Mini App D-057/L-047 remains first-class deterministic Free capability, but is **not a mandatory form or blocker** for first Free chat launch. No architecture PRE-ARCH, bot runtime, API credential, code, deployment or functional PASS claimed.
+- D-061/L-049 plus I-018, Q-045–Q-048, R-044–R-047 and dedicated `docs/KERANI_FREE_CHAT_GROUP_UX_D061.md` tracked in Linear KAI-9.
 
 ## 2026-10-22 — ZASS D-060 modular channel/cloud/AI-resilience review saved as CANDIDATE
 
