@@ -226,6 +226,7 @@ Nothing in this section is automatically approved.
 | I-017 | Modular channel credits, tenant-owned document storage, extra Kerani Cloud, data-policy-aware Free/Paid AI routing and multi-tenant concurrency resilience, without changing the one Kerani backend or permanent Free Core promise. | Owner discussion 2026-10-22 | CANDIDATE — D-060 |
 
 | I-018 | Free personal-chat bot first; simple Business/User IDs; warn if multiple active Free users of same company may overlap; let users create their own group and call KeraniBot without an OpsMate-style group workflow. | Owner approval 2026-10-23 | LOCKED product/UX — D-061/L-049; delivery details TEST PENDING |
+| I-019 | RekodUntung.ai as the primary next **candidate brand name** to investigate; keep Kerani AI / existing repository unchanged, do not rebrand or LOCK until MyIPO and domain verification and explicit owner go/no-go. | Owner approval 2026-10-23 | PRIMARY NAME CANDIDATE — D-062, NOT BRAND LOCK |
 
 ---
 
@@ -282,6 +283,9 @@ Nothing in this section is automatically approved.
 | Q-046 | Does slash-command auto-send followed by targeted `ForceReply` provide a natural single-reply data entry UX without switching off Privacy Mode? | Owner observed direct command sending is clumsy; native command-menu draft-only mode is not a Bot API promise. | OPEN — T03/T04 |
 | Q-047 | Can separate workers' concurrent group replies be matched to trusted user/group/bot-prompt context without role hierarchy or semantic dedup? | A simple Free group must not mix workers, expose tenant records or duplicate the same transport update. | OPEN — T05 |
 | Q-048 | Does Inline Mode prefill improve group UX enough to justify the extra inline-results interaction? | Avoids new complexity merely to fill text without auto-send. | OPEN — T06 |
+| Q-049 | Is RekodUntung or a confusingly similar mark already registered, applied for or otherwise in use for relevant Malaysia products/services? | Avoid premature brand adoption, legal disputes and user confusion. | OPEN — Official MyIPO/similarity assessment required before brand LOCK |
+| Q-050 | Is rekoduntung.ai genuinely registrable today, with sustainable renewal pricing, and do suitable backup TLDs/handles exist? | Availability is a live registrar fact, not inferred from a lack of search results. | OPEN — Domain registrar/registry READ verification before brand LOCK |
+| Q-051 | Does the name RekodUntung imply a profit calculation or guaranteed profit that the currently locked Free product does not provide? | Product UX/marketing must communicate recordkeeping first and avoid unsupported claims. | OPEN — User comprehension / truthful claim gate |
 
 ---
 
@@ -337,6 +341,8 @@ Nothing in this section is automatically approved.
 | R-045 | Plain @mention assumed to reach privacy-enabled Telegram bot | Bot silently misses reports and users believe data was stored. | Treat @mention as unverified; T01/T02 actual update receipts, verified fallback slash command → ForceReply; honest acknowledgement. | OPEN | Mention generates no update but UI implies successful save. |
 | R-046 | Business ID or group membership treated as permission | A guessed ID or unauthorized group member can view/write another tenant's data. | Verified user↔Business ID association, consented group binding, server-side read/write scope checks, no role hierarchy requirement. | OPEN | Anyone knowing an ID or joining group can retrieve company records. |
 | R-047 | Two users' group replies/retries are routed to wrong action or create duplicate effects | Concurrent prompts cross wires and authoritative data becomes corrupt. | Scoped chat/user/reply-to-message ID matching, TTL/validity and transport-event idempotency; retain normal approval/validation as needed. | OPEN | Worker A's reply saved for worker B or same Telegram update double-commits. |
+| R-048 | Rebrand before MyIPO/domain clearance | A mark/domain collision creates legal cost, broken links and sunk design work. | Keep only PRIMARY NAME CANDIDATE D-062; official mark/similarity + live registrar checks and owner approval first; no rename, handle, domain or product identity change. | OPEN | Internal draft treated as name LOCK or domain shown as owned. |
+| R-049 | Name RekodUntung makes users expect computed profit or a guaranteed business outcome | Free Core records operations but may lack inputs for accurate net profit; marketing overpromises. | Separate proposed brand meaning from demonstrated Free scope; test user interpretation and truthful copy before launch. | OPEN | Public copy guarantees profitability or validated accounts without evidence. |
 
 ---
 
@@ -1906,6 +1912,30 @@ Retain prior V-Gates such as **Vision, Vocabulary, Vibe, Veracity, Validation, V
 
 ---
 
+## D-062 — RekodUntung.ai Primary Brand Name Candidate (NO REBRAND)
+
+**Status:** **PRIMARY NAME CANDIDATE — NOT LOCKED / NOT DECIDED BRAND IDENTITY**  
+**Owner approval:** 2026-10-23 **to promote candidate, save documentation and commit only**.  
+**STOP:** **Do not rename, rebrand or otherwise migrate `dzuddiyn/Kerani_Core_SuperBasic`, production bot/product identity, code, package, deployment, domains, usernames or external marketing until MyIPO and domain clearance and later explicit owner approval.** No L-050/brand LOCK is created by this decision.
+
+**Candidate ranking:** `RekodUntung.ai` is the leading name to investigate as a future brand for the current Kerani AI product. This promotion is not proof of registrable domain ownership, trademark safety, user preference or actual profitability calculations. Prior brainstorming options (MudahKiraUntung.ai, KiraUntung.ai, MudahUntung.ai, SenangUntung.ai, RekodMudah.ai) are historical alternatives, not an approved naming change or legal clearance.
+
+**User-value rationale:** The Malay words `Rekod` (the Free chatbot's basic recording/retrieval tasks) and `Untung` (the entrepreneur's hoped-for benefit) make the purpose easier to grasp than names focused on “AI”/“chat”. However Free Core's D-016/D-061 Purchase/Sale/Inventory/Observation/Task and basic reports are **not a guarantee of net-profit accounting or positive financial outcomes**.
+
+**Brand collision concern:** Kerani AI / Krani.ai naming proximity triggered reconsideration, and other adjacent `KiraUntung` naming was noted in earlier conversation. These are **unverified brand-risk signals**, not MyIPO trademark findings or definitive legal conclusions.
+
+**Must complete before requesting a BRAND LOCK:**
+1. **G1 MyIPO:** current official search of exact/close marks, relevant classes/owners/status and similarity; escalate to qualified trademark review where needed.
+2. **G2 Domain:** live registrar availability and ownership/renewal pricing for `rekoduntung.ai`; optional compatible `.my`/`.com.my` and handle alternatives.
+3. **G3 Product truth and market confusion:** assess near-name competitors and test whether Malaysian micro-SMEs understand it as recordkeeping rather than a promised profit calculation.
+4. **G4 Explicit owner decision:** return evidence for GO/NO-GO. **Only then** consider name LOCK and separately approved migration/branding actions.
+
+**Allowed scope of this GitHub session:** add a documentation candidate note, record D-062 and optional ZASSIMPLE candidate projection, and reconcile commit SHAs to Linear. This does **not** change the repository slug/current name or executable assets, and does not start buying domains, registering trademarks, changing bot handles or implementing features.
+
+**Evidence and tracker:** `docs/KERANI_BRAND_REKODUNTUNG_PRIMARY_CANDIDATE.md`; Linear `KAI-10`; Q-049/Q-050/Q-051; R-048/R-049. MyIPO and domain are **NOT VERIFIED** in this candidate record.
+
+---
+
 # 13. LOCKED DECISIONS
 
 This section is authoritative. Architecture and implementation must not contradict these records.
@@ -3285,6 +3315,13 @@ Therefore:
 ---
 
 # PROJECT ZASS CHANGELOG
+
+## 2026-10-23 — RekodUntung.ai promoted to PRIMARY NAME CANDIDATE (D-062, NOT LOCKED)
+
+- Owner chose exact spelling `RekodUntung.ai` as the *lead name to check*, not as an approved product/repository rename. Logged **I-019, D-062 CANDIDATE, Q-049–Q-051, R-048–R-049** and `docs/KERANI_BRAND_REKODUNTUNG_PRIMARY_CANDIDATE.md`; Linear tracking KAI-10.
+- **Hard boundary:** MyIPO official trademark/similarity clearance and live domain registrar confirmation are PENDING, so **NO brand LOCK, NO L-050**. Existing technical repository identity, code, bot/domain and product marketing remain unchanged.
+- Rationale: “Rekod” describes the actual Free tasks; “Untung” communicates desired benefit, but is not proof of validated profit accounting or guaranteed profit.
+- This is a documentation-only GitHub commit; no registry checks, domain purchase, trademark filing, public rename, migration, app tests or production change executed.
 
 ## 2026-10-23 — D-061/L-049 Free chat first + user-created group UX owner LOCK
 
