@@ -229,6 +229,7 @@ Nothing in this section is automatically approved.
 | I-019 | RekodUntung.ai as the primary next **candidate brand name** to investigate; keep Kerani AI / existing repository unchanged, do not rebrand or LOCK until MyIPO and domain verification and explicit owner go/no-go. | Owner approval 2026-10-23 | PRIMARY NAME CANDIDATE — D-062, NOT BRAND LOCK |
 
 | I-020 | Use a lightweight Cloudflare Worker as WhatsApp inbound/outbound adapter and 95% (950) warning / 99% (990) normal-outbound stop for the 1,000 monthly per-business-number free Meta service-message allowance, while keeping Google Apps Script as candidate business Core and event-driven webhooks instead of time-trigger polling; evaluate Queues/DO Alarms for sub-minute delayed work only when justified. | Owner 2026-10-24 save/commit preview | CANDIDATE — D-063, NOT PRE-ARCH LOCK |
+| I-021 | Pilot WhatsApp V1 uses Worker → protected Apps Script directly, built with a versioned queue-ready Job Envelope, idempotent Core SAVE and common outbound quota gateway, so that V2 may add a Queue/consumer without resetting tenant records; if timeout/ACK loss risk is unacceptable, V2 is required BEFORE real user rollout. | Owner LOCK 2026-10-24 | LOCKED CONDITIONAL PILOT STRATEGY — D-064/L-050; tests/deployment NOT AUTHORIZED |
 
 ---
 
@@ -293,6 +294,9 @@ Nothing in this section is automatically approved.
 | Q-053 | Is direct event-driven webhook → Apps Script `doPost` sufficient to avoid the observed 60-second polling path, or is Cloudflare's edge layer measurably better? | The 1-minute Apps Script trigger is for periodic polling only, not a general minimum `doPost` interval. | OPEN — A/B/C benchmark |
 | Q-054 | What durable ingress, retry and per-phone quota reservation semantics make Worker + D1/DO/Queues safer than simpler Apps Script-only? | ACK-before-durable-write, unknown send outcome, 989/990 concurrency and at-least-once callbacks risk losses/duplicates/cost leakage. | OPEN — synthetic T01–T08 |
 | Q-055 | Which delayed work needs an event-driven Queue or DO Alarm rather than 1-minute Cloudflare Cron or Apps Script trigger, and what are its measured latency/cost bounds? | Sub-minute scheduling is feasible but not a precise completion guarantee; avoid accidental overarchitecture. | OPEN — QG synthetic benchmark |
+| Q-056 | What exact versioned Job Envelope fields, trusted sender→tenant binding, protected Worker-to-Apps-Script call, idempotency retention and status contract are sufficient for both direct and Queue mode? | Queue-ready *principle* is locked, schema/crypto/storage implementation still needs design and proof. | OPEN — D-064/L-050 / CF-WA-QG-01B |
+| Q-057 | Which observed failure, timeout distribution and webhook ACK/safe-durability threshold fails V1 and requires Queue before live traffic? | Owner chose mandatory escalation if repeated timeout or pre-ACK loss risk; do not invent threshold or assume success. | OPEN — release gate evidence |
+| Q-058 | Can V1→V2 canary/cutover/rollback preserve tenant records, ordering, final receipts, outbound quotas and no-double-SAVE without two active dispatchers per job? | A no-reset goal depends on schema stability, shared idempotency and safe in-flight reconciliation. | OPEN — synthetic migration verification |
 
 ---
 
@@ -355,6 +359,9 @@ Nothing in this section is automatically approved.
 | R-051 | Check-then-increment race across simultaneous Workers near 990 normal-stop boundary | Parallel sends breach reserved budget. | Atomic conditional reservation in proven D1 transaction or per-number DO; test 10 parallel at 989/990; account for ambiguous provider outcome. | OPEN | Two sends both accept the same last free slot. |
 | R-052 | Cloudflare webhook ACK precedes durable ingress while Apps Script times out | Event silently lost, false SAVE claim, replay creates duplicate record. | Verify signature, durable intake before ACK, idempotent processing, queue/DO retry with observed receipts; never equate webhook ACK with business commit. | OPEN | 200 webhook ACK with no durable event or confirmed business record. |
 | R-053 | Treating Cron/DO Alarm or Queue settings as guaranteed real-time scheduler | Architecture misstates sub-minute semantics and creates complexity. | Direct webhook for immediate work; Cron minimum minute; Queues/DO alarm best-effort delayed work only when tests justify. | OPEN | “5-second guarantee” written without P95/P99 and outage evidence. |
+| R-054 | Queue added after V1 but IDs/contracts differ | Migration needs customer-record reset or rewrite, or duplicate core side effects. | Versioned stable Job Envelope, dispatcher abstraction, common processJob Core/SoT, shared inbound and outbound idempotency from V1. | OPEN — strategy LOCK D-064 | Queue rollout requires changing business schema/IDs. |
+| R-055 | V1 ACKs WhatsApp before durable admission, or direct Apps Script times out repeatedly | Meta retries and lack of durable work ownership cause lost/unconfirmed business records. | Do not release unsafe V1; only ACK after safe synchronous completion or durable admission, else escalate to V2 and prove durable Queue. | OPEN — pre-live STOP gate | 200 accepted but no persisted event or committed business record. |
+| R-056 | Two dispatch modes run same job during cutover or rollback | Duplicate stock/business mutations and duplicate sends despite underlying Queue at-least-once semantics. | One processing authority per stable job ID, authoritative idempotent commit, outbox status and in-flight drain/reconciliation. | OPEN — V1→V2 canary proof | Same message saved/sent by direct and Queue consumer. |
 
 ---
 
@@ -1928,7 +1935,7 @@ Retain prior V-Gates such as **Vision, Vocabulary, Vibe, Veracity, Validation, V
 
 **Status:** **PRIMARY NAME CANDIDATE — NOT LOCKED / NOT DECIDED BRAND IDENTITY**  
 **Owner approval:** 2026-10-23 **to promote candidate, save documentation and commit only**.  
-**STOP:** **Do not rename, rebrand or otherwise migrate `dzuddiyn/Kerani_Core_SuperBasic`, production bot/product identity, code, package, deployment, domains, usernames or external marketing until MyIPO and domain clearance and later explicit owner approval.** No L-050/brand LOCK is created by this decision.
+**STOP:** **Do not rename, rebrand or otherwise migrate `dzuddiyn/Kerani_Core_SuperBasic`, production bot/product identity, code, package, deployment, domains, usernames or external marketing until MyIPO and domain clearance and later explicit owner approval.** This D-062 does not create any brand LOCK (L-050 is later assigned to unrelated D-064, a WhatsApp pilot sequencing decision).
 
 **Candidate ranking:** `RekodUntung.ai` is the leading name to investigate as a future brand for the current Kerani AI product. This promotion is not proof of registrable domain ownership, trademark safety, user preference or actual profitability calculations. Prior brainstorming options (MudahKiraUntung.ai, KiraUntung.ai, MudahUntung.ai, SenangUntung.ai, RekodMudah.ai) are historical alternatives, not an approved naming change or legal clearance.
 
@@ -1968,6 +1975,25 @@ Retain prior V-Gates such as **Vision, Vocabulary, Vibe, Veracity, Validation, V
 **Proposed future synthetic proof `CF-WA-QG-01`** (NOT EXECUTED): T01 ten concurrent sends at 989/990; T02 duplicate webhook; T03 Apps Script timeout/unknown send; T04 direct webhook vs retry via Queues/DO Alarm vs 1-minute polling with P50/P95/P99; T05 month boundary/95–99% notification and template/BSP bypass; T06 forged/replayed signature/tenant scope; T07 queue retention/DLQ; T08 total complexity/economic comparison. **No PASS, production test, account configuration, actual call, deployed code, new execution task or PRE-ARCH lock.**
 
 **Detailed evidence:** `docs/KERANI_WA_EDGE_QUOTA_GUARD_ZASS_CANDIDATE.md`; existing Linear tracker **KAI-8** (channel credits, cloud/AI resilience). **NEXT:** separately approved *synthetic-only* CF-WA-QG-01 challenge before selecting architecture.
+
+---
+
+## D-064 — Queue-Ready WhatsApp V1→V2 Pilot Migration Strategy
+
+**Status: OWNER LOCKED — CONDITIONAL ARCHITECTURE SEQUENCING / COMPATIBILITY CONTRACT (L-050)**  
+**Owner explicit approval:** 2026-10-24 — *“condong kepada A untuk pilot kecil, direka supaya serasi dengan B. Kalau ujian menunjukkan Apps Script kerap timeout atau webhook ACK berisiko kehilangan kerja, terus pilih B sebelum membuka penggunaan sebenar.”*
+
+**LOCKED:**
+1. **Pilot V1 preference (A):** `WhatsApp → Cloudflare Worker → protected Google Apps Script` for a small pilot, **only when tested safe**. Worker is the single inbound Meta verification/routing boundary and single outbound WhatsApp/quota gate; Apps Script owns the same deterministic business rules/validation/authoritative Core.
+2. **Queue-ready Day 1:** Versioned, trusted **Job Envelope**, stable source-scoped job ID, transport-independent `dispatch(job)` and `processJob(job)` boundary, server-resolved Business/User membership, authoritative same-event idempotency, non-fabricated processing and outbound delivery states. Both Direct and future Queue consumer must execute **the same Core contract**; Queue must not become a second business SoT. **Exact example field names, persistence selection and signature method are not locked.**
+3. **V2 safety fallback (B):** `same WhatsApp webhook URL → same Worker → Cloudflare Queue → consumer → same protected Apps Script processJob → same Worker outbound gate`, activated only via separately approved/tested migration. Stable records/IDs/schema stay; there will be code/config changes for Queue and consumer but **no planned customer data reset or wholesale Core rewrite**.
+4. **Pre-live STOP/ESCALATE:** If V1 Apps Script repeatedly times out, lacks safe Meta webhook ACK before deadline, or has unacceptable loss/duplicate risk, **do not open live use on V1**. Move to B for the initial live rollout **only after** synthetic acceptance/security and owner deployment approval. A webhook `HTTP 200` or Queue admission is never a `SAVED` business receipt.
+5. **Migration integrity:** at-least-once retries, Queue reordering, unknown Meta sends, direct/Queue canary and rollback must protect one authoritative record per unique event, preserve independent worker records, avoid dual dispatch/duplicate outbound, and reconcile backlog before switching.
+6. **Scope of LOCK:** narrow *WhatsApp pilot sequencing and migration invariants only*, **not** whole-project E-016 PRE-ARCH, final transport quota thresholds (D-063's 950/990 still candidate), final Job schema/backend/DB/Queue design, Meta costs, release timing, implementation or production deployment. Preserve D-025/L-019, D-027/L-021, D-055/L-046, D-057/L-047 and D-061/L-049. D-060 and D-063 remain CANDIDATE for their other details; D-062 RekodUntung.ai still is **NOT BRAND LOCK**.
+
+**Evidence / future proof:** `docs/KERANI_WA_QUEUE_READY_V1_V2_D064_LOCK.md`; DESIGN and ACTION_PLAN projections; Q-056–Q-058/R-054–R-056; Linear KAI-8. Synthetic CF-WA-QG-01A/01B remains **NOT RUN**; no performance, cost or safety PASS claimed.
+
+**NEXT — exactly one:** CF-WA-QG-01B — Queue-Ready Contract & Synthetic Reliability Challenge: design-first, tests only on separate authorization, validate V1 safety and V2 promotion gates before provider selection/deployment.
 
 ---
 
@@ -2297,6 +2323,16 @@ This section is authoritative. Architecture and implementation must not contradi
 **Locked by:** Project Owner  
 **Date:** 2026-10-23  
 **Supersedes:** None; D-057/L-047 unchanged.
+
+## L-050
+**Source Decision:** D-064  
+**Status:** LOCKED — CONDITIONAL WHATSAPP PILOT SEQUENCE + QUEUE-READY COMPATIBILITY INVARIANTS ONLY  
+**Decision:** Prefer V1 small-pilot Cloudflare Worker → protected Apps Script with a versioned authenticated Job Envelope, stable message/job ID, dispatcher/processJob interface, durable authoritative idempotency, truthful commit vs ACK and shared outbound quota gate from Day 1. Keep the same WhatsApp URL, canonical tenant/business record IDs and Core schema when adding V2 Worker → Cloudflare Queue → consumer → same Apps Script Core, without customer record reset or Core overhaul where invariants hold. If evidence shows repeated timeout, unsafe ACK before durable acceptance, loss or duplicate risk, **STOP V1 release and choose/test V2 BEFORE real usage**. Requires independent test and release approvals. Does NOT LOCK quota thresholds (950/990 still candidate), Queue provisioning, storage/auth protocol detail, full E-016 infrastructure, global PRE-ARCH, product rebranding, implementation or deployment.  
+**Locked by:** Project Owner  
+**Date:** 2026-10-24  
+**Supersedes:** D-063's undecided WhatsApp V1-vs-V2 pilot preference **only**; D-063's other candidate questions and D-025/L-019 remain unchanged.
+
+---
 
 # 14. REJECTED IDEAS
 
@@ -3350,6 +3386,13 @@ Therefore:
 ---
 
 # PROJECT ZASS CHANGELOG
+
+## 2026-10-24 — D-064/L-050 Owner LOCK: Queue-ready WhatsApp V1→V2 conditional pilot strategy
+
+- Owner LOCKED a **limited decision**, not production: V1 Worker→protected Apps Script for a small pilot with a stable Job Envelope, dispatch/processJob interface, inbound/authoritative idempotency, truthful ACK/SAVE status and one outbound quota gate; V2 adds Cloudflare Queue/consumer while preserving the same Core data and WhatsApp webhook.
+- **Safety exception mandatory:** if V1 timeout/ACK-durability/replay evidence is unacceptable, **stop pre-live V1 and promote/test V2 before real users**. No claim of no-code changes; migration needs synthetic canary/drain/rollback evidence, but is designed to avoid customer-data reset.
+- Added I-021, Q-056–Q-058, R-054–R-056, D-064/L-050 and dedicated `docs/KERANI_WA_QUEUE_READY_V1_V2_D064_LOCK.md`; projected into ZASSIMPLE, tracked by existing Linear KAI-8.
+- This **L-050 is a WhatsApp pilot architecture-sequencing LOCK, not a brand LOCK**. D-062 RekodUntung.ai stays PRIMARY CANDIDATE. D-063's 950/990 thresholds, D1/DO/Queue choice and Meta billing details remain candidate; no global E-016 PRE-ARCH, implementation, real Cloudflare/WhatsApp change, tests or deployment.
 
 ## 2026-10-24 — D-063 WhatsApp Edge Quota Guard & Fast Scheduler saved as CANDIDATE
 
