@@ -276,6 +276,45 @@ User request: **AI business summary in Telegram → Buka Dashboard button → in
 
 **Evidence:** `../docs/KERANI_WA_EDGE_QUOTA_GUARD_ZASS_CANDIDATE.md`; master D-063/I-020/Q-052–055/R-050–053; existing Linear KAI-8.
 
+## WhatsApp Queue-Ready V1→V2 — D-064/L-050 OWNER LOCK
+
+**Owner LOCK 2026-10-24 — conditional pilot routing/compatibility decision ONLY; NOT production PRE-ARCH.** For small WhatsApp pilot, prefer **V1 Worker → protected Apps Script**, built `queue-ready` so **V2 Worker → Cloudflare Queue → consumer → the same protected Apps Script Core** is an **additive dispatch upgrade**, with no intended tenant/customer record reset or business-logic overhaul. The user's “A” here means the **two-layer Worker + Apps Script pilot**, not D-063's earlier “Option A = Apps Script alone” benchmark category. In the older D-063 review, this is technically its **Option B**; the D-063 option comparison remains historical, while D-064/L-050 is authoritative for the WhatsApp pilot *sequencing*. Whole-project E-016 benchmark remains OPEN.
+
+```text
+                 [ SAME META WEBHOOK URL ]
+                            |
+                  Cloudflare Worker
+                verify / map / dispatch
+                            |
+             +--------------+------------------+
+             | V1 DIRECT                       | V2 QUEUED
+             v                                 v
+    protected Apps Script                 Cloudflare Queue
+             |                                 |
+             |                           Queue consumer
+             |                                 |
+             +--------------+------------------+
+                            v
+               SAME processJob(envelope)
+             SAME authoritative Kerani Core
+                            |
+                            v
+              SAME outbound quota gateway
+                            |
+                            v
+                      WhatsApp Meta
+```
+
+**LOCKED invariants from day 1:** stable versioned and authenticated **Job Envelope** independent of direct vs queued transport (exact example JSON fields remain DESIGN OPEN); reliable WhatsApp event→trusted Business/User mapping and tenant authorization; single `dispatch(job)` abstraction; Core `processJob(job)` isolates validation, source-of-truth SAVE and permission from transport; persistent authoritative **same-event idempotency**, no semantic cross-worker Free dedup; separated `ACCEPTED` / `PROCESSING` / `COMMITTED` / `FAILED/UNKNOWN` states and independent WhatsApp outbound `SUBMITTED`/`DELIVERED`; **one protected outbound quota gate** in both versions (95%/99% not locked). No direct unguarded Apps Script public business mutation, no false business SAVE from Meta HTTP 200 or Queue accepted.
+
+**Pre-live safety gate:** test V1 sync ACK vs durable admission within Meta retry deadline, Apps Script timeout/replay/redirect (ContentService) and concurrency. If repeated timeout or unsafe ACK/loss/idempotency risk, **STOP V1 live release and switch to tested V2 before real use**, not post-incident. V2 also requires consumer/durable ACK proof, replay-safe idempotency, queue reordering/concurrency management, backpressure and DLQ. No exact timeout/latency threshold, storage product, signature encoding, Queue deployment/cost or provider integration is selected by this LOCK.
+
+**Migration guarantee boundary:** Stable webhook, record schema, Business/User/Job IDs and Core validation are *design requirements*, not evidence they already exist. Adding Queue still requires new consumer/config, a staged route flag, no parallel processing of the same job, backlog drain/reconciliation and rollback check. A technical no-reset claim must be proven during CF-WA-QG-01B synthetic test.
+
+**Relation:** D-063 stays candidate for 950/990, D1 vs DO, background scheduler choice and other cloud economics; D-060 stays candidate; D-025/L-019, D-027/L-021, D-055/L-046, D-057/L-047 and D-061/L-049 unchanged. D-062 RekodUntung.ai brand remains **NOT LOCKED**; the new `L-050` belongs to **D-064 architecture-sequencing**, not branding.
+
+**Detailed LOCK contract:** `../docs/KERANI_WA_QUEUE_READY_V1_V2_D064_LOCK.md`; master D-064/L-050; Linear KAI-8; future CF-WA-QG-01B **NOT RUN**. No code/deploy/real traffic authorised by this documentation LOCK.
+
 ## RekodUntung.ai — Primary Brand Candidate (D-062)
 
 **Owner approved 2026-10-23: PRIMARY NAME CANDIDATE only, NOT BRAND LOCK.** Preferred exact spelling: `RekodUntung.ai`. It couples Free's recordkeeping utility with the hoped-for business benefit; do **not** claim validated net-profit computation or guaranteed business profit. This is a naming hypothesis, not a product capability change.
@@ -310,7 +349,7 @@ These remain open; this design projection does not resolve them:
 18. **Modular cost / Drive / AI data policy / burst resilience** — **D-060 CANDIDATE, NOT LOCKED**: Q-040–Q-044; test official WhatsApp/BSP unit costs, trial-only channel credits vs D-025, permanent Free operational storage vs pay-for-extra cloud, tenant-owned Drive adapter, legal/provider-specific Free/Paid AI data terms and E-016/E-018 burst, queue, idempotency and privacy-safe fallback. No architecture/provider/pricing/Free-policy change implied.
 19. **Telegram Group UX PROOF after D-061/L-049 OWNER LOCK:** T01 plain @mention Privacy ON, T02 Privacy OFF isolated, T03 slash command auto-send, T04 ForceReply targeted, T05 concurrent user/prompt routing with transport retry idempotency, T06 Inline Mode usefulness. All NOT TESTED; do not pretend product LOCK is a functional acceptance.
 
-**Brand name clearance pending:** D-062 RekodUntung.ai is PRIMARY CANDIDATE only; verify MyIPO and registrar evidence before proposing any LOCK or repo/public rename.
+**Brand name clearance pending:** D-062 RekodUntung.ai is PRIMARY CANDIDATE only; verify MyIPO and registrar evidence before proposing any BRAND LOCK or repo/public rename. L-050 is exclusively the unrelated D-064 queue-ready WhatsApp pilot decision.
 
 **WhatsApp Edge CF-WA-QG-01 PENDING:** D-063 is a stored candidate only, no quota guard/scheduler runtime verified or architecture LOCK; do not mistake Apps Script minimum 1-minute clock trigger for a minimum `doPost()` webhook delay.
 
