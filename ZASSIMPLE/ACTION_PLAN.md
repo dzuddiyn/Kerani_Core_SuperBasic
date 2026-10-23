@@ -702,6 +702,27 @@ Do not treat OpenClaw as a control-plane option. D-032/E-013 keeps OpenClaw as a
 
 **Documentation references:** `../docs/KERANI_WA_EDGE_QUOTA_GUARD_ZASS_CANDIDATE.md`; `../ZASS_Kerani_Core_SuperBasic.md` D-063 CANDIDATE; `DESIGN.md`; existing Linear KAI-8. This supplements—not supersedes—D-060 and prior LOCKED Free channel/Core rules.
 
+### CF-WA-QG-01B — D-064/L-050 Locked Migration Strategy (READ-ONLY DESIGN GATE, NOT EXECUTED)
+
+**Owner LOCK 2026-10-24:** WhatsApp small pilot **V1 Cloudflare Worker → protected Google Apps Script**, built `queue-ready`, then **V2 Worker → Cloudflare Queue → consumer → SAME protected Apps Script Core** if evidence demands; **STOP V1 before real users** when repeated Apps Script timeout, unsafe Meta ACK-before-durable-admission or lost/duplicate records are observed. No backend or tenant data reset intended. This is an **owner-approved conditional pilot sequence**, not a selection of global E-016 PRE-ARCH, Cloudflare deployment permission, Queue cost/instance, exact Job Envelope schema fields, or evidence of working runtime. D-063 is earlier candidate context; **L-050 (D-064) is NOT a brand LOCK** and does not alter D-062.
+
+**Contract to formalize (design READ-ONLY next):** stable `schema_version` / canonical trusted `job_id`, provider event ID, protected source/channel context and server-resolved tenant IDs; one `dispatch(job)` interface with direct/Queue modes; same `processJob(job)` Core; authoritative same-event idempotency and audit/receipt; separate `ACCEPTED` vs Core `COMMITTED` vs WhatsApp `DELIVERED`; shared outbound budget gateway. Illustrative fields in `../docs/KERANI_WA_QUEUE_READY_V1_V2_D064_LOCK.md` are examples, **not selected implementation schema**. Avoid making Queue/D1 a second business truth store. Protect Worker→Apps Script with replay-resistant authentication and fail-closed Core tenancy checks.
+
+**Proposed synthetic challenge only, NOT RUN / NO EXECUTION APPROVAL:**
+1. **B01 contract parity:** same signed/versioned envelope through direct dispatcher and synthetic Queue consumer; identical authorization/validation/commit semantics.
+2. **B02 ACK integrity:** Apps Script `doPost` redirect/failure and latency versus Meta callback timeout; Meta `200` only after safe processing or proven durable receipt, and never described as SAVED itself.
+3. **B03 same-event replay:** duplicate Meta webhook, forced timeout after real SAVE, Queue retry and direct→Queue canary; only one authoritative business mutation; independent workers' reports preserved.
+4. **B04 ordered/concurrent updates:** queue at-least-once, possible reordering, burst of 10, stock/version safety, no double sends and no quota leakage at proposed 989/990 boundary.
+5. **B05 V1 exit decision:** define measurable P50/P95/P99/timeout/error/loss gates; when V1 fails, require proven V2 **before** any live user approval.
+6. **B06 V2 rollout:** synthetic feature-flag cutover, one processor per Job ID, retention/DLQ, drain, replay recovery and reversible rollback **without a customer data reset**.
+7. **B07 security/economics:** verified Meta signature, replay-safe internal envelope, tenant isolation, provider billing reconciliation, Free Cloudflare/Apps Script quotas and maintenance complexity.
+
+**Acceptance model:** `PLAN_LOCK: PASS` (owner strategy); `CONTRACT_SPEC: PENDING`; `SYNTHETIC: NOT RUN`; `PRE-ARCH: NOT SELECTED`; `DEPLOYMENT: NOT AUTHORISED`. Never mark tests or reliability PASS because docs were committed. Distinguish V1 pilot design from proven safe live deployment.
+
+**Safety fail gate:** if V1 cannot ACK within provider constraints without risking data loss or false receipts, **promote B prior to live** only after B's durable-ACK/replay/outbound tests pass and an explicit release authorization. V2 is not automatically safe just because a Queue exists.
+
+**One NEXT:** `CF-WA-QG-01B — Queue-Ready Contract Design (READ-ONLY)`: finalize the proposed envelope, trusted auth, idempotency and processing/outbound state interfaces and test plan in design; no synthetic run, repo code, Cloudflare provisioning or real send without separate approval.
+
 ### Optional paid escape hatch — Evoxt VPS (2026-10-14; NOT AN ACTIVE FIFTH CANDIDATE)
 
 **Status:** SAVED CANDIDATE / DEFERRED. See `../docs/EVOXT_PAID_VPS_CONTINGENCY.md` and the project SoT. E-016 **still benchmarks four** free/managed options using only unproven deltas from OpsMate evidence. **Do not buy/deploy Evoxt for the Wan/Hamidun Agro Demo** absent a measured blocker. If all viable free/managed options encounter evidence-backed cost/capacity/operability barriers, seek owner approval for a capped **one-month synthetic VPS trial** measuring RAM, CPU performance, transfer quota, webhook P50/P95/P99, security, backup, restart/recovery, maintenance burden and total cost before considering annual billing or architecture selection.
