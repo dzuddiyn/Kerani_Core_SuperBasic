@@ -264,6 +264,16 @@ User request: **AI business summary in Telegram → Buka Dashboard button → in
 
 **Documentation:** `../docs/KERANI_CHANNEL_CLOUD_AI_RESILIENCE_ZASS_CANDIDATE.md`; master decision `D-060 CANDIDATE`; tracker KAI-8 BACKLOG. This projection has **NO** code, deployment, authenticated Drive connection, payment/AI invocation, implementation task or PRE-ARCH selection. This project does **not** include competitors or Claude trend discussions in D-060.
 
+## RekodUntung.ai — Primary Brand Candidate (D-062)
+
+**Owner approved 2026-10-23: PRIMARY NAME CANDIDATE only, NOT BRAND LOCK.** Preferred exact spelling: `RekodUntung.ai`. It couples Free's recordkeeping utility with the hoped-for business benefit; do **not** claim validated net-profit computation or guaranteed business profit. This is a naming hypothesis, not a product capability change.
+
+**Unchanged until later owner approval:** the GitHub repository remains `dzuddiyn/Kerani_Core_SuperBasic`, current identity remains Kerani AI, no code/package, bot username, domain registration, public UI, deployment or migration change. All D-016/D-057/D-061 Free product decisions and existing technical architecture gates remain as they were.
+
+**Before any rebranding LOCK:** evidence-led official MyIPO trademark similarity/classes/owner search, real `rekoduntung.ai` registrar/renewal availability, nearby product/name collision review and micro-SME meaning/expectation test. MyIPO clearance and domain checks are **NOT VERIFIED**. Only after these gates may the owner decide go/no-go; a separate approval is needed for migration.
+
+**Source:** `../docs/KERANI_BRAND_REKODUNTUNG_PRIMARY_CANDIDATE.md`; master `D-062 CANDIDATE` (no `L-050`); Linear KAI-10.
+
 ## Open assumptions / unresolved boundaries
 
 These remain open; this design projection does not resolve them:
@@ -287,6 +297,8 @@ These remain open; this design projection does not resolve them:
 17. **Premium Business Workspace UX** — **D-059 CANDIDATE, NOT LOCKED**: Chat produces a truthful, tenant-scoped textual summary plus contextual dashboard button; Web UI offers business-relevant interactive source-linked charts/tables/search and later bounded analytics. PWA Android entry needs separate browser auth; user-permitted Google Drive links ≠ Drive OAuth; tasks start with Kerani Task and any external task sync is deferred and authority-led. No feature-price/entitlement, PRE-ARCH, Google scopes, deployment or task execution is approved.
 18. **Modular cost / Drive / AI data policy / burst resilience** — **D-060 CANDIDATE, NOT LOCKED**: Q-040–Q-044; test official WhatsApp/BSP unit costs, trial-only channel credits vs D-025, permanent Free operational storage vs pay-for-extra cloud, tenant-owned Drive adapter, legal/provider-specific Free/Paid AI data terms and E-016/E-018 burst, queue, idempotency and privacy-safe fallback. No architecture/provider/pricing/Free-policy change implied.
 19. **Telegram Group UX PROOF after D-061/L-049 OWNER LOCK:** T01 plain @mention Privacy ON, T02 Privacy OFF isolated, T03 slash command auto-send, T04 ForceReply targeted, T05 concurrent user/prompt routing with transport retry idempotency, T06 Inline Mode usefulness. All NOT TESTED; do not pretend product LOCK is a functional acceptance.
+
+**Brand name clearance pending:** D-062 RekodUntung.ai is PRIMARY CANDIDATE only; verify MyIPO and registrar evidence before proposing any LOCK or repo/public rename.
 
 ## Evidence posture
 
