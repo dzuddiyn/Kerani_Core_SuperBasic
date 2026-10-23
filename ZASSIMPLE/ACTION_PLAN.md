@@ -677,6 +677,31 @@ Compare four low-complexity options:
 
 Do not treat OpenClaw as a control-plane option. D-032/E-013 keeps OpenClaw as a replaceable synthetic reliability/audit agent.
 
+### CF-WA-QG-01 — D-063 Candidate Capture / Synthetic Gate (NOT EXECUTED, 2026-10-24)
+
+**Status:** SAVED CANDIDATE / NOT LOCKED / NOT READY FOR EXECUTION. The owner approved documenting the WhatsApp Cloudflare edge quota/scheduler proposal only. Do not treat this as approving Cloudflare account provisioning, changing Google Apps Script, applying WhatsApp Meta credentials, selecting PRE-ARCH, launching a paid service, creating an executable feature task or changing the LOCKED Free policy D-025/L-019.
+
+**Proposed outcomes to test:** Cloudflare Worker verifies WhatsApp webhook, authorizes sender/tenant, offers an outbound budget guard for first **1,000 delivered service messages per WhatsApp business number/month** (Meta 2026-10-01 policy), warns at **950** and stops *normal* service outbound at **990** with 10 reserved. Other template categories and BSP fees have separate costs. Meter must use per-number month, **atomic reservation and Meta delivery reconciliation**, and an external sender can circumvent the guard unless account paths are controlled. Avoid a warning message that consumes the final permitted unit without approval. The proposed 950/990 policy is not an actual entitlement or hard Meta limit.
+
+**Important polling correction:** Apps Script `everyMinutes(1)` triggers run at minimum minute intervals, but Apps Script web app `doPost` receives webhook HTTP requests without that trigger. Cloudflare Cron is also minute-resolution. Cloudflare Queues event-driven consume (0–60 s batch timeout) / Durable Object Alarms (finer-grained at-least-once timing) are candidate **delayed work** mechanisms, not guaranteed real-time delivery. Worker alone may already solve ingress/routing without new Queue/DO complexity. A `waitUntil()` handler after sending webhook HTTP 200 does not prove durable admission.
+
+**E-016 controlled comparisons:** A) central Apps Script `doPost` + its own lock/quota ledger; B) CF Worker ingress/outbound adapter + protected Apps Script; C) Worker + correct D1/DO atomic quota ledger and optional Queues/DO Alarm if evidence proves justified. Retain common tenant/business data truth in Core; don't duplicate it in a Cloudflare queue.
+
+**Future eight-test evidence contract — all NOT RUN:**
+
+1. **QG-T01:** 10 parallel outbound sends when ledger at 989/990; no quota overbooking.
+2. **QG-T02:** repeat the identical webhook update; no duplicate record side effect.
+3. **QG-T03:** Apps Script timeout / unknown Meta accept; safe pending/retry/reconciliation, ACK is not SAVE.
+4. **QG-T04:** compare direct HTTP event-driven vs 5–30 s delayed retry vs 60 s clock poll; measure P50/P95/P99 and extra cost.
+5. **QG-T05:** month boundary, 950 alert once, 990 stop, templates charged differently and other-sender bypass.
+6. **QG-T06:** invalid Meta signature, spoofed Worker–Apps Script trust, cross-tenant data denial, replay.
+7. **QG-T07:** queued event failure, DLQ, retention, restart/recovery and accurate final receipt.
+8. **QG-T08:** simpler baseline vs edge options across small/viral traffic, Cloudflare/Google/BSP limits and operational maintenance.
+
+**STOP/FAIL:** paid service message unexpectedly transmitted above approved policy, duplicate authoritative write, false SAVE on webhook ACK, unverified provider/billing rules, bypass of protected backend, or requirements growing into unmanaged operations burden. No test PASS may be inferred from official docs.
+
+**Documentation references:** `../docs/KERANI_WA_EDGE_QUOTA_GUARD_ZASS_CANDIDATE.md`; `../ZASS_Kerani_Core_SuperBasic.md` D-063 CANDIDATE; `DESIGN.md`; existing Linear KAI-8. This supplements—not supersedes—D-060 and prior LOCKED Free channel/Core rules.
+
 ### Optional paid escape hatch — Evoxt VPS (2026-10-14; NOT AN ACTIVE FIFTH CANDIDATE)
 
 **Status:** SAVED CANDIDATE / DEFERRED. See `../docs/EVOXT_PAID_VPS_CONTINGENCY.md` and the project SoT. E-016 **still benchmarks four** free/managed options using only unproven deltas from OpsMate evidence. **Do not buy/deploy Evoxt for the Wan/Hamidun Agro Demo** absent a measured blocker. If all viable free/managed options encounter evidence-backed cost/capacity/operability barriers, seek owner approval for a capped **one-month synthetic VPS trial** measuring RAM, CPU performance, transfer quota, webhook P50/P95/P99, security, backup, restart/recovery, maintenance burden and total cost before considering annual billing or architecture selection.
