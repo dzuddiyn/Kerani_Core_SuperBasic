@@ -264,6 +264,18 @@ User request: **AI business summary in Telegram → Buka Dashboard button → in
 
 **Documentation:** `../docs/KERANI_CHANNEL_CLOUD_AI_RESILIENCE_ZASS_CANDIDATE.md`; master decision `D-060 CANDIDATE`; tracker KAI-8 BACKLOG. This projection has **NO** code, deployment, authenticated Drive connection, payment/AI invocation, implementation task or PRE-ARCH selection. This project does **not** include competitors or Claude trend discussions in D-060.
 
+## WhatsApp Edge Quota Guard & Fast Scheduler — D-063 CANDIDATE
+
+**2026-10-24 owner-authorized capture only: NOT LOCKED, NOT PRE-ARCH, NOT IMPLEMENTED.** Cloudflare Worker as optional lightweight adapter between WhatsApp Cloud API and Google Apps Script Core. Candidate central responsibilities: validate Meta webhook and protected Worker→Apps Script calls, maintain technical idempotency and tenant scope, classify outbound service messages and atomically reserve per-business-phone-number monthly allowance, reconcile Meta delivery/failed/unknown status and alert at **950/1,000 (95%)**, then **stop normal outbound at 990/1,000 (99%)**, leaving 10 as **unapproved reserve**. These are candidate operating thresholds, **not actual Meta account balances or billing guarantee**. Another app/BSP sending directly on the same number can bypass the guard.
+
+**Verified platform facts:** Official WhatsApp Business FAQ reports **1,000 free service messages/month/number effective 2026-10-01**, charging from message 1,001; this does not mean 1,000 incoming messages or free paid-category templates. Google Apps Script clock triggers are minute-granularity, but `doPost()` itself is HTTP event-driven and needs no minute polling. Cloudflare Cron Triggers also use minute-resolution expressions. Cloudflare Queues with optional batch timeout 0s or Durable Object Alarms support asynchronous/delayed work and retries, **not hard guarantees** of completion in a number of seconds. `waitUntil()` is not substitute for durable ingestion before webhook ACK.
+
+**E-016 delta-only options:** A) Apps Script direct `doPost` + tested lock/counter as simplest baseline; B) CF Worker ingress/egress + Apps Script as preferred **pilot CANDIDATE**; C) Worker + D1 atomic conditional reservation OR per-number Durable Object + Queues only if concurrency/durability evidence justifies complexity. Apps Script remains the possible authoritative business record Core; edge ledger is NOT a second business source of truth. D-025/L-019 and D-027/L-021 remain LOCKED Free/channel meter principles; D-060 commercial/channel resilience remains CANDIDATE.
+
+**Pending synthetic challenge CF-WA-QG-01 (NOT RUN):** ten parallel sends at 989/990, duplicate webhook, Apps Script timeout + webhook ACK ordering, direct vs sub-minute delayed processing P50/P95/P99, billing month/notification/template categories/external bypass, forged Worker/tenant trust, queue retry/DLQ/retention and Free complexity/unit economics. No credentials, provider calls, deployment or new ready coding tasks are authorized by this note.
+
+**Evidence:** `../docs/KERANI_WA_EDGE_QUOTA_GUARD_ZASS_CANDIDATE.md`; master D-063/I-020/Q-052–055/R-050–053; existing Linear KAI-8.
+
 ## RekodUntung.ai — Primary Brand Candidate (D-062)
 
 **Owner approved 2026-10-23: PRIMARY NAME CANDIDATE only, NOT BRAND LOCK.** Preferred exact spelling: `RekodUntung.ai`. It couples Free's recordkeeping utility with the hoped-for business benefit; do **not** claim validated net-profit computation or guaranteed business profit. This is a naming hypothesis, not a product capability change.
@@ -299,6 +311,8 @@ These remain open; this design projection does not resolve them:
 19. **Telegram Group UX PROOF after D-061/L-049 OWNER LOCK:** T01 plain @mention Privacy ON, T02 Privacy OFF isolated, T03 slash command auto-send, T04 ForceReply targeted, T05 concurrent user/prompt routing with transport retry idempotency, T06 Inline Mode usefulness. All NOT TESTED; do not pretend product LOCK is a functional acceptance.
 
 **Brand name clearance pending:** D-062 RekodUntung.ai is PRIMARY CANDIDATE only; verify MyIPO and registrar evidence before proposing any LOCK or repo/public rename.
+
+**WhatsApp Edge CF-WA-QG-01 PENDING:** D-063 is a stored candidate only, no quota guard/scheduler runtime verified or architecture LOCK; do not mistake Apps Script minimum 1-minute clock trigger for a minimum `doPost()` webhook delay.
 
 ## Evidence posture
 
