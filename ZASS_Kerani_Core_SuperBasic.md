@@ -228,6 +228,8 @@ Nothing in this section is automatically approved.
 | I-018 | Free personal-chat bot first; simple Business/User IDs; warn if multiple active Free users of same company may overlap; let users create their own group and call KeraniBot without an OpsMate-style group workflow. | Owner approval 2026-10-23 | LOCKED product/UX — D-061/L-049; delivery details TEST PENDING |
 | I-019 | RekodUntung.ai as the primary next **candidate brand name** to investigate; keep Kerani AI / existing repository unchanged, do not rebrand or LOCK until MyIPO and domain verification and explicit owner go/no-go. | Owner approval 2026-10-23 | PRIMARY NAME CANDIDATE — D-062, NOT BRAND LOCK |
 
+| I-020 | Use a lightweight Cloudflare Worker as WhatsApp inbound/outbound adapter and 95% (950) warning / 99% (990) normal-outbound stop for the 1,000 monthly per-business-number free Meta service-message allowance, while keeping Google Apps Script as candidate business Core and event-driven webhooks instead of time-trigger polling; evaluate Queues/DO Alarms for sub-minute delayed work only when justified. | Owner 2026-10-24 save/commit preview | CANDIDATE — D-063, NOT PRE-ARCH LOCK |
+
 ---
 
 # 6. QUESTIONS / UNKNOWNS
@@ -287,6 +289,11 @@ Nothing in this section is automatically approved.
 | Q-050 | Is rekoduntung.ai genuinely registrable today, with sustainable renewal pricing, and do suitable backup TLDs/handles exist? | Availability is a live registrar fact, not inferred from a lack of search results. | OPEN — Domain registrar/registry READ verification before brand LOCK |
 | Q-051 | Does the name RekodUntung imply a profit calculation or guaranteed profit that the currently locked Free product does not provide? | Product UX/marketing must communicate recordkeeping first and avoid unsupported claims. | OPEN — User comprehension / truthful claim gate |
 
+| Q-052 | Can a Cloudflare Worker govern all outbound WhatsApp service-message sends by business phone number, warn at 950 and stop routine sends at 990 without false paid-tier/no-charge assurances? | Meta’s first 1,000 delivered service messages/month/number allowance is a provider meter distinct from inbound webhook, templates and application retry count; bypass senders/status lag must be reconciled. | OPEN — D-063 / CF-WA-QG-01 |
+| Q-053 | Is direct event-driven webhook → Apps Script `doPost` sufficient to avoid the observed 60-second polling path, or is Cloudflare's edge layer measurably better? | The 1-minute Apps Script trigger is for periodic polling only, not a general minimum `doPost` interval. | OPEN — A/B/C benchmark |
+| Q-054 | What durable ingress, retry and per-phone quota reservation semantics make Worker + D1/DO/Queues safer than simpler Apps Script-only? | ACK-before-durable-write, unknown send outcome, 989/990 concurrency and at-least-once callbacks risk losses/duplicates/cost leakage. | OPEN — synthetic T01–T08 |
+| Q-055 | Which delayed work needs an event-driven Queue or DO Alarm rather than 1-minute Cloudflare Cron or Apps Script trigger, and what are its measured latency/cost bounds? | Sub-minute scheduling is feasible but not a precise completion guarantee; avoid accidental overarchitecture. | OPEN — QG synthetic benchmark |
+
 ---
 
 # 7. RISKS & FAILURE SCENARIOS
@@ -343,6 +350,11 @@ Nothing in this section is automatically approved.
 | R-047 | Two users' group replies/retries are routed to wrong action or create duplicate effects | Concurrent prompts cross wires and authoritative data becomes corrupt. | Scoped chat/user/reply-to-message ID matching, TTL/validity and transport-event idempotency; retain normal approval/validation as needed. | OPEN | Worker A's reply saved for worker B or same Telegram update double-commits. |
 | R-048 | Rebrand before MyIPO/domain clearance | A mark/domain collision creates legal cost, broken links and sunk design work. | Keep only PRIMARY NAME CANDIDATE D-062; official mark/similarity + live registrar checks and owner approval first; no rename, handle, domain or product identity change. | OPEN | Internal draft treated as name LOCK or domain shown as owned. |
 | R-049 | Name RekodUntung makes users expect computed profit or a guaranteed business outcome | Free Core records operations but may lack inputs for accurate net profit; marketing overpromises. | Separate proposed brand meaning from demonstrated Free scope; test user interpretation and truthful copy before launch. | OPEN | Public copy guarantees profitability or validated accounts without evidence. |
+
+| R-050 | Mistaking monthly 1,000 Meta service-message allowance for all inbound/outbound messages | Misleading spend guard, overshoot charge and incorrect Free product entitlement. | Count eligible delivered outbound service-message class by phone number/period and reconcile provider status; templates and BSP fees treated separately. | OPEN | Counter diverges from WhatsApp Manager or template charges appear while guard shows free. |
+| R-051 | Check-then-increment race across simultaneous Workers near 990 normal-stop boundary | Parallel sends breach reserved budget. | Atomic conditional reservation in proven D1 transaction or per-number DO; test 10 parallel at 989/990; account for ambiguous provider outcome. | OPEN | Two sends both accept the same last free slot. |
+| R-052 | Cloudflare webhook ACK precedes durable ingress while Apps Script times out | Event silently lost, false SAVE claim, replay creates duplicate record. | Verify signature, durable intake before ACK, idempotent processing, queue/DO retry with observed receipts; never equate webhook ACK with business commit. | OPEN | 200 webhook ACK with no durable event or confirmed business record. |
+| R-053 | Treating Cron/DO Alarm or Queue settings as guaranteed real-time scheduler | Architecture misstates sub-minute semantics and creates complexity. | Direct webhook for immediate work; Cron minimum minute; Queues/DO alarm best-effort delayed work only when tests justify. | OPEN | “5-second guarantee” written without P95/P99 and outage evidence. |
 
 ---
 
@@ -1936,6 +1948,29 @@ Retain prior V-Gates such as **Vision, Vocabulary, Vibe, Veracity, Validation, V
 
 ---
 
+## D-063 — WhatsApp Edge Quota Guard (95%/99%) & Cloudflare Fast Scheduler
+
+**Status:** **CANDIDATE — OWNER AUTHORISED SAVE/COMMIT PREVIEW ONLY (NOT LOCKED / NOT PRE-ARCH)**  
+**Captured:** 2026-10-24.  
+**Proposal:** A Cloudflare Worker may adapt inbound/outbound WhatsApp Cloud API traffic for Google Apps Script Core, enabling centralized signature verification, tenant/phone mapping, transport idempotency and monthly service-message budget protection. **950** (95%) is a warning/conserve candidate; **990** (99%) is a routine-outbound stop candidate; last **10** are a separately controlled/unapproved buffer. No entitlement, billing policy or production limit is locked by this note.
+
+**Evidence-backed distinction:** Official WhatsApp Business FAQ confirms effective **2026-10-01** Meta charges for service messages beginning at the **1,001st service message per business phone number/month**; this does **not** apply to all incoming/outgoing message types, and template messaging/BSP costs are separate. Delivery status and actual provider usage may lag an application ledger, so a Worker cannot promise zero Meta charge if other senders bypass it. `https://whatsappbusiness.com/resources/faq/`
+
+**Latency/scheduler challenge:** The minimum Apps Script time-trigger interval is **one minute**; `doPost()` already supports immediate HTTP webhook-driven execution, so Cloudflare is not magically required to “bypass” `doPost` latency. Cloudflare Cron is also minute-based; Cloudflare Queues can consume event-driven with batch timeout 0–60 seconds (default 5), while Durable Object Alarms support scoped finer-grained future wakeups with at-least-once semantics, **not hard-real-time guarantees**. An HTTP Worker can add safe edge acknowledgement/routing and a durable Queue/DO path when proven necessary, but `ctx.waitUntil()` alone must not be treated as durable transaction admission.
+
+**Three options for E-016 delta-only challenge:**
+- **A — Apps Script direct `doPost` + supported lock/counter ledger** (simplest baseline).
+- **B — Cloudflare Worker inbound/outbound adapter + Apps Script**, with atomic quota/delivery ledger design still to be proved (**preferred candidate for pilot only**, not chosen).
+- **C — Worker + D1 conditional atomic quota ledger or per-number Durable Object + Queues when necessary + Apps Script**, for reliability/burst proof; do not create a second business Source of Truth.
+
+**Critical gates:** Signature verification, protected Worker→Apps Script envelope and server-side tenant authorization; idempotency for duplicate Meta webhook; per-number + billing-period quota reservation before *each eligible outbound send*; reconciliation for accepted/delivered/failed/unknown sends; no silent customer record loss or false “saved” receipts; no cost-bearing “quota exhausted” notice once quota is unavailable. Preserve all existing Free/Core/transport policy LOCKs, particularly **D-025/L-019**, **D-027/L-021**, **D-055/L-046**, **D-057/L-047**, **D-061/L-049**. This idea supplements **D-060 CANDIDATE**, does not supersede it or select infrastructure/commercial terms. Brand D-062 is unrelated.
+
+**Proposed future synthetic proof `CF-WA-QG-01`** (NOT EXECUTED): T01 ten concurrent sends at 989/990; T02 duplicate webhook; T03 Apps Script timeout/unknown send; T04 direct webhook vs retry via Queues/DO Alarm vs 1-minute polling with P50/P95/P99; T05 month boundary/95–99% notification and template/BSP bypass; T06 forged/replayed signature/tenant scope; T07 queue retention/DLQ; T08 total complexity/economic comparison. **No PASS, production test, account configuration, actual call, deployed code, new execution task or PRE-ARCH lock.**
+
+**Detailed evidence:** `docs/KERANI_WA_EDGE_QUOTA_GUARD_ZASS_CANDIDATE.md`; existing Linear tracker **KAI-8** (channel credits, cloud/AI resilience). **NEXT:** separately approved *synthetic-only* CF-WA-QG-01 challenge before selecting architecture.
+
+---
+
 # 13. LOCKED DECISIONS
 
 This section is authoritative. Architecture and implementation must not contradict these records.
@@ -3315,6 +3350,13 @@ Therefore:
 ---
 
 # PROJECT ZASS CHANGELOG
+
+## 2026-10-24 — D-063 WhatsApp Edge Quota Guard & Fast Scheduler saved as CANDIDATE
+
+- Owner asked to save ideas/data and commit, **not** to LOCK a runtime architecture or start implementation. Added I-020, Q-052–Q-055, R-050–R-053, and D-063 CANDIDATE plus detailed note `docs/KERANI_WA_EDGE_QUOTA_GUARD_ZASS_CANDIDATE.md`, tracked under existing Linear KAI-8.
+- Meta official: effective 2026-10-01 first 1,000 **outbound service messages**/business phone number/month free; warning 950 (95%), proposed normal stop 990 (99%) with 10-unit reserve is a **candidate policy**, not a Meta hard stop, with explicit delivery/ledger/BSP reconciliation warning.
+- Cloudflare Worker+Apps Script adapter, D1/DO atomic quota, Queues/DO Alarms for justified sub-minute work remain **options**. Direct `doPost()` Apps Script already avoids 1-minute clock-trigger polling; Cloudflare Cron likewise is minute-based. Evidence requires E-016 delta-only synthetic T01–T08, no “5-second guarantee”.
+- No Worker/Queue/DO/D1 Apps Script implementation, real test, runtime account, production webhook, pricing, secrets, WhatsApp messages or PRE-ARCH selection; existing LOCKED Free channel/Core principles preserved.
 
 ## 2026-10-23 — RekodUntung.ai promoted to PRIMARY NAME CANDIDATE (D-062, NOT LOCKED)
 
