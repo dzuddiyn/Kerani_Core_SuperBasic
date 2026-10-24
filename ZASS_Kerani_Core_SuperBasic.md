@@ -231,6 +231,8 @@ Nothing in this section is automatically approved.
 | I-020 | Use a lightweight Cloudflare Worker as WhatsApp inbound/outbound adapter and 95% (950) warning / 99% (990) normal-outbound stop for the 1,000 monthly per-business-number free Meta service-message allowance, while keeping Google Apps Script as candidate business Core and event-driven webhooks instead of time-trigger polling; evaluate Queues/DO Alarms for sub-minute delayed work only when justified. | Owner 2026-10-24 save/commit preview | CANDIDATE — D-063, NOT PRE-ARCH LOCK |
 | I-021 | Pilot WhatsApp V1 uses Worker → protected Apps Script directly, built with a versioned queue-ready Job Envelope, idempotent Core SAVE and common outbound quota gateway, so that V2 may add a Queue/consumer without resetting tenant records; if timeout/ACK loss risk is unacceptable, V2 is required BEFORE real user rollout. | Owner LOCK 2026-10-24 | LOCKED CONDITIONAL PILOT STRATEGY — D-064/L-050; tests/deployment NOT AUTHORIZED |
 
+| I-022 | Three OpsMate lessons become P0 Kerani release gates: RG-01 version/mock-cleanup isolation and no-regression; RG-02 visible, nearly-live Free basic dashboard; RG-03 structured tenant-scoped read model for grounded AI and UI, not scanning dozens of Sheet tabs. | Owner approval 2026-10-24 | LOCKED release/readiness invariants — D-065/L-051; acceptance NOT RUN |
+
 ---
 
 # 6. QUESTIONS / UNKNOWNS
@@ -298,6 +300,10 @@ Nothing in this section is automatically approved.
 | Q-057 | Which observed failure, timeout distribution and webhook ACK/safe-durability threshold fails V1 and requires Queue before live traffic? | Owner chose mandatory escalation if repeated timeout or pre-ACK loss risk; do not invent threshold or assume success. | OPEN — release gate evidence |
 | Q-058 | Can V1→V2 canary/cutover/rollback preserve tenant records, ordering, final receipts, outbound quotas and no-double-SAVE without two active dispatchers per job? | A no-reset goal depends on schema stability, shared idempotency and safe in-flight reconciliation. | OPEN — synthetic migration verification |
 
+| Q-059 | How can Kerani make test/mock cleanup, required schema/seed/config and old-to-new upgrades independent, with repeatable rollback/recovery and baseline function retention? | Owner-reported OpsMate lost functions after test data cleanup; no forensic root cause confirmed. | OPEN — D-065/L-051 RG-01 tests U01–U04 required |
+| Q-060 | What minimum tenant-visible Free dashboard and read-model freshness meets almost-live expectations without scanning/refreshing every Sheets tab or making Premium mandatory? | Owner's UX concern is lack of observable value; proposed P95 commit→fresh-visible ≤5 s is an unverified pilot hypothesis, NOT locked SLA. | OPEN — D-065/L-051 RG-02 tests V01–V03 required |
+| Q-061 | Which single-SoT summary/read-model API, event watermark and provenance contract support bounded accurate AI extraction and dashboard, with deterministic fallback? | Avoid 30-tab scans and a diverging second business truth. Optional AI must not block no-AI Free. | OPEN — D-065/L-051 RG-03 tests K01–K04 required |
+
 ---
 
 # 7. RISKS & FAILURE SCENARIOS
@@ -362,6 +368,10 @@ Nothing in this section is automatically approved.
 | R-054 | Queue added after V1 but IDs/contracts differ | Migration needs customer-record reset or rewrite, or duplicate core side effects. | Versioned stable Job Envelope, dispatcher abstraction, common processJob Core/SoT, shared inbound and outbound idempotency from V1. | OPEN — strategy LOCK D-064 | Queue rollout requires changing business schema/IDs. |
 | R-055 | V1 ACKs WhatsApp before durable admission, or direct Apps Script times out repeatedly | Meta retries and lack of durable work ownership cause lost/unconfirmed business records. | Do not release unsafe V1; only ACK after safe synchronous completion or durable admission, else escalate to V2 and prove durable Queue. | OPEN — pre-live STOP gate | 200 accepted but no persisted event or committed business record. |
 | R-056 | Two dispatch modes run same job during cutover or rollback | Duplicate stock/business mutations and duplicate sends despite underlying Queue at-least-once semantics. | One processing authority per stable job ID, authoritative idempotent commit, outbox status and in-flight drain/reconciliation. | OPEN — V1→V2 canary proof | Same message saved/sent by direct and Queue consumer. |
+
+| R-057 | Test-fixture/mock rows are accidentally treated as schema/config/required seed or production truth | Functions disappear after cleanup; release damage or data loss. | Isolate dev/staging/pilot data and version required seed/config; empty tenant, mock-cleanup, migration/regression and rollback evidence RG-01. | OPEN — LOCKED release gate | Previously supported workflow fails following fixture purge. |
+| R-058 | Chat-only Free product hides useful committed records or displays stale/incorrect/dashboard Premium-only totals | Users cannot perceive value of time spent keying records and may abandon Kerani. | Make basic Free history/summary dashboard tenant-scoped, source-traceable and freshness-visible; RG-02 commit→read proof. | OPEN — LOCKED release gate | User cannot see a committed record or outdated figures appear current. |
+| R-059 | AI queries raw dozens of Sheet tabs or stale/unauthorized projections | Unbounded latency/token cost, hallucinated totals, cross-tenant data or diverging second SoT. | Rebuildable tenant-scoped bounded read model, deterministic source totals and source revision/provenance; no-AI Free fallback; RG-03. | OPEN — LOCKED release gate | AI fabricates number or cannot cite permitted source records for released feature. |
 
 ---
 
@@ -1997,6 +2007,29 @@ Retain prior V-Gates such as **Vision, Vocabulary, Vibe, Veracity, Validation, V
 
 ---
 
+## D-065 — OpsMate Lessons → Mandatory Kerani Release Gates (RG-01/02/03)
+
+**Status:** **OWNER LOCKED — THREE P0 RELEASE/READINESS INVARIANTS (L-051)**  
+**Owner approval:** 2026-10-24 — explicit `LOCK D-065/L-051 & COMMIT`.  
+**Source:** Owner reported three OpsMate weaknesses after approximately 1½ months of development: loss/breakage when cleaning mock/test Sheets data or promoting versions; no useful almost-live user dashboard; AI extraction should not scan dozens of raw Sheet tabs. **These are experience reports, not a code-level root-cause audit.**
+
+**LOCKED RELEASE GATES:**
+1. **RG-01 — Upgrade Integrity / No Regression (P0).** Before promoting a stable/live Kerani version, prove clean isolation of dev/mocks, staging, required schema/seeds/config and user authoritative records, plus empty-data/first-run, after-mock-purge baseline CRUD/retrieval, old-data migration and verified rollback/forward recovery. No missing previously supported features, broken integrity or deleted customer records. Versioned configuration is NOT disposable fixture data.
+2. **RG-02 — Visible Value / Free Dashboard (P0).** Each supported Free tenant must be able to see their **committed** recent records, appropriate basic summary/KPI/activity/stock/task status and freshness/last-sync evidence via simple tenant-authorized mobile UI, preferred D-057/L-047 Telegram Mini App; no compulsory AI prompt, paywall or Premium dashboard just to view existing Free records. A committed record must become visible and traceable, with stale/pending/error state when projection lags. Provisional pilot target **P95 commit-to-fresh-display ≤5s** is a **test hypothesis only**, not a hard-coded locked SLA or tested result. Sheet dashboard may assist admin/prototype; exact UX/framework/PWA is OPEN.
+3. **RG-03 — Knowledge-Ready Data / Grounded Retrieval (P0 for any shipped AI/query/summary capability).** For released AI/summary features, retrieve from **bounded, tenant-scoped structured read models/summary APIs** with source IDs, time range, version/watermark and freshness, not scanning dozens of tabs per question. Backend derives deterministic totals; AI may explain but not invent numbers, replace authority or disclose another tenant. **ONE authoritative Core Source of Truth**; read model is rebuildable projection, not parallel mutable business database. AI provider outage must not break useful basic no-AI Free flows, D-055/L-046.
+
+**FAIL RELEASE:** untested/failed upgrade and cleanup preservation; committed record invisible, stale-but-unlabelled or wrong/cross-tenant dashboard values; a delivered AI/summary capability unable to present permissioned source-grounded data. Distinguish **RG-03 conditional on the shipped AI scope** from mandating optional AI availability for launch. No test is proven PASS by this owner LOCK.
+
+**Compatibility:** D-015 confirmed validation and SAVE, D-016/L-011 Free basic reports, D-023 tenant identity, D-052 measurable latency, D-055/L-046 independent no-AI Free utility, **D-057/L-047 Free deterministic Mini App**, D-061/L-049 chat-first onboarding and D-064/L-050 queue-ready WhatsApp V1→V2 remain intact. **D-059 Premium Business Workspace remains CANDIDATE for advanced exploratory analytics**, not a prerequisite to Free visibility; D-062 RekodUntung.ai stays brand candidate. E-016 runtime, storage/read-model technology, exact screen design, Cloudflare/Sheets integration, browser/PWA authentication and performance target are NOT selected.
+
+**Proof obligations (NOT RUN):** RG-01 U01–U04 (empty/mock cleanup/version/rollback), RG-02 V01–V03 (committed record→source-visible, freshness/authorization and latency) and RG-03 K01–K04 (scoped grounded query, bad/stale/empty data, rebuild/reconcile, comparative tab-scan/latency/cost). See `docs/KERANI_OPSMATE_RELEASE_GATES_D065_LOCK.md`; Linear **KAI-11**.
+
+**Authorization boundary:** Decision/documentation LOCK and GitHub/Linear reconciliation only; **NO CODE, TEST EXECUTION, DEPLOYMENT, REBRAND, PROVIDER SETUP, PRICING, PRODUCTION OR CUSTOMER DATA** actions.
+
+**NEXT — exactly one:** RG-01/02/03 Synthetic Acceptance Matrix & Minimal Vertical Slice Design (read-only design; seek approval for actual testing/implementation).
+
+---
+
 # 13. LOCKED DECISIONS
 
 This section is authoritative. Architecture and implementation must not contradict these records.
@@ -2331,6 +2364,16 @@ This section is authoritative. Architecture and implementation must not contradi
 **Locked by:** Project Owner  
 **Date:** 2026-10-24  
 **Supersedes:** D-063's undecided WhatsApp V1-vs-V2 pilot preference **only**; D-063's other candidate questions and D-025/L-019 remain unchanged.
+
+---
+
+## L-051
+**Source Decision:** D-065  
+**Status:** **LOCKED — MANDATORY KERANI RELEASE GATES RG-01/02/03 (P0)**  
+**Decision:** Do not declare an updated Kerani Free release stable or user-ready without (RG-01) tested mock/seed/config/data separation, no-regression old→new migration, rollback/recovery and no lost supported functions/records; (RG-02) verified, tenant-scoped, mobile-useful **Free** visibility of committed records and basic business summaries via first-class Free UI with explicit freshness/projection errors, rather than invisible chat-only records or a Premium-only dashboard; and (RG-03) for any released AI/query/summary capability, source-grounded bounded tenant read-model/knowledge access derived from one authoritative Core (not scans of dozens of Sheet tabs), while basic no-AI Free stays usable. Suggested P95 ≤5 s freshness is **unverified acceptance target**, not fixed SLA. Preserve D-057/L-047 Mini App, D-059 Premium advanced workspace as CANDIDATE, and D-064/L-050 queue-ready WhatsApp architecture LOCK; no PRE-ARCH/runtime/provider selection or tests PASS.  
+**Locked by:** Project Owner  
+**Date:** 2026-10-24  
+**Supersedes:** None; formalizes readiness/release obligations and Free visible-value boundary from existing D-016/D-055/D-057.
 
 ---
 
@@ -3386,6 +3429,13 @@ Therefore:
 ---
 
 # PROJECT ZASS CHANGELOG
+
+## 2026-10-24 — D-065/L-051 Owner LOCK: OpsMate Lessons as Kerani Release Gates
+
+- Owner explicitly LOCKED **P0 RG-01 Upgrade Integrity** (mock/seed/config isolation, empty/no-regression, old→new migration, rollback), **P0 RG-02 Free Visible Value** (tenant-scoped mobile dashboard with committed records, basic summary and freshness) and **P0 RG-03 Knowledge-Ready Data** (source-grounded bounded tenant read models/query API for launched AI/summary, not many raw Sheet tab scans).
+- Recorded experience as **owner-reported OpsMate weaknesses**, not proven root causes; required U01–U04/V01–V03/K01–K04 synthetic acceptance and source-traceable PASS/FAIL. Candidate pilot target P95 ≤5s commit→fresh dashboard is a **hypothesis**, not a locked SLA.
+- Added I-022, Q-059–Q-061, R-057–R-059, D-065/L-051, dedicated `docs/KERANI_OPSMATE_RELEASE_GATES_D065_LOCK.md` and ZASSIMPLE projections. Linear KAI-11 tracking.
+- Preserved D-057/L-047 Free Mini App, D-059 Premium advanced dashboard **CANDIDATE**, D-064/L-050 queue-ready strategy and D-055 Free no-AI. **No code, customer data, environment, feature deployment, PRE-ARCH or tests PASS**.
 
 ## 2026-10-24 — D-064/L-050 Owner LOCK: Queue-ready WhatsApp V1→V2 conditional pilot strategy
 
