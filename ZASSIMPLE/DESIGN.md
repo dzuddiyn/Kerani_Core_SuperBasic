@@ -248,6 +248,24 @@ The design must preserve these boundaries:
 
 The active business/development philosophy is **D-058/L-048**. The original D-048/L-041 7V remains in retained Full ZASS as superseded history; do not show it as today's canonical sequence. Current 8V: **VALID → VALUE → VERBAL (Word-of-Mouth) → VOLUME → VENTURE → VIRAL → VARY → VERSATILE**. **VOUCH** is a continuous Extended V-Gate (genuine, evidence-backed user endorsement) and not a ninth stage. VALID is a repeated real-use experiment/improve/retest gate rather than a generic software syntax/data validation step. In later stages, new target customers or contexts can trigger VALID again. Vital/V-King remain unnumbered destinations. This LOCK does not prove Kerani has passed any new maturity stage or alter technical architecture.
 
+## OpsMate Lessons — D-065/L-051 Mandatory Release Gates
+
+**Owner LOCK 2026-10-24 — P0 release/readiness contract, NOT implementation/technology selection.** Owner observed OpsMate regressions when mock/test Sheet/database data was cleaned/promoted to stable, lack of a useful dashboard despite recording efforts, and AI retrieval difficulties across many tabs. These reports identify **gates**, not verified forensic root causes. The purpose is to keep Kerani reliable, visible and knowledge-ready without turning its Free MVP into an ERP.
+
+| Gate | Mandatory architecture/product invariant | Proof before real release |
+|---|---|---|
+| **RG-01 — Upgrade Integrity** | DEV/mock fixtures and config/required seeds are separated from actual tenant records; versioned schema, compatible read/migration, rollback/forward-recovery. No previously supported feature or authoritative records lost after cleanup/upgrade. | Empty tenant + mock purge, baseline CRUD/retrieval, old→new dataset, scoped cleanup and restore evidence U01–U04; all **NOT RUN**. |
+| **RG-02 — Visible Value (Free)** | A **tenant-scoped basic Free dashboard** in first-class deterministic Telegram Mini App D-057/L-047 (or equivalent bounded Free UI) shows committed recent records, relevant business KPIs/basic summaries, activity/stock/task states, last-updated watermark/age, explicit stale/empty/pending errors; no mandatory AI or paid Premium. | Commit→open/refresh→source-traceable row/summary; compare dashboard/chat totals, auth, freshness latency and recovery V01–V03; all **NOT RUN**. |
+| **RG-03 — Knowledge-Ready Data** | One Core authoritative business Source of Truth → **rebuildable, tenant-scoped structured read model** (bounded queries, provenance, source IDs/version and freshness) → Free dashboard AND grounded AI interpretation; no uncontrolled many-tab Sheet scans for routine AI questions. AI cannot invent profit/figures or bypass scope; no-AI Free remains usable. | Scoped summary correctness, wrong/partial/stale data behaviour, rebuild reconciliation and bounded performance under representative synthetic tab volume K01–K04; all **NOT RUN**. |
+
+**Minimal common flow:** supported Chat/Mini App record input → server-side authorise + validate + **authoritative COMMIT** → update/reconcile one **read projection with version/watermark** → display Free summary/recent-record view and supply bounded AI read-tool context. Source RECORD COMMIT and projection freshness are distinct; no fake `SAVED` on WhatsApp webhook ACK or Queue admission. Use a minimal Free view, not a second mutable business DB. No AI-required request for basic retrieval. Never assume Apps Script `onEdit` reliably refreshes script/API writes: commit-triggered update or reconciled change pathway needs proof.
+
+**Pilot performance hypothesis (NOT LOCKED SLA):** **P95 commit→fresh-visible ≤5s** is a suggested measurable RG-02 target, not evidence, not an imposed infrastructure choice. Trace P50/P95/P99, lagged projections, stale UI/AI data and cost. If lag, show `last_updated`/pending/error instead of silently stale “live” numbers.
+
+**UI decision boundaries:** one small responsive Free UI via Telegram Mini App preferred. Reuse for potential separately authenticated browser/PWA/Home Screen later only if useful; Sheets UI for admin/prototype; open-source template possible but not a second source of truth. A full native widget, framework, hosted database choice, vector DB/RAG or platform PRE-ARCH are **NOT LOCKED**. D-059 Premium Workspace remains a **CANDIDATE** for richer charts, filtering and forecasts; **the basic Free dashboard requirement is not a Premium upsell**. Preserve D-016/L-011, D-055/L-046, D-057/L-047, D-061/L-049, D-064/L-050 and D-062 brand-candidate boundary.
+
+**Evidence:** `../docs/KERANI_OPSMATE_RELEASE_GATES_D065_LOCK.md`; master **D-065/L-051**, I-022/Q-059–061/R-057–059; tracker Linear KAI-11. RG-01/02 required before supported real Free release, RG-03 required for any shipped AI/summary functionality; optional AI not shipped/offline does not block safe Free no-AI utility.
+
 ## Premium Business Workspace — CANDIDATE concept projection (D-059)
 
 User request: **AI business summary in Telegram → Buka Dashboard button → interactive tenant-specific business view**. Potential views: charts/tables with factual source links, filtering/search, bounded forecast when data is sufficient, internal Task status, authorised Google Drive links, and future Android Home Screen/PWA entry. All customer-facing analytics must use trusted data and tenant/role permission checks; standalone browser/PWA cannot rely on Telegram WebApp initData as its session authority. **No cross-provider external task sync or OAuth is authorised**, and no new standalone dashboard backend or separate business SoT is chosen.
@@ -324,6 +342,8 @@ User request: **AI business summary in Telegram → Buka Dashboard button → in
 **Before any rebranding LOCK:** evidence-led official MyIPO trademark similarity/classes/owner search, real `rekoduntung.ai` registrar/renewal availability, nearby product/name collision review and micro-SME meaning/expectation test. MyIPO clearance and domain checks are **NOT VERIFIED**. Only after these gates may the owner decide go/no-go; a separate approval is needed for migration.
 
 **Source:** `../docs/KERANI_BRAND_REKODUNTUNG_PRIMARY_CANDIDATE.md`; master `D-062 CANDIDATE` (no `L-050`); Linear KAI-10.
+
+**Mandatory release gate overlay:** D-065/L-051 RG-01 upgrade/no-regression + RG-02 visible-value Free dashboard + RG-03 bounded knowledge-ready read model for shipped AI/summary are LOCKED. Their tests are NOT RUN; architecture implementation and exact P95 threshold are OPEN.
 
 ## Open assumptions / unresolved boundaries
 
