@@ -666,6 +666,54 @@ No architecture selection, PRE-ARCH lock or implementation task is created by th
 
 ---
 
+## D-065/L-051 — Mandatory Release Gates from OpsMate Lessons (OWNER LOCK 2026-10-24)
+
+**Release/readiness criteria LOCKED; acceptance evidence NOT RUN; no implementation, deployment or retroactive OpsMate root-cause proof.** Three owner-reported OpsMate failure experiences become P0 guardrails for Kerani, especially a usable Free Mini App dashboard and reliable old→new transitions. The following matrix is **planned proof**, not an instruction to run live tests without separate approval.
+
+### RG-01 Upgrade Integrity — no mock cleanup or version-upgrade regression (P0)
+
+| Case | Synthetic-only fixture | Required acceptance / fail-closed |
+|---|---|---|
+| **U01** | Minimal DEV/test dataset with Purchase/Sale/Inventory/Observation/Task flows, then remove mock rows | Previously supported functionality, navigation, record validation/retrieval/report and mandatory configuration/seed survive; no hidden dependency on test rows |
+| **U02** | Fresh empty authorised business/tenant with required versioned seed/config | Correct first-run with truthful empty dashboard and reports; no accidental mock seed counted as business data |
+| **U03** | Version N synthetic dataset with known record IDs, validation and tenant memberships → release N+1 | Schema/data migration and rollback/forward recovery preserve all legitimate authoritative records, totals, IDs and audit; evidence captured |
+| **U04** | Isolated staging/DEV/pilot datasets and intentionally scoped fixture purge | Mock cleanup cannot touch PILOT/customer authority or shared secrets/config; backups/restoration tested, no cross-tenant effects |
+
+**Stop:** any data loss, lost previously supported feature, mock cleanup removing schema/config, unreviewed unsupported migration or nonrecoverable state.
+
+### RG-02 Visible Value — minimal near-live Free dashboard (P0)
+
+| Case | Synthetic-only fixture | Required acceptance / fail-closed |
+|---|---|---|
+| **V01** | Telegram Free record → validate/confirm → authoritative COMMITTED → open/reopen Free Mini App | See source-linked latest row, relevant count/summary/status matching trusted record; no Premium or mandatory AI; verify freshness timestamps and measure P50/P95/P99 commit→fresh view |
+| **V02** | Projection delayed, partial/stale, user tab open/offline, model unavailable | UI honestly labels stale/empty/pending/error and supports safe refresh/reconciliation; source is not overwritten by an old projection; no fabricated “live” data |
+| **V03** | Two independent synthetic Business IDs and wrong user/Telegram WebApp initData; optional PWA session | Server denies other tenant/invalid auth, counts scoped correctly; PWA authentication independent of Telegram; no private dashboard token leakage |
+
+**Pilot hypothesis, NOT SLA:** target P95 ≤5 seconds commit-to-fresh-visible *subject to load, platform/connection and tested scope*. Record measured distribution and revise only with evidence; FAIL if basic committed data is invisible, wrong or stale-but-unlabelled. One thin Free Telegram Mini App surface preferred; Google Sheet dashboard optional for admin/prototype, not a forced customer UI.
+
+### RG-03 Knowledge-Ready Read Model — efficient grounded AI (P0 for shipped AI/summary)
+
+| Case | Synthetic-only fixture | Required acceptance / fail-closed |
+|---|---|---|
+| **K01** | Authorised summary over date range and specific tenant/records | Deterministic Core totals + bounded query interface, source-record IDs and revision/watermark, AI explains factually rather than guessing; no cross-tenant data |
+| **K02** | Empty/partial data, stale projection, malformed AI output, AI unavailable/quota exhausted | Grounded unavailable/insufficient/stale response; same Free deterministic retrieval remains usable; never label Sale−Purchase as net profit without proper inputs |
+| **K03** | Duplicate/out-of-order committed events, projection failure then rebuild from Core | One authoritative business source, no duplicate totals; rebuilt read model reconciles counts/versions and freshness with Core |
+| **K04** | Many synthetic Sheet tabs and representative growing fixture count | Show bounded indexed read-model cost/latency vs naive multi-tab scans; provenance and tenant isolation; no mandatory vector DB/RAG assumption |
+
+**Stop:** fabricated/untraceable key figure, other tenant data leakage, unreconcilable projection, unbounded raw Sheet scan for normal shipped AI summary. Optional AI unlaunched/offline does **not** stop correct no-AI Free utility on its own.
+
+### Gate authority and implementation boundary
+
+- **RG-01/02 are release blockers** for any supported real Free pilot/release. **RG-03 is mandatory only for AI/query/summary features actually shipped**; source-grounded deterministic basic Free reads remain required even without AI.
+- Core authoritative **COMMIT → rebuildable tenant read model with watermark → Free dashboard and bounded AI queries**. A WhatsApp Cloudflare Queue ACK is **not COMMIT** and must never make dashboard/AI claim a successful record.
+- Retain D-057/L-047 Free Mini App, D-059 Premium richer workspace **CANDIDATE**, D-016/L-011 and D-055/L-046 permanent useful Free, D-052 latency logs, D-061/L-049 Chat-First, D-064/L-050 queue-ready conditional pilot. Do **not** alter runtime/control-plane choice E-016 or commercially paywall basic dashboard.
+- Exact spreadsheet/database/projection framework, auto-refresh strategy and target P95 acceptance bound beyond trial hypothesis remain **OPEN**. No UI prototype, migration script, synthetic execution, real data, tests PASS or deployment authorised by this documentation commit.
+- **Detailed locked evidence:** `../docs/KERANI_OPSMATE_RELEASE_GATES_D065_LOCK.md`; master D-065/L-051 and ZASSIMPLE DESIGN; tracker Linear **KAI-11**.
+
+**NEXT — exactly one:** **RG-01/02/03 Synthetic Acceptance Matrix & Minimal Vertical Slice Design** (read-only design of fixtures, evidence format and smallest Free record→dashboard/read-model test; request separate approval before tests or code work).
+
+---
+
 ## E-016 V1 CONTROL-PLANE BENCHMARK
 
 Compare four low-complexity options:
