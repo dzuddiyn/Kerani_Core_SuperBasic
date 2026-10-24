@@ -714,6 +714,38 @@ No architecture selection, PRE-ARCH lock or implementation task is created by th
 
 ---
 
+## RG-01 / RG-02 / RG-03 — D-065/L-051 Mandatory Release Gates (OWNER LOCK, NOT EXECUTED)
+
+**Approved by owner: 2026-10-24. P0 release acceptance contract, not an implemented feature, passed test, global PRE-ARCH choice or deployment authorisation.** Source `../docs/KERANI_OPSMATE_RELEASE_GATES_D065_LOCK.md` and supplementary `../docs/KERANI_OPSMATE_LESSONS_RELEASE_GATES_D065_LOCK.md`. Canonical tracker **KAI-11**. New baseline strengthens D-016/L-011 useful Free records/reports, D-055/L-046 no-AI Free, D-057/L-047 deterministic Free Telegram Mini App and D-052 latency observability. D-059 Premium advanced Business Workspace stays CANDIDATE; D-064/L-050 WhatsApp queue-ready migration stays LOCKED with no runtime deployment.
+
+**RG-01 Upgrade Integrity — P0:** Provide isolated DEV/MOCK, STAGING and PILOT/PROD fixtures and versioned schema, seed/config and backup/rollback. Require empty record and post-mock-cleanup function checks, supported CRUD/report regression, old→new migration, no customer-data loss, tested restore/recovery. Do not treat essential lookup/config/seed as disposable mock rows. Owner-reported OpsMate breakage is a risk symptom, **not** an audited root-cause conclusion.
+
+**RG-02 Visible Value — P0 for general Free readiness:** Provide a basic accessible **Free** tenant-scoped record/recent activity/basic financial and task summary through the first-class D-057 Mini App or equivalent approved Free view; don't gate users' own basic metrics/history behind Premium or AI. Show actual authoritative `COMMITTED` records with `PENDING/SYNCING/STALE/EMPTY` labels and timestamp/commit watermark, relevant underlying source references and truthful totals. Pilot experiment candidate **P95 committed-record→visible UI ≤5 seconds**, measured with latency distribution, **not a universal SLA or already-approved hard pass threshold**. Initial chat-first experimental slice is not automatically blocked by a whole dashboard implementation, but a Free general release lacking minimum basic visibility is BLOCKED. Sheets admin summary, open-source template, PWA/icon are optional UI/hosting choices, not selected architecture.
+
+**RG-03 Knowledge-Ready Data — P0 for released summary/AI-query scope:** Core record/source of truth is singular. Maintain a rebuildable/reconcilable **structured read model** with authoritative source IDs, tenant scope, provenance and commit watermark, used by UI/basic deterministic summary and bounded authorised AI read/query tools. Never scan many raw Sheet tabs for every AI question, grant AI mutation authority or invent missing sales/cost/profit. Show stale/insufficient-data conditions; Free must remain usable if AI is unavailable. No mandatory vector DB, embedding/RAG, extra business SoT or chosen database technology.
+
+**Synthetic acceptance fixtures (DESIGN + EXECUTION PENDING):**
+
+| Case | Test focus | Evidence needed |
+|---|---|---|
+| `RG01-T01` | Empty fresh database/onboarding; schema and seed loaded | Basic supported functions remain usable, truthful empty state |
+| `RG01-T02` | Separate disposable mock fixture and clean it | All baseline functions remain; no necessary config/seed lost |
+| `RG01-T03` | Old-version records and migration/rollback | Record IDs/counts, audit and data preserved, recovery test |
+| `RG01-T04` | Supported Free CRUD/Task/report/UI after upgrade | No disappearing behavior, correct validation & receipts |
+| `RG02-T01` | Commit a sample record then open Free view | Tenant-correct row/summary/source link after actual COMMIT |
+| `RG02-T02` | Concurrent commits, projection lag, cache failure | Measured P50/P95/P99 commit→visible latency; stale flagged and reconciled |
+| `RG02-T03` | Empty/no-AI/permission-denied/mobile | UI usable without AI and safe cross-tenant denial |
+| `RG03-T01` | Ask for a bounded weekly summary | Deterministic values, allowed tenant/time scope, source references and watermark |
+| `RG03-T02` | Missing costs and AI 429/5xx, stale data | No fabricated net profit; explicit uncertainty; basic no-AI path remains |
+| `RG03-T03` | Many Sheets tabs in fixture | Bounded indexed/aggregate read model; no uncontrolled full-tab scans |
+| `RG03-T04` | Forged cross-tenant IDs and stale permissions | Fail closed; no data leak, audit trail |
+
+**Go/no-go:** All safety, authority, record-integrity and applicable released-feature gates require real PASS receipts in the relevant environment before general release. Do not mark tests PASS because this document exists. Pilot calibration may adjust time target only with evidence and approval; wrong/cross-tenant/stale-without-label figures are hard STOP.
+
+**NEXT — exactly one:** `RG-ACCEPTANCE-01 — READ-ONLY Fixture & Evidence Matrix Design`; propose thin first Free visibility slice and rigorous synthetic fixtures without modifying production or running tests unless separately approved.
+
+---
+
 ## E-016 V1 CONTROL-PLANE BENCHMARK
 
 Compare four low-complexity options:
