@@ -746,6 +746,35 @@ No architecture selection, PRE-ARCH lock or implementation task is created by th
 
 ---
 
+## D-066/L-052 — Freeform Data to User-Controlled Google Sheets (OWNER LOCK; INTEGRATION NOT RUN)
+
+**Owner LOCK 2026-10-26** as essential product simplicity/data portability and basic Free user choice. **No code, deployment, OAuth scopes, real user's Drive, file creation or permission modification is approved.** The requirement is to accept broadly useful freeform records without compulsory complex algorithm, preserve raw input in one authorised Core, and offer automatic/near-live post-COMMIT Google Sheets exports in user-authorised Drive. Users can use exported Sheet in other AI independently or edit/delete it. Export remains nonauthoritative, so edits/deletion NEVER silently mutate Core, and managed updates NEVER silently wipe user edits or recreate a deliberately deleted file.
+
+### D-066 Sheet Sync & User Edit/Delete Conflict Contract (READ-ONLY NEXT)
+
+| ID | Synthetic proof fixture | Expected acceptance / STOP |
+|---|---|---|
+| **S01** | Unclassified free-text business note | Exact raw text + stable record ID/tenant/time/status saved without fictional accounting classification or unnecessary domain engine |
+| **S02** | Typed transaction note vs consequential Sale/Purchase action | Confirm/validate typed mutations correctly, idempotent COMMIT; ambiguous note saved as note not profit transaction |
+| **S03** | Multiple committed same-tenant records + generated Google Sheet | Correct rows/source IDs, first sync watermark, last-updated freshness, Drive access only for permitted tenant; measure lag, do not promise fixed SLA |
+| **S04** | Repeated export event, partial failure, revoked consent, quotas | Recoverable export status, idempotent retry, no duplicate rows or lost Core data; truthful disconnected message |
+| **S05** | User manually edits/adds a column while auto-refresh is enabled | No silent overwrite; test managed Sheet + detached personal copy against reserved generated columns/conflict UX; policy remains OPEN |
+| **S06** | User deliberately deletes Sheet or revokes Drive access | No silent file recreation and no deletion of authoritative Core; safe reconnection/change notice |
+| **S07** | User manually copies/attaches Sheet to third-party AI | Understandable portable export without forced Kerani AI or automatic transmission; only user controls third-party disclosure |
+| **S08** | Wrong-tenant Sheet URL/permission and improper public-sharing attempt | No cross-tenant access, public sharing off by default, OAuth least privilege and consent proven |
+| **S09** | Purge mocked fixture after schema version upgrade; rebuild Sheet | D-065 RG-01/02/03 pass: required metadata/config persists; source records unchanged, projection safely rebuilt |
+| **S10** | Large but bounded synthetic notes + Drive/Sheets quotas/network issues | Time/size/permission limits surfaced; safe fallback and reproducible correctness and cost/latency evidence |
+
+**STOP:** untrusted tenant ID grants access, user Sheet edits overwritten, silent sync/recreation after deletion, Sheet file treated as second authoritative business DB, false SAVE/export receipt, automatic upload of customer data to external AI, or a Free basic export turned into forced Premium AI upsell.
+
+**Preserve:** D-018 portability, D-016/D-055 useful no-AI Free, D-057 Mini App, D-065/L-051 Free Visible Value and one-source-read model, D-064/L-050 WhatsApp queue-ready and D-060 unselected Drive/OAuth architecture. **This LOCK is not authority to create a live Google Drive file or run these synthetic tests.**
+
+**Documentation:** `../docs/KERANI_FREEFORM_TO_USER_GOOGLE_SHEETS_D066_LOCK.md`; canonical ZASS D-066/L-052; Linear KAI-13.
+
+**NEXT — exactly one:** **D-066 Sheet Sync & User Edit/Delete Conflict Contract — READ-ONLY**: compare managed export vs detached editable copy, determine minimal permission/auth and conflict semantics, truthful last-sync and export fallback, then seek separate approval for tests.
+
+---
+
 ## E-016 V1 CONTROL-PLANE BENCHMARK
 
 Compare four low-complexity options:
