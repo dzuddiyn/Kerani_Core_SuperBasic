@@ -266,6 +266,26 @@ The active business/development philosophy is **D-058/L-048**. The original D-04
 
 **Evidence:** `../docs/KERANI_OPSMATE_RELEASE_GATES_D065_LOCK.md`; master **D-065/L-051**, I-022/Q-059–061/R-057–059; tracker Linear KAI-11. RG-01/02 required before supported real Free release, RG-03 required for any shipped AI/summary functionality; optional AI not shipped/offline does not block safe Free no-AI utility.
 
+## User-Controlled Google Sheets Export — D-066/L-052 OWNER LOCK
+
+**Owner LOCK 2026-10-26: core product simplicity, user portability and Google Sheet export principle ONLY; not OAuth/implementation PRE-ARCH.** Kerani must make it easy to enter broadly freeform business data without complex domain algorithms for ordinary notes, retain original user input under one tenant-scoped Core with stable record IDs and necessary auth/validation, then create/update a **user-accessible Google Sheet export** from committed data in their authorised Google Drive. The user may independently attach it to another AI app, copy, download, edit or delete it. That autonomy is a main Free product differentiator, not an advanced Premium paywall.
+
+**Minimal locked separation:**
+```text
+User's broad freeform note (or correctly validated typed business record)
+          → trusted Kerani Core COMMIT (one authoritative database)
+                    ├→ Free basic recent-record dashboard / grounded read model (D-065 RG-02/RG-03)
+                    └→ retriable Drive/Sheets export/projection with watermark
+                                 → User-controlled Google Sheet
+                                   → user's own manual AI analysis/copy/edit/delete
+```
+
+**Critical conflict OPEN:** auto-refresh and manual editing of the same Sheet risk overwriting user work. **Do not overwrite edits or auto-recreate deleted export without consent, and do not silently sync Sheet changes back into authoritative Kerani Core.** Compare **managed live export + detachable editable personal copy** against **reserved generated-range and explicit manual edit/conflict policy**; no detailed Sheet/Google permission mechanism is chosen by L-052. A deleted/unlinked Sheet must not delete Core records or imply a successful new export. External AI uploads are user-initiated, not automatic Kerani data transfers, and subject to their own provider data policies.
+
+**Product/UX boundaries:** Not "accept every file or do zero validation": tenant safety, limits and confirmed consequential actions remain required. Free Mini App D-057/L-047 and basic visible-value dashboard D-065/L-051 remain first class alongside export, not replaced by a Sheet link unless separate genuine usability acceptance shows equivalence. D-018 portability reinforced. D-060's Google Drive integration/OAuth/storage details stay CANDIDATE; no new user scopes/Drive access approved. D-059 richer Premium analytics still CANDIDATE. Exact sheet layout, row mapping, OAuth, sync interval/P95, conflict UX, costs, data class and provider are OPEN.
+
+**Evidence:** `../docs/KERANI_FREEFORM_TO_USER_GOOGLE_SHEETS_D066_LOCK.md`, master D-066/L-052, issue KAI-13; synthetic S01–S10 NOT RUN.
+
 ## Premium Business Workspace — CANDIDATE concept projection (D-059)
 
 User request: **AI business summary in Telegram → Buka Dashboard button → interactive tenant-specific business view**. Potential views: charts/tables with factual source links, filtering/search, bounded forecast when data is sufficient, internal Task status, authorised Google Drive links, and future Android Home Screen/PWA entry. All customer-facing analytics must use trusted data and tenant/role permission checks; standalone browser/PWA cannot rely on Telegram WebApp initData as its session authority. **No cross-provider external task sync or OAuth is authorised**, and no new standalone dashboard backend or separate business SoT is chosen.
