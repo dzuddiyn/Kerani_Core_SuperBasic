@@ -233,6 +233,8 @@ Nothing in this section is automatically approved.
 
 | I-022 | Three OpsMate lessons become P0 Kerani release gates: RG-01 version/mock-cleanup isolation and no-regression; RG-02 visible, nearly-live Free basic dashboard; RG-03 structured tenant-scoped read model for grounded AI and UI, not scanning dozens of Sheet tabs. | Owner approval 2026-10-24 | LOCKED release/readiness invariants — D-065/L-051; acceptance NOT RUN |
 
+| I-023 | Freeform entry without complicated domain algorithm; faithfully store user's own data in authoritative Core and automatically provide a user-accessible Google Sheet export/projection in their consented Drive, which they may analyze in external AI or copy/edit/delete without losing Kerani's source records. | Owner LOCK 2026-10-26 | LOCKED product principle D-066/L-052 — integration/testing OPEN |
+
 ---
 
 # 6. QUESTIONS / UNKNOWNS
@@ -304,6 +306,10 @@ Nothing in this section is automatically approved.
 | Q-060 | What minimum tenant-visible Free dashboard and read-model freshness meets almost-live expectations without scanning/refreshing every Sheets tab or making Premium mandatory? | Owner's UX concern is lack of observable value; proposed P95 commit→fresh-visible ≤5 s is an unverified pilot hypothesis, NOT locked SLA. | OPEN — D-065/L-051 RG-02 tests V01–V03 required |
 | Q-061 | Which single-SoT summary/read-model API, event watermark and provenance contract support bounded accurate AI extraction and dashboard, with deterministic fallback? | Avoid 30-tab scans and a diverging second business truth. Optional AI must not block no-AI Free. | OPEN — D-065/L-051 RG-03 tests K01–K04 required |
 
+| Q-062 | What minimal metadata, input/attachment boundaries and validation let users enter broad freeform business content without mandatory complex algorithms, while preserving raw text and secure tenant authority? | User intends general record capture rather than new specialist accounting logic; broad entry is not permission for unbounded file types, unsafe input, or fabricated financial categories. | OPEN — D-066/L-052 |
+| Q-063 | What consented Google Drive/Sheets integration best gives each tenant a near-live export with recoverable status, provenance and editable/deletable user file without creating a second authoritative business DB? | OAuth/Drive scopes, location/ownership, quota, latency, sync conflict policy and error handling untested. | OPEN — D-066/L-052 |
+| Q-064 | How do automatic export refreshes coexist safely with user edits or deletion, without silent overwriting, unintended restoration or Sheet→Core mutation? | Evaluate managed export + detachable editable copy vs reserved generated range/conflict detection; no mode preselected. | OPEN — D-066/L-052 |
+
 ---
 
 # 7. RISKS & FAILURE SCENARIOS
@@ -372,6 +378,10 @@ Nothing in this section is automatically approved.
 | R-057 | Test-fixture/mock rows are accidentally treated as schema/config/required seed or production truth | Functions disappear after cleanup; release damage or data loss. | Isolate dev/staging/pilot data and version required seed/config; empty tenant, mock-cleanup, migration/regression and rollback evidence RG-01. | OPEN — LOCKED release gate | Previously supported workflow fails following fixture purge. |
 | R-058 | Chat-only Free product hides useful committed records or displays stale/incorrect/dashboard Premium-only totals | Users cannot perceive value of time spent keying records and may abandon Kerani. | Make basic Free history/summary dashboard tenant-scoped, source-traceable and freshness-visible; RG-02 commit→read proof. | OPEN — LOCKED release gate | User cannot see a committed record or outdated figures appear current. |
 | R-059 | AI queries raw dozens of Sheet tabs or stale/unauthorized projections | Unbounded latency/token cost, hallucinated totals, cross-tenant data or diverging second SoT. | Rebuildable tenant-scoped bounded read model, deterministic source totals and source revision/provenance; no-AI Free fallback; RG-03. | OPEN — LOCKED release gate | AI fabricates number or cannot cite permitted source records for released feature. |
+
+| R-060 | Google Sheet used as second authoritative database or direct edit/delete copied back into Core without permission | Tenant data corruption, divergence, silent destructive operations. | Sheet is nonauthoritative, rebuildable export; authoritative Core mutations require separate user-approved validated flow; deny automatic two-way writes. | OPEN — D-066 locked boundary | Changed or deleted Sheet silently changes Kerani original record. |
+| R-061 | Auto-updating managed export overwrites user's sheet edits, or recreates deleted user file | Violates user freedom and leads to loss of external analysis/annotations. | Separate synced projection from editable detachable copy or another explicit proven conflict model; no silent overwrite/recreation. | OPEN — D-066 design choice | User-added cells lost after refresh or deleted Sheet reappears without approval. |
+| R-062 | Export mistakenly includes another tenant, publishes confidential data, or sends user Sheet automatically to third-party AI | Privacy/legal risk; users lose control. | Verified tenant/Drive consent, least-privilege and no public share default, allow independent export; no automated external AI upload. | OPEN — D-066 integration gate | Cross-tenant row on Sheet, public-by-default link, unapproved AI transfer. |
 
 ---
 
@@ -2030,6 +2040,26 @@ Retain prior V-Gates such as **Vision, Vocabulary, Vibe, Veracity, Validation, V
 
 ---
 
+## D-066 — Freeform Input → User-Controlled Google Sheets Export as a Core Product Principle
+
+**Status:** **OWNER LOCKED — PRODUCT SIMPLICITY + DATA PORTABILITY (L-052)**  
+**Owner approval:** 2026-10-26; original direction: *“tiada logic algorithm rumit; user boleh masukkan apa saja data; data akan terus diekstrak daripada database ke dalam sheet ... Google Drive; pengguna bebas lampirkan ... untuk dianalisis oleh AI lain atau edit sendiri atau padam.”*
+
+**LOCKED owner value:**
+1. **Record first, no unnecessary algorithms.** Accept broadly useful user-entered freeform data/notes, preserve raw content and minimal trusted metadata in Kerani's authenticated tenant-scoped authoritative Core. Do not force complex categorization, profit algorithms or domain workflows for an ordinary note; nonetheless retain D-015 validation/confirmation/idempotency for any consequential Sale/Purchase/Inventory or other authoritative business action. "Apa saja" is a UX intention, not permission for unsafe/unbounded input or automatic unverified accounting classification.
+2. **Database → Google Sheet.** Offer an automatically produced, accessible Google Sheets export/projection in the **user-authorized Google Drive**, updated after actual Core COMMIT with visible sync/freshness/error state, recoverable without data loss. The export remains a user-facing copy, **not Kerani's transactional or second business Source of Truth**. Precise refresh latency, API/OAuth/connectors, spreadsheet schema and runtime **remain OPEN**.
+3. **Data freedom.** Users can download/share/copy/attach their Sheet to **other AI applications at their own choice**, independently edit or delete Sheet files and revoke access. Export and basic personal data portability must not be a Premium-only lock-in. Kerani must not silently upload customer data to third-party AI.
+4. **No hidden two-way edits/deletion.** Edits or deletion of a Sheet **do not silently mutate/delete authoritative Kerani records**. Automatically refreshing managed projection must not silently overwrite user-edited cells or recreate a deleted Sheet without consent. Whether to use a managed live export + detached personal editable copy or separated generated/user ranges/conflict policy requires evidence and user-facing clarity, **not preselected by this LOCK**.
+5. **Compatibility with Free/reliability:** Preserve D-018 portability, D-016/D-055 no-AI Free utility, D-023 tenant identity, D-057/L-047 Free Mini App, **D-065/L-051 RG-01/02/03** source-truth/read-model/visible-value gates, and D-064/L-050 WhatsApp queue-ready plan. Google Sheets export **complements**, does not automatically replace, the mobile Free dashboard. D-060's infrastructure/Drive OAuth is still **CANDIDATE**, and D-059 richer Premium Workspace still **CANDIDATE**.
+
+**Architecture and legality NOT LOCKED:** no new Google OAuth grants or auto-created Sheet, no direct source Drive access, no permanent storage provider selection, no 2-way Sheet editing sync, no public-by-default links, no vector DB or external AI transmission, no exact pricing/quotas/format, no app code/deploy and no acceptance PASS.
+
+**Evidence and tests:** `docs/KERANI_FREEFORM_TO_USER_GOOGLE_SHEETS_D066_LOCK.md` (S01–S10 planned, NOT RUN), Q-062–Q-064, R-060–R-062; tracker Linear **KAI-13**.
+
+**NEXT — exactly one:** D-066 Sheet Sync & User Edit/Delete Conflict Contract (READ-ONLY): define and compare simplest permissioned managed projection vs detached user copy and demonstrate that edit/delete does not silently change Core.
+
+---
+
 # 13. LOCKED DECISIONS
 
 This section is authoritative. Architecture and implementation must not contradict these records.
@@ -2374,6 +2404,16 @@ This section is authoritative. Architecture and implementation must not contradi
 **Locked by:** Project Owner  
 **Date:** 2026-10-24  
 **Supersedes:** None; formalizes readiness/release obligations and Free visible-value boundary from existing D-016/D-055/D-057.
+
+---
+
+## L-052
+**Source Decision:** D-066  
+**Status:** LOCKED — FREEFORM DATA CAPTURE + USER-CONTROLLED GOOGLE SHEETS EXPORT AND PORTABILITY PRODUCT PRINCIPLE  
+**Decision:** Keep Kerani simple: accept broadly useful freeform inputs with preserved original content and minimal necessary tenant/validation metadata; maintain one authoritative Core record store; provide an automatically generated/updated Google Sheet export in user-authorised Drive with honest last-sync/errors; let the user independently copy, share, attach to external AI, edit or delete their Sheet. **Never silently interpret Sheet edit/delete as authoritative Kerani record change; never silently overwrite user edits during a managed refresh or recreate a deliberately deleted file.** Preserve useful Free exports without forcing paid AI; preserve D-065/L-051 Free dashboard, trusted read-model, non-regression and D-015 business validation. Specific OAuth, API architecture, storage, sheet edit-conflict UX, refresh SLA and integration/test/deployment remain OPEN.  
+**Locked by:** Project Owner  
+**Date:** 2026-10-26  
+**Supersedes:** None; concretises D-018 data portability and reconciles D-060 Drive CANDIDATE and D-065/L-051 one-SoT release rules.
 
 ---
 
@@ -3429,6 +3469,12 @@ Therefore:
 ---
 
 # PROJECT ZASS CHANGELOG
+
+## 2026-10-26 — D-066/L-052 Owner LOCK: Simple Freeform → User-Controlled Sheets Export
+
+- Owner elevated unrestricted-*feeling* user entry, minimal logic, automatic Core→user-owned/authorised Google Sheet export and freedom to attach Sheet to external AI, edit, copy or delete independently as a **main Kerani product principle**. Stored as D-066/L-052, I-023, Q-062–Q-064, R-060–R-062 and dedicated doc `docs/KERANI_FREEFORM_TO_USER_GOOGLE_SHEETS_D066_LOCK.md`; tracked under KAI-13.
+- Clarified that broad freeform intake preserves original content but does not bypass trusted tenant authorization/necessary transactional validation; Sheets is **not** the authoritative database. No silent Sheet→Core edits/deletions, no silent overwriting of edited Sheet content or recreating deleted file; exact live managed-vs-editable export conflict mode remains **OPEN**.
+- Preserved D-018, D-055 and D-065/L-051 Free dashboard/read model/nonregression and D-060 Drive OAuth CANDIDATE. Not a new Google OAuth approval, external AI data transfer, sync SLA or proof of implementation. Docs/commit only, tests NOT RUN.
 
 ## 2026-10-24 — D-065/L-051 Owner LOCK: OpsMate Lessons as Kerani Release Gates
 
